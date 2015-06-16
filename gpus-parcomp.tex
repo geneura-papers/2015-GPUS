@@ -60,7 +60,7 @@ The GPUs, alone or in conjunction with CPUs, will in many cases offer better res
 is the main reason why many researchers are migrating their algorithm to these systems. This work presents a review of hardware and software advances in trend 
 along with their application in the area of some the most frequently
 used heuristics for solving complex problems: the bioinspired
-algorithms, a subfield of artificial inteligence who is specially suited to paralelization. Thus, the work proposes a taxonomy of the actual parallelization methods in GPUs, along with a review of the literature in this area.
+algorithms, a subfield of artificial inteligence who is specially suited to parallelization. Thus, the work proposes a taxonomy of the actual parallelization methods in GPUs, along with a review of the literature in this area.
 \end{abstract}
 
 \begin{keyword}
@@ -151,8 +151,7 @@ instruction-level parallelism, so that single-threaded code is
 executed faster on newer processors with no modification. Now, to
 manage CPU power dissipation, processor makers favor multi-core chip
 designs, and software has to be written in a multi-threaded or
-multi-process manner to take full advantage of the hardware. % ¿Ni una
-                                % referencia? - JJ
+multi-process manner to take full advantage of the new hardware \cite{6307773}.
 
 Graphics processors have rapidly matured over the last years, leaving
 behind their roots as fixed function accelerators, and growing into
@@ -625,16 +624,11 @@ the communication cost between GPUs and CPUs.
 %This work has been supported in part by project ANYSELF (TIN2011-28627-C04-02). The authors would like to thank the FEDER of European Union for financial support via project "Sistema de Información y Predicción de bajo coste y autónomo para conocer el Estado de las Carreteras en tiempo real mediante dispositivos distribuidos" (SIPEsCa) of the "Programa Operativo FEDER de Andalucía 2007-2013". We also thank all Agency of Public Works of Andalusia Regional Government staff and researchers for their dedication and professionalism.
 %\end{acknowledgements}
 
-\begin{figure}[!ht]
-\centering
-\epsfig{file=logos_SIPESCA_2.eps,width=0.50\columnwidth}
-\end{figure}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % bibliografía
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{paper}
+\bibliography{gpus-parcomp}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
