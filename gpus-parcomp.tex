@@ -224,72 +224,51 @@ and their meaning. % Muchas de estas cosas son también del artículo de
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 % nada nuevo aquí? - JJ - mucho ;) - gustavo
 \hline
-                       & estimated     & die          & (shader)      & clock rate & memory       & GFLOPS          & TDP & approx. \\
-model                  & transistors   & area         & cores         & (GHz)      & bandwidth    & (single         &     & price   \\
-                       & (billions)    & ($mm^2$)     & CPU/GPU       & CPU/GPU    & (GB/s)       & precision)      & (W) & (\$)    \\
+                       & estimated     & die          & (shader)      & clock rate & memory       & GFLOPS          & TDP & approx.\\
+model                  & transistors   & area         & cores         & (GHz)      & bandwidth    & (single         &     & price  \\
+                       & (billions)    & ($mm^2$)     & CPU/GPU       & CPU/GPU    & (GB/s)       & precision)      & (W) & (\$)   \\
 \hline
 \hline
-AMD Opteron 6386 SE     & 2.4           & 630          & 16            & 3.5        & 75           & 332.8           & 140 & 1392    \\
+AMD Opteron 6386 SE     & 2.4           & 630          & 16            & 3.5        & 75           & 332.8          & 140 & 1392   \\
 \hline
-Intel Xeon E5-2697v2    & 2.27          & 434          & 12            & 2.7        & 77           & 536.3           & 130 & 2614    \\
-\hline
-\hline
-AMD A10-7850K           & 2.41          & 245          & 4/512         & 3.7/0.72   & 15           & 856             & 95  & 173     \\
-\hline
-Intel Core i7 4770K     & 1.4           & 177          & 4/20          & 3.9/1.25   & 21.33        & 177             & 84  & 339     \\
-\hline
-\hline
-AMD Radeon R9 290X      & 6.2           & 438          & 2816          & 1.0        & 320          & 4840            & 275 & 549     \\
-\hline
-NVIDIA GeForce GTX 780 Ti & 7.1        & 561          & 2880          & 0.87       & 336          & 4000            & 250 & 1000    \\
-\hline
-\hline
-AMD Radeon HD 7990      & $2\times4.3$  & $2\times352$ & $2\times2048$ & 0.95       & $2\times288$ & 8200            & 375 & 700     \\
-\hline
-NVIDIA GeForce GTX 790  & $2\times7.1$  & $2\times561$ & $2\times2496$ & 0.8        & $2\times336$ & 8000            & 350 & 1000    \\
-\hline
-\hline
-AMD FirePro S10000      & $2\times4.3$  & $2\times352$ & $2\times1792$ & 0.825      & $2\times240$ & $2\times2956$   & 375 & 3000    \\
-\hline
-NVIDIA QUADRO K6000     & 7.1           & 561          & 2880          & 0.9        & 288          & 3950            & 225 & 3000    \\
-\hline
-\hline
-NVIDIA Tesla K40        & 7.1           & 561          & 2886          & 0.745      & 288          & 5364            & 235 & 4000    \\
-\hline
-Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053      & 320          & 2020            & 225 & 2200    \\
-\hline
-%\hline
-%NVIDIA Tegra K1 (32b)   & 5             & $\approx395$ & 4/192         & 2.3/0.95   & 17           & 5600            & 5   & ?       \\
-%\hline
-%NVIDIA Tegra K1 (64b)   & 5             & $\approx395$ & 2/192         & 2.5/0.95   & 17           & 5600            & 5   & ?       \\
-%\hline
-\hline
-\hline
-\hline
-AMD Opteron 6386 SE     & 2.4           & 630          & 16            & 3.5        & 75           & 332.8           & 140 & 1392    \\
-\hline
-Intel Xeon E5 2699 v3   & 5.69          & 662          & 18            & 3.6        & 68           & $\approx600$    & 145 & 4115    \\
+Intel Xeon E5 2699 v3   & 5.69          & 662          & 18            & 3.6        & 68           & $\approx600$   & 145 & 4115   \\
 % source: http://www.anandtech.com/show/8584/intel-xeon-e5-2687w-v3-and-e5-2650-v3-review-haswell-ep-with-10-cores
 \hline
 \hline
-AMD Radeon R9 290X      & 6.2           & 438          & 2816          & 1          & 320          & 5632            & 250 & 549    \\
+AMD A10-7870K           & 2.41          & 245          & 4/512         & 3.9/0.866  & 15.76        & 856            & 95  & 130    \\
 \hline
-AMD Radeon R9 295X2     & $2\times6.2$  & $2\times438$ & $2\times2816$ & 1.018      & $2\times320$ & $2\times5733$   & 500 & 1499   \\
-\hline
-AMD Radeon R9 Fury X    & 8.9           & 596          & 4096          & 1.050      & 512          & 8601.6          & 275 & 649    \\
+Intel Core i7 6700K     & 1.35          & 122.4        & 4/24          & 4/1.150    & 34.1         & 173            & 91  & 350    \\
 \hline
 \hline
-NVIDIA GeForce GTX 980M & 5.2           & 398          & 2048          & 1.126      & 224.3        & 3189            & 165 & 549    \\
+AMD Radeon R9 290X      & 6.2           & 438          & 2816          & 1.0        & 320          & 4840           & 275 & 550    \\
 \hline
-NVIDIA GeForce Titan Z  & $2\times7.08$ & $2\times561$ & $2\times2880$ & 0.705      & $2\times336.5$ & 8122          & 475 & 1499   \\
+NVIDIA GeForce GTX 780 Ti & 7.1         & 561          & 2880          & 0.87       & 336          & 4000           & 250 & 1000   \\
+\hline
+\hline
+AMD Radeon R9 290X      & 6.2           & 438          & 2816          & 1          & 320          & 5632           & 250 & 550    \\
+\hline
+AMD Radeon R9 295X2     & $2\times6.2$  & $2\times438$ & $2\times2816$ & 1.018      & $2\times320$ & $2\times5733$  & 500 & 1500   \\
+\hline
+AMD Radeon R9 Fury X    & 8.9           & 596          & 4096          & 1.050      & 512          & 8601.6         & 275 & 650    \\
+\hline
+NVIDIA GeForce GTX 980M & 5.2           & 398          & 2048          & 1.126      & 224.3        & 3189           & 165 & 550    \\
+\hline
+NVIDIA GeForce Titan Z  & $2\times7.08$ & $2\times561$ & $2\times2880$ & 0.705      & $2\times336.5$ & 8122         & 475 & 1500   \\
+\hline
+\hline
+AMD FirePro S10000      & $2\times4.3$  & $2\times352$ & $2\times1792$ & 0.825      & $2\times240$ & $2\times2956$  & 375 & 3000   \\
+\hline
+NVIDIA QUADRO K6000     & 7.1           & 561          & 2880          & 0.9        & 288          & 3950           & 225 & 5000   \\
+\hline
+\hline
+NVIDIA Tesla K40        & 7.1           & 561          & 2886          & 0.745      & 288          & 5364           & 235 & 4000   \\
+\hline
+Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053      & 320          & 2020           & 225 & 2200   \\
 \hline
 
 \end{tabular}
 }
-\caption{CPU, GPU and APU comparison of the best professional and
-  commodity desktop hardware available nowadays. A slash is used in
-  APUs to separate CPU/GPU parts.
-\label{tab:features}}
+\caption{CPUs, APUs and GPUs comparison of the best professional and commodity desktop hardware available nowadays. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
 Nowadays NVIDIA has one of the best performance for GPU computing \ref{bechmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of
