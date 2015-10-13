@@ -85,20 +85,14 @@ Bioinspired Algorithms, metaheuristics.
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-General-purpose computing on graphics processing units (GPGPU) is the
-technique of using a Graphics Processing Unit (GPU), which typically
-handles computer graphics related stuff,  %GPGPU no se menciona en la
-                                %introducción. - JJ
-to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation due to the fact that this kind of processors has the ability to perform restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation. 
+General-purpose computing on graphics processing units (GPGPU) is the technique of using a Graphics Processing Unit (GPU), which typically handles computer graphics related stuff, to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation due to the fact that this kind of processors has the ability to perform restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
 
-GPUs are specialized stream processors, initially designed for
-rendering graphics in all kind of applications but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations. 
+GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations. 
 
-Depending on the power of a GPU, the number of threads that can be
-executed in parallel on such devices is currently in the order of
-hundreds to thousands and it is expected to multiply in a few years . Nowadays, developers can write their own high-level programs on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
+Depending on the power of a GPU, the number of threads that can be executed in parallel on such devices is currently in the order of
+hundreds to thousands and it is expected to increase every year. Nowadays, developers can write their own high-level programs on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
 
-Now, GPUs are exposed to the programmer as a set of general-purpose shared-memory Single Instruction Multiple Data (SIMD) multi-core processors. This makes these architectures well suited to run large or complex computational problems. 
+Now, GPUs are exposed to the programmer as a set of general-purpose shared-memory Single Instruction Multiple Data (SIMD) multi-core processors. This makes these architectures well suited to run large or complex computational problems in parallel.
 
 %igual que en el abstract, no justificáis por qué se aplica a
 %algoritmos bioinspirados. Es una revista generalista y tendréis que
@@ -113,7 +107,7 @@ cooperating to find the solution. This fact makes them completely
 suitable to be parallelized. The initial approaches considered
 clusters of computers or distributed processing, but the arise of
 GPGPUs have meant a new parallelization paradigm which is exposed
-here. 
+here.
 
 Thus, the paper presents a survey of the most extended bioinspired algorithms and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy.
 
@@ -225,7 +219,7 @@ and their meaning. % Muchas de estas cosas son también del artículo de
 % nada nuevo aquí? - JJ - mucho ;) - gustavo
 \hline
                        & estimated     & die          & (shader)      & clock rate & memory       & GFLOPS          & TDP & approx.\\
-model                  & transistors   & area         & cores         & (GHz)      & bandwidth    & (single         &     & price  \\
+manufacturer \& model   & transistors   & area         & cores         & (GHz)      & bandwidth    & (single         &     & price  \\
                        & (billions)    & ($mm^2$)     & CPU/GPU       & CPU/GPU    & (GB/s)       & precision)      & (W) & (\$)   \\
 \hline
 \hline
