@@ -164,9 +164,9 @@ benefits from massively threaded streams of instructions and/or
 data. The second difference is how threads are scheduled. The
 operating system schedule threads over different cores of a CPU in a
 preemptive fashion. GPUs have dedicated hardware for the cooperative
-scheduling of threads. 
+scheduling of threads.
 
-\begin{figure}[!ht]
+\begin{figure}[!h]
 \centering
 \epsfig{file=cpu-gpu.eps,width=\columnwidth}
 \caption{CPU and GPU block diagram comparison.}
@@ -187,10 +187,7 @@ scheduling of threads.
 %\label{fig:gpu}
 %\end{figure}
 
-Physically GPUs used to be huge in comparison with CPUs as shown in Table \ref{tab:features}. Latest microprocessors from the two main vendors, AMD and Intel, are over 1 billiontransistors. Latest GPUs from AMD and NVIDIA \cite{nvidia} are over 4 billion transistors. CPUs draw 130W at most, a limit established by the cost of commodity heat sinks and fan. GPUs have an bigger power consumption and currently are in the neighborhood of 300W. This can be possible with the use of exotic cooling solutions. CPUs are built with
-the finest technology, read best lithography, while GPUs are made with budget in mind in more common and older processes. %esta frase está en
-                                %el artículo de 2012 y en otro
-                                %más. Por favor, reescribidla - JJ
+Physically GPUs are huge in comparison with CPUs as shown in Table \ref{tab:features}. Latest microprocessors from the two main vendors, AMD and Intel, are over 1 billion transistors while latest GPUs from AMD and NVIDIA \cite{nvidia} are over 7 billion transistors. CPUs draw 100W at most, a limit established by the cost of commodity heat sinks and fans. GPUs have bigger power consumption and currently can be reach 400 to 500W. This is made possible with the use of exotic cooling solutions. CPUs are built with the finest technology, read best lithography available, while GPUs are made with budget in mind in cheaper processes.
 
 No standard terminology can be found in the world of graphics hardware.
 Every company have a  different set of terms to refer to the same
@@ -199,27 +196,25 @@ lack of standard terms calling `shader core' to an Intel Execution
 Unit (EU), an AMD Single Instruction Multiple Data (SIMD) or an NVIDIA
 Streaming Multiprocessors (SM). Any of these refer to a single
 processor core inside of the GPU that can fetch, decode, issue and
-execute several instructions. The shader core is composed of several
-execution units' (EU) that can execute an individual vector operation
+execute instructions. The shader core is composed of several
+execution units (EU) that can execute an individual vector operation
 equivalent to an Advanced Vector Extensions (AVX) or Streaming SIMD
 Extensions (SSE) instruction. AMD call this kind of EU streaming
 processor (SP), while NVIDIA uses the term CUDA core. Table
 \ref{tab:features} compares several existing CPUs, GPUs and
 Accelerated Processing Units (APUs), taking into account these terms
-and their meaning. % Muchas de estas cosas son también del artículo de
-                   % 2012 - JJ
+and their meaning.
 
 % sources:
 %         https://en.wikipedia.org/wiki/List_of_AMD_graphics_processing_units
 %         https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units
-\begin{table*}[!ht]
+\begin{table*}[!h]
 \resizebox{\textwidth}{!}{
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-% nada nuevo aquí? - JJ - mucho ;) - gustavo
 \hline
                        & estimated     & die          & (shader)      & clock rate & memory       & GFLOPS          & TDP & approx.\\
-manufacturer \& model   & transistors   & area         & cores         & (GHz)      & bandwidth    & (single         &     & price  \\
+manufacturer \& model  & transistors   & area         & cores         & (GHz)      & bandwidth    & (single         &     & price  \\
                        & (billions)    & ($mm^2$)     & CPU/GPU       & CPU/GPU    & (GB/s)       & precision)      & (W) & (\$)   \\
 \hline
 \hline
@@ -265,91 +260,28 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 \caption{CPUs, APUs and GPUs comparison of the best professional and commodity desktop hardware available nowadays. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
-Nowadays NVIDIA has one of the best performance for GPU computing \ref{bechmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of
-theirs GPUs. AMD has more execution units but its memory hierarchy is
-weaker. This way software bounded by memory bandwidth or with strong
-ordering inter-dependencies prefers NVIDIA hardware. On the other
-side, loads capped by pure ALU execution power use to be faster on AMD
-hardware. % También en el artículo de 2012. Si sigue siendo cierto,
-          % refrasearlo - JJ
+Nowadays NVIDIA has one of the best performance for GPU computing \cite{benchmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of theirs GPUs. AMD has more execution units but its memory hierarchy is weaker. This way software bounded by memory bandwidth or with strong ordering inter-dependencies prefers NVIDIA hardware. On the other side, loads capped by pure ALU execution power use to be faster on AMD hardware.
 
-Traditionally CPUs and GPUs have been separated. In 2014 the trend is
+Traditionally CPUs and GPUs have been separated. In 2015 the trend is
 to integrate both into a single chip for cost efficiency reasons. Only
 top models remain as discrete devices. Some of this are top models
 from Intel's Core i7 or AMD's Opteron 6300 families. Also best
-discrete GPUs from NVIDIA and AMD, like consumer GeForce GTX 690 and
-Radeon HD 7990 and professional line QUADRO K6000 and Radeon FirePro
-S10000. % best discrete what? - JJ 
+discrete GPUs from NVIDIA and AMD, like consumer GeForce GTX 980M and
+Radeon R9 290X and professional line QUADRO K6000 and Radeon FirePro
+S10000.
 
-From 2006 CPUs with an integrated GPU have became popular. AMD and Intel have just
-started selling this kind of combined processor and graphics card. The
-term Accelerated Processing Unit has been coined for this kind of
-chips. The architectural names are Llano for AMD and Sandy Bridge for
-Intel. Many reviews state that AMD's CPU cores are slower than Intel's
-ones but their GPU is faster. Which combination is better is not an
-easy question to answer. It must be backed by specific benchmarks, or
-better, the real application that we want it to run. % enlaces, aunque
-                                % sea a la wikipedia - JJ
+From 2006 CPUs with an integrated GPU have became popular. AMD and Intel started selling this kind of combined processor and graphics card. The term Accelerated Processing Unit has been coined for this kind of chips. The architectural names are Llano for AMD and Sandy Bridge for Intel. Many reviews state that AMD's CPU cores are slower than Intel's ones but their GPU is faster. Latest Intel APUs, based on Skylake microarchitecture, integrate a more powerful GPU unit with up to 72 cores, Iris Pro Graphics 580. Which combination is better is not an easy question to answer. It must be backed by specific benchmarks, or better, the real application that we want it to run.
 
 Over time the use of GPUs has passed from odd to common in our
 systems. Actually, several time consuming processes have been
 parallelized inside our operating systems such as web page
 rendering. However, the speedup that graphics hardware can bring to us
 is not free, as each application to be accelerated must be rewritten
-to take advantage of the GPU. 
+to take full advantage of the GPU.
 
-Figure \ref{fig:gk110a} shows the internals of latest NVIDIA Kepler
-GK110 architecture. % esto hace falta? en serio? - JJ
-There can be a maximum of 15 SMX units and every
-one of this has 192 single precision CUDA cores. The six squares on
-the sides are memory interfaces for a total bus width of 384 bits. It
-is capable of a maximum bandwidth of 250GB/s connected to GDDR5 memory
-chips. Figure \ref{fig:gk110b} shows a disclosed SMX unit with its 192
-CUDA cores. The maximum theoretical throughput in simple precision is
-3950GFLOPS. 
+As CPU makers did some years ago, passing from single core to symmetric multiprocessing system (SMP), and more recently to multi-cores, GPU makers are following the same trend. We can connect more than one graphic card to our computer to improve its GPU capacities or buy a card with 2 graphic chips inside. GPUs are so much powerful than CPUs that even a small cluster of a few GPUs can be faster than classic, and much more expensive, big cluster of computers. First cluster of this kind appear in the scientific literature in 2004 \cite{10.1109/SC.2004.26} with big success. Nowadays, more and more people build small GPU clusters with a couple of mighty graphic cards just to game. Connecting 2, 3 or 4 graphics card is called CrossFire by AMD and Scalable Link Interface (SLI) by NVIDIA.
 
-\begin{figure}[!ht]
-\begin{tabular}{c}
-%\epsfig{file=nvidia-gk110.eps,width=\columnwidth} \\
-\includegraphics[width=0.99\textwidth]{nvidia-gk110.png} \\
-\end{tabular}
-\caption{NVIDIA Kepler GK110 architecture block diagram.}
-\label{fig:gk110a}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{tabular}{c}
-%\epsfig{file=./nvidia-smx.eps,width=\columnwidth} \\
-\includegraphics[width=0.99\textwidth]{nvidia-smx.png} \\
-\end{tabular}
-\caption{NVIDIA Kepler GK110 architecture SMX unit.}
-\label{fig:gk110b}
-\end{figure}
-
-In Figure \ref{fig:tahitia} the newest AMD GPU can be seen. It has an architecture called Graphics Core Next (GCN). Every chip, there are 2, is composed by 28 Compute Units (CU) as AMD call it. Every CU is composed by 4 SIMD vector processors. Every SIMD processor can operate on 16 number simultaneously. This way 1792 instructions can be finalized every clock. Every Tahiti chip has six 64-bit dual channel memory controllers (gray rectangles at the bottom of Figure \ref{fig:tahitib}) connected to 2 GDDR5 memory channels for a total bandwidth of 240GB/s. The maximum theoretical throughput in simple precision for this design is 2956GFLOPS.
-
-\begin{figure}[!ht]
-\centering
-\begin{tabular}{c}
-\epsfig{file=./amd-tahiti.eps,width=\columnwidth} \\
-\end{tabular}
-\caption{AMD Graphics Core Next architecture block diagram.}
-\label{fig:tahitia}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\begin{tabular}{c}
-%\epsfig{file=./amd-gcn-cu-2.eps,width=\columnwidth} \\
-\includegraphics[width=0.99\textwidth]{amd-gcn-cu.png} \\
-\end{tabular}
-\caption{AMD Graphics Core Next architecture SIMD processor.}
-\label{fig:tahitib}
-\end{figure}
-
-As CPU makers did some years ago, passing from single core to symmetric multiprocessing system (SMP), and more recently to multi-cores, GPU makers follow the same trend. We can connect more than one graphic card to our computer to improve its GPU capacities or buy a card with 2 graphic chips inside. GPUs are so much powerful than CPUs that even a small cluster of a few GPUs can be faster than classic, and much more expensive, big cluster of processors. First cluster of this kind appear in the scientific literature in 2004 \cite{10.1109/SC.2004.26} with big success. Nowadays, more and more people build small GPU clusters with a couple of mighty graphic cards just to game. Connecting 2, 3 or 4 graphics card is called CrossFire by AMD and Scalable Link Interface (SLI) by NVIDIA.
-
-The information shown in this and next sections is available from the websites of the respective manufacturer: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
+Most information shown in this and next sections is available from the websites of the respective manufacturer: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GPUs Programming}
@@ -362,9 +294,9 @@ The information shown in this and next sections is available from the websites o
 
 The way GPUs can be exploited is deeply rooted on its hardware. There exists several APIs: every company has a proprietary one tied to their respective products. This way AMD started with Close to Metal and NVIDIA with CUDA. Over time another standard appear, OpenCL \cite{opencl}.
 
-With respect to the programming tools available for developers, most the Application Program Interfaces (APIs) are based on C-like languages, but having some restrictions to improve the parallel execution, such as no recursion or limited pointers. Some of them use the open source compiler LLVM \cite{LLVM} from the University of Illinois.
+With respect to the programming tools available for developers, most the Application Program Interfaces (APIs) are based on C-like languages, but having some restrictions to improve the parallel throughput, such as no recursion at all or limited pointers usage. A popular option is the open source compiler LLVM \cite{LLVM} from the University of Illinois.
 
-From 2003 the two main GPU developers, ATI an NVIDIA, started selling hardware solutions that need to be programmed with proprietary APIs. Despite previous work, the first widely supported GPUs were DX10 generation GeForce 8 series from NVIDIA, using the more mature CUDA API. On the other hand, the Radeon HD2xxx series from ATI, were programmed with the Close To Metal API. 
+From 2003 the two main GPU developers, ATI an NVIDIA, started selling hardware solutions that need to be programmed with proprietary APIs. Despite previous work, the first widely supported GPUs were DX10 generation GeForce 8 series from NVIDIA, using the more mature CUDA API. On the other hand, the Radeon series from ATI, were programmed with the Close To Metal API.
 
 Paying attention to operating system vendors, there were efforts in the same direction. Some people at Apple betted on the potential of GPUs and started developing an open API, latter known as OpenCL. In the same time, Microsoft created the DirectCompute API for Windows.
 
