@@ -20,9 +20,10 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \begin{document}
 
-\runninghead{Romero et al et al.}
+\runninghead{Romero et al.}
 
-\title{Parallel Computation using Evolutionary Algorithms in GPUs. A review} %TODO mirad si el t√≠tulo est√° bien
+\title{Parallel Computation of Evolutionary Algorithms on GPUs. A review} 
+%TODO mirad si el tÌtulo est· bien
 
 \author{Gustavo Romero, M. G. Arenas, Pedro Castillo, Antonio M. Mora, Pablo Garc\'ia-S\'anchez and Juan Juli\'an Merelo\affilnum{1}}
 
@@ -37,21 +38,15 @@ Universidad de Granada,
 
 
 \begin{abstract}
-The application of Evolutionary Algorithms to obtain the solution of many real life problems and large instances of some
-benchmark problems requires a high amount of computational power. In order
-to deal with them, parallelization of this kind of algorithms has been used with
-the aim of reducing both the computational time and improving the
-quality of the solutions. From the beginning of the Computer Science 
-these algorithms have been executed in one or more central processing units
-(CPUs) each one with one or more cores. However the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs) included in almost every PC and nowadays in every mobile
-device. Thus, recently, these units have been actually used as general
-purpose processors and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
+
+Metaheuristics and bioinspired methods have been recently adapted to massively parallel computation devices, such as the General Purpose Graphics Processing Units (GPGPUs). One of the most proficient techniques taking advantage of this approach are the Evolutionary Algorithms (EAs), since they have a structure inherently parallel, based on a population of independent agents.
+This paper presents a complete survey on all the literature related with this topic: Parallelization of EAs on GPUs.
+We have reviewed a huge amount of publications extracting their features, such as the type of EA implemented, its properties, or if it is applied to solve real problems. Thus, we have defined a taxonomy of the different approaches used in the parallelization process. Moreover, a deeper analysis has been conducted extracting interesting conclusions about the related literature.
+% Antonio - TODO: incluir aquÌ alguna conclusiÛn
+The paper also presents a review of hardware and software advances in these trends.
 % Todo lo de arriba es la motivaci√≥n del trabajo, no la del paper. Deber√≠a ir a la intro. En el abstract deb√©is decir qu√© se hace en el paper - JJ
 % creo que JJ tiene raz√≥n pero a lo mejor lo podemos dejar un poco m√°s cortito - gustavo
-GPUs, alone or in conjunction with CPUs, will in many cases offer better results than traditional CPUs alone, in quality, time and power consumption. This 
-is the main reason why many researchers are migrating their evolutionary algorithms (EAs) implementations to these systems. This work presents a review of hardware and software advances in trends 
-along with their application in the area of some the most frequently
-used heuristics for solving complex problems. Thus, the work proposes a taxonomy of the actual parallelization methods in GPUs, along with a review of the literature in the area.
+% Antonio - lo he cambiado, espero que estÈ mejor. ;)
 \end{abstract}
 
 \keywords{Survey, Review, GPUs, General Purpose GPUs, Parallel Computation,
@@ -63,12 +58,14 @@ Evolutionary Algorithms, metaheuristics.}
 
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The application of Evolutionary Algorithms to obtain the solution of many real problems or large instances of some benchmark problems requires a high amount of computational power. In order to deal with them, parallelization of this kind of algorithms has been conducted with the principal aim of reducing the computational time whereas the quality of the solutions is improved. These algorithms were usually executed in one or more central processing units (CPUs) each one with one or more cores. However the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs) included in almost every PC nowadays and also in most of the mobile
+devices. Thus, in the last years, these units have been used as general
+purpose processors (GPGPUs), and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
 
 General-purpose computing on graphics processing units (GPGPU) is the technique of using a Graphics Processing Unit (GPU), which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
 
