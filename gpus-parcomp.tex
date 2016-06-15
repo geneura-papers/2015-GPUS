@@ -63,37 +63,51 @@ Evolutionary Algorithms, metaheuristics.}
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The application of Evolutionary Algorithms to obtain the solution of many real problems or large instances of some benchmark problems requires a high amount of computational power. In order to deal with them, parallelization of this kind of algorithms has been conducted with the principal aim of reducing the computational time whereas the quality of the solutions is improved. These algorithms were usually executed in one or more central processing units (CPUs) each one with one or more cores. However the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs) included in almost every PC nowadays and also in most of the mobile
-devices. Thus, in the last years, these units have been used as general
-purpose processors (GPGPUs), and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
+The application of Evolutionary Algorithms to obtain the solution of many real problems or large instances of some benchmark problems requires a high amount of computational power. In order to deal with them, parallelization of this kind of algorithms has been conducted with the principal aim of reducing the computational time whereas, eventually, the quality of the solutions is improved. These algorithms were usually executed in one or more central processing units (CPUs) each one with one or more cores. However the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs) included in almost every PC nowadays and also in most of the mobile devices.
 
-General-purpose computing on graphics processing units (GPGPU) is the technique of using a Graphics Processing Unit (GPU), which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
+GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations.
 
-GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations. 
+Depending on the power of a GPU, the number of threads that can be executed in parallel on such devices is currently in the order of hundreds to thousands and this number is expected to be increased every year. Nowadays, developers can write their own high-level programs on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
 
-Depending on the power of a GPU, the number of threads that can be executed in parallel on such devices is currently in the order of
-hundreds to thousands and it is expected to increase every year. Nowadays, developers can write their own high-level programs on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
+Since some years ago, GPUs are exposed to the programmer as a set of general-purpose shared-memory Single Instruction Multiple Data (SIMD) multi-core processors. This makes these architectures well suited to run large or complex computational problems in parallel.
+Thus, nowadays, these units are used as general-purpose processors, and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
 
-Now, GPUs are exposed to the programmer as a set of general-purpose shared-memory Single Instruction Multiple Data (SIMD) multi-core processors. This makes these architectures well suited to run large or complex computational problems in parallel.
+General-purpose computing on graphics processing units (GPGPU) consists in the use of a Graphics Processing Unit (GPU), which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform massive and restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
 
-%igual que en el abstract, no justific√°is por qu√© se aplica a
-%algoritmos bioinspirados. Es una revista generalista y tendr√©is que
+%igual que en el abstract, no justific·is por quÈ se aplica a
+%algoritmos bioinspirados. Es una revista generalista y tendrÌais que
 %hacerlo - JJ
-The goal of this article is to review the use of GPUs to solve such problems, by means of one of the most extended metaheuristics (high-level procedures which follow strategies for guiding the search, in order to solve an optimization problem), the \textit{evolutionary algorithms} (EAs). These algorithms imitate or model the behaviour of natural systems in order to design heuristic methods to address search, learning, and optimization problems.
+% Antonio - lo justifico debajo
 
-Evolutionary Algorithms have been widely used by the scientific
-community because they are quite easy to understand and
-implement. They are stochastic, adaptive, and most of them inherently
-parallel models, since there are several agents working and
-cooperating to find the solution. This fact makes them completely
-suitable to be parallelized. The initial approaches considered
-clusters of computers or distributed processing, but the arise of
-GPGPUs have meant a new parallelization paradigm which is exposed
-here.
+EAs \cite{EAs_Back96} are a class of probabilistic search and optimisation algorithms inspired on the model of Darwinistic evolution. 
+There are several subtypes, depending on the data structure that is preferentially used for representing solutions, but Genetic Algorithms (GAs) \cite{GAs_Goldberg89} and Genetic Programming (GP) \cite{GP_Koza92} are the most extended. The main features are common to all of them: a population of individuals or potential solutions of the target problem, a selection method that favours better solutions, and a set of operators that act upon the
+selected solutions. Thus, after an initial population is created (usually random), the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
+If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population increases with the number of generations.
 
+EAs present a structure which is inherently parallel, because the individuals of the population are relatively independent (they work independently, but all of them cooperate to find the solution). Thus, their distribution on different computation nodes is quite straight and not very difficult to implement, being normally a node devoted to work on subpopulations and even, in the finest-grained models, every node is assigned to one individual [REF].
+
+The aim of the parallelization is usually the improvement of the running time for yielding an objective solution (if known), or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a
+different searching area of the space of solutions and thus, to a different solution (or set of solutions) for an optimization problem, which in turn could be better than the one obtained in a sequential approach.
+
+For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the distribution on GPUs.
+%
+% Antonio - explicar un poco mejor e incluir alguna referencia.
+%
+%The goal of this article is to review the use of GPUs to solve such problems, by means of one of the most extended metaheuristics (high-level procedures which follow strategies for guiding the search, in order to solve an optimization problem), the \textit{evolutionary algorithms} (EAs). These algorithms imitate or model the behaviour of natural systems in order to design heuristic methods to address search, learning, and optimization problems.
+%
+%Evolutionary Algorithms have been widely used by the scientific
+%community because they are quite easy to understand and
+%implement. They are stochastic, adaptive, and most of them inherently
+%parallel models, since there are several agents working and
+%cooperating to find the solution. This fact makes them completely
+%suitable to be parallelized. The initial approaches considered
+%clusters of computers or distributed processing, but the arise of
+%GPGPUs have meant a new parallelization paradigm which is exposed
+%here.
+%
 Thus, the paper presents a survey of the most extended evolutionary algorithms and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy.
 
-Also, this work introduces the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU, and gives an overview of currently available programming tools and software systems.
+In addition, this work introduces the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU model, and gives an overview of currently available programming tools and software systems.
 
 The rest of the paper is structured as follows: Section \ref{sec:parall_and_GPUs} presents GPUs as highly parallel devices architectures.
 Section \ref{sec:programming} gives a background on the different
