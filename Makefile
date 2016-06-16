@@ -3,7 +3,6 @@
 ###############################################################################
 
 DIA = $(wildcard *.dia)
-EPS = $(DIA:.dia=.eps)
 PNG = $(DIA:.dia=.png)
 TEX = $(wildcard *.tex)
 BBL = $(TEX:.tex=.bbl)
@@ -11,19 +10,16 @@ PDF = $(TEX:.tex=.pdf)
 
 ###############################################################################
 
-all: $(EPS) $(PNG) $(PDF)
+all: $(PNG) $(PDF)
 
-auto: $(EPS) $(PNG)
+auto: $(PNG)
 	latexmk -pdf -pvc
 
 clean:
 	latexmk -C
-	$(RM) $(BBL) *-eps-converted-to.pdf *~
+	$(RM) $(BBL) *~
 
 ###############################################################################
-
-%.eps: %.dia
-	dia -e $@ $<
 
 %.png: %.dia
 	dia -e $@ $<
