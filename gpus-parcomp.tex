@@ -40,7 +40,7 @@ Universidad de Granada,
 \begin{abstract}
 
 Metaheuristics and bioinspired methods have been recently adapted to massively parallel computation devices, such as the General Purpose Graphics Processing Units (GPGPUs). One of the most prolific techniques taking advantage of this approach are the Evolutionary Algorithms (EAs), since they have a structure inherently parallel, based on a population of independent agents.
-This paper presents a complete survey on all the literature related with this topic: Parallelization of EAs on GPUs.
+This paper presents a complete survey on all the literature related to this topic: Parallelization of EAs on GPUs.
 We have reviewed a huge amount of publications extracting their features, such as the type of EA implemented, its properties, or if it is applied to solve real problems. Thus, we have defined a taxonomy of the different approaches used in the parallelization process. Moreover, a deeper analysis has been conducted extracting interesting conclusions about the related literature.
 % Antonio - TODO: incluir aquí alguna conclusión
 The paper also presents a review of hardware and software advances in these trends.
@@ -84,7 +84,7 @@ There are several subtypes, depending on the data structure that is preferential
 selected solutions. Thus, after an initial population is created (usually random), the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
 If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population increases with the number of generations.
 
-EAs present a structure which is inherently parallel, because the individuals of the population are relatively independent (they work independently, but all of them cooperate to find the solution). Thus, their distribution on different computation nodes is quite straight and not very difficult to implement, being normally a node devoted to work on subpopulations and even, in the finest-grained models, every node is assigned to one individual [***REF***].
+EAs present a structure which is inherently parallel, because the individuals of the population are relatively independent (they work independently, but all of them cooperate to find the solution). Thus, their distribution on different computation nodes is quite straight and not very difficult to implement, being normally a node devoted to work on subpopulations and even, in the finest-grained models, every node is assigned to one individual \cite{Alba02Parallelism}.
 
 The aim of the parallelization is usually the improvement of the running time for yielding an objective solution (if known), or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a
 different searching area of the space of solutions and thus, to a different solution (or set of solutions) for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
@@ -109,12 +109,8 @@ Thus, the paper presents a survey of the most extended evolutionary algorithms a
 
 In addition, this work introduces the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU model, and gives an overview of currently available programming tools and software systems.
 
-The rest of the paper is structured as follows: Section \ref{sec:parall_and_GPUs} presents GPUs as highly parallel devices architectures.
-Section \ref{sec:programming} gives a background on the different
-higher level programming languages used to profit GPUs. Section \ref{sec:taxonomy} proposes a taxonomy to differentiate between all the papers. %TODO describir mejor esta secciÃ³n
-Finally,
-Section \ref{sec:survey} reviews different
-approaches using GPUs divided by the proposed taxonomy, followed by conclusions (Section \ref{sec:conclusions}). 
+The rest of the paper is structured as follows: first we explain GPUs as highly parallel devices architectures. Then, a background on the different
+higher level programming languages used to profit GPUs is explained. Next section proposes a taxonomy to differentiate between all the papers, that are reviewed in next section. Finally, the conclusions are presented.  %PABLO: Esta plantilla NO tiene numeros de sección
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Throughput, parallelism and GPUs}
