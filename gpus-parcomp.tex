@@ -331,7 +331,7 @@ Unlike traditional computation, arbitrary communication within a kernel is stron
 The memory model defines how data is stored and communicated within a device and between the device and the CPU. The memory model can be seen in Figure \ref{figure:memory}. DirectCompute, CUDA and OpenCL share the same four memory types but employ different terminology:
 
 \begin{figure}
-\centerline{\epsfig{file=memory.eps,width=9cm}}
+\centerline{\includegraphics[width=9cm]{memory.png}}
 \caption{Memory model defines how the data is stored and communicated between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure}
