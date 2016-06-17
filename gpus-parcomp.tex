@@ -23,7 +23,6 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \runninghead{Romero et al.}
 
 \title{Parallel Computation of Evolutionary Algorithms on GPUs. A review.} 
-%TODO mirad si el título está bien
 
 \author{Gustavo Romero, M. G. Arenas, Pedro Castillo, Antonio M. Mora, Pablo Garc\'ia-S\'anchez and Juan Juli\'an Merelo\affilnum{1}}
 
@@ -285,7 +284,7 @@ OpenCL, DirectCompute and CUDA are APIs designed for heterogeneous computing wit
 A kernel applies a single stream of instructions to vast quantities of data that are organized as a 1-3 dimensional array (see Figures \ref{figure:captura1paperCEC} and \ref{figure:grid}). Each piece of data is known as a work-item in OpenCL terminology, and kernels may have hundreds or thousands of work-items. The kernel itself is organized into many work-groups that are relatively limited in size; for example a kernel could have 32K work-items, but 64 work-groups of 512 items each.
 
 \begin{figure}[!ht]
-\centerline{\epsfig{file=./hierarchy.eps,width=7cm}}
+\centerline{\epsfig{file=./hierarchy.eps,width=0.5\textwidth}}
 \caption{Hierarchy of computing structure in a GPU.}
 \label{figure:captura1paperCEC}
 \end{figure}
@@ -305,7 +304,7 @@ Unlike traditional computation, arbitrary communication within a kernel is stron
 The memory model defines how data is stored and communicated within a device and between the device and the CPU. The memory model can be seen in Figure \ref{figure:memory}. DirectCompute, CUDA and OpenCL share the same four memory types but employ different terminology:
 
 \begin{figure}
-\centerline{\includegraphics[width=9cm]{memory.png}}
+\centerline{\includegraphics[width=0.70\textwidth]{memory.png}}
 \caption{Memory model defines how the data is stored and communicated between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure}
