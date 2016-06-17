@@ -48,7 +48,7 @@ This paper presents an exhaustive survey on all the literature related
 to parallelization of EAs on GPUs. 
 We have reviewed more than 200 publications, extracting their
 features, such as the type of EA implemented, its properties, or if it
-is applied to solve real problems. Thus, we have defined a taxonomy of
+is applied to solve real world problems. Thus, we have defined a taxonomy of
 the different approaches used in the parallelization
 process. Moreover, a deeper analysis has been conducted on a big
 selection, also describing the most representative in each category. 
@@ -76,7 +76,7 @@ Evolutionary Algorithms, metaheuristics.}
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The application of Evolutionary Algorithms to obtain the solution of many real problems or large instances of some benchmark problems requires a high amount of computational power. In order to deal with them, parallelization of this kind of algorithms has been conducted with the principal aim of reducing the computational time whereas, eventually, the quality of the solutions is improved. These algorithms were usually executed in one or more central processing units (CPUs) each one with one or more cores. However the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs) included in almost every PC nowadays and also in most of the mobile devices.
+The application of Evolutionary Algorithms to obtain the solution of many real world problems or large instances of some benchmark problems requires a high amount of computational power. In order to deal with them, parallelization of this kind of algorithms has been conducted with the principal aim of reducing the computational time whereas, eventually, the quality of the solutions is improved. These algorithms were usually executed in one or more central processing units (CPUs) each one with one or more cores. However the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs) included in almost every PC nowadays and also in most of the mobile devices.
 
 GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations.
 
@@ -440,7 +440,7 @@ Regarding the type of EA implemented or studied in those papers, Figure \ref{fig
 \label{figure:type_algorithm}
 \end{figure}
 
-Finally, the majority of the analysed publications deal with real problems solving as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization by means of GPUs is very effective and can be used in relevant problems.
+Finally, the majority of the analysed publications deal with solving real problems as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization by means of GPUs is very effective and can be used in relevant problems.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=0.33\textwidth]{realproblem.png}}
@@ -460,9 +460,45 @@ Finally, the majority of the analysed publications deal with real problems solvi
 
 %________________________________
 % maribel: he reescrito el pÃ¡rrafo siguiente entero, hay que revisarlo bien.
-As a GPGPU implementation, the GPU is responsible for fitness evaluation but it does not get involved with other phases of the algorithm such as crossover, selection or even population ordering for the next generation. In this approach, every generation the individuals are copied to the global memory of the GPU, so every single processor gets one or more individuals from global memory and puts them into the shared memory, in order to decrease global memory overhead. After that, each thread evaluates it or them, and stores the result into the global memory again. Usually each single core evaluates one individual. The programmer has to minimise the number of global memory accesses, as well as to minimise data transfers between CPU and GPU. Some additional problems might be faced, like for example, individuals that require additional data for being evaluated, such as a distance matrix or a dataset. This additional information might be copied from CPU to GPU once at the beginning of the process, so the threads might access to this data for evaluation minimising the data transfers CPU-GPU. 
+As a GPGPU implementation, the GPU is responsible for fitness
+evaluation but it does not get involved with other phases of the
+algorithm such as crossover, selection or even population ranking for
+the next generation. In this approach, every generation the
+individuals are copied to the global memory of the GPU, so every
+single processor gets one or more individuals from global memory and
+puts them into the shared memory, in order to decrease global memory
+overhead. After that, each thread evaluates it or them, and stores the
+result into the global memory again. Usually each single core
+evaluates one individual. The programmer has to minimise the number of
+global memory accesses, as well as to minimise data transfers between
+CPU and GPU. Some additional problems might be faced, like for
+example, individuals that require additional data for being evaluated,
+such as a distance matrix or a dataset. This additional information
+might be copied from CPU to GPU once at the beginning of the process,
+so the threads might access to this data for evaluation minimising the
+data transfers CPU-GPU.  
 
-One of the first proposals for parallel Evolutionary Computation using a GPU was done by Wong et al. \citep{man-leung-wong-parallel-2005}. They presented an Evolutionary Programming (EP) algorithm without crossover for solving five simple test functions, called Fast Evolutionary Programming (FEP). In this master-slave approach, some actions were executed in the CPU, as the main loop of the algorithm, while evaluation and mutation were run into the GPU device because both steps do not need of external information exchange. In this case, the reproduction process implies interaction among, at least, two individuals so the authors eliminated this step in the algorithm. A maximum speedup of $\times5.02$ was obtained when the population size increases. This is the most common organization in GPU implementations, since no interaction among individuals is required during the evaluation, so this process can be fully parallelized. In that paper the individuals was real-coded and the genomes were mapped into the texture memory. Each GPU thread evaluated one individual and returned its fitness at the end of the parallel process to the CPU, for the next evolution cycle.
+One of the first proposals for parallel Evolutionary Computation using
+a GPU was done by Wong et
+al. \citep{man-leung-wong-parallel-2005}. They presented an
+Evolutionary Programming (EP) algorithm %without crossover EP does not
+                                %have crossover - JJ
+for solving
+five simple test functions, called Fast Evolutionary Programming
+(FEP). In this master-slave approach, some actions such as the main loop of the algorithm were executed in
+the CPU, while evaluation and mutation were run within the GPU device
+because both steps do not need 
+of external information exchange. In this case, the reproduction
+process implies interaction among, at least, two individuals so the
+authors eliminated this step in the algorithm. A maximum speedup of
+$\times5.02$ was obtained when the population size increases. This is
+the most common organization in GPU implementations, since no
+interaction among individuals is required during the evaluation, so
+this process can be fully parallelized. In that paper the individuals
+was real-coded and the genomes were mapped into the texture
+memory. Each GPU thread evaluated one individual and returned its
+fitness at the end of the parallel process to the CPU, for the next
+evolution cycle. 
 
 A Genetic Programming (GP) method proposed by Harding and Banzhaf \citep{4215552} uses the GPU only for performing the evaluation, while the rest of the steps of the algorithm are run on the CPU. The authors tested real-coded expressions in up to 10000 nodes, boolean expressions in up to 1500 nodes, and some real world problem where they evaluate expressions in up to 10000 nodes. In some cases, the results yielded speedup of thousand times.
 
