@@ -333,7 +333,7 @@ These problem have been with us because current CPUs and GPUs have been designed
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %This section reviews different bioinspired approaches included in the bibliography, mainly focusing on Parallel Evolutionary Computation (EC), because that is the most extended metaheuristic in addressing several types of large or complex problems, which require some kind of parallelization to be solved.
-This section proposes a taxonomy for *********** %TODO TERMINAR
+This section proposes a taxonomy to distinguish between all possible distribution methods used in the literature. %TODO TERMINAR
 
 Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics on EC (Evolutionary Computation). They identified the majority of paradigms with respect to parallel/distributed Evolutionary Algorithms (EAs), according to Flynn's taxonomy, under the Multiple Instruction Multiple Data (MIMD) category. This argument has been fairly valid during the last two decades because the most dominant platform for running parallel/distributed EAs were distributed memory architectures, like clusters. However fine-grained EAs deployed on massive parallel processors (MPPs) are resurfacing, due to GPUs architecture gives low cost support for them.
 
@@ -363,7 +363,7 @@ Alba classifies the main parallel metaheuristic models as follow: % si
 Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we revise the bibliography taking in mind how an algorithm has been parallelized using that paradigm, so, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \citep{ZhangImplementationMasterSlave}: master-slave model \citep{man-leung-wong-parallel-2005}, fine-grained model \citep{jian_ming_li_efficient_2007}, coarse-grained model \citep{Maitre:2009:CGP:1569901_1570089} \citep{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \citep{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
 
 \subsection{Taxonomy}
-This taxonomy %TODO TERMINAR
+This taxonomy is based on the classical approach followed by other authors, but it adds two new groups: the hierarchical and the non-standard models. %TODO TERMINAR
 
 \subsubsection{Master-slave approaches}
 Master-slave Evolutionary Algorithms traditionally solve problems involving computationally expensive fitness functions, where the master node runs the entire algorithm while the slaves execute the fitness evaluation of the individuals. Using this approach, the evaluation of the fitness function is not sequential, but in parallel, so the master-slave version is more efficient because the evaluations usually are the more expensive portion of the total run time.
