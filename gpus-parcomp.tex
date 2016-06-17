@@ -292,7 +292,7 @@ A kernel applies a single stream of instructions to vast quantities of data that
 Unlike traditional computation, arbitrary communication within a kernel is strongly limited. However, communication and synchronization is generally allowed locally within a {\it work-group}. So work-groups serve two purposes: first, they break up a kernel into manageable chunks, and second, they define a limited scope for communication. 
 
 \begin{figure}[!ht]
-\centerline{\epsfig{file=grid.eps,width=7cm}}
+\centerline{\epsfig{file=grid.eps,width=0.50\textwidth}}
 \caption{Execution model: Each piece of data is a work-item (thread); a kernel has thousands of work-items and is organized into many work-groups (thread blocks); each work-group process many work-items.}
 \label{figure:grid}
 \end{figure}
@@ -304,7 +304,7 @@ Unlike traditional computation, arbitrary communication within a kernel is stron
 The memory model defines how data is stored and communicated within a device and between the device and the CPU. The memory model can be seen in Figure \ref{figure:memory}. DirectCompute, CUDA and OpenCL share the same four memory types but employ different terminology:
 
 \begin{figure}
-\centerline{\includegraphics[width=0.70\textwidth]{memory.png}}
+\centerline{\includegraphics[width=0.66\textwidth]{memory.png}}
 \caption{Memory model defines how the data is stored and communicated between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure}
