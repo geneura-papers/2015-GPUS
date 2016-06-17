@@ -24,7 +24,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \title{Parallel Computation of Evolutionary Algorithms on GPUs. A review.} 
 
-\author{Gustavo Romero, M. G. Arenas, Pedro Castillo, Antonio M. Mora, Pablo Garc\'ia-S\'anchez and Juan-Juli\'an Merelo\affilnum{1}}
+\author{Gustavo Romero\affilnum{1}, M. G. Arenas\affilnum{1}, Pedro Castillo\affilnum{1}, Antonio M. Mora\affilnum{1}, Pablo Garc\'ia-S\'anchez\affilnum{1} and Juan-Juli\'an Merelo\affilnum{1}}
 
 \affiliation{\affilnum{1}Dept. of Computer Architecture and Computer Technology, University of Granada, Spain}
 
@@ -322,10 +322,9 @@ The memory model defines how data is stored and communicated within a device and
 
 Unfortunately many times we have to pass data from CPU to GPU before a serious calculation can be done. Also after that, CPU must gather results from the GPU. Too much data passing can ruin speedups so they should be minimized if it can't be avoided at all.
 
-These problem have been with us because current CPUs and GPUs have been designed as separate processing elements and do not work together efficiently. At least until last APUs from AMD. New AMD A7 series uses what the call Heterogeneous System Architecture (HSA). HSA seamlessly shares data between CPU and GPU, without memory copies or cache flushes with minimal dispatch overhead. Both components can share a common memory architecture.
+These problem have been with us because current CPUs and GPUs have been designed as separate processing elements and do not work together efficiently. At least until last APUs from AMD. New AMD A7 series uses what they call Heterogeneous System Architecture (HSA). HSA seamlessly shares data between CPU and GPU, without memory copies or cache flushes with minimal dispatch overhead. Both components can share a common memory architecture.
 
-% aqui deberíais añadir un párrafo sobre cómo estos modelos se adaptan
-% al modelo usado en los algoritmos de computación evolutiva - JJ
+Different EAs adapt to the limitations of the memory model with different degrees of success. Talking about population size, the smaller the the better. The variability is huge between different kinds. Also when possible, many small islands is preferable to a big unique population. The same is valid for any aspect of the algorithm which demands a big quantity of memory.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Proposed Taxonomy}
