@@ -44,9 +44,6 @@ This paper presents a complete survey on all the literature related to this topi
 We have reviewed a huge amount of publications extracting their features, such as the type of EA implemented, its properties, or if it is applied to solve real problems. Thus, we have defined a taxonomy of the different approaches used in the parallelization process. Moreover, a deeper analysis has been conducted extracting interesting conclusions about the related literature.
 % Antonio - TODO: incluir aquÌ alguna conclusiÛn
 The paper also presents a review of hardware and software advances in these trends.
-% Todo lo de arriba es la motivaci√≥n del trabajo, no la del paper. Deber√≠a ir a la intro. En el abstract deb√©is decir qu√© se hace en el paper - JJ
-% creo que JJ tiene raz√≥n pero a lo mejor lo podemos dejar un poco m√°s cortito - gustavo
-% Antonio - lo he cambiado, espero que estÈ mejor. ;)
 \end{abstract}
 
 \keywords{Survey, Review, GPUs, General Purpose GPUs, Parallel Computation,
@@ -73,11 +70,6 @@ Since some years ago, GPUs are exposed to the programmer as a set of general-pur
 Thus, nowadays, these units are used as general-purpose processors, and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
 
 General-purpose computing on graphics processing units (GPGPU) consists in the use of a Graphics Processing Unit (GPU), which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform massive and restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
-
-%igual que en el abstract, no justific·is por quÈ se aplica a
-%algoritmos bioinspirados. Es una revista generalista y tendrÌais que
-%hacerlo - JJ
-% Antonio - lo justifico debajo
 
 EAs \cite{EAs_Back96} are a class of probabilistic search and optimisation algorithms inspired on the model of Darwinistic evolution. 
 There are several subtypes, depending on the data structure that is preferentially used for representing solutions, but Genetic Algorithms (GAs) \cite{GAs_Goldberg89} and Genetic Programming (GP) \cite{GP_Koza92} are the most extended. The main features are common to all of them: a population of individuals or potential solutions of the target problem, a selection method that favours better solutions, and a set of operators that act upon the
@@ -160,24 +152,10 @@ scheduling of threads.
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=16cm]{cpu-gpu.png}
+\includegraphics[width=\textwidth]{cpu-gpu.png}
 \caption{CPU and GPU block diagram comparison.}
 \label{fig:cpu-gpu}
 \end{figure*}
-
-%\begin{figure}[!ht]
-%\centering
-%\epsfig{file=cpu.eps,width=\columnwidth}
-%\caption{CPU block diagram.}
-%\label{fig:cpu}
-%\end{figure}
-
-%\begin{figure}[!ht]
-%\centering
-%\epsfig{file=gpu.eps,width=\columnwidth}
-%\caption{GPU block diagram.}
-%\label{fig:gpu}
-%\end{figure}
 
 Physically GPUs are huge in comparison with CPUs as shown in Table \ref{tab:features}. Latest microprocessors from the two main vendors, AMD and Intel, are over 1 billion transistors while latest GPUs from AMD and NVIDIA \citep{nvidia} are over 7 billion transistors. CPUs draw 100W at most, a limit established by the cost of commodity heat sinks and fans. GPUs have bigger power consumption and currently can be reach 400 to 500W. This is made possible with the use of exotic cooling solutions. CPUs are built with the finest technology, read best lithography available, while GPUs are made with budget in mind in cheaper processes.
 
@@ -212,11 +190,10 @@ manufacturer \& model  & transistors   & area         & cores         & (GHz)   
 \hline
 AMD Opteron 6386 SE     & 2.4           & 630          & 16            & 3.5        & 75           & 332.8          & 140 & 1392   \\
 \hline
-Intel Xeon E5 2699 v3   & 5.69          & 662          & 18            & 3.6        & 68           & $\approx600$   & 145 & 4115   \\
-% source: http://www.anandtech.com/show/8584/intel-xeon-e5-2687w-v3-and-e5-2650-v3-review-haswell-ep-with-10-cores
+Intel Xeon E7 8890 V3   & 5.69          & 662          & 18            & 2.5        & 102          & 1500           & 155 & 6000   \\
 \hline
 \hline
-AMD A10-7870K           & 2.41          & 245          & 4/512         & 3.9/0.866  & 15.76        & 856            & 95  & 130    \\
+AMD A10-7890K           & 2.41          & 245          & 4/512         & 4.1/0.866  & 15.76        & 1018           & 95  & 150    \\
 \hline
 Intel Core i7 6700K     & 1.35          & 122.4        & 4/24          & 4/1.150    & 34.1         & 173            & 91  & 350    \\
 \hline
