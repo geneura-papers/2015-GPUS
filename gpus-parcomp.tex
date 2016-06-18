@@ -1,6 +1,4 @@
 
-
-
 \documentclass[Crown,sagev,times,doublespace]{sagej}
 
 
@@ -57,8 +55,6 @@ increasing number of published papers every year. Genetic Algorithms
 are so far the most widely used approach in EAs, and they are mainly applied
 to solve real world problems due to the advantages that GPGPU computation
 offers. 
-% Antonio - TODO: incluir aquí alguna conclusión
-%The paper also presents a review of hardware and software advances in these trends.
 The paper also presents a review of advances in hardware and software along with trends in the field.
 \end{abstract}
 
@@ -327,22 +323,30 @@ These problem have been with us because current CPUs and GPUs have been designed
 Different EAs adapt to the limitations of the memory model with different degrees of success. Talking about population size, the smaller the the better. The variability is huge between different kinds. Also when possible, many small islands is preferable to a big unique population. The same is valid for any aspect of the algorithm which demands a big quantity of memory.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Frameworks used with EAs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Antonio - muevo esto aquí que queda mejor. No tenía entidad para ser una sección aparte. ;)
+
+In this section we cite some relevant material not int the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most EC metaheuristics can be implemented without effort by using any of the existing frameworks. 
+
+The most complete and comprehensive review of these frameworks is from Parejo \citep{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
+
+PUGACE\citep{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Proposed Taxonomy}
 \label{sec:taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%This section reviews different bioinspired approaches included in the bibliography, mainly focusing on Parallel Evolutionary Computation (EC), because that is the most extended metaheuristic in addressing several types of large or complex problems, which require some kind of parallelization to be solved.
-This section proposes a taxonomy to distinguish between all possible distribution methods used in the literature. %TODO TERMINAR
+This section proposes a taxonomy to distinguish between the different distribution methods applied in the literature. It is inspired by the classical models used in the distribution of EAs. 
 
 Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics on EC (Evolutionary Computation). They identified the majority of paradigms with respect to parallel/distributed Evolutionary Algorithms (EAs), according to Flynn's taxonomy, under the Multiple Instruction Multiple Data (MIMD) category. This argument has been fairly valid during the last two decades because the most dominant platform for running parallel/distributed EAs were distributed memory architectures, like clusters. However fine-grained EAs deployed on massive parallel processors (MPPs) are resurfacing, due to GPUs architecture gives low cost support for them.
 
 The parallel EAs community has a wide legacy with MIMD architectures and a very little contribution for SIMD systems. This comes in part due to the dominance of MIMD architectures as compared to SIMD ones.
 
-Alba classifies the main parallel metaheuristic models as follow: % si
-                                % usÃ¡is bioinspired y metaheuristics
-                                % de forma intercambiable,
-                                % justificadlo. Si no, poned
-                                % metaheuristics - JJ
+Alba classifies the main parallel metaheuristics models as follows:
 \begin{itemize}
 \item Parallel Genetic Algorithms \citep{Cantu-Paz98asurvey} %G. Luque, et al..
 \item Parallel Genetic Programming \citep{springerlink:10.1023_A:1021873026259}.
@@ -361,14 +365,19 @@ Alba classifies the main parallel metaheuristic models as follow: % si
 
 Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we revise the bibliography taking in mind how an algorithm has been parallelized using that paradigm, so, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \citep{ZhangImplementationMasterSlave}: master-slave model \citep{man-leung-wong-parallel-2005}, fine-grained model \citep{jian_ming_li_efficient_2007}, coarse-grained model \citep{Maitre:2009:CGP:1569901_1570089} \citep{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \citep{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Taxonomy}
-This taxonomy is based on the classical approach followed by other authors, but it adds two new groups: the hierarchical and the non-standard models. %TODO TERMINAR
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models. 
+% Antonio - Si alguien puede decir algo más de por qué se añaden estos nuevos grupos...
 
 \subsubsection{Master-slave approaches}
 Master-slave Evolutionary Algorithms traditionally solve problems involving computationally expensive fitness functions, where the master node runs the entire algorithm while the slaves execute the fitness evaluation of the individuals. Using this approach, the evaluation of the fitness function is not sequential, but in parallel, so the master-slave version is more efficient because the evaluations usually are the more expensive portion of the total run time.
 
 \subsubsection{Fine-grained approaches}
-Cellular Evolutionary Algorithms (CEAs)or Fine-grained Evolutionary Algorithms have not had as much impact as other types of PEAs. The main reason is that they adapt themselves very well to the especial hardware architecture, with shared memory, but very bad to other distributed memory architectures. On the other hand, parallel distributed memory architectures supply all loosely coupled algorithms and the fine-grained EAs are not included into this category. The main reason behind that is the high cost of building massively parallel architectures which normally attracted fewer researchers to work on fine-grained EAs. However, a review of the trends in parallel architectures foresees a strong increase in fine-grained EAs face to face other EA categories. This is due to three reasons: 
+Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary Algorithms have not had as much impact as other types of PEAs. The main reason is that they adapt themselves very well to the especial hardware architecture, with shared memory, but very bad to other distributed memory architectures. On the other hand, parallel distributed memory architectures supply all loosely coupled algorithms and the fine-grained EAs are not included into this category. The main reason behind that is the high cost of building massively parallel architectures which normally attracted fewer researchers to work on fine-grained EAs. However, a review of the trends in parallel architectures foresees a strong increase in fine-grained EAs face to face other EA categories. This is due to three reasons: 
 
 \begin{itemize}
 \item Growing trend of massive number of processors on chip or card. 
@@ -377,6 +386,10 @@ Cellular Evolutionary Algorithms (CEAs)or Fine-grained Evolutionary Algorithms h
 \end{itemize}
 
 For this category of algorithms, each individual is a parent at the beginning of the algorithm and it looks for the second parent by selection in a neighborhood. As a result CEAs provide automatic niching effect, avoiding an early convergence. 
+
+% Antonio - revisar esto que faltaba en la taxonomía...
+\subsubsection{Coarse-grained approaches}
+These approaches work with a set of sub-populations (normally a part of the whole population) distributed in different nodes, being every node devoted to work with just one of them, so they can work in parallel independently. Each of these sub-populations is known as `island'. In the standard model, after a number of generations (migration rate) one or more individuals, normally the best, are interchanged (migrated) between islands, which are connected following a specific neighborhood topology.
 
 
 \subsubsection{Hierarchical models}
@@ -397,14 +410,15 @@ By the end of the work we have included a subsection for non-standard approaches
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{Survey on Evolutionary Algorithms on GPUs} %TODO poner un tÃ­tulo mejor
-\section{Research review} % que tal este? - gustavo
+\section{Literature analysis and review} 
 \label{sec:survey}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this section we present a quantitative analysis of published papers on EAs on GPUs. Then, the most relevant ones are classified following the previously described taxonomy.
 
 %\subsection{Paper analysis} %TODO TITULO MEJOR?
-\subsection{Collection technique} % que tal este? - gustavo
+\subsection{General analysis} % que tal este? - gustavo
+% Antonio - creo que este refleja mejor lo que se va a hacer. ;)
 
 Firstly, a deep analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS)\cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
 % Antonio - comprobar si se buscó en cualquier parte de los artículos
@@ -419,11 +433,10 @@ Looking at the publication rate per year (inside this scope), it can be noticed 
 \label{figure:publications}
 \end{figure}
 
-% Antonio - TODO: *** elegir una de las figuras ***
-% Antonio - ¿estaban limitados los datos hasta 2004?¿Se hizo la consulta en 2015, porque hay un bajón ese año? Si es que sí, nos podrían decir que por qué no está 2016 y si es que no, podría deberse a que el tema está ya muy explotado y va siendo menos fructífero... habría que comentarlo, de ser así. ;)
+The decrease in 2015-2016 is due to recent papers have not been indexed yet on WoS.
 
-With respect to the type of publication, it can be seen in Figure \ref{figure:type_publication} that conferences and journals share almost all the 
-However, this factor should be taken as a reference, since not all the conferences and journals are indexed in WoS, but mainly relevant ones.
+
+With respect to the type of publication, as expected, it can be seen in Figure \ref{figure:type_publication} that conferences and journals share almost all the cake, being slightly higher the figures for conference papers, as it is obviously easier to get published there. However, this factor should be taken just as a reference, since not all the conferences and journals are indexed in WoS, but mainly relevant ones.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=0.4\textwidth]{papertype.png}}
@@ -431,7 +444,7 @@ However, this factor should be taken as a reference, since not all the conferenc
 \label{figure:type_publication}
 \end{figure}
 
-Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. As expected, the most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and normally yields very good results.  GP and DE (Differential Evolution) are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms).
+Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. The most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and normally yields very good results.  GP and DE (Differential Evolution) are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms), to cite a few.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=0.4\textwidth]{algorithmtype.png}}
@@ -439,7 +452,7 @@ Regarding the type of EA implemented or studied in those papers, Figure \ref{fig
 \label{figure:type_algorithm}
 \end{figure}
 
-Finally, the majority of the analysed publications deal with solving real problems as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization by means of GPUs is very effective and can be used in relevant problems.
+Finally, the majority of the analysed publications deal with solving real problems as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization using GPUs is very effective and can be used in relevant and very hard problems, as real world ones normally are.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=0.33\textwidth]{realproblem.png}}
@@ -447,18 +460,14 @@ Finally, the majority of the analysed publications deal with solving real proble
 \label{figure:type_problem}
 \end{figure}
 
+Once we have analyzed the whole literature, in the following sections we will go through each of the different groups of the proposed taxonomy. Then, for every one the most representative or relevant works (mainly according to their number of citations) are reviewed and commented.
 
-% Antonio - TODO: concluir ago y presentar las secciones siguientes... ¿¿¿en ellas se van a presentar los artículos más relevantes dentro de cada tipo en la taxonomía???
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Master-slave Approaches}
 \label{sec:masterSlave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-%________________________________
-% maribel: he reescrito el pÃƒÂ¡rrafo siguiente entero, hay que revisarlo bien.
 As a GPGPU implementation, the GPU is responsible for fitness
 evaluation but it does not get involved with other phases of the
 algorithm such as crossover, selection or even population ranking for
@@ -530,8 +539,6 @@ Stock market trading analysis haas also been recently addressed by using GP in G
 \subsection{Fine-grained Approaches}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 Researchers implement fine-grained algorithms using GPGPU, making every scalar processor (SP) to evolve an individual. This individual interacts with other SPs that belongs to the same Streaming Multiprocessor (SM) to perform the basic operations of the algorithm like crossover or mutation. In this approach a big part of the algorithm runs within the GPU and not only the evaluation phase like in previous section (\ref{sec:masterSlave}). The GPU architecture assists the neighborhoods emerge since each group of SMs have a shared memory, where SPs access without penalty. The exchange of information between individuals through this shared memory is inexpensive. However, programmers have to be careful with the information exchange between individuals in different SMs. 
 
 The second problem of this approach is the random number generator. The CPU can easily generate random numbers, but the GPU is not designed for this task. So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every thread. 
@@ -556,13 +563,14 @@ They use a pseudo random number generator provided by the SDK of CUDA named Mers
 % Antonio - No se iba a revisar ...lo EAs? :P
 %Mussi et al. \cite{PSO-GPU_Mussi}  propose a Particle Swarm Optimization (PSO) approach, where a fine-grained model was implemented by omitting the synchronization step, the main constraint for profiting the parallelization power of GPUs in classical metaheuristics. CUDA threads were considered as processing elements for every particle independently. The experiments compared this implementation with a synchronous one, on a GeForce GTX260AMP and a GeForce GTS450 solving different hard synthetic functions problems. The speedups factors in the comparison with the sequential approach are up to $\time200$ using the GTS card for the 100 dimensions Rastrigin problem, considering the asynchronous approach, and around $\times30$ for the synchronous implementation, to cite one instance. In average, the first method doubled the later with respect to this factor.
 
-Depending on the problem size, fine-grained approaches may improve the efficency with respect to the coarse-grained version. For example, in the work of Franco et al. \cite{Franco15LargeScale}, two different approaches for strategies for GPU implementations of the evaluation stage of evolutionary rule learning are analysed and the types of problems where each method performs best have been identified. The coarse-grained implementation is more conservative and only parallelises the evaluation of instances, while the fine-grained implementation expands the parallelism to the attribute dimension (and is faster on datasets with 10 to 50 discrete attributes).
+Depending on the problem size, fine-grained approaches may improve the efficiency with respect to the coarse-grained version. For example, in the work of Franco et al. \cite{Franco15LargeScale}, two different approaches for strategies for GPU implementations of the evaluation stage of evolutionary rule learning are analysed and the types of problems where each method performs best have been identified. The coarse-grained implementation is more conservative and only parallelizes the evaluation of instances, while the fine-grained implementation expands the parallelism to the attribute dimension (and is faster on datasets with 10 to 50 discrete attributes).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Coarse-grained Approaches (island model)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Coarse grained algorithms are the most common among parallel EAs. Generally, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained. Coarse grained EAs divide the main population into sub-populations (also known as islands) which evolve concurrently. This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
+Coarse grained algorithms are the most common among parallel EAs. Generally, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained. Coarse-grained EAs divide the main population into sub-populations (also known as islands) which evolve concurrently. This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
 
 In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
 
@@ -578,6 +586,7 @@ Sequential and parallel implementations are compared, obtaining a speedup of $\t
 
 Pospichal et al. \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253} propose a parallel GA with island model running on GPU. The authors map threads to individuals, thus, threads-individuals can be synchronized easily in order to maintain data consistency, and on-chip hardware scheduler can swiftly swap existing islands between multiprocessors to hide memory latency. Fast, shared memory within the multiprocessor is used to maintain populations.
 Since the population size is limited to 16KB per island on most GPUs, if the population is larger, slower main memory has to be used. The migration process is based on an asynchronous unidirectional ring that requires an inter-island communication (slower main memory has to be used). The authors report speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Hierarchical Models}
@@ -603,17 +612,12 @@ Authors mapped the population to the GPU and applied the parallel metaheuristic 
 In 2014,  \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+GPU high performance EA. 16 islands of 8 individuals were set as parameters. The experiments were carried in a combination of Intel Xeon X5650 @2.66GHz and  Intel Xeon X7550 @2.0GHz processors, although the paper do not includes information about the graphic cards used. Several instances of heterogeneous scheduling problems were used to compared with other metaheuristics, obtaining better makespans. 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Non-standard Approaches}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Pospichal et al. in 2011 has presented several papers related with GPU devices. One of the last is \citep{DBLP:conf/gecco/PospichalMOSJ11} where they propose to use a GPU device for Grammatical Evolution, evolving complete programs in an arbitrary language using variable length binary strings. For this problem, every individual is a program, so it must be compiled and sent to the GPU for being evaluated every generation. However the most time-consuming part of this approach is to sent the individuals to the GPU and not the evaluation itself, so, the authors propose to evolve the whole Grammatical Evolution algorithm on the GPU with a special mapping function. They mapped one individual per block of threads and one thread is used to manage each individual. They compare the execution time of an Intel Core i7 with NVIDIA GTX 480 using CUDA (CPU implementation with C) an a Java library called GEVA \citep{O'Neill:2008:GGE:1527063.1527066}, which is an interpreted language (CPU implementation using GEVA).  The authors include results for both implementations (C and GEVA) and one GPU implementation, and they compare them with and without overhead for CPU-GPU communication. We include only the results with overhead, because the parallel version needs the CPU-GPU communication, so the authors might take care about it. The results of GPU implementation are in average 5.3 speedup than CPU with C implementation which is an expected result. The speedup grows until $\times102.8$ when GPU implementation and CPU implementation with GEVA are analysed, but the authors do not include any standard deviation results, so we do not consider the last result as the most important of the paper. Thus, this paper proposes two levels of parallelism: 1) individuals are evaluated in parallel (by threads in the same block) and 2) data within individuals (genes, crossover points, mutations, fitness points, etc.) are maintained by parallel access as well (by block of threads).
 
-\subsection{Frameworks}
-
-In this section we cite some relevant material not int the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most EC metaheuristics can be implemented without effort by using any of the existing frameworks. 
-
-The most complete and comprehensive review of these frameworks is from Parejo \citep{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
-
-PUGACE\citep{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
@@ -622,7 +626,7 @@ PUGACE\citep{5586286} is a framework in CUDA for cellular GAs (cGAs), but only f
 
 Evolutionary Algorithms have been widely implemented and executed in traditional computers. They have also been usually parallelized in clusters or distributed-processor systems, in the past decades. However with the current technological enhancement of computer graphics, and thus, with the arise of powerful GPUs, a new way to execute this kind of algorithms has been opened.
 
-This paper presents an introduction to the different existing GPU architectures, programming languages, and frameworks, used nowadays in the industry and in the scientific area.
+This paper presents an introduction to the different existing GPU architectures, programming languages, and frameworks, used nowadays in the industry and in this scientific area.
 
 Focusing in the latter, this work is also a survey of the usage of General-Purpose GPUs for running Evolutionary Computation approaches, implemented to solve large-scale or complex optimization problems. Thus, a number of research works available in the literature have been reviewed, including a description of a taxonomy to classify them. 
 
@@ -633,13 +637,14 @@ so new hardware and software solutions are emerging trying to minimize
 the communication cost between GPUs and CPUs.
 
 % nada de trabajo futuro? - JJ
+% Antonio - para un survey no se me ocurre, salvo decir que lo mejoraremos analizando más artículos u otras técnicas, pero me suena raro, ¿no?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % acknowledgements
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{acks}
-This work has been partially funded by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitivity), PROY-PP2015-06 (Plan Propio 2015 UGR), and MSTR (PRY142/14, Fundaci\'on P\'ublica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci\'on).
+This work has been partially funded by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitivity), TEC2015-68752 (Spanish Ministry of Economy and Competitiveness and FEDER), PROY-PP2015-06 (Plan Propio 2015 UGR), and MOSOS (PRY142/14, Fundaci\'on P\'ublica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci\'on).
 \end{acks}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
