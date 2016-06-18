@@ -1,8 +1,4 @@
-
-
-
 \documentclass[Crown,sagev,times,doublespace]{sagej}
-
 
 \usepackage{moreverb,url}
 \usepackage{amsmath}
@@ -34,10 +30,11 @@ C/Periodista Daniel Saucedo s/n,
 Universidad de Granada,
 18071, Granada, Spain.}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-
 Metaheuristics and bioinspired methods have been recently adapted to
 massively parallel computation devices such as the General Purpose
 Graphics Processing Units (GPGPUs). One of the most prolific
@@ -57,8 +54,6 @@ increasing number of published papers every year. Genetic Algorithms
 are so far the most widely used approach in EAs, and they are mainly applied
 to solve real world problems due to the advantages that GPGPU computation
 offers. 
-% Antonio - TODO: incluir aquí alguna conclusión
-%The paper also presents a review of hardware and software advances in these trends.
 The paper also presents a review of advances in hardware and software along with trends in the field.
 \end{abstract}
 
@@ -66,9 +61,6 @@ The paper also presents a review of advances in hardware and software along with
 Evolutionary Algorithms, metaheuristics.}
 
 \maketitle
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -435,7 +427,7 @@ Regarding the type of EA implemented or studied in those papers, Figure \ref{fig
 \label{figure:type_algorithm}
 \end{figure}
 
-Finally, the majority of the analysed publications deal with solving real problems as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization by means of GPUs is very effective and can be used in relevant problems.
+Finally, the majority of the analyzed publications deal with solving real problems as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization by means of GPUs is very effective and is used in relevant problems.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=0.33\textwidth]{realproblem.png}}
@@ -443,8 +435,7 @@ Finally, the majority of the analysed publications deal with solving real proble
 \label{figure:type_problem}
 \end{figure}
 
-
-% Antonio - TODO: concluir ago y presentar las secciones siguientes... ¿¿¿en ellas se van a presentar los artículos más relevantes dentro de cada tipo en la taxonomía???
+After reading this section it is clear than PEAs is an active research field and there are so many different variations that almost for sure one of then can fit the needs of most users. Following this reasoning, in the next 5 sections, the most representative works of every type of EA are going to be presented for your convenience.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Master-slave Approaches}
@@ -464,14 +455,14 @@ single processor gets one or more individuals from global memory and
 puts them into the shared memory, in order to decrease global memory
 overhead. After that, each thread evaluates it or them, and stores the
 result into the global memory again. Usually each single core
-evaluates one individual. The programmer has to minimise the number of
-global memory accesses, as well as to minimise data transfers between
+evaluates one individual. The programmer has to minimize the number of
+global memory accesses, as well as to minimize data transfers between
 CPU and GPU. Some additional problems might be faced, like for
 example, individuals that require additional data for being evaluated,
-such as a distance matrix or a dataset. This additional information
+such as a distance matrix or a data set. This additional information
 might be copied from CPU to GPU once at the beginning of the process,
-so the threads might access to this data for evaluation minimising the
-data transfers CPU-GPU.  
+so the threads might access this data for evaluation minimizing CPU/GPU 
+traffic.
 
 One of the first proposals for parallel Evolutionary Computation using
 a GPU was done by Wong et
@@ -515,7 +506,7 @@ Cano et al. \cite{SpeedingTheEvaluationofGPCano:2012} described a massively para
 The work by Chitty \citep{Chitty16FastParallel} uses a Master-Slave architecture for evaluating at time the population for four GP problems. The results were achieved using an NVidia GeForce Kepler 670 GTX graphics card and compared with a previous one-dimensional stack approach for the same problems. The author fit the algorithm until to observe a peak computational speed of over 55 billion Genetic Programming Operations per second a twofold improvement over the previous one-dimensional stack approach.
 
 
-Recent works are currently being applied to real-world problems. Jaros et al. \cite{Jaros14Wormhole} use GPUs to lower the run time and improve the quality of the solutions in the problem of wormhole switching in collective communications. The start from an evolutionary tool capable of finding optimal communication schedules for various communication patterns on wide range of interconnection networks topologies of up to 256 nodes. The tool consumes tens of hours so they decide to improve it. As the fitness evaluation was responsible for the 93\% of the execution time this was the only part moved to the GPU. In a first step only one GPU was used with speedups up to x5. After that they made a new implementation capable of using 8 GPUs and 30 times faster than the original.
+Recent works are currently being applied to real-world problems. Jaros et al. \cite{Jaros14Wormhole} use GPUs to lower the run time and improve the quality of the solutions in the problem of wormhole switching in collective communications. The start from an evolutionary tool capable of finding optimal communication schedules for various communication patterns on wide range of interconnection networks topologies of up to 256 nodes. The tool consumes tens of hours so they decide to improve it. As the fitness evaluation was responsible for the 93\% of the execution time this was the only part moved to the GPU. In a first step only one GPU was used with speedups up to $\times5$. After that they made a new implementation capable of using 8 GPUs and 30 times faster than the original.
 
 In \citep{Contreras:2012:UGA:2150467.2150469} the authors use a CPU-GPU architecture for stock market trading. The proposed architecture offers the benefices of GPU distribution for stock market researchers, rather for computer architecture experts. The authors used Jacket \citep{jacket:Matlab}, a software platform for the rapid development of GPGPU computing applications within the MATLAB computing environment, C, and C++. However, this framework is no longer available \footnote{\url{http://blog.accelereyes.com/blog/2012/12/12/exciting-updates-from-accelereyes/}}. Steps and guidelines to migrate from CPU code to GPU code are explained, what is a great contribution, because usually, the authors do not include this information in the papers. The algorithm run in the CPU, but all  {\em for} loops in selection, evaluation, crossover and mutation are translated to Jacket's {\em gfor} to be parallelized in the GPU. Three different CPU configurations are used for the experiments: Pentium 4, Pentium SU41000 and Intel Core i7-860. The former is also combined with an nVidia 460GTX for GPU experiments. Different population size are also tested. The time is reduced to 65\% in comparison with the CPU version. Other conclusions are obtained: speedups with high number of individuals, rather than increasing the number of evaluations; and time reduction for  tournament selection  over roulette-wheel selection.
 
@@ -549,10 +540,7 @@ In \citep{Li:2009:PIA:1726585.1726930} the authors proposed an Fine-grained para
 Gonz\'alez et al. \cite{springerlink:10.1007978-3-642-12538-619} use CUDA and store individuals and their fitness values in the GPU global memory. Both, fitness evaluation and genetic operators, run on GPU (no CPU is used). 
 They use a pseudo random number generator provided by the SDK of CUDA named Merseinne Twister. Their experiments include some general discrete and continuous optimization problems, and they compare physical efficiency and numerical efficacy with respect to CPU implementation. 
 
-% Antonio - No se iba a revisar ...lo EAs? :P
-%Mussi et al. \cite{PSO-GPU_Mussi}  propose a Particle Swarm Optimization (PSO) approach, where a fine-grained model was implemented by omitting the synchronization step, the main constraint for profiting the parallelization power of GPUs in classical metaheuristics. CUDA threads were considered as processing elements for every particle independently. The experiments compared this implementation with a synchronous one, on a GeForce GTX260AMP and a GeForce GTS450 solving different hard synthetic functions problems. The speedups factors in the comparison with the sequential approach are up to $\time200$ using the GTS card for the 100 dimensions Rastrigin problem, considering the asynchronous approach, and around $\times30$ for the synchronous implementation, to cite one instance. In average, the first method doubled the later with respect to this factor.
-
-Depending on the problem size, fine-grained approaches may improve the efficency with respect to the coarse-grained version. For example, in the work of Franco et al. \cite{Franco15LargeScale}, two different approaches for strategies for GPU implementations of the evaluation stage of evolutionary rule learning are analysed and the types of problems where each method performs best have been identified. The coarse-grained implementation is more conservative and only parallelises the evaluation of instances, while the fine-grained implementation expands the parallelism to the attribute dimension (and is faster on datasets with 10 to 50 discrete attributes).
+Depending on the problem size, fine-grained approaches may improve the efficiency with respect to the coarse-grained version. For example, in the work of Franco et al. \cite{Franco15LargeScale}, two different approaches for strategies for GPU implementations of the evaluation stage of evolutionary rule learning are analyzed and the types of problems where each method performs best have been identified. The coarse-grained implementation is more conservative and only parallelizes the evaluation of instances, while the fine-grained implementation expands the parallelism to the attribute dimension and is faster on data sets with 10 to 50 discrete attributes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Coarse-grained Approaches (island model)}
@@ -628,7 +616,7 @@ that bottlenecks appear copying data from main memory to GPU device,
 so new hardware and software solutions are emerging trying to minimize
 the communication cost between GPUs and CPUs.
 
-% nada de trabajo futuro? - JJ
+As future work another sources of works on the field will be considered to improve the completeness of this work and gain further quality on its analysis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % acknowledgements
