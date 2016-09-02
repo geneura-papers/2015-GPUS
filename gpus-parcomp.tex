@@ -275,18 +275,12 @@ To make life easier for potential users many libraries are appearing. One signif
 
 OpenCL, DirectCompute and CUDA are APIs designed for heterogeneous computing with both a host CPU and an optional GPU device. The applications have serial portions, that are executed on the host CPU, and parallel portions, known as \textit{kernels}. The parallel kernels may execute on an OpenCL compatible device, CPU or GPU, but synchronization is enforced between kernels and serial code. OpenCL is distinctly intended to handle both task and data parallel workloads, while CUDA and DirectCompute are primarily focused on data parallelism.
 
-A kernel applies a single stream of instructions to vast quantities of data that are organized as a 1-3 dimensional array (see Figures \ref{figure:captura1paperCEC} and \ref{figure:grid}). Each piece of data is known as a work-item in OpenCL terminology, and kernels may have hundreds or thousands of work-items. The kernel itself is organized into many work-groups that are relatively limited in size; for example a kernel could have 32K work-items, but 64 work-groups of 512 items each.
-
-\begin{figure}[!ht]
-\centerline{\epsfig{file=./hierarchy.eps,width=0.5\textwidth}}
-\caption{Hierarchy of computing structure in a GPU.}
-\label{figure:captura1paperCEC}
-\end{figure}
+A kernel applies a single stream of instructions to vast quantities of data that are organized as a 1-3 dimensional array (see Figure \ref{figure:grid}). Each piece of data is known as a work-item in OpenCL terminology, and kernels may have hundreds or thousands of work-items. The kernel itself is organized into many work-groups that are relatively limited in size; for example a kernel could have 32K work-items, but 64 work-groups of 512 items each.
 
 Unlike traditional computation, arbitrary communication within a kernel is strongly limited. However, communication and synchronization is generally allowed locally within a {\it work-group}. So work-groups serve two purposes: first, they break up a kernel into manageable chunks, and second, they define a limited scope for communication. 
 
 \begin{figure}[!ht]
-\centerline{\epsfig{file=grid.eps,width=0.50\textwidth}}
+\centerline{\includegraphics[width=0.75\textwidth]{grid.png}}
 \caption{Execution model: Each piece of data is a work-item (thread); a kernel has thousands of work-items and is organized into many work-groups (thread blocks); each work-group process many work-items.}
 \label{figure:grid}
 \end{figure}
