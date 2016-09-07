@@ -1,67 +1,113 @@
-\documentclass[Crown,sagev,times,doublespace]{sagej}
+%% 
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
 
-\usepackage{moreverb,url}
-\usepackage{amsmath}
-\usepackage{epsfig}
-\usepackage{graphicx}
-\usepackage[latin1]{inputenc}
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%% SP 2008/03/01
+
+\documentclass[preprint,12pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+%% \usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
 \usepackage{url}
 
-\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
-
-\newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
-T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-
-\def\volumeyear{2015}
+\journal{Journal of Parallel and Distributed Computing}
 
 \begin{document}
 
-\runninghead{G. Romero et al.}
+\begin{frontmatter}
 
-\title{Parallel Computation of Evolutionary Algorithms on GPUs. A review.} 
+%% Title, authors and addresses
 
-\author{Gustavo Romero\affilnum{1}, M. G. Arenas\affilnum{1}, Pedro Castillo\affilnum{1}, Antonio M. Mora\affilnum{1}, Pablo Garc\'ia-S\'anchez\affilnum{1} and Juan-Juli\'an Merelo\affilnum{1}}
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
 
-\affiliation{\affilnum{1}Dept. of Computer Architecture and Computer Technology, University of Granada, Spain}
+\title{Parallel Computation of Evolutionary Algorithms on GPUs}
 
-\corrauth{Gustavo Romero,
-ETS. Ingenier\'ias en Inform\'atica y Telecomunicaci\'on and CITIC-UGR,
-C/Periodista Daniel Saucedo s/n,
-Universidad de Granada,
-18071, Granada, Spain.}
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \address[label1]{}
+%% \address[label2]{}
+
+\author{Gustavo Romero}
+\author{M. G. Arenas}
+\author{Pedro Castillo}
+\author{Antonio M. Mora}
+\author{Pablo Garc\'ia-S\'anchez}
+\author{Juan-Juli\'an Merelo}
+
+\address{University of Granada}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % abstract
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Metaheuristics and bioinspired methods have been recently adapted to
-massively parallel computation devices such as the General Purpose
-Graphics Processing Units (GPGPUs). One of the most prolific
-techniques taking advantage of this approach are the Evolutionary
-Algorithms (EAs), since they have an inherently parallel structure,
-based on a population of independent agents. 
-This paper presents an exhaustive survey on all the literature related
-to parallelization of EAs on GPUs. 
-We have reviewed more than 200 publications, extracting their
-features, such as the type of EA implemented, its properties, or if it
-is applied to solve real world problems. Thus, we have defined a taxonomy of
-the different approaches used in the parallelization
-process. Moreover, a deeper analysis has been conducted on a big
-selection, also describing the most representative in each category. 
-The analysis shows that this is a very prolific research area, with an
-increasing number of published papers every year. Genetic Algorithms
-are so far the most widely used approach in EAs, and they are mainly applied
-to solve real world problems due to the advantages that GPGPU computation
-offers. 
-The paper also presents a review of advances in hardware and software along with trends in the field.
+Metaheuristics and bioinspired methods have been recently adapted to massively parallel computation devices such as the General Purpose Graphics Processing Units (GPGPUs). One of the most prolific techniques taking advantage of this approach are the Evolutionary Algorithms (EAs), since they have an inherently parallel structure, based on a population of independent agents. This paper presents an exhaustive survey on all the literature related to parallelization of EAs on GPUs. We have reviewed more than 200 publications, extracting their features, such as the type of EA implemented, its properties, or if it is applied to solve real world problems. Thus, we have defined a taxonomy of the different approaches used in the parallelization process. Moreover, a deeper analysis has been conducted on a big selection, also describing the most representative in each category. The analysis shows that this is a very prolific research area, with an increasing number of published papers every year. Genetic Algorithms are so far the most widely used approach in EAs, and they are mainly applied to solve real world problems due to the advantages that GPGPU computation offers. The paper also presents a review of advances in hardware and software along with trends in the field.
 \end{abstract}
 
-\keywords{Survey, Review, GPUs, General Purpose GPUs, Parallel Computation,
-Evolutionary Algorithms, metaheuristics.}
+\begin{keyword}
+parallel computation \sep evolutionary algorithms \sep metaheuristics \sep GPUs \sep GPGPUs survey \sep review
+\end{keyword}
 
-\maketitle
+\end{frontmatter}
 
+%% \linenumbers
+
+%% main text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -111,7 +157,7 @@ expected to stop, theoretically until not too many years above
 2016. On 2005 Gordon Moore stated in an interview that his law cannot
 be sustained indefinitely because transistors would eventually reach
 the limits of miniaturization at atomic levels. Maybe it is time for
-Koomey's Law \citep{10.1109/MAHC.2010.28} to replace Moore's
+Koomey's Law \cite{10.1109/MAHC.2010.28} to replace Moore's
 Law. Koomey says that energy efficiency is doubled every 18
 months. For fixed computing load, the amount of battery you need will
 fall by a factor of two every year and a half.
@@ -123,15 +169,15 @@ instruction-level parallelism, so that single-threaded code is
 executed faster on newer processors with no modification. Now, to
 manage CPU power dissipation, processor makers favor multi-core chip
 designs, and software has to be written in a multi-threaded or
-multi-process manner to take full advantage of the new hardware \citep{6307773}.
+multi-process manner to take full advantage of the new hardware \cite{6307773}.
 
 Graphics processors have rapidly matured over the last years, leaving
 behind their roots as fixed function accelerators, and growing into
 almost general purpose computational devices for highly parallel
 workloads. Some of the earliest academic work about GPUs as
 computational devices date back to University of Washington in 2002
-\citep{Thompson:2002:UMG:774861.774894} and Stanford in 2004
-\citep{Buck:2004:BGS:1015706.1015800}.  % Esto deberÃ­a ir en la intro - JJ
+\cite{Thompson:2002:UMG:774861.774894} and Stanford in 2004
+\cite{Buck:2004:BGS:1015706.1015800}.  % Esto deberÃ­a ir en la intro - JJ
 
 GPUs are similar to multi-core CPUs but with two main differences,
 as can be seen in Figure \ref{fig:cpu-gpu}. Traditionally, CPU
@@ -151,7 +197,7 @@ scheduling of threads.
 \label{fig:cpu-gpu}
 \end{figure*}
 
-Physically GPUs are huge in comparison with CPUs as shown in Table \ref{tab:features}. Latest microprocessors from the two main vendors, AMD and Intel, are over 1 billion transistors while latest GPUs from AMD and NVIDIA \citep{nvidia} are over 7 billion transistors. CPUs draw 100W at most, a limit established by the cost of commodity heat sinks and fans. GPUs have bigger power consumption and currently can be reach 400 to 500W. This is made possible with the use of exotic cooling solutions. CPUs are built with the finest technology, read best lithography available, while GPUs are made with budget in mind in cheaper processes.
+Physically GPUs are huge in comparison with CPUs as shown in Table \ref{tab:features}. Latest microprocessors from the two main vendors, AMD and Intel, are over 1 billion transistors while latest GPUs from AMD and NVIDIA \cite{nvidia} are over 7 billion transistors. CPUs draw 100W at most, a limit established by the cost of commodity heat sinks and fans. GPUs have bigger power consumption and currently can be reach 400 to 500W. This is made possible with the use of exotic cooling solutions. CPUs are built with the finest technology, read best lithography available, while GPUs are made with budget in mind in cheaper processes.
 
 No standard terminology can be found in the world of graphics hardware.
 Every company have a  different set of terms to refer to the same
@@ -223,7 +269,7 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 \caption{CPUs, APUs and GPUs comparison of the best professional and commodity desktop hardware available nowadays. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
-Nowadays NVIDIA has one of the best performance for GPU computing \citep{benchmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of theirs GPUs. AMD has more execution units but its memory hierarchy is weaker. This way software bounded by memory bandwidth or with strong ordering inter-dependencies prefers NVIDIA hardware. On the other side, loads capped by pure ALU execution power use to be faster on AMD hardware.
+Nowadays NVIDIA has one of the best performance for GPU computing \cite{benchmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of theirs GPUs. AMD has more execution units but its memory hierarchy is weaker. This way software bounded by memory bandwidth or with strong ordering inter-dependencies prefers NVIDIA hardware. On the other side, loads capped by pure ALU execution power use to be faster on AMD hardware.
 
 Traditionally CPUs and GPUs have been separated. In 2016 the trend is
 to integrate both into a single chip for cost efficiency reasons. Only
@@ -242,9 +288,9 @@ rendering. However, the speedup that graphics hardware can bring to us
 is not free, as each application to be accelerated must be rewritten
 to take full advantage of the GPU.
 
-As CPU makers did some years ago, passing from single core to symmetric multiprocessing system (SMP), and more recently to multi-cores, GPU makers are following the same trend. We can connect more than one graphic card to our computer to improve its GPU capacities or buy a card with 2 graphic chips inside. GPUs are so much powerful than CPUs that even a small cluster of a few GPUs can be faster than classic, and much more expensive, big cluster of computers. First cluster of this kind appear in the scientific literature in 2004 \citep{10.1109/SC.2004.26} with big success. Nowadays, more and more people build small GPU clusters with a couple of mighty graphic cards just to game. Connecting 2, 3 or 4 graphics card is called CrossFire by AMD and Scalable Link Interface (SLI) by NVIDIA.
+As CPU makers did some years ago, passing from single core to symmetric multiprocessing system (SMP), and more recently to multi-cores, GPU makers are following the same trend. We can connect more than one graphic card to our computer to improve its GPU capacities or buy a card with 2 graphic chips inside. GPUs are so much powerful than CPUs that even a small cluster of a few GPUs can be faster than classic, and much more expensive, big cluster of computers. First cluster of this kind appear in the scientific literature in 2004 \cite{10.1109/SC.2004.26} with big success. Nowadays, more and more people build small GPU clusters with a couple of mighty graphic cards just to game. Connecting 2, 3 or 4 graphics card is called CrossFire by AMD and Scalable Link Interface (SLI) by NVIDIA.
 
-Most information shown in this and next sections is available from the websites of the respective manufacturer: AMD \citep{amd}, Intel \citep{intel} and NVIDIA \citep{nvidia}.
+Most information shown in this and next sections is available from the websites of the respective manufacturer: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GPUs Programming}
@@ -255,9 +301,9 @@ Most information shown in this and next sections is available from the websites 
 \subsection{Programming Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The way GPUs can be exploited is deeply rooted on its hardware. There exists several APIs: every company has a proprietary one tied to their respective products. This way AMD started with Close to Metal and NVIDIA with CUDA. Over time another standard appear, OpenCL \citep{opencl}.
+The way GPUs can be exploited is deeply rooted on its hardware. There exists several APIs: every company has a proprietary one tied to their respective products. This way AMD started with Close to Metal and NVIDIA with CUDA. Over time another standard appear, OpenCL \cite{opencl}.
 
-With respect to the programming tools available for developers, most the Application Program Interfaces (APIs) are based on C-like languages, but having some restrictions to improve the parallel throughput, such as no recursion at all or limited pointers usage. A popular option is the open source compiler LLVM \citep{LLVM} from the University of Illinois.
+With respect to the programming tools available for developers, most the Application Program Interfaces (APIs) are based on C-like languages, but having some restrictions to improve the parallel throughput, such as no recursion at all or limited pointers usage. A popular option is the open source compiler LLVM \cite{LLVM} from the University of Illinois.
 
 From 2003 the two main GPU developers, ATI an NVIDIA, started selling hardware solutions that need to be programmed with proprietary APIs. Despite previous work, the first widely supported GPUs were DX10 generation GeForce 8 series from NVIDIA, using the more mature CUDA API. On the other hand, the Radeon series from ATI, were programmed with the Close To Metal API.
 
@@ -267,7 +313,7 @@ OpenCL aimed to became the OpenGL of heterogeneous computing for parallel applic
 
 Most companies support OpenCL across their products. Apart from AMD and NVIDIA we can use it on graphic hardware from S3 and VIA. Also IBM has a version of OpenCL for PowerPC and CELL processors. Intel started to offer support from the APU architecture Ivy Bridge and GPUs. Embedded world is also interested in OpenCL. Imagination Technologies offer support for the SGX545 graphics core. As does Samsung with their ARM based microprocessors.
 
-To make life easier for potential users many libraries are appearing. One significant example are STL like extensions for the C++ language. In \citep{doi:10.1137/120903683} we can read a comparison of several modern C++ libraries providing high-level interfaces for programming multi- and many-core architectures on top of CUDA and OpenCL.
+To make life easier for potential users many libraries are appearing. One significant example are STL like extensions for the C++ language. In \cite{doi:10.1137/120903683} we can read a comparison of several modern C++ libraries providing high-level interfaces for programming multi- and many-core architectures on top of CUDA and OpenCL.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Execution Model}
@@ -318,9 +364,9 @@ Different EAs adapt to the limitations of the memory model with different degree
 
 In this section we cite some relevant material not int the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most EC metaheuristics can be implemented without effort by using any of the existing frameworks. 
 
-The most complete and comprehensive review of these frameworks is from Parejo \citep{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
+The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
 
-PUGACE\citep{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
+PUGACE\cite{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -338,22 +384,22 @@ The parallel EAs community has a wide legacy with MIMD architectures and a very 
 
 Alba classifies the main parallel metaheuristics models as follows:
 \begin{itemize}
-\item Parallel Genetic Algorithms \citep{Cantu-Paz98asurvey} %G. Luque, et al..
-\item Parallel Genetic Programming \citep{springerlink:10.1023_A:1021873026259}.
-\item Parallel Evolution Strategies \citep{Rudolph92parallelapproaches}.
-\item Parallel Ant Colony Algorithms S\citep{ParallelAntColony}.
-\item Parallel Estimation of Distribution Algorithms  \citep{springerlink:10.1007_3_540_32494_1_7}.
-\item Parallel Scatter Search \citep{GarciaLopez2003575}.
-\item Parallel Variable Neighborhood Search \citep{Garcia_lopez_theparallel}.
-\item Parallel Simulated Annealing \citep{Genetic_parallelsimulated} .
-\item Parallel Tabu Search \citep{Crainic97towardsa}.
-\item Parallel Greedy Randomized Adaptive Search Procedures \citep{Resendeparallelgreedy}.
-\item Parallel Hybrid Metaheuristics  \citep{Cotta05e:parallel}. 
-\item Parallel MultiObjective Optimization  \citep{Nebro07mocell:a}.
-\item Parallel Heterogeneous Metaheuristics  \citep{ANL04}. 
+\item Parallel Genetic Algorithms \cite{Cantu-Paz98asurvey} %G. Luque, et al..
+\item Parallel Genetic Programming \cite{springerlink:10.1023_A:1021873026259}.
+\item Parallel Evolution Strategies \cite{Rudolph92parallelapproaches}.
+\item Parallel Ant Colony Algorithms S\cite{ParallelAntColony}.
+\item Parallel Estimation of Distribution Algorithms  \cite{springerlink:10.1007_3_540_32494_1_7}.
+\item Parallel Scatter Search \cite{GarciaLopez2003575}.
+\item Parallel Variable Neighborhood Search \cite{Garcia_lopez_theparallel}.
+\item Parallel Simulated Annealing \cite{Genetic_parallelsimulated} .
+\item Parallel Tabu Search \cite{Crainic97towardsa}.
+\item Parallel Greedy Randomized Adaptive Search Procedures \cite{Resendeparallelgreedy}.
+\item Parallel Hybrid Metaheuristics  \cite{Cotta05e:parallel}. 
+\item Parallel MultiObjective Optimization  \cite{Nebro07mocell:a}.
+\item Parallel Heterogeneous Metaheuristics  \cite{ANL04}. 
 \end{itemize}
 
-Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we revise the bibliography taking in mind how an algorithm has been parallelized using that paradigm, so, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \citep{ZhangImplementationMasterSlave}: master-slave model \citep{man-leung-wong-parallel-2005}, fine-grained model \citep{jian_ming_li_efficient_2007}, coarse-grained model \citep{Maitre:2009:CGP:1569901_1570089} \citep{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \citep{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
+Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we revise the bibliography taking in mind how an algorithm has been parallelized using that paradigm, so, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \cite{ZhangImplementationMasterSlave}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901_1570089} \cite{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,7 +441,7 @@ Nevertheless, for the GPUs, hybrid EAs are a perfect candidate to exploit the hi
 
 
 \subsubsection{Non-standard approaches}
-By the end of the work we have included a subsection for non-standard approaches \citep{DBLP:conf/gecco/PospichalMOSJ11} including  papers which may not be included in any of the previous ones because they mapped the algorithms and the problem they solve in a special way that cannot be considered as fine grained, coarse grained or master-slave ones.
+By the end of the work we have included a subsection for non-standard approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including  papers which may not be included in any of the previous ones because they mapped the algorithms and the problem they solve in a special way that cannot be considered as fine grained, coarse grained or master-slave ones.
 
 
 
@@ -480,7 +526,7 @@ traffic.
 
 One of the first proposals for parallel Evolutionary Computation using
 a GPU was done by Wong et
-al. \citep{man-leung-wong-parallel-2005}. They presented an
+al. \cite{man-leung-wong-parallel-2005}. They presented an
 Evolutionary Programming (EP) algorithm %without crossover EP does not
                                 %have crossover - JJ
 for solving
@@ -500,16 +546,16 @@ memory. Each GPU thread evaluated one individual and returned its
 fitness at the end of the parallel process to the CPU, for the next
 evolution cycle. 
 
-A Genetic Programming (GP) method proposed by Harding and Banzhaf \citep{4215552} uses the GPU only for performing the evaluation, while the rest of the steps of the algorithm are run on the CPU. The authors tested real-coded expressions in up to 10000 nodes, boolean expressions in up to 1500 nodes, and some real world problem where they evaluate expressions in up to 10000 nodes. In some cases, the results yielded speedup of thousand times.
+A Genetic Programming (GP) method proposed by Harding and Banzhaf \cite{4215552} uses the GPU only for performing the evaluation, while the rest of the steps of the algorithm are run on the CPU. The authors tested real-coded expressions in up to 10000 nodes, boolean expressions in up to 1500 nodes, and some real world problem where they evaluate expressions in up to 10000 nodes. In some cases, the results yielded speedup of thousand times.
 
-Zhang et al. \citep{ZhangImplementationMasterSlave} adapt different EAs to a GPU using CUDA. The authors implemented an hierarchical parallel genetic algorithm using a deme model at high level, and a master-slave schema at low level. In this implementation, the CPU initializes the populations and distributes them to thread blocks in shared memory. Then, GPU threads within each block run a GA independently, selection, crossover, mutation and evaluation, and migrates individuals to other thread blocks in its neighborhood. In this case, no speedup results were reported.
+Zhang et al. \cite{ZhangImplementationMasterSlave} adapt different EAs to a GPU using CUDA. The authors implemented an hierarchical parallel genetic algorithm using a deme model at high level, and a master-slave schema at low level. In this implementation, the CPU initializes the populations and distributes them to thread blocks in shared memory. Then, GPU threads within each block run a GA independently, selection, crossover, mutation and evaluation, and migrates individuals to other thread blocks in its neighborhood. In this case, no speedup results were reported.
 
-Van Luong et al. \citep{5586403} published in 2010 a methodology for mapping the search space onto the GPU memory hierarchy in three levels: the distribution of the search process among the CPU and GPU (1), the mapping of the neighborhood in the GPU threads (2), and the effective usage of the texture memory in the context of hybrid EAs (3). Experiments to solve the QAP problem with CUDA were presented, where the evolutionary process was performed in the CPU and the generation of the Local Search neighborhood are performed on parallel in the GPU, achieving an acceleration of $\times14.6$ times faster. Hardware used was Core 2 Duo 2,67 Ghz and Nvidia GTX 280. As it can be seen this work also showed the benefits of using a conjunction of CPU and GPU, being the GPU used only for intensive calculations.
+Van Luong et al. \cite{5586403} published in 2010 a methodology for mapping the search space onto the GPU memory hierarchy in three levels: the distribution of the search process among the CPU and GPU (1), the mapping of the neighborhood in the GPU threads (2), and the effective usage of the texture memory in the context of hybrid EAs (3). Experiments to solve the QAP problem with CUDA were presented, where the evolutionary process was performed in the CPU and the generation of the Local Search neighborhood are performed on parallel in the GPU, achieving an acceleration of $\times14.6$ times faster. Hardware used was Core 2 Duo 2,67 Ghz and Nvidia GTX 280. As it can be seen this work also showed the benefits of using a conjunction of CPU and GPU, being the GPU used only for intensive calculations.
 
-There are other papers related with the previous approach, like the one by Tsutsui et al. \citep{Tsutsui:2011:GECCO}. This work uses a master-slave approach with an Ant Colony Optimization (ACO) algorithm \citep{Dorigo:1999:ACO:329055.329062} and Tabu Search \citep{Glover:1997:TS:549765}. Tsutsui uses an Intel Core i7 965 (3.2 GHz) processor and a single NVIDIA GeForce GTX480 GPU. They compare CPU and GPU implementations with and the results showed that GPU computation with MATA, an efficient method for thread assignment cost which they call Move-Cost Adjusted Thread Assignment, showed a promising speedup compared to computation with CPU.
+There are other papers related with the previous approach, like the one by Tsutsui et al. \cite{Tsutsui:2011:GECCO}. This work uses a master-slave approach with an Ant Colony Optimization (ACO) algorithm \cite{Dorigo:1999:ACO:329055.329062} and Tabu Search \cite{Glover:1997:TS:549765}. Tsutsui uses an Intel Core i7 965 (3.2 GHz) processor and a single NVIDIA GeForce GTX480 GPU. They compare CPU and GPU implementations with and the results showed that GPU computation with MATA, an efficient method for thread assignment cost which they call Move-Cost Adjusted Thread Assignment, showed a promising speedup compared to computation with CPU.
 
 There are papers related with other subjects % cuales subjects? - JJ
-like \citep{Pedemonte:2011:BOG:2001858.2002031} which studies the impact of using different representations for binary problems in GPUs to evaluate GAs: boolean data type versus packing multiple bits in a non-boolean data type. The execution platform was a PC with Quad Core Intel Xeon E5530 processor at 2,4 Ghz and a Tesla C1060 with 240 CUDA cores. The CPU only calculates the initial population and a matrix of random number to be used in crossover and mutation by the GPU. The authors review the problem of the data types when GPGPU is used. Several data types of 8, 16, 32, and 64 bits are compared in CPU and GPU versions. Results shows that
+like \cite{Pedemonte:2011:BOG:2001858.2002031} which studies the impact of using different representations for binary problems in GPUs to evaluate GAs: boolean data type versus packing multiple bits in a non-boolean data type. The execution platform was a PC with Quad Core Intel Xeon E5530 processor at 2,4 Ghz and a Tesla C1060 with 240 CUDA cores. The CPU only calculates the initial population and a matrix of random number to be used in crossover and mutation by the GPU. The authors review the problem of the data types when GPGPU is used. Several data types of 8, 16, 32, and 64 bits are compared in CPU and GPU versions. Results shows that
 packing in 32 bits data types achieve speedup values of up to
 $\times100$ compared with boolean data types, specially when the size
 of the instances increases. This make sense because the Tesla C1060
@@ -517,14 +563,14 @@ are equipped with 32-bit integer ALUs.
 
 Cano et al. \cite{SpeedingTheEvaluationofGPCano:2012} described a massively parallel evaluation model using a Genetic Programming algorithm for evolving rules for dataset classification. They copied the dataset to the GPU global memory, and evaluated the rules (individuals) for each instance of the dataset in parallel (match kernel). At the end, each successful match was reduced getting each individual fitness (reduction kernel). The implementation, based on CUDA, speedups the fitness calculation phase and greatly reduce the computation time. Results were compared using one, two and four CPU threads and the combination of one or two GPUs of different features (285 cores for GPUa -NVIDIA GeForce 285 GTX- or 480 cores for GPUb -NVIDIA GeForce 480 GTX-). They test three classification algorithms and the results were not very significant for small datasets, but they increased the speedup with large datasets until $\times820$ using two GPUs with 480 cores each one.
 
-The work by Chitty \citep{Chitty16FastParallel} uses a Master-Slave architecture for evaluating at time the population for four GP problems. The results were achieved using an NVidia GeForce Kepler 670 GTX graphics card and compared with a previous one-dimensional stack approach for the same problems. The author fit the algorithm until to observe a peak computational speed of over 55 billion Genetic Programming Operations per second a twofold improvement over the previous one-dimensional stack approach.
+The work by Chitty \cite{Chitty16FastParallel} uses a Master-Slave architecture for evaluating at time the population for four GP problems. The results were achieved using an NVidia GeForce Kepler 670 GTX graphics card and compared with a previous one-dimensional stack approach for the same problems. The author fit the algorithm until to observe a peak computational speed of over 55 billion Genetic Programming Operations per second a twofold improvement over the previous one-dimensional stack approach.
 
 
 Recent works are currently being applied to real-world problems. Jaros et al. \cite{Jaros14Wormhole} use GPUs to lower the run time and improve the quality of the solutions in the problem of wormhole switching in collective communications. The start from an evolutionary tool capable of finding optimal communication schedules for various communication patterns on wide range of interconnection networks topologies of up to 256 nodes. The tool consumes tens of hours so they decide to improve it. As the fitness evaluation was responsible for the 93\% of the execution time this was the only part moved to the GPU. In a first step only one GPU was used with speedups up to $\times5$. After that they made a new implementation capable of using 8 GPUs and 30 times faster than the original.
 
-In \citep{Contreras:2012:UGA:2150467.2150469} the authors use a CPU-GPU architecture for stock market trading. The proposed architecture offers the benefices of GPU distribution for stock market researchers, rather for computer architecture experts. The authors used Jacket \citep{jacket:Matlab}, a software platform for the rapid development of GPGPU computing applications within the MATLAB computing environment, C, and C++. However, this framework is no longer available \footnote{\url{http://blog.accelereyes.com/blog/2012/12/12/exciting-updates-from-accelereyes/}}. Steps and guidelines to migrate from CPU code to GPU code are explained, what is a great contribution, because usually, the authors do not include this information in the papers. The algorithm run in the CPU, but all  {\em for} loops in selection, evaluation, crossover and mutation are translated to Jacket's {\em gfor} to be parallelized in the GPU. Three different CPU configurations are used for the experiments: Pentium 4, Pentium SU41000 and Intel Core i7-860. The former is also combined with an nVidia 460GTX for GPU experiments. Different population size are also tested. The time is reduced to 65\% in comparison with the CPU version. Other conclusions are obtained: speedups with high number of individuals, rather than increasing the number of evaluations; and time reduction for  tournament selection  over roulette-wheel selection.
+In \cite{Contreras:2012:UGA:2150467.2150469} the authors use a CPU-GPU architecture for stock market trading. The proposed architecture offers the benefices of GPU distribution for stock market researchers, rather for computer architecture experts. The authors used Jacket \cite{jacket:Matlab}, a software platform for the rapid development of GPGPU computing applications within the MATLAB computing environment, C, and C++. However, this framework is no longer available \footnote{\url{http://blog.accelereyes.com/blog/2012/12/12/exciting-updates-from-accelereyes/}}. Steps and guidelines to migrate from CPU code to GPU code are explained, what is a great contribution, because usually, the authors do not include this information in the papers. The algorithm run in the CPU, but all  {\em for} loops in selection, evaluation, crossover and mutation are translated to Jacket's {\em gfor} to be parallelized in the GPU. Three different CPU configurations are used for the experiments: Pentium 4, Pentium SU41000 and Intel Core i7-860. The former is also combined with an nVidia 460GTX for GPU experiments. Different population size are also tested. The time is reduced to 65\% in comparison with the CPU version. Other conclusions are obtained: speedups with high number of individuals, rather than increasing the number of evaluations; and time reduction for  tournament selection  over roulette-wheel selection.
 
-Stock market trading analysis haas also been recently addressed by using GP in GPUs. The algorithm described in the work by Sungjoo et al. \citep{Sungjoo15fastknowledge} is used to solve the problem of knowledge discovery in stock market time series, i.e. finding the so-called precursor patterns, which model events occurred in the time series. Thus, every individual (tree) in the GP algorithm is a pattern, which must be contrasted against the whole dataset to find out if it is a precursor. This is what the evaluation function does. The time series is divided into different subsets, and stored in several GPUs. The data is then copied once and just the new individuals to evaluate and the partial results of the evaluation must be transferred and updated. The run is conducted for 50 generations and with 500 individuals of a maximum depth of 3 levels, using a i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690). The authors considered 512 threads per block, 260 blocks per grid and just one grid per GPU. The comparison in performance yields a reduction of 56 times for just one GPU to 277 using all of them. This improvement is got using local memory allocation, using the shared memory of blocks instead yields a smaller improvement of around 188 times faster in the best case. Regarding the influence of individuals' tree size (number of nodes) in the performance, the authors show that the running time grows for just one GPU, but when more than four are used, this growing is minimum and could be assumed in order to improve the quality of the results.
+Stock market trading analysis haas also been recently addressed by using GP in GPUs. The algorithm described in the work by Sungjoo et al. \cite{Sungjoo15fastknowledge} is used to solve the problem of knowledge discovery in stock market time series, i.e. finding the so-called precursor patterns, which model events occurred in the time series. Thus, every individual (tree) in the GP algorithm is a pattern, which must be contrasted against the whole dataset to find out if it is a precursor. This is what the evaluation function does. The time series is divided into different subsets, and stored in several GPUs. The data is then copied once and just the new individuals to evaluate and the partial results of the evaluation must be transferred and updated. The run is conducted for 50 generations and with 500 individuals of a maximum depth of 3 levels, using a i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690). The authors considered 512 threads per block, 260 blocks per grid and just one grid per GPU. The comparison in performance yields a reduction of 56 times for just one GPU to 277 using all of them. This improvement is got using local memory allocation, using the shared memory of blocks instead yields a smaller improvement of around 188 times faster in the best case. Regarding the influence of individuals' tree size (number of nodes) in the performance, the authors show that the running time grows for just one GPU, but when more than four are used, this growing is minimum and could be assumed in order to improve the quality of the results.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -536,18 +582,18 @@ Researchers implement fine-grained algorithms using GPGPU, making every scalar p
 The second problem of this approach is the random number generator. The CPU can easily generate random numbers, but the GPU is not designed for this task. So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every thread. 
 
 
-Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPU, for solving the Colville problem \citep{Ng:2005:DFF:1064290.1064296} in 2005. They place the population in a toroidal 2D grid and use the classical Von Newmann neighborhood structure with five cells. They store chromosomes and their fitness values in texture memory on the graphic card, and both, fitness evaluation and genetic operations, are implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals was represented as a set of 2D texture maps. $BLX-\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
+Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPU, for solving the Colville problem \cite{Ng:2005:DFF:1064290.1064296} in 2005. They place the population in a toroidal 2D grid and use the classical Von Newmann neighborhood structure with five cells. They store chromosomes and their fitness values in texture memory on the graphic card, and both, fitness evaluation and genetic operations, are implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals was represented as a set of 2D texture maps. $BLX-\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
 
-In 2006, \cite{man-leung-wong-parallel-2006} proposed a parallel hybrid GA (HGA) where the whole evolutionary process run on the GPU, and only the random number generation is done in CPU. Every individual is assigned to a GPU thread, and each one selects probabilistically an individual in its neighborhood to mate with it. Just one offspring individual is generated each time, and it replaces the old one in that GPU thread. The authors compare their implementation with a standard GA run in a CPU and the FEP \citep{man-leung-wong-parallel-2005} algorithm. Using a new pseudo-deterministic selection method, the amount of random numbers transferred from the CPU is reduced. HGA reaches speedup of $\times5.30$ when compared against the sequential version. In 2009 Wong et al. \citep{wong-implementation-2009} provide implementation details for fine-grained evolutionary algorithms.  
+In 2006, \cite{man-leung-wong-parallel-2006} proposed a parallel hybrid GA (HGA) where the whole evolutionary process run on the GPU, and only the random number generation is done in CPU. Every individual is assigned to a GPU thread, and each one selects probabilistically an individual in its neighborhood to mate with it. Just one offspring individual is generated each time, and it replaces the old one in that GPU thread. The authors compare their implementation with a standard GA run in a CPU and the FEP \cite{man-leung-wong-parallel-2005} algorithm. Using a new pseudo-deterministic selection method, the amount of random numbers transferred from the CPU is reduced. HGA reaches speedup of $\times5.30$ when compared against the sequential version. In 2009 Wong et al. \cite{wong-implementation-2009} provide implementation details for fine-grained evolutionary algorithms.  
 
 Liu and Luo \cite{zhongwen-luo-cellular-2006} implemented a cellular algorithm on GPU to solve three different satisfiability problems (SAT) 
-using a greedy local search (GSAT) \citep{Selman93domain-independentextensions} and a cellular GA (cGA). 
+using a greedy local search (GSAT) \cite{Selman93domain-independentextensions} and a cellular GA (cGA). 
 They saved local minimums using a random walk strategy, jumping to other search space location. 
 The cellular GA adopts a 2D toroidal grid, using the Moore neighborhood, stored on texture GPU memory. This implementation generates the random numbers in the GPU (using a generated seed on the CPU at the beginning of the process). They carried out the experiments using two GSAT implementations, CGSAT (with crossover and without mutation) and PGSAT (without crossover and with mutation) running them on CPU and GPU with different population sizes. A great time reduction was reached using the GPU parallelization approach (from 95ms to 18 ms for CGSAT and from 464ms to 77 ms for PGSAT).
 
 Li et al. \cite{jian_ming_li_efficient_2007} proposed a cellular algorithm on GPU for solving some common approximation functions. The authors reported experiments using big populations (up to 10000 individuals) reaching speedups of $\times73.6$ for some implementations. The novelty of this paper is the bit dataset because it is not easy to deal with bit datasets using a GPU due to the memory size restrictions. The GPUs does not support binary operations, but in this paper the authors dealt with binary individuals of 24 bits  and simulated bit-operator by judging each bit of a binary value is 1 or 0. They faced a general problem for all GPGPU community with bit operations. They proposed to use random-textures for random numbers generation, but the random numbers were generated on CPU previously. 
 
-In \citep{Li:2009:PIA:1726585.1726930} the authors proposed an Fine-grained parallel immune algorithm (FGIA) which is an Artificial Immune System combined with evolutionary algorithm to generate several optimization algorithms. They solve three medium-size instances of the Travelling Salesman problem (TSP) using a fine-grained parallel algorithm with CUDA C. The paper enlarges the population size of FGIA and maintains better population diversity. In conclusion, they included a sub-linear relation between the population size and the execution time, which made the proposal very useful for solving difficult problems that require huge population sizes.
+In \cite{Li:2009:PIA:1726585.1726930} the authors proposed an Fine-grained parallel immune algorithm (FGIA) which is an Artificial Immune System combined with evolutionary algorithm to generate several optimization algorithms. They solve three medium-size instances of the Travelling Salesman problem (TSP) using a fine-grained parallel algorithm with CUDA C. The paper enlarges the population size of FGIA and maintains better population diversity. In conclusion, they included a sub-linear relation between the population size and the execution time, which made the proposal very useful for solving difficult problems that require huge population sizes.
 
 Gonz\'alez et al. \cite{springerlink:10.1007978-3-642-12538-619} use CUDA and store individuals and their fitness values in the GPU global memory. Both, fitness evaluation and genetic operators, run on GPU (no CPU is used). 
 They use a pseudo random number generator provided by the SDK of CUDA named Merseinne Twister. Their experiments include some general discrete and continuous optimization problems, and they compare physical efficiency and numerical efficacy with respect to CPU implementation. 
@@ -563,7 +609,7 @@ Coarse grained algorithms are the most common among parallel EAs. Generally, the
 
 In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
 
-With regard to this topology, one of the first island models on GPU approaches was published on the GPU competition of GECCO 2009 \citep{gecco2009CompetitionPospichal}. It presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. Nevertheless, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
+With regard to this topology, one of the first island models on GPU approaches was published on the GPU competition of GECCO 2009 \cite{gecco2009CompetitionPospichal}. It presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. Nevertheless, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
 
 Tsutsui and Noriyuki \cite{1570355} propose run a coarse-grained GA on GPU to solve the QAP problem using CUDA. This is one of the hardest optimization problems in permutation domains. 
 Their model generates the initial population on CPU and copied it to the GPU VRAM; then, each subpopulation in a GPU (NVIDIA GeForce GTX285) is evolved. At some generations, individuals in subpopulations are shuffled through the GPU VRAM. Results show a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor. 
@@ -582,7 +628,7 @@ Since the population size is limited to 16KB per island on most GPUs, if the pop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-The design and implementation of a hybrid EA with local search to solve MAX-SAT over GPUs was thoroughly discussed in \citep{Munawar:2009:HGA:1666141_1666143}. Manuwar et al. uses a hierarchical algorithm of 2D structured sub-populations arranged as islands in a 2D grid. Therefore, every individual has 4 neighboring individuals (north, south, east and west) and each sub-population has 4 neighboring sub-populations (north, south, east and west). Instead of using a conventional algorithm for migration between the sub-populations, they introduced a new technique called diffusion. Diffusion is more suitable for implementation of cGAs based pGA over a GPU. In the proposed implementation, the host processor (CPU) acts as a controller while an NVIDIA Tesla C1060 GPU provides the required computational resources. Configuration, memory allocation and initialization are performed over the host processor. After the initialization stage, data is transferred to the device and the code enters a loop. The loop keeps on repeating until the maximum number of generation criteria is satisfied. Results were collected over a system with NVIDIA Tesla C1060 GPU mounted on a motherboard with Intel Core i7 920@2.67GHz as the host CPU. C1060 have 4GB of device memory, 30 streaming multiprocessors, and the total number of processing cores is 240. The maximum amount of shared memory per block is 16KB and clock rate is 1.30GHz. They compare the results of the algorithms over NVIDIA with optimized for local search, mutation, recombination, selection and diffusion (migration) with different implementations using serial implementation, OpenMP implementation over Intel and over Ultra Spark architectures. The found that the maximum speedup is for larger problems, and it is up to $\times25$ if compared the serial implementation over Intel Core 2 Duo 3.3GHz with the NVIDIA implementation. 
+The design and implementation of a hybrid EA with local search to solve MAX-SAT over GPUs was thoroughly discussed in \cite{Munawar:2009:HGA:1666141_1666143}. Manuwar et al. uses a hierarchical algorithm of 2D structured sub-populations arranged as islands in a 2D grid. Therefore, every individual has 4 neighboring individuals (north, south, east and west) and each sub-population has 4 neighboring sub-populations (north, south, east and west). Instead of using a conventional algorithm for migration between the sub-populations, they introduced a new technique called diffusion. Diffusion is more suitable for implementation of cGAs based pGA over a GPU. In the proposed implementation, the host processor (CPU) acts as a controller while an NVIDIA Tesla C1060 GPU provides the required computational resources. Configuration, memory allocation and initialization are performed over the host processor. After the initialization stage, data is transferred to the device and the code enters a loop. The loop keeps on repeating until the maximum number of generation criteria is satisfied. Results were collected over a system with NVIDIA Tesla C1060 GPU mounted on a motherboard with Intel Core i7 920@2.67GHz as the host CPU. C1060 have 4GB of device memory, 30 streaming multiprocessors, and the total number of processing cores is 240. The maximum amount of shared memory per block is 16KB and clock rate is 1.30GHz. They compare the results of the algorithms over NVIDIA with optimized for local search, mutation, recombination, selection and diffusion (migration) with different implementations using serial implementation, OpenMP implementation over Intel and over Ultra Spark architectures. The found that the maximum speedup is for larger problems, and it is up to $\times25$ if compared the serial implementation over Intel Core 2 Duo 3.3GHz with the NVIDIA implementation. 
 
 Diego et al. \cite{fjdiego-vrp}proposed a parallel strategy for solving the Capacitated Vehicle Routing Problem (CVRP) by means of an ACO algorithm. They combined the CPU processing, random number generation and centralized pheromone information dealing, with the GPU parallel capabilities: initialization of trails, build solutions, choosing of the best solution, and pheromone evaporation. The experiments were conducted on a GeForce GTX460 in a Pentium Dual Core 2.7GHz with 2GB RAM, using CUDA. The results showed a speedup of $\times12$ in the best case.
 
@@ -590,13 +636,13 @@ Delevacq et al. \cite{ACO-on-GPU_Develacq} tests different parallel strategies f
 
 Cecilia et al. \cite{Cecilia201342} proposed three different techniques for improving the classical ACO algorithms parallelization on GPUs: a data parallelism scheme for tour construction on GPU, a GPU-based pheromone updating stage, and a roulette wheel implementation on GPU, called I-Roulette. They introduced the queen ants, associated with CUDA blocks, and the worker ants, associated to CUDA threads. The experiments were performed on a four-core Intel Xeon E5620 running at 2.4 GHz, with 16GB RAM, and a NVIDIA Tesla C2050 Fermi. The proposed techniques lead to obtain a speedup factor of up to $\times20$ in comparison with the sequential implementation.
 
-In \citep{5586530} three cellular GA versions are compared: a CPU, a mono-GPU and a multi-GPU version, being the first work in use multi-GPU for cEAs. A 2D grid population is used and divided in two GPUs in the multi version. Selection, recombination, mutation and evaluation are performed in parallel. In the multi GPU case, a thread for each GPU is controlled by a CPU thread and borderline individuals of the sub-populations are exchanged. The speedup ranges from $\times8$ to $\times711$. However, there is not significantly difference between mono and multi GPU versions, probably due the overhead of the CPU. Hardware used is Intel Quad processor 2.67GHz and Nvidia GeForce GTX 285.
+In \cite{5586530} three cellular GA versions are compared: a CPU, a mono-GPU and a multi-GPU version, being the first work in use multi-GPU for cEAs. A 2D grid population is used and divided in two GPUs in the multi version. Selection, recombination, mutation and evaluation are performed in parallel. In the multi GPU case, a thread for each GPU is controlled by a CPU thread and borderline individuals of the sub-populations are exchanged. The speedup ranges from $\times8$ to $\times711$. However, there is not significantly difference between mono and multi GPU versions, probably due the overhead of the CPU. Hardware used is Intel Quad processor 2.67GHz and Nvidia GeForce GTX 285.
 
 
 
 During 2012, Luong \cite{luongMetaheuristicsPpsn2012} implemented a GPGPU algorithm from the metaheuristic point of view. In the paper a guideline to exploit heterogeneous computing resources, including GPU and CPUs, for effective hybrid metaheuristics was proposed. The goal of this paper is not the evaluation of the fitness of some individuals, but the parallelization of metaheuristics which were not inherently parallel, like local search algorithms. Task distribution is clearly defined into the paper, the CPU manages the whole sequential Local Search process and the GPU is dedicated to the costly part i.e. the parallel generation and evaluation of the neighbor solutions.
 
-Authors mapped the population to the GPU and applied the parallel metaheuristic to each individual using its neighborhood structure taking advantage of the blocks of threads present in the GPU architecture. The parallelization of these metaheuristics generated several different individuals that the GPU evaluated at the same time. The critical issue was finding efficient mappings between a GPU thread and a particular neighbor. Indeed, this step is crucial in the design of new large neighborhood local search algorithms for binary problems since it is clearly identified as the gateway between a GPU process and a candidate neighbor. They reviewed neighborhoods based on a Hamming distance of one, two and three, and applied their suggestions to Permuted Perceptron problem \citep{KnudsenPermutedPerceptronProblem1999}. They considered a Tabu Search algorithm \citep{TaillardTabySearch1991} using CUDA for each neigborhood with a configuration of Intel Core 2 Duo 2.67GHz with a NVIDIA GTX 280 card. The CUDA implementation increased the number of successful solutions drastically every instance of the problem. Regarding execution time, acceleration factors using GPU are very significant (from $\times24.2$ to $\times25.8$).
+Authors mapped the population to the GPU and applied the parallel metaheuristic to each individual using its neighborhood structure taking advantage of the blocks of threads present in the GPU architecture. The parallelization of these metaheuristics generated several different individuals that the GPU evaluated at the same time. The critical issue was finding efficient mappings between a GPU thread and a particular neighbor. Indeed, this step is crucial in the design of new large neighborhood local search algorithms for binary problems since it is clearly identified as the gateway between a GPU process and a candidate neighbor. They reviewed neighborhoods based on a Hamming distance of one, two and three, and applied their suggestions to Permuted Perceptron problem \cite{KnudsenPermutedPerceptronProblem1999}. They considered a Tabu Search algorithm \cite{TaillardTabySearch1991} using CUDA for each neigborhood with a configuration of Intel Core 2 Duo 2.67GHz with a NVIDIA GTX 280 card. The CUDA implementation increased the number of successful solutions drastically every instance of the problem. Regarding execution time, acceleration factors using GPU are very significant (from $\times24.2$ to $\times25.8$).
 
 In 2014,  \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+GPU high performance EA. 16 islands of 8 individuals were set as parameters. The experiments were carried in a combination of Intel Xeon X5650 @2.66GHz and  Intel Xeon X7550 @2.0GHz processors, although the paper do not includes information about the graphic cards used. Several instances of heterogeneous scheduling problems were used to compared with other metaheuristics, obtaining better makespans. 
 
@@ -605,7 +651,7 @@ In 2014,  \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+
 \subsection{Non-standard Approaches}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Pospichal et al. in 2011 has presented several papers related with GPU devices. One of the last is \citep{DBLP:conf/gecco/PospichalMOSJ11} where they propose to use a GPU device for Grammatical Evolution, evolving complete programs in an arbitrary language using variable length binary strings. For this problem, every individual is a program, so it must be compiled and sent to the GPU for being evaluated every generation. However the most time-consuming part of this approach is to sent the individuals to the GPU and not the evaluation itself, so, the authors propose to evolve the whole Grammatical Evolution algorithm on the GPU with a special mapping function. They mapped one individual per block of threads and one thread is used to manage each individual. They compare the execution time of an Intel Core i7 with NVIDIA GTX 480 using CUDA (CPU implementation with C) an a Java library called GEVA \citep{O'Neill:2008:GGE:1527063.1527066}, which is an interpreted language (CPU implementation using GEVA).  The authors include results for both implementations (C and GEVA) and one GPU implementation, and they compare them with and without overhead for CPU-GPU communication. We include only the results with overhead, because the parallel version needs the CPU-GPU communication, so the authors might take care about it. The results of GPU implementation are in average 5.3 speedup than CPU with C implementation which is an expected result. The speedup grows until $\times102.8$ when GPU implementation and CPU implementation with GEVA are analysed, but the authors do not include any standard deviation results, so we do not consider the last result as the most important of the paper. Thus, this paper proposes two levels of parallelism: 1) individuals are evaluated in parallel (by threads in the same block) and 2) data within individuals (genes, crossover points, mutations, fitness points, etc.) are maintained by parallel access as well (by block of threads).
+Pospichal et al. in 2011 has presented several papers related with GPU devices. One of the last is \cite{DBLP:conf/gecco/PospichalMOSJ11} where they propose to use a GPU device for Grammatical Evolution, evolving complete programs in an arbitrary language using variable length binary strings. For this problem, every individual is a program, so it must be compiled and sent to the GPU for being evaluated every generation. However the most time-consuming part of this approach is to sent the individuals to the GPU and not the evaluation itself, so, the authors propose to evolve the whole Grammatical Evolution algorithm on the GPU with a special mapping function. They mapped one individual per block of threads and one thread is used to manage each individual. They compare the execution time of an Intel Core i7 with NVIDIA GTX 480 using CUDA (CPU implementation with C) an a Java library called GEVA \cite{O'Neill:2008:GGE:1527063.1527066}, which is an interpreted language (CPU implementation using GEVA).  The authors include results for both implementations (C and GEVA) and one GPU implementation, and they compare them with and without overhead for CPU-GPU communication. We include only the results with overhead, because the parallel version needs the CPU-GPU communication, so the authors might take care about it. The results of GPU implementation are in average 5.3 speedup than CPU with C implementation which is an expected result. The speedup grows until $\times102.8$ when GPU implementation and CPU implementation with GEVA are analysed, but the authors do not include any standard deviation results, so we do not consider the last result as the most important of the paper. Thus, this paper proposes two levels of parallelism: 1) individuals are evaluated in parallel (by threads in the same block) and 2) data within individuals (genes, crossover points, mutations, fitness points, etc.) are maintained by parallel access as well (by block of threads).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -632,24 +678,41 @@ the communication cost between GPUs and CPUs.
 %As future work another sources of works on the field will be considered to improve the completeness of this work and gain further quality on its analysis.
 % Antonio - yo no pondría esto, porque te pueden decir los revisores que por qué no lo has hecho ya... :_(
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% acknowledgements
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{acks}
-This work has been partially funded by projects TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitivity), TEC2015-68752 (Spanish Ministry of Economy and Competitiveness and FEDER), PROY-PP2015-06 (Plan Propio 2015 UGR), and MOSOS (PRY142/14, Fundaci\'on P\'ublica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci\'on).
-\end{acks}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section{}
+%% \label{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliographystyle{SageV}
-\bibliography{gpus-parcomp}
+%% If you have bibdatabase file and want bibtex to generate the
+%% bibitems, please use
+%%
+\bibliographystyle{elsarticle-num} 
+\bibliography{gpus-jpdc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
+\endinput
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
