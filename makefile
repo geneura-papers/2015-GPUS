@@ -1,11 +1,11 @@
 ###############################################################################
-# Makefile
+# makefile
 ###############################################################################
 
 DIA = $(wildcard *.dia)
 PNG = $(DIA:.dia=.png)
 TEX = $(wildcard *.tex)
-TMP = $(TEX:.tex=.aux) $(TEX:.tex=.bbl) $(TEX:.tex=.blg) $(TEX:.tex=.fdb_latexmk) $(TEX:.tex=.fls) $(TEX:.tex=.log) $(TEX:.tex=.out)
+TMP = $(TEX:.tex=.aux) $(TEX:.tex=.bbl) $(TEX:.tex=.blg) $(TEX:.tex=.fdb_latexmk) $(TEX:.tex=.fls) $(TEX:.tex=.log) $(TEX:.tex=.out) $(TEX:.tex=.spl)
 PDF = $(TEX:.tex=.pdf)
 
 ###############################################################################

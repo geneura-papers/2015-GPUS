@@ -19,7 +19,7 @@
 %% with numbered style bibliographic references
 %% SP 2008/03/01
 
-\documentclass[preprint,12pt]{elsarticle}
+\documentclass[final,5p,towcolumns]{elsarticle}
 
 %% Use the option review to obtain double line spacing
 %% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
@@ -326,11 +326,12 @@ A kernel applies a single stream of instructions to vast quantities of data that
 
 Unlike traditional computation, arbitrary communication within a kernel is strongly limited. However, communication and synchronization is generally allowed locally within a {\it work-group}. So work-groups serve two purposes: first, they break up a kernel into manageable chunks, and second, they define a limited scope for communication. 
 
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=0.75\textwidth]{grid.png}}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.75\textwidth]{grid.png}
 \caption{Execution model: Each piece of data is a work-item (thread); a kernel has thousands of work-items and is organized into many work-groups (thread blocks); each work-group process many work-items.}
 \label{figure:grid}
-\end{figure}
+\end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Memory Model}
@@ -338,11 +339,12 @@ Unlike traditional computation, arbitrary communication within a kernel is stron
 
 The memory model defines how data is stored and communicated within a device and between the device and the CPU. The memory model can be seen in Figure \ref{figure:memory}. DirectCompute, CUDA and OpenCL share the same four memory types but employ different terminology:
 
-\begin{figure}
-\centerline{\includegraphics[width=0.66\textwidth]{memory.png}}
+\begin{figure*}
+\centering
+\includegraphics[width=0.66\textwidth]{memory.png}
 \caption{Memory model defines how the data is stored and communicated between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
-\end{figure}
+\end{figure*}
 
 \begin{itemize}
 \item Global memory: it is available for both read and write access to any work-item and the host CPU.
@@ -463,39 +465,42 @@ We got 237 references, and we eliminated those references unrelated to the scope
 
 Looking at the publication rate per year (inside this scope), it can be noticed in Figure \ref{figure:publications}, the publication figures has been increased exponentially every year, starting from 2004 (according to the results), being nowadays a field very attractive for researchers and very prolific.
 
-\begin{figure}[!ht]
+\begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.66\textwidth]{years.png}
 \caption{Papers published per year inside the scope analyzed here (EAs on GPGPUs) according to Web of Science database.}
 \label{figure:publications}
-\end{figure}
+\end{figure*}
 
 The decrease in 2015-2016 is due to recent papers have not been indexed yet on WoS.
 
 
 With respect to the type of publication, as expected, it can be seen in Figure \ref{figure:type_publication} that conferences and journals share almost all the cake, being slightly higher the figures for conference papers, as it is obviously easier to get published there. However, this factor should be taken just as a reference, since not all the conferences and journals are indexed in WoS, but mainly relevant ones.
 
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=0.4\textwidth]{papertype.png}}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.4\textwidth]{papertype.png}
 \caption{Type of publication, being Conference paper, Journal Paper, or Book Chapter.}
 \label{figure:type_publication}
-\end{figure}
+\end{figure*}
 
 Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. The most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and normally yields very good results.  GP and DE (Differential Evolution) are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms), to cite a few.
 
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=0.4\textwidth]{algorithmtype.png}}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.4\textwidth]{algorithmtype.png}
 \caption{Type of Evolutionary Algorithm implemented in the analyzed publications.}
 \label{figure:type_algorithm}
-\end{figure}
+\end{figure*}
 
 Finally, the majority of the analysed publications deal with solving real problems as it is presented in Figure \ref{figure:type_problem}. This means that the parallelization using GPUs is very effective and can be used in relevant and very hard problems, as real world ones normally are.
 
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=0.33\textwidth]{realproblem.png}}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.33\textwidth]{realproblem.png}
 \caption{Portion of the analyzed publications which address real problems.}
 \label{figure:type_problem}
-\end{figure}
+\end{figure*}
 
 
 Once we have analyzed the whole literature, in the following sections we will go through each of the different groups of the proposed taxonomy. Then, for every one the most representative or relevant works (mainly according to their number of citations) are reviewed and commented.
@@ -583,7 +588,7 @@ Researchers implement fine-grained algorithms using GPGPU, making every scalar p
 The second problem of this approach is the random number generator. The CPU can easily generate random numbers, but the GPU is not designed for this task. So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every thread. 
 
 
-Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPU, for solving the Colville problem \cite{Ng:2005:DFF:1064290.1064296} in 2005. They place the population in a toroidal 2D grid and use the classical Von Newmann neighborhood structure with five cells. They store chromosomes and their fitness values in texture memory on the graphic card, and both, fitness evaluation and genetic operations, are implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals was represented as a set of 2D texture maps. $BLX-\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
+Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPU, for solving the Colville problem \cite{Ng:2005:DFF:1064290.1064296} in 2005. They place the population in a toroidal 2D grid and use the classical Von Newmann neighborhood structure with five cells. They store chromosomes and their fitness values in texture memory on the graphic card, and both, fitness evaluation and genetic operations, are implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals was represented as a set of 2D texture maps. BLX-$\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
 
 In 2006, \cite{man-leung-wong-parallel-2006} proposed a parallel hybrid GA (HGA) where the whole evolutionary process run on the GPU, and only the random number generation is done in CPU. Every individual is assigned to a GPU thread, and each one selects probabilistically an individual in its neighborhood to mate with it. Just one offspring individual is generated each time, and it replaces the old one in that GPU thread. The authors compare their implementation with a standard GA run in a CPU and the FEP \cite{man-leung-wong-parallel-2005} algorithm. Using a new pseudo-deterministic selection method, the amount of random numbers transferred from the CPU is reduced. HGA reaches speedup of $\times5.30$ when compared against the sequential version. In 2009 Wong et al. \cite{wong-implementation-2009} provide implementation details for fine-grained evolutionary algorithms.  
 
@@ -680,18 +685,9 @@ the communication cost between GPUs and CPUs.
 % Antonio - yo no pondría esto, porque te pueden decir los revisores que por qué no lo has hecho ya... :_(
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %% The Appendices part is started with the command \appendix;
