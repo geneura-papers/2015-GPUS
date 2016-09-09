@@ -135,14 +135,13 @@ General-purpose computing on graphics processing units (GPGPU) consists in the u
 
 EAs \cite{EAs_Back96} are a class of probabilistic search and optimisation algorithms inspired on the model of Darwinistic evolution. 
 There are several subtypes, depending on the data structure that is preferentially used for representing solutions, but Genetic Algorithms (GAs) \cite{GAs_Goldberg89} and Genetic Programming (GP) \cite{GP_Koza92} are the most extended. The main features are common to all of them: a population of individuals or potential solutions of the target problem, a selection method that favours better solutions, and a set of operators that act upon the
-selected solutions. Thus, after an initial population is created (usually random), the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
+selected solutions. Thus, after an initial population is created, usually randomly, the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
 If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population increases with the number of generations.
 
-EAs present a structure which is inherently parallel, because the individuals of the population are relatively independent (they work independently, but all of them cooperate to find the solution). Thus, their distribution on different computation nodes is quite straight and not very difficult to implement, being normally a node devoted to work on subpopulations (island model) \cite{Cantu-Paz_parallel_GAs} and even, in the finest-grained models (or fully distributed), every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
+EAs present a structure which is inherently parallel because the individuals of the population are relatively independent. They work independently, but all of them cooperate to find a solution. Thus, their distribution on different computation nodes is quite straight and not very difficult to implement. Normally every node is devoted to work on a subpopulation or island \cite{Cantu-Paz_parallel_GAs}. In the finest-grained models, or fully distributed, every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
 
-The aim of the parallelization is usually the improvement of the running time for yielding an objective solution (if known), or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a
-different searching area of the space of solutions and thus, to a different solution (or set of solutions) for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
-For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the (recent) distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
+The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a different searching area of the space of solutions and thus, to a different solution or set of solutions for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
+For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the recent distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
 
 Thus, the paper presents a survey of the most extended evolutionary algorithms and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy, which is also introduced.
 In addition, this work describes the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU model, and gives an overview of currently available programming tools and software systems.
@@ -223,9 +222,6 @@ processor (SP), while NVIDIA uses the term CUDA core. Table
 Accelerated Processing Units (APUs), taking into account these terms
 and their meaning.
 
-% sources:
-%         https://en.wikipedia.org/wiki/List_of_AMD_graphics_processing_units
-%         https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units
 \begin{table*}[!ht]
 \resizebox{\textwidth}{!}{
 \centering
@@ -370,8 +366,6 @@ Different EAs adapt to the limitations of the memory model with different degree
 \section{Frameworks used with EAs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Antonio - muevo esto aquí que queda mejor. No tenía entidad para ser una sección aparte. ;)
-
 In this section we cite some relevant material not int the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most EC metaheuristics can be implemented without effort by using any of the existing frameworks. 
 
 The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
@@ -416,9 +410,7 @@ Nevertheless, when the research community uses GPGPU, all the EC approaches are 
 \subsection{Taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models. 
-% Antonio - Si alguien puede decir algo más de por qué se añaden estos nuevos grupos...
-
+The proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
 
 \subsubsection{Master-slave approaches}
 Master-slave Evolutionary Algorithms traditionally solve problems involving computationally expensive fitness functions, where the master node runs the entire algorithm while the slaves execute the fitness evaluation of the individuals. Using this approach, the evaluation of the fitness function is not sequential, but in parallel, so the master-slave version is more efficient because the evaluations usually are the more expensive portion of the total run time.
@@ -434,9 +426,8 @@ Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary Algorithms 
 
 For this category of algorithms, each individual is a parent at the beginning of the algorithm and it looks for the second parent by selection in a neighborhood. As a result CEAs provide automatic niching effect, avoiding an early convergence. 
 
-% Antonio - revisar esto que faltaba en la taxonomía...
 \subsubsection{Coarse-grained approaches}
-These approaches work with a set of sub-populations (normally a part of the whole population) distributed in different nodes, being every node devoted to work with just one of them, so they can work in parallel independently. Each of these sub-populations is known as `island'. In the standard model, after a number of generations (migration rate) one or more individuals, normally the best, are interchanged (migrated) between islands, which are connected following a specific neighborhood topology.
+These approaches work with a set of sub-populations, normally a part of the whole population, distributed in different nodes, being every node devoted to work with just one of them, so they can work in parallel independently. Each of these sub-populations is known as an `island'. In the standard model, after a number of generations one or more individuals, normally the best, are interchanged, as dictated by migration rate, between islands, which are connected following a specific neighborhood topology.
 
 
 \subsubsection{Hierarchical models}
@@ -712,8 +703,9 @@ This work has been supported in part by projects PreTEL (PRM Consultores - Treve
 
 %% If you have bibdatabase file and want bibtex to generate the
 %% bibitems, please use
-%%
-\bibliographystyle{elsarticle-num} 
+
+\section*{References}
+\bibliographystyle{elsarticle-num}
 \bibliography{gpus-jpdc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
