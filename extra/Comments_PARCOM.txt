@@ -1,0 +1,10 @@
+Dear editors,
+
+This manuscript presents a complete survey on the existing research works using GPGPUs to implement and apply Evolutionary Algorithms.
+
+We consider it very relevant since EAs is one of the most prolific metaheuristics in the literature. Thus, a review paper in this line seems necessary.
+
+We hope you find it interesting.
+
+Best regards,
+The authors.
