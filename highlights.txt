@@ -1,5 +1,6 @@
 Highlights:
-* Survey on the parallelization of Evolutionary Algorithms on GPUs.
 * Review of advances and trends in hardware and software in GPGPUs.
+* (Tutorial on) Parallelization of Evolutionary Algorithms on GPUs
+* Survey on the parallelization of EAs on GPUs.
 * Classification of the differents approaches followed by researchers in a taxonomy.
 * Deep analysis of the most representative in each category.
