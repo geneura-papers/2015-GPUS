@@ -29,22 +29,32 @@
 %\begin{frontmatter}
 
 
-\title{Parallel Computation of Evolutionary Algorithms on GPUs: A Review}
+\title{Parallelizing Evolutionary Algorithms on GPUs:\\ Methodology and Trends}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
 %% \address[label1]{}
 %% \address[label2]{}
 
-\author{Gustavo Romero\corref{cor1}} %\ead{gustavo@ugr.es}
-\author{M. G. Arenas\corref{cor2}} %\ead{mgarenas@ugr.es}
-\author{Pedro Castillo} %\ead{pacv@ugr.es}
-\author{Antonio M. Mora} %\ead{amora@geneura.ugr.es}
-\author{Pablo Garc\'ia-S\'anchez} %\ead{fergunet@gmail.com}
-\author{Juan-Juli\'an Merelo} %\ead{jmerelo@ugr.es}
+\author{Gustavo Romero$^1$, M.G. Arenas$^1$, P.A. Castillo$^1$,\\ 
+A.M. Mora$^1$, P. García-Sánchez$^2$, J.J. Merelo$^1$\\ \\
+\small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
+\small{ETSIIT-CITIC, University of Granada (Spain)}\\
+\small{$^2$ Dept. Computer Engineering, University of Cádiz (Spain)}\\
+\small{\texttt{\{gustavo,mgarenas,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
+} 
+
+%\ead{gustavo@ugr.es}
+%\author{M. G. Arenas} %\ead{mgarenas@ugr.es}
+%\author{Pedro Castillo} %\ead{pacv@ugr.es}
+%\author{Antonio M. Mora} %\ead{amora@geneura.ugr.es}
+%\author{Pablo Garc\'ia-S\'anchez} %\ead{fergunet@gmail.com}
+%\author{Juan-Juli\'an Merelo} %\ead{jmerelo@ugr.es}
 
 %\address{ETSIIT, CITIC\\ University of Granada\\ Periodista Daniel Saucedo Aranda, s/n \\ 18071 Granada (Spain)}
 %\cortext[cor1]{Corresponding author}
+
+\maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % abstract
@@ -652,7 +662,527 @@ This work has been supported in part by projects PreTEL (PRM Consultores - Treve
 
 
 \bibliographystyle{plain}
-\bibliography{gpus_cise}
+\bibliography{gpus-cise}
+
+%\section*{References}
+%
+%\begin{thebibliography}{10}
+%\expandafter\ifx\csname url\endcsname\relax
+%  \def\url#1{\texttt{#1}}\fi
+%\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+%\expandafter\ifx\csname href\endcsname\relax
+%  \def\href#1#2{#2} \def\path#1{#1}\fi
+%
+%\bibitem{EAs_Back96}
+%T.~B\"{a}ck, Evolutionary algorithms in theory and practice, Oxford University
+%  Press, 1996.
+%
+%\bibitem{GAs_Goldberg89}
+%D.~E. Goldberg, Genetic Algorithms in search, optimization and machine
+%  learning, Addison Wesley, 1989.
+%
+%\bibitem{GP_Koza92}
+%J.~R. Koza, Genetic Programming: On the programming of computers by means of
+%  natural selection, MIT Press, Cambridge, MA, 1992.
+%
+%\bibitem{Cantu-Paz_parallel_GAs}
+%E.~Cant\'{u}-Paz, Efficient and Accurate Parallel Genetic Algorithms, Kluwer
+%  Academic Publishers, Norwell, MA, USA, 2000.
+%
+%\bibitem{Tomassini_fully_distributed_EAs}
+%M.~Tomassini, Spatially Structured Evolutionary Algorithms: Artificial
+%  Evolution in Space and Time \'{a}Natural Computing Series), Springer-Verlag
+%  New York, Inc., Secaucus, NJ, USA, 2005.
+%
+%\bibitem{10.1109/MAHC.2010.28}
+%J.~G. Koomey, S.~Berard, M.~Sanchez, H.~Wong, Implications of historical trends
+%  in the electrical efficiency of computing, IEEE Annals of the History of
+%  Computing 33 (2011) 46--54.
+%\newblock \href
+%  {http://dx.doi.org/http://doi.ieeecomputersociety.org/10.1109/MAHC.2010.28}
+%  {\path{doi:http://doi.ieeecomputersociety.org/10.1109/MAHC.2010.28}}.
+%
+%\bibitem{6307773}
+%H.~Esmaeilzadeh, E.~Blem, R.~St.Amant, K.~Sankaralingam, D.~Burger, Dark
+%  silicon and the end of multicore scaling, in: Computer Architecture (ISCA),
+%  2011 38th Annual International Symposium on, 2011, pp. 365--376.
+%
+%\bibitem{Thompson:2002:UMG:774861.774894}
+%C.~J. Thompson, S.~Hahn, M.~Oskin,
+%  \href{http://portal.acm.org/citation.cfm?id=774861.774894}{Using modern
+%  graphics architectures for general-purpose computing: a framework and
+%  analysis}, in: Proceedings of the 35th annual ACM/IEEE international
+%  symposium on Microarchitecture, MICRO 35, IEEE Computer Society Press, Los
+%  Alamitos, CA, USA, 2002, pp. 306--317.
+%\newline\urlprefix\url{http://portal.acm.org/citation.cfm?id=774861.774894}
+%
+%\bibitem{Buck:2004:BGS:1015706.1015800}
+%I.~Buck, T.~Foley, D.~Horn, J.~Sugerman, K.~Fatahalian, M.~Houston,
+%  P.~Hanrahan, \href{http://doi.acm.org/10.1145/1015706.1015800}{Brook for
+%  gpus: stream computing on graphics hardware}, ACM Trans. Graph. 23 (2004)
+%  777--786.
+%\newblock \href {http://dx.doi.org/http://doi.acm.org/10.1145/1015706.1015800}
+%  {\path{doi:http://doi.acm.org/10.1145/1015706.1015800}}.
+%\newline\urlprefix\url{http://doi.acm.org/10.1145/1015706.1015800}
+%
+%\bibitem{nvidia}
+%{NVidia Corporation}, {NVIDIA Homepage}, \url{http://www.nvidia.com}, accessed:
+%  20/01/2014 (2014).
+%
+%\bibitem{benchmarkGPU2015}
+%AnandTech, \href{http://www.anandtech.com/bench/GPU15/1248}{{GPU 2015
+%  Benchmarks}} (2015).
+%\newline\urlprefix\url{http://www.anandtech.com/bench/GPU15/1248}
+%
+%\bibitem{10.1109/SC.2004.26}
+%Z.~Fan, F.~Qiu, A.~Kaufman, S.~Yoakum-Stover, Gpu cluster for high performance
+%  computing, SC Conference 0 (2004) 47.
+%\newblock \href
+%  {http://dx.doi.org/http://doi.ieeecomputersociety.org/10.1109/SC.2004.26}
+%  {\path{doi:http://doi.ieeecomputersociety.org/10.1109/SC.2004.26}}.
+%
+%\bibitem{amd}
+%{AMD Corporation}, {AMD Homepage}, \url{http://www.amd.com}, accessed:
+%  20/01/2014 (2014).
+%
+%\bibitem{intel}
+%{Intel Corporation}, {Intel Homepage}, \url{http://www.intel.com}, accessed:
+%  20/01/2014 (2014).
+%
+%\bibitem{opencl}
+%A.~Munshi, {The OpenCL Specification}, \url{http://www.khronos.org/opencl},
+%  accessed: 20/01/2014 (2014).
+%
+%\bibitem{LLVM}
+%U.~Illinois, {The LLVM Compiler Infrastructure} (2011).
+%
+%\bibitem{doi:10.1137/120903683}
+%D.~Demidov, K.~Ahnert, K.~Rupp, P.~Gottschling,
+%  \href{http://epubs.siam.org/doi/abs/10.1137/120903683}{Programming cuda and
+%  opencl: A case study using modern c++ libraries}, SIAM Journal on Scientific
+%  Computing 35~(5) (2013) C453--C472.
+%\newblock \href
+%  {http://arxiv.org/abs/http://epubs.siam.org/doi/pdf/10.1137/120903683}
+%  {\path{arXiv:http://epubs.siam.org/doi/pdf/10.1137/120903683}}, \href
+%  {http://dx.doi.org/10.1137/120903683} {\path{doi:10.1137/120903683}}.
+%\newline\urlprefix\url{http://epubs.siam.org/doi/abs/10.1137/120903683}
+%
+%\bibitem{springerlink:10.1007/s00500-011-0754-8}
+%J.~A. Parejo, A.~Ruiz-Cort\'{e}s, S.~Lozano, P.~Fern\'{a}ndez,
+%  \href{http://dx.doi.org/10.1007/s00500-011-0754-8}{Metaheuristic optimization
+%  frameworks: a survey and benchmarking}, Soft Computing 16 (2012) 527--561.
+%\newblock \href {http://dx.doi.org/10.1007/s00500-011-0754-8}
+%  {\path{doi:10.1007/s00500-011-0754-8}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/s00500-011-0754-8}
+%
+%\bibitem{5586286}
+%N.~Soca, J.~Blengio, M.~Pedemonte, P.~Ezzatti, Pugace, a cellular evolutionary
+%  algorithm framework on gpus, in: Evolutionary Computation (CEC), 2010 IEEE
+%  Congress on, IEEE, New York, NY, USA, 2010, pp. 1 --8.
+%\newblock \href {http://dx.doi.org/10.1109/CEC.2010.5586286}
+%  {\path{doi:10.1109/CEC.2010.5586286}}.
+%
+%\bibitem{Alba2005book}
+%E.~Alba, Parallel Metaheuristics: A New Class of Algorithms,
+%  Wiley-Interscience, The Atrium Southern Gate, Chichester West Sussex PO19 8SQ
+%  England, 2005.
+%
+%\bibitem{Cantu-Paz98asurvey}
+%E.~Cant{\'u}-Paz, A survey of parallel genetic algorithms, Calculateurs
+%  paralleles, reseaux et systems repartis 10~(2) (1998) 141--171.
+%
+%\bibitem{springerlink:10.1023_A:1021873026259}
+%F.~Fern\'andez, M.~Tomassini, L.~Vanneschi,
+%  \href{http://dx.doi.org/10.1023/A:1021873026259}{An empirical study of
+%  multipopulation genetic programming}, Genetic Programming and Evolvable
+%  Machines 4 (2003) 21--51, 10.1023/A:1021873026259.
+%\newline\urlprefix\url{http://dx.doi.org/10.1023/A:1021873026259}
+%
+%\bibitem{Rudolph92parallelapproaches}
+%G.~Rudolph, Parallel approaches to stochastic global optimization, in: In
+%  Parallel Computing: From Theory to Sound Practice, W. Joosen and E. Milgrom,
+%  Eds., IOS, IOS Press, Dortmund, 1992, pp. 256--267.
+%
+%\bibitem{ParallelAntColony}
+%S.~Janson, D.~Merkle, M.~Middendorf, Parallel ant colony algorithms, Tech.
+%  rep., Parallel Metaheuristics, Wiley Book Series on Parallel and Distributed
+%  Computing, - (2005).
+%
+%\bibitem{springerlink:10.1007_3_540_32494_1_7}
+%J.~Madera, E.~Alba, A.~Ochoa, A parallel island model for estimation of
+%  distribution algorithms, in: J.~Lozano, P.~Larra\'naga, I.~Inza,
+%  E.~Bengoetxea (Eds.), Towards a New Evolutionary Computation, Vol. 192 of
+%  Studies in Fuzziness and Soft Computing, Springer Berlin / Heidelberg, -,
+%  2006, pp. 159--186.
+%
+%\bibitem{GarciaLopez2003575}
+%F.~Garc\'ia-L\'opez, B.~Meli\'an-Batista, J.~A. Moreno-P\'erez, J.~M.
+%  Moreno-Vega,
+%  \href{http://www.sciencedirect.com/science/article/pii/S0167819103000437}{Parallelization
+%  of the scatter search for the p-median problem}, Parallel Computing 29~(5)
+%  (2003) 575 -- 589.
+%\newblock \href {http://dx.doi.org/10.1016/S0167-8191(03)00043-7}
+%  {\path{doi:10.1016/S0167-8191(03)00043-7}}.
+%\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0167819103000437}
+%
+%\bibitem{Garcia_lopez_theparallel}
+%F.~Garc\'ia-l\'opez, B.~Meli\'an-batista, J.~A. Moreno-p\'erez, J.~M.
+%  Moreno-vega, The parallel variable neighborhood search for the p-median
+%  problem, Journal of Heuristics 8 (2004) 200--2.
+%
+%\bibitem{Genetic_parallelsimulated}
+%D.~B. Genetic, M.~Miki, T.~Hiroyasu, T.~Yoshida, T.~Fushimi, Parallel simulated
+%  annealing with adaptive temperature, in: Proceedings of IEEE International
+%  Conference on Systems, Man and Cybernetics 2002, {IEEE} Press, -, 2002, pp.
+%  1--6.
+%
+%\bibitem{Crainic97towardsa}
+%T.~G. Crainic, M.~Gendreau, Towards a taxonomy of parallel tabu search
+%  heuristics (1997).
+%
+%\bibitem{Resendeparallelgreedy}
+%M.~G.~C. Resende, C.~C. Ribeiro, Parallel gredy ranomezed adaptive search
+%  procedures (2004).
+%
+%\bibitem{Cotta05e:parallel}
+%C.~Cotta, E.~g.~Talbi, E.~Alba, E.: Parallel hybrid metaheuristics, in:
+%  Parallel Metaheuristics, a New Class of Algorithms, John Wiley, -, 2005, pp.
+%  347--370.
+%
+%\bibitem{Nebro07mocell:a}
+%A.~J. Nebro, J.~J. Durillo, F.~Luna, B.~Dorronsoro, E.~Alba,
+%  \href{http://dx.doi.org/10.1002/int.20358}{Mocell: A cellular genetic
+%  algorithm for multiobjective optimization}, International Journal of
+%  Intelligent Systems 24~(7) (2009) 726--746.
+%\newblock \href {http://dx.doi.org/10.1002/int.20358}
+%  {\path{doi:10.1002/int.20358}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1002/int.20358}
+%
+%\bibitem{ANL04}
+%E.~Alba, A.~J. Nebro, F.~Luna, Advances in parallel heterogeneous genetic
+%  algorithms for continuous optimization, International Journal of Applied
+%  Mathematics and Computer Science 14~(3) (2004) 101--117.
+%
+%\bibitem{ZhangImplementationMasterSlave}
+%S.~Zhang, Z.~He, Implementation of parallel genetic algorithm based on cuda,
+%  in: Z.~Cai, Z.~Li, Z.~Kang, Y.~Liu (Eds.), Advances in Computation and
+%  Intelligence, Vol. 5821 of Lecture Notes in Computer Science, Springer Berlin
+%  / Heidelberg, -, 2009, pp. 24--30.
+%
+%\bibitem{man-leung-wong-parallel-2005}
+%M.-L. Wong, T.-T. Wong, K.-L. Fok, Parallel evolutionary algorithms on graphics
+%  processing unit, in: Congress on Evolutionary Computation, Vol.~3, {IEEE}
+%  Press, Edinburgh, Scotland, UK, 2005, pp. 2286--2293 Vol. 3.
+%\newblock \href {http://dx.doi.org/10.1109/CEC.2005.1554979}
+%  {\path{doi:10.1109/CEC.2005.1554979}}.
+%
+%\bibitem{jian_ming_li_efficient_2007}
+%J.-M. Li, X.-J. Wang, R.-S. He, Z.-X. Chi, An efficient fine-grained parallel
+%  genetic algorithm based on gpu-accelerated, in: Network and Parallel
+%  Computing Workshops, 2007. NPC Workshops. IFIP International Conference on,
+%  {IEEE} Press, -, 2007, pp. 855--862.
+%\newblock \href {http://dx.doi.org/10.1109/NPC.2007.108}
+%  {\path{doi:10.1109/NPC.2007.108}}.
+%
+%\bibitem{Maitre:2009:CGP:1569901_1570089}
+%O.~Maitre, L.~A. Baumes, N.~Lachiche, A.~Corma, P.~Collet,
+%  \href{http://doi.acm.org/10.1145/1569901.1570089}{Coarse grain
+%  parallelization of evolutionary algorithms on gpgpu cards with easea}, in:
+%  Proceedings of the 11th Annual conference on Genetic and evolutionary
+%  computation, GECCO '09, ACM, New York, NY, USA, 2009, pp. 1403--1410.
+%\newblock \href {http://dx.doi.org/http://doi.acm.org/10.1145/1569901.1570089}
+%  {\path{doi:http://doi.acm.org/10.1145/1569901.1570089}}.
+%\newline\urlprefix\url{http://doi.acm.org/10.1145/1569901.1570089}
+%
+%\bibitem{pospichalParallelGeneticAlgorithOnCUDA2010}
+%P.~Pospichal, J.~Jaros, J.~Schwarz, Parallel genetic algorithm on the cuda
+%  architecture, in: C.~Di~Chio, S.~Cagnoni, C.~Cotta, M.~Ebner, A.~Ek\'art,
+%  A.~Esparcia-Alcazar, C.-K. Goh, J.~Merelo, F.~Neri, M.~$Preu\beta$,
+%  J.~Togelius, G.~Yannakakis (Eds.), Applications of Evolutionary Computation,
+%  Vol. 6024 of Lecture Notes in Computer Science, Springer Berlin / Heidelberg,
+%  -, 2010, pp. 442--451.
+%
+%\bibitem{DBLP:conf/gecco/PospichalMOSJ11}
+%P.~Pospichal, E.~Murphy, M.~O'Neill, J.~Schwarz, J.~Jaros, Acceleration of
+%  grammatical evolution using graphics processing units: computational
+%  intelligence on consumer games and graphics hardware, in: N.~Krasnogor, P.~L.
+%  Lanzi (Eds.), GECCO (Companion), ACM, Dublin,Ireland, 2011, pp. 431--438.
+%
+%\bibitem{wos}
+%{Thomson Reuters}, Web of science, available at:
+%  \url{https://apps.webofknowledge.com} (2016).
+%
+%\bibitem{4215552}
+%S.~Harding, W.~Banzhaf, Fast genetic programming and artificial developmental
+%  systems on gpus, in: High Performance Computing Systems and Applications,
+%  IEEE Press, Saskatoon, SK, 2007, pp. 2--2.
+%\newblock \href {http://dx.doi.org/10.1109/HPCS.2007.17}
+%  {\path{doi:10.1109/HPCS.2007.17}}.
+%
+%\bibitem{5586403}
+%T.~Van~Luong, N.~Melab, E.-G. Talbi, Parallel hybrid evolutionary algorithms on
+%  gpu, in: Evolutionary Computation (CEC), 2010 IEEE Congress on, IEEE, New
+%  York, NY, USA, 2010, pp. 1 --8.
+%\newblock \href {http://dx.doi.org/10.1109/CEC.2010.5586403}
+%  {\path{doi:10.1109/CEC.2010.5586403}}.
+%
+%\bibitem{Tsutsui:2011:GECCO}
+%S.~Tsutsui, N.~Fujimoto, Aco with tabu search on a gpu for solving qaps using
+%  move-cost adjusted thread assignment, in: N.~K. et~al. (Ed.), GECCO '11:
+%  Proceedings of the 13th annual conference on Genetic and evolutionary
+%  computation, ACM, Dublin, Ireland, 2011, pp. 1547--1554.
+%
+%\bibitem{Dorigo:1999:ACO:329055.329062}
+%M.~Dorigo, G.~Di~Caro,
+%  \href{http://dl.acm.org/citation.cfm?id=329055.329062}{New ideas in
+%  optimization}, in: D.~Corne, M.~Dorigo, F.~Glover, D.~Dasgupta, P.~Moscato,
+%  R.~Poli, K.~V. Price (Eds.), New Ideas in Optimization, McGraw-Hill Ltd., UK,
+%  Maidenhead, UK, England, 1999, Ch. The Ant Colony Optimization
+%  Meta-heuristic, pp. 11--32.
+%\newline\urlprefix\url{http://dl.acm.org/citation.cfm?id=329055.329062}
+%
+%\bibitem{Glover:1997:TS:549765}
+%F.~Glover, M.~Laguna, Tabu Search, Kluwer Academic Publishers, Norwell, MA,
+%  USA, 1997.
+%
+%\bibitem{Pedemonte:2011:BOG:2001858.2002031}
+%M.~Pedemonte, E.~Alba, F.~Luna,
+%  \href{http://doi.acm.org/10.1145/2001858.2002031}{Bitwise operations for gpu
+%  implementation of genetic algorithms}, in: Proceedings of the 13th annual
+%  conference companion on Genetic and evolutionary computation, GECCO '11, ACM,
+%  New York, NY, USA, 2011, pp. 439--446.
+%\newblock \href {http://dx.doi.org/10.1145/2001858.2002031}
+%  {\path{doi:10.1145/2001858.2002031}}.
+%\newline\urlprefix\url{http://doi.acm.org/10.1145/2001858.2002031}
+%
+%\bibitem{SpeedingTheEvaluationofGPCano:2012}
+%A.~Cano, A.~Zafra, S.~Ventura,
+%  \href{http://dx.doi.org/10.1007/s00500-011-0713-4}{Speeding up the evaluation
+%  phase of gp classification algorithms on gpus}, Soft Comput. 16~(2) (2012)
+%  187--202.
+%\newblock \href {http://dx.doi.org/10.1007/s00500-011-0713-4}
+%  {\path{doi:10.1007/s00500-011-0713-4}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/s00500-011-0713-4}
+%
+%\bibitem{Chitty16FastParallel}
+%D.~M. Chitty, \href{http://dx.doi.org/10.1007/s00500-012-0862-0}{Fast parallel
+%  genetic programming: multi-core {CPU} versus many-core {GPU}}, Soft Comput.
+%  16~(10) (2012) 1795--1814.
+%\newblock \href {http://dx.doi.org/10.1007/s00500-012-0862-0}
+%  {\path{doi:10.1007/s00500-012-0862-0}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/s00500-012-0862-0}
+%
+%\bibitem{Jaros14Wormhole}
+%J.~Jaros, R.~Tyrala,
+%  \href{http://doi.acm.org/10.1145/2576768.2598315}{Gpu-accelerated
+%  evolutionary design of the complete exchange communication on wormhole
+%  networks}, in: Proceedings of the 2014 Annual Conference on Genetic and
+%  Evolutionary Computation, GECCO '14, ACM, New York, NY, USA, 2014, pp.
+%  1023--1030.
+%\newblock \href {http://dx.doi.org/10.1145/2576768.2598315}
+%  {\path{doi:10.1145/2576768.2598315}}.
+%\newline\urlprefix\url{http://doi.acm.org/10.1145/2576768.2598315}
+%
+%\bibitem{Contreras:2012:UGA:2150467.2150469}
+%I.~Contreras, Y.~Jiang, J.~Hidalgo, L.~Núñez-Letamendia,
+%  \href{http://dx.doi.org/10.1007/s00500-011-0714-3}{Using a gpu-cpu
+%  architecture to speed up a ga-based real-time system for trading the stock
+%  market}, Soft Computing 16 (2012) 203--215.
+%\newblock \href {http://dx.doi.org/10.1007/s00500-011-0714-3}
+%  {\path{doi:10.1007/s00500-011-0714-3}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/s00500-011-0714-3}
+%
+%\bibitem{jacket:Matlab}
+%G.~Pryor, B.~Lucey, S.~Maddipatla, C.~McClanahan, J.~Melonakos,
+%  V.~Venugopalakrishnan, K.~Patel, P.~Yalamanchili, J.~Malcolm, High-level gpu
+%  computing with jacket for matlab and c/c++, in: Society of Photo-Optical
+%  Instrumentation Engineers (SPIE) Conferences, Vol. 8060, Matlab, -, 2011,
+%  p.~4.
+%
+%\bibitem{Sungjoo15fastknowledge}
+%S.~Ha, B.~Moon, \href{http://dl.acm.org/citation.cfm?id=2739480}{Fast knowledge
+%  discovery in time series with {GPGPU} on genetic programming}, in: S.~Silva,
+%  A.~I. Esparcia{-}Alc{\'{a}}zar (Eds.), Proceedings of the Genetic and
+%  Evolutionary Computation Conference, {GECCO} 2015, Madrid, Spain, July 11-15,
+%  2015, {ACM}, 2015, pp. 1159--1166.
+%\newline\urlprefix\url{http://dl.acm.org/citation.cfm?id=2739480}
+%
+%\bibitem{yu-parallel-2005}
+%Q.~Yu, C.~Chen, Z.~Pan, \href{http://dx.doi.org/10.1007/11539902_134}{Parallel
+%  genetic algorithms on programmable graphics hardware}, in: L.~Wang, K.~Chen,
+%  Y.~Ong (Eds.), Advances in Natural Computation, Vol. 3612 of Lecture Notes in
+%  Computer Science, Springer Berlin Heidelberg, Changsha, China, 2005, pp.
+%  1051--1059.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/11539902_134}
+%
+%\bibitem{Ng:2005:DFF:1064290.1064296}
+%C.-K. Ng, L.-S. Zhang, D.~Li, W.-W. Tian,
+%  \href{http://dx.doi.org/10.1007/s10589-005-0985-7}{Discrete filled function
+%  method for discrete global optimization}, Comput. Optim. Appl. 31~(1) (2005)
+%  87--115.
+%\newblock \href {http://dx.doi.org/10.1007/s10589-005-0985-7}
+%  {\path{doi:10.1007/s10589-005-0985-7}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/s10589-005-0985-7}
+%
+%\bibitem{man-leung-wong-parallel-2006}
+%M.-L. Wong, T.-T. Wong, Parallel hybrid genetic algorithms on consumer-level
+%  graphics hardware, in: Evolutionary Computation, 2006. CEC 2006. IEEE
+%  Congress on, {IEEE} Press, Vancouver, Canada, 2006, pp. 2973--2980.
+%\newblock \href {http://dx.doi.org/10.1109/CEC.2006.1688683}
+%  {\path{doi:10.1109/CEC.2006.1688683}}.
+%
+%\bibitem{wong-implementation-2009}
+%M.~L. Wong, T.~T. Wong,
+%  \href{http://dx.doi.org/10.1007/978-3-540-95978-6_14}{Implementation of
+%  parallel genetic algorithms on graphics processing units}, in: M.~Gen,
+%  D.~Green, O.~Katai, B.~McKay, A.~Namatame, R.~A. Sarker, B.-T. Zhang (Eds.),
+%  Intelligent and Evolutionary Systems, Vol. 187 of Studies in Computational
+%  Intelligence, Springer, Berlin, Heidelberg, 2009, pp. 197--216.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/978-3-540-95978-6_14}
+%
+%\bibitem{zhongwen-luo-cellular-2006}
+%Z.~Luo, H.~Liu, Cellular genetic algorithms and local search for 3-sat problem
+%  on graphic hardware, in: Evolutionary Computation, 2006. CEC 2006. IEEE
+%  Congress on, {IEEE} Press, Vancouver, Canada, 2006, pp. 2988--2992.
+%\newblock \href {http://dx.doi.org/10.1109/CEC.2006.1688685}
+%  {\path{doi:10.1109/CEC.2006.1688685}}.
+%
+%\bibitem{Selman93domain-independentextensions}
+%B.~Selman, H.~Kautz, Domain-independent extensions to gsat: Solving large
+%  structured satisfiability problems, in: Proceedings of the 13th International
+%  Joint Conference on Artificial Intelligence, Vol.~93, IJCAI, Chamb\`ery,
+%  France, 1993, pp. 290--295.
+%
+%\bibitem{Li:2009:PIA:1726585.1726930}
+%J.~Li, L.~Zhang, L.~Liu, \href{http://dx.doi.org/10.1109/ICICIC.2009.44}{A
+%  parallel immune algorithm based on fine-grained model with gpu-acceleration},
+%  in: Proceedings of the 2009 Fourth International Conference on Innovative
+%  Computing, Information and Control, ICICIC '09, IEEE Computer Society,
+%  Washington, DC, USA, 2009, pp. 683--686.
+%\newblock \href {http://dx.doi.org/http://dx.doi.org/10.1109/ICICIC.2009.44}
+%  {\path{doi:http://dx.doi.org/10.1109/ICICIC.2009.44}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1109/ICICIC.2009.44}
+%
+%\bibitem{springerlink:10.1007978-3-642-12538-619}
+%P.~Vidal, E.~Alba,
+%  \href{http://dx.doi.org/10.1007/978-3-642-12538-6_19}{Cellular genetic
+%  algorithm on graphic processing units}, in: J.~R. Gonz\'{a}lez, D.~A. Pelta,
+%  C.~Cruz, G.~Terrazas, N.~Krasnogor (Eds.), Nature Inspired Cooperative
+%  Strategies for Optimization (NICSO 2010), Vol. 284 of Studies in
+%  Computational Intelligence, Springer, Berlin, Heidelberg, 2010, pp. 223--232.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/978-3-642-12538-6_19}
+%
+%\bibitem{Franco15LargeScale}
+%M.~A. Franco, J.~Bacardit,
+%  \href{http://dx.doi.org/10.1016/j.ins.2015.10.025}{Large-scale experimental
+%  evaluation of {GPU} strategies for evolutionary machine learning}, Inf. Sci.
+%  330 (2016) 385--402.
+%\newblock \href {http://dx.doi.org/10.1016/j.ins.2015.10.025}
+%  {\path{doi:10.1016/j.ins.2015.10.025}}.
+%\newline\urlprefix\url{http://dx.doi.org/10.1016/j.ins.2015.10.025}
+%
+%\bibitem{gecco2009CompetitionPospichal}
+%P.~Pospichal, J.~Jaros., Gpu-based acceleration of the genetic algorithm, Tech.
+%  rep., GECCO competition, Montreal, Canada (2009).
+%
+%\bibitem{1570355}
+%S.~Tsutsui, N.~Fujimoto, Solving quadratic assignment problems by genetic
+%  algorithms with gpu computation: a case study, in: GECCO09, ACM, NY, USA,
+%  2009, pp. 2523--2530.
+%
+%\bibitem{LUONG:2010:INRIA-00520464:1}
+%T.~V. Luong, N.~Melab, E.-G. Talbi,
+%  \href{http://doi.acm.org/10.1145/1830483.1830685}{Gpu-based island model for
+%  evolutionary algorithms}, in: Proceedings of the 12th Annual Conference on
+%  Genetic and Evolutionary Computation, GECCO '10, ACM, New York, USA, 2010,
+%  pp. 1089--1096.
+%\newblock \href {http://dx.doi.org/10.1145/1830483.1830685}
+%  {\path{doi:10.1145/1830483.1830685}}.
+%\newline\urlprefix\url{http://doi.acm.org/10.1145/1830483.1830685}
+%
+%\bibitem{9253}
+%P.~Posp\'ichal, J.~Schwarz, J.~Jaro\v{s}, Parallel genetic algorithm solving
+%  0/1 knapsack problem running on the gpu, in: 16th International Conference on
+%  Soft Computing MENDEL 2010, Brno University of Technology, Brno, Czech
+%  Republic, 2010, pp. 64--70.
+%
+%\bibitem{Munawar:2009:HGA:1666141_1666143}
+%A.~Munawar, M.~Wahib, M.~Munetomo, K.~Akama, Hybrid of genetic algorithm and
+%  local search to solve max-sat problem using nvidia cuda framework, Genetic
+%  Programming and Evolvable Machines 10 (2009) 391--415.
+%
+%\bibitem{fjdiego-vrp}
+%F.~J. Diego, E.~M. G\'{o}mez, M.~Ortega-Mier, A.~Garc\'{i}a-S\'{a}nchez,
+%  \href{http://dx.doi.org/10.1007/978-1-4471-2321-7_43}{Parallel cuda
+%  architecture for solving de vrp with aco}, in: S.~P. Sethi, M.~Bogataj,
+%  L.~Ros-McDonnell (Eds.), Industrial Engineering: Innovative Networks,
+%  Springer, London, 2012, pp. 385--393.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/978-1-4471-2321-7_43}
+%
+%\bibitem{ACO-on-GPU_Develacq}
+%A.~Delevacq, P.~Delisle, M.~Gravel, M.~Krajecki, Parallel ant colony
+%  optimization on graphics processing units, J. Parallel Distrib. Comput.
+%  73~(1) (2013) 52--61.
+%
+%\bibitem{Cecilia201342}
+%J.~M. Cecilia, J.~M. Garc\'{i}a, A.~Nisbet, M.~Amos, M.~Ujald\'{o}n,
+%  \href{http://www.sciencedirect.com/science/article/pii/S0743731512000032}{Enhancing
+%  data parallelism for ant colony optimization on gpus}, Journal of Parallel
+%  and Distributed Computing 73~(1) (2013) 42 -- 51, metaheuristics on GPUs.
+%\newblock \href {http://dx.doi.org/10.1016/j.jpdc.2012.01.002}
+%  {\path{doi:10.1016/j.jpdc.2012.01.002}}.
+%\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0743731512000032}
+%
+%\bibitem{5586530}
+%P.~Vidal, E.~Alba, A multi-gpu implementation of a cellular genetic algorithm,
+%  in: Evolutionary Computation (CEC), 2010 IEEE Congress on, IEEE, New York,
+%  NY, USA, 2010, pp. 1 --7.
+%\newblock \href {http://dx.doi.org/10.1109/CEC.2010.5586530}
+%  {\path{doi:10.1109/CEC.2010.5586530}}.
+%
+%\bibitem{luongMetaheuristicsPpsn2012}
+%T.~Luong, E.~Taillard, N.~Melab, E.-G. Talbi,
+%  \href{http://dx.doi.org/10.1007/978-3-642-32964-7_37}{Parallelization
+%  strategies for hybrid metaheuristics using a single gpu and multi-core
+%  resources}, in: C.~A. Coello, V.~Cutello, K.~Deb, S.~Forrest, G.~Nicosia,
+%  M.~Pavone (Eds.), Parallel Problem Solving from Nature - PPSN XII, Vol. 7492
+%  of Lecture Notes in Computer Science, Springer, Berlin, Heidelberg, 2012, pp.
+%  368--377.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/978-3-642-32964-7_37}
+%
+%\bibitem{KnudsenPermutedPerceptronProblem1999}
+%L.~Knudsen, W.~Meier,
+%  \href{http://dx.doi.org/10.1007/3-540-48910-X_25}{Cryptanalysis of an
+%  identification scheme based on the permuted perceptron problem}, in: J.~Stern
+%  (Ed.), Advances in Cryptology (EUROCRYPT'99), Vol. 1592 of Lecture Notes in
+%  Computer Science, Springer Berlin Heidelberg, Berlin, 1999, pp. 363--374.
+%\newline\urlprefix\url{http://dx.doi.org/10.1007/3-540-48910-X_25}
+%
+%\bibitem{TaillardTabySearch1991}
+%E.~Taillard,
+%  \href{http://www.sciencedirect.com/science/article/pii/S0167819105801474}{Robust
+%  taboo search for the quadratic assignment problem}, Parallel Computing
+%  17~(4-5) (1991) 443 -- 455.
+%\newblock \href
+%  {http://dx.doi.org/http://dx.doi.org/10.1016/S0167-8191(05)80147-4}
+%  {\path{doi:http://dx.doi.org/10.1016/S0167-8191(05)80147-4}}.
+%\newline\urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0167819105801474}
+%
+%\bibitem{Wang14heterogeneous}
+%J.~Wang, B.~Gong, H.~LIU, Shaohui, J.~Yi, Heterogeneous computing and grid
+%  scheduling with hierarchically parallel evolutionary algorithms, Journal of
+%  Computational Information Systems 10~(8) (2014) 3291--3298.
+%
+%\bibitem{O'Neill:2008:GGE:1527063.1527066}
+%M.~O'Neill, E.~Hemberg, C.~Gilligan, E.~Bartley, J.~McDermott, A.~Brabazon,
+%  \href{http://doi.acm.org/10.1145/1527063.1527066}{Geva: grammatical evolution
+%  in java}, SIGEVOlution 3~(2) (2008) 17--22.
+%\newblock \href {http://dx.doi.org/10.1145/1527063.1527066}
+%  {\path{doi:10.1145/1527063.1527066}}.
+%\newline\urlprefix\url{http://doi.acm.org/10.1145/1527063.1527066}
+%
+%\end{thebibliography}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
