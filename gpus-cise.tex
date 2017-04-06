@@ -110,6 +110,204 @@ The rest of the paper is structured as follows: Next section presents GPUs as hi
 higher level programming languages used to take advantage on GPUs is described. The following section proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
 Then, a set of representative works describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. Finally, some conclusions are remarked in the last section.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Evolutionary Algorithms}
+\label{sec:eas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+This section introduces a general overview of the most used types of Evolutionary Algorithms to clarify their common elements. Also, the most extended models to parallelize EAs are presented, to understand all their possible architectural possibilities. 
+
+
+Evolutionary Algorithms are a set of bio-inspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of algorithms, a \textsc{population} of codified solutions (called \textsc{individuals}) is created. The most adapted individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material. The level of adaptation of each solution is measured using a \textsc{fitness} function, that usually models the problem to solve.
+
+Initially the EAs were proposed as a fixed set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were also presented, with new classifications and operations. Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
+scalability or decentralization.
+
+
+
+\section{Types of Evolutionary Algorithms}
+\label{sec:distributed:types}
+The general scheme of an EA, extracted from the work of Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}. Although most of the EAs follow the scheme shown in this Figure, they have differences depending on the
+representation of the solutions, the problems to solve, and other
+features. A possible classification is presented in this chapter, 
+taking into account the new approaches that cannot fit in the traditional 
+taxonomy. This classification would help to clarify the elements that 
+distinguish an algorithm from another (for example, the operators), 
+and the existing similarities and differences, in order to establish  
+a good starting point for designing services for EAs.
+
+
+
+\begin{figure}[tb]
+\footnotesize
+\begin{verbatim}
+BEGIN
+ INITIALISE population with random candidate solutions;
+ EVALUATE each candidate;
+ REPEAT UNTIL (TERMINATION CONDITION is satisfied) DO
+   1 SELECT parents;
+   2 RECOMBINE pairs of parents;
+   3 MUTATE the resulting offspring;
+   4 EVALUATE new candidates;
+   3 SELECT individuals for the next generation;
+ OD
+END
+\end{verbatim}
+\caption{General scheme of an evolutionary algorithm in pseudo-code}
+\label{fig:basicscheme}
+\end{figure}
+
+
+\subsection{Classic classification of EAs}
+\label{subsec:classicEAs}
+This subsection explains the traditional variants, according to
+the book of Eiben and Smith \cite{eiben2003introduction}. These authors clarify that the features of an EA are:
+\begin{itemize}
+\item EAs are population based.
+\item EAs mostly uses recombination to generate new individual from the existing ones.
+\item EAs are stochastic.
+\end{itemize}
+These are the elements that distinguish the EAs from another meta-heuristics (such as the Local Search \cite{aarts1997local}, for example).
+
+
+\begin{description}
+\item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and also studied by Goldberg \cite{goldberg1988genetic} and Michalewicz \cite{michalewicz1996genetic}. In this kind of EA, the representation of the solution is a string of numbers (usually binary), called \textsc{chromosome} (and sometimes \textsc{genome}). The individuals are selected proportionally to their fitness, and then \textsc{recombination} and/or \textsc{mutation} are applied to generate new individuals that will be introduced in the population. These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
+
+\item[Evolution Strategies] The Evolution Strategies (ES) are used to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the inclusion of self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. Also, the parent selection is performed randomly. ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
+
+\item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of the solution depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals.
+
+\item[Genetic Programming] The objective of this technique is to
+  create functions or programs to solve determined
+  problems. Individual representation is frequently in the form of a tree,
+  formed by operators (or {\em primitives}) and variables ({\em
+    terminals}). These sets are usually fixed and known. The genome
+  size is, therefore, variable, but the maximum size of the
+  individuals is commonly fixed, to avoid high evaluation costs. GP has
+  been used to evolve LISP (LISt Processing) programs
+  \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet
+    Language Transformations) scripts \cite{Garcia2008XSLT}, among
+  others.
+
+
+
+\end{description}
+
+\subsection{Other models}
+
+Other EAs that do not match in the previous classification  have been proposed. For example \textsc{Differential Evolution}
+(DE) \cite{storn1997differential}, \textsc{Estimation of Distribution
+  Algorithms} (EDAs) \cite{larranaga2002estimation} or
+\textsc{Bayesian Optimization Algorithms} \cite{pelikan2005bayesian}. 
+
+Differential Evolution \cite{} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textsc{random noisy vectors}. These vectors are recombined with original random individuals to create the \textsc{trial vectors}. These vectors are compared one by one with the original vector and the better of each comparison is kept for the next generation.
+
+Table \ref{tab:summaryEAs} shows the main differences between all this types of EAs. Note that we have selected the common features of each algorithm. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
+
+\begin{table}
+\resizebox{11cm}{!}{
+\begin{tabular}{p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}}
+\hline
+				& Genetic algorithm 	 & Evolution Strategy  & Evolutionary Programming & Genetic Programming & Differential evolution  \\
+\hline\hline
+Representation  & Finite alphabet strings & Real-value vectors  & 					& Tree 				& Real-value vectors 	 \\
+Initialization  & \multicolumn{5}{c}{Multi-column} Random, depending of the problem and individual structure	 						 \\
+Selection 	& Fitness proportional 	& Random 				& 						& Fitness proportional & Random to create noisy vectors \\
+Recombination   & Genome crossover		& Genome crossover		& 						& Sub-tree exchange		& Random gene by gene			\\
+Mutation  		& Random 				& Gaussian perturbation	& 						& Random 				& Implicit in the noisy vectors	 \\
+Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Generational 			& Compared with the original	 \\
+\hline
+\end{tabular}
+}
+\caption{Differences between the types of EAs.}
+\label{tab:summaryEAs}
+\end{table}
+
+
+
+Combining elements of all the previous algorithms with other heuristics is
+the base of \textsc{Memetic Algorithms} (MAs). These algorithms are
+based on the concept of {\em meme} 
+proposed by Dawkins
+\cite{dawkins2006selfish}. In this context, a meme is domain specific knowledge coded by a computational representation to the effective solving of a problem.
+
+This kind of algorithms can be seen as an hybrid combination of the population-based evolution methods previously explained, coupled with some kind of local search. Initially, the hybridization was made just combining two o more methods with some kind of problem knowledge. For example combining a genetic algorithm with Simulated Annealing (SA) \cite{HybridRodriguez2012}. The local search can be performed before, during, or after the evaluation. New trends, such as adaptive MAs \cite{ong2006classification} lead to the usage of several memes for searching and deciding dynamically which meme should be applied to each individual. For example, Cowling et al.  proposed the term \textsc{hyperheuristic} \cite{cowling2001hyperheuristic} as the strategy to choose the meme to be applied depending on the time and the region of the search space (or, in a brief, heuristic to choose memes).  Other examples are the work of Krasnogor et al. \cite{krasnogor2002multimeme}, where the 
+inclusion of the memetic codification inside the individual chromosome
+(\textsc{Multimemes}) to select which meme to use is applied;  or
+codify a set of rules, as proposed by Smith \cite{smith2002co}
+(\textsc{Co-evolving MAs}).
+
+
+In brief, the memetic algorithms can be seen as a composition of other algorithms. The integration should be as easy as possible to allow researchers develop new algorithms easily. Moreover, not only the way to combine the algorithms that conform the memetic one, but also how to dynamically select among these available memes. Thus, mechanisms to announce memes and automatically discovering and binding should be applied. %FERGU: TODO terminar esto y dejalo más claro aún
+
+\section{Parallel and Distributed Evolutionary Algorithms models}
+\label{sec:distributed:parallel}
+
+Evolutionary Algorithms are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, there exist several ways to parallelize: for example, fitness evaluation can be distributed into several slave machines,
+or the population can be distributed among different nodes to be
+evolved at the same time. In 2002, two main types of parallelization
+models for EAs were classified by Alba and Tomassini in
+\cite{alba2002parallelism}: \textsc{Global parallel EAs} and
+\textsc{Spatially structured EAs}. However, with the aim of new
+technologies and architectures, such as P2P, new ways to parallelize
+EAs have been proposed. In this section, the differences of the existing classification
+with these new trends are explained, and the requirements of each one are presented.
+
+\subsection{Traditional parallelization classification}
+
+As this classification was established in 2002, issues such as fault-tolerance, churn, massive
+scalability or decentralization were not taken into consideration. 
+The number of computational nodes are fixed during the whole execution and both the network and the nodes are reliable and trustworthy.
+
+\subsubsection{Global parallel evolutionary algorithms} 
+In this model, also called \textsc{Farming model}, \textsc{Master-Slave} or \textsc{Centralized EA}, the parallelism is applied at evaluation level, where a central node coordinate several slave nodes. The central node executes the EA in a sequential way, but distributes the individuals of the population to the slaves just for being evaluated. Figure \ref{fig:masterslave} depicts this situation.
+
+\begin{figure}[tb]
+\centering
+%\includegraphics[width=20pc]{gfx/distributed/masterslave.jpg}
+\caption{Master-slave model.}
+\label{fig:masterslave}
+\end{figure}
+
+\subsubsection{Spatially structured algorithms}
+The parallelism is performed at population level, that is, dividing the population among the different computing elements. Depending on how the distribution is performed we have:
+\begin{description}
+\item[Coarse-grained approach] One of the most usual approaches is the \textsc{Island model}, where a number of nodes executes simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
+
+\begin{figure}[tb]
+\centering
+%\includegraphics[width=20pc]{gfx/distributed/ring.jpg}
+\caption{Island model scheme using a neighbourhood ring topology.}
+\label{fig:ring}
+\end{figure}
+
+\item[Fine-grained approach] In this approach, also called \textsc{Cellular EA} (CEA), each node has one individual of the population, and selection and reproduction are limited to the individuals of the neighbourhood of the node \cite{CELLULAR}. Usually a bi-dimensional grid is used as topology, such as the one showed in the Figure \ref{fig:cellular}.
+
+\begin{figure}[tb]
+\centering
+%\includegraphics[width=5cm]{gfx/distributed/cellular.jpg}
+\caption{Cellular Evolutionary Algorithm.}
+\label{fig:cellular}
+\end{figure}
+
+\end{description}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Throughput, parallelism and GPUs}
