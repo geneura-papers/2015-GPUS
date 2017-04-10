@@ -124,8 +124,8 @@ scalability or decentralization.
 
 
 
-\section{Types of Evolutionary Algorithms}
-\label{sec:distributed:types}
+%\subsection{Types of Evolutionary Algorithms}
+%\label{sec:distributed:types}
 The general scheme of an EA, extracted from the work of Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}. Although most of the EAs follow the scheme shown in this Figure, they have differences depending on the
 representation of the solutions, the problems to solve, and other
 features. A possible classification is presented in this section, 
@@ -156,9 +156,9 @@ END
 \end{figure}
 
 
-\subsection{Classic classification of EAs}
-\label{subsec:classicEAs}
-This subsection explains the traditional variants, according to
+%\subsection{Classic classification of EAs}
+%\label{subsec:classicEAs}
+EAs are usually classified using a traditional variant, according to
 the book of Eiben and Smith \cite{eiben2003introduction}. These authors clarify that the features of an EA are:
 \begin{itemize}
 \item EAs are population based.
@@ -187,9 +187,9 @@ These are the elements that distinguish the EAs from another meta-heuristics (su
 
 \end{description}
 
-\subsection{Other models}
+%\subsection{Other models}
 
-Other EAs that do not match in the previous classification  have been proposed. For example \textsc{Differential Evolution}
+However, other EAs that do not match in the previous classic classification  have been proposed. For example \textsc{Differential Evolution}
 (DE) \cite{storn1997differential}, \textsc{Estimation of Distribution
   Algorithms} (EDAs) \cite{larranaga2002estimation} or
 \textsc{Bayesian Optimization Algorithms} \cite{pelikan2005bayesian}. 
@@ -200,12 +200,12 @@ Table \ref{tab:summaryEAs} shows the main differences between all this types of 
 
 \begin{table}
 \resizebox{17cm}{!}{
-\begin{tabular}{p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}}
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
 \hline
-				& Genetic algorithm 	 & Evolution Strategy  & Evolutionary Programming & Genetic Programming & Differential evolution  \\
+				& GA 	 & ES  & EP & GP & DE  \\
 \hline\hline
-Representation  & Finite alphabet strings & Real-value vectors  & 					& Tree 				& Real-value vectors 	 \\
-Initialization  & \multicolumn{5}{c}{Multi-column} Random, depending of the problem and individual structure	 						 \\
+Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-depending					& Tree 				& Real-value vectors 	 \\
+Initialization  & \multicolumn{5}{c}{Random, depending of the problem and individual structure} 						 \\
 Selection 	& Fitness proportional 	& Random 				& 						& Fitness proportional & Random to create noisy vectors \\
 Recombination   & Genome crossover		& Genome crossover		& 						& Sub-tree exchange		& Random gene by gene			\\
 Mutation  		& Random 				& Gaussian perturbation	& 						& Random 				& Implicit in the noisy vectors	 \\
@@ -226,7 +226,7 @@ Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Gener
 
 %In brief, the memetic algorithms can be seen as a composition of other algorithms. The integration should be as easy as possible to allow researchers develop new algorithms easily. Moreover, not only the way to combine the algorithms that conform the memetic one, but also how to dynamically select among these available memes. Thus, mechanisms to announce memes and automatically discovering and binding should be applied. %FERGU: TODO terminar esto y dejalo más claro aún
 
-\section{Parallel and Distributed Evolutionary Algorithms models}
+\subsection{Parallel and Distributed Evolutionary Algorithms models}
 \label{sec:distributed:parallel}
 
 Evolutionary Algorithms are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, there exist several ways to parallelize: for example, fitness evaluation can be distributed into several slave machines,
@@ -239,7 +239,7 @@ technologies and architectures, such as P2P, new ways to parallelize
 EAs have been proposed. In this section, the differences of the existing classification
 with these new trends are explained, and the requirements of each one are presented.
 
-\subsection{Traditional parallelization classification}
+%\subsubsection{Traditional parallelization classification}
 
 As this classification was established in 2002, issues such as fault-tolerance, churn, massive
 scalability or decentralization were not taken into consideration. 
@@ -251,6 +251,7 @@ In this model, also called \textsc{Farming model}, \textsc{Master-Slave} or \tex
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/masterslave.jpg}
+\includegraphics[width=20pc]{masterslave.eps}
 \caption{Master-slave model.}
 \label{fig:masterslave}
 \end{figure}
@@ -263,6 +264,7 @@ The parallelism is performed at population level, that is, dividing the populati
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/ring.jpg}
+\includegraphics[width=20pc]{ring.eps}
 \caption{Island model scheme using a neighbourhood ring topology.}
 \label{fig:ring}
 \end{figure}
@@ -272,6 +274,7 @@ The parallelism is performed at population level, that is, dividing the populati
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=5cm]{gfx/distributed/cellular.jpg}
+\includegraphics[width=15pc]{cellular.eps}
 \caption{Cellular Evolutionary Algorithm.}
 \label{fig:cellular}
 \end{figure}
