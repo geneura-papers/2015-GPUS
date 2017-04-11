@@ -37,16 +37,11 @@ A.M. Mora$^1$, P. García-Sánchez$^2$, J.J. Merelo$^1$\\ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Metaheuristics and bioinspired methods have been widely adapted to General Purpose Graphics Processing Units (GPGPUs). Among them Evolutionary Algorithms (EAs) stand out since they are inherently parallel structures based on a population of independent agents. Due to this reason there are many different distributed schemes for EAs.
+Metaheuristics and bioinspired methods have been widely adapted to General Purpose Graphics Processing Units (GPGPUs). Among them, Evolutionary Algorithms (EAs) stand out since they are inherently parallel structures based on a population of independent agents. Due to this reason there are many different distributed schemes for EAs.
 This paper describes the parallelization methodologies usually applied to EAs, and presents a survey on the literature related to their application on GPGPUs.
-The paper also presents a review of advances in hardware and software along with new trends in the field. % This probably should go higher in the abstract - JJ
-% Antonio  - right
+The paper also includes a review of advances in hardware and software along with new trends in the field.
 Thus, more than 200 associated publications, from the last 13 years, have been revised and their properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems. 
-% Using this?
-% Antonio - of course
 We also define a taxonomy of the approaches used for parallelization on the literature. Then, a more in-depth analysis has been conducted on a wide selection, also describing the most representative in each category. 
-%The analysis shows this as a very prolific research area. % The analysis shows this? How? The number of papers is the one that would show prolificness or not - JJ
-% Antonio - wrong sentence I think
 As a remark, Genetic Algorithms, the most widely used EAs, have been frequently applied to real world problems due to the advantages that GPGPUs offer.
 % Antonio - TODO: complete with more conclusions...
 \end{abstract}
@@ -109,28 +104,16 @@ Then, a set of representative works describing different approaches using GPUs a
 \section{Evolutionary Algorithms}
 \label{sec:eas}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This section introduces a general overview of the most used types of Evolutionary Algorithms to clarify their common elements. Also, the most extended models to parallelize EAs are presented, to understand all their possible architectural possibilities. 
 
+This section gives a general overview of the most used types of Evolutionary Algorithms (EAs) describing their common elements. In addition, the most extended models to parallelize EAs are presented, to understand all their possible architectural possibilities. 
 
-Evolutionary Algorithms are a set of bio-inspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of algorithms, a \textsc{population} of codified solutions (called \textsc{individuals}) is created. The most adapted individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material. The level of adaptation of each solution is measured using a \textsc{fitness} function, that usually models the problem to solve.
-
-Initially the EAs were proposed as a fixed set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were also presented, with new classifications and operations. Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. %These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
-scalability or decentralization.
-
+Evolutionary Algorithms are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
+Thus, the fittest individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material. 
 
 
 %\subsection{Types of Evolutionary Algorithms}
 %\label{sec:distributed:types}
-The general scheme of an EA, extracted from the work of Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}. Although most of the EAs follow the scheme shown in this Figure, they have differences depending on the
-representation of the solutions, the problems to solve, and other
-features. A possible classification is presented in this section, 
-taking into account the new approaches that cannot fit in the traditional 
-taxonomy. This classification would help to clarify the elements that 
-distinguish an algorithm from another (for example, the operators), 
-and the existing similarities and differences, in order to establish  
-a good starting point to classify EAs in GPGPUs.
-
-
+The general scheme of an EA, extracted from the work by Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}.  
 
 \begin{figure}[tb]
 \begin{verbatim}
@@ -150,48 +133,47 @@ END
 \label{fig:basicscheme}
 \end{figure}
 
+Although most of the EAs follow this structure, there are some differences depending on the representation of solutions, the operators to apply, or even the kind of problem to solve. Thus, according to the book \cite{eiben2003introduction}, the classical types  of EAs are:
+
+%A possible classification is presented in this section, taking into account the new approaches that cannot fit with the traditional taxonomy. This classification would help to clarify the elements that  distinguish an algorithm from another (for example, the operators), and the existing similarities and differences, in order to establish a good starting point to classify EAs in GPGPUs.
 
 %\subsection{Classic classification of EAs}
 %\label{subsec:classicEAs}
-EAs are usually classified using a traditional variant, according to
-the book of Eiben and Smith \cite{eiben2003introduction}. These authors clarify that the features of an EA are:
-\begin{itemize}
-\item EAs are population based.
-\item EAs mostly uses recombination to generate new individual from the existing ones.
-\item EAs are stochastic.
-\end{itemize}
-These are the elements that distinguish the EAs from another meta-heuristics (such as the Local Search \cite{aarts1997local}, for example).
+%EAs are usually classified using a traditional variant, according to
+%the book of Eiben and Smith \cite{eiben2003introduction}. These authors clarify that the features of an EA are:
+%\begin{itemize}
+%\item EAs are population-based.
+%\item EAs mostly uses recombination to generate new individuals from the existing ones.
+%\item EAs are stochastic.
+%\end{itemize}
 
 
 \begin{description}
-\item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and also studied by Goldberg \cite{goldberg1988genetic} and Michalewicz \cite{michalewicz1996genetic}. In this kind of EA, the representation of the solution is a string of numbers (usually binary), called \textsc{chromosome} (and sometimes \textsc{genome}). The individuals are selected proportionally to their fitness, and then \textsc{recombination} and/or \textsc{mutation} are applied to generate new individuals that will be introduced in the population. %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
+\item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and later `refined' by Goldberg \cite{goldberg1988genetic}. In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then \textit{recombination} and/or \textit{mutation} are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
 
-\item[Evolution Strategies] The Evolution Strategies (ES) are used to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the inclusion of self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. Also, the parent selection is performed randomly. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
+\item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
 
-\item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of the solution depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals.
+% Antonio - TO DO: fix this description. ;)
+\item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution is usually another algorithm, so it depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals.
 
 \item[Genetic Programming] The objective of this technique is to
-  create functions or programs to solve determined
-  problems. Individual representation is frequently in the form of a tree,
-  formed by operators (or {\em primitives}) and variables ({\em
-    terminals}). These sets are usually fixed and known. The genome
-  size is, therefore, variable, but the maximum size of the
-  individuals is commonly fixed, to avoid high evaluation costs. %GP has been used to evolve LISP (LISt Processing) programs   \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet     Language Transformations) scripts \cite{Garcia2008XSLT}, among  others.
-
-
+  generate (and evolve) functions or programs to solve specific
+  problems. Each individual is represented in the form of a tree,
+  composed by operators (or {\em primitives}) and variables ({\em
+    terminals}). These sets are usually fixed and known in advance. 
+  The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. %GP has been used to evolve LISP (LISt Processing) programs   \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet     Language Transformations) scripts \cite{Garcia2008XSLT}, among  others.
 
 \end{description}
 
 %\subsection{Other models}
 
-However, other EAs that do not match in the previous classic classification  have been proposed. For example \textsc{Differential Evolution}
-(DE) \cite{storn1997differential}, \textsc{Estimation of Distribution
-  Algorithms} (EDAs) \cite{larranaga2002estimation} or
-\textsc{Bayesian Optimization Algorithms} \cite{pelikan2005bayesian}. 
+However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. 
 
-Differential Evolution \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textsc{random noisy vectors}. These vectors are recombined with original random individuals to create the \textsc{trial vectors}. These vectors are compared one by one with the original vector and the better of each comparison is kept for the next generation.
+Differential Evolution \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation.
 
-Table \ref{tab:summaryEAs} shows the main differences between all this types of EAs. Note that we have selected the common features of each algorithm. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
+% Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs. :D
+
+Table \ref{tab:summaryEAs} shows the main differences between all these types of EAs. Note that we have selected the common features of each algorithm. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
 
 \begin{table}
 \resizebox{17cm}{!}{
@@ -214,9 +196,9 @@ Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Gener
 
 
 
-%Combining elements of all the previous algorithms with other heuristics is the base of \textsc{Memetic Algorithms} (MAs). These algorithms are based on the concept of {\em meme}  proposed by Dawkins \cite{dawkins2006selfish}. In this context, a meme is domain specific knowledge coded by a computational representation to the effective solving of a problem.
+%Combining elements of all the previous algorithms with other heuristics is the base of \textit{Memetic Algorithms} (MAs). These algorithms are based on the concept of {\em meme}  proposed by Dawkins \cite{dawkins2006selfish}. In this context, a meme is domain specific knowledge coded by a computational representation to the effective solving of a problem.
 
-%This kind of algorithms can be seen as an hybrid combination of the population-based evolution methods previously explained, coupled with some kind of local search. Initially, the hybridization was made just combining two o more methods with some kind of problem knowledge. For example combining a genetic algorithm with Simulated Annealing (SA) \cite{HybridRodriguez2012}. The local search can be performed before, during, or after the evaluation. New trends, such as adaptive MAs \cite{ong2006classification} lead to the usage of several memes for searching and deciding dynamically which meme should be applied to each individual. For example, Cowling et al.  proposed the term \textsc{hyperheuristic} \cite{cowling2001hyperheuristic} as the strategy to choose the meme to be applied depending on the time and the region of the search space (or, in a brief, heuristic to choose memes).  Other examples are the work of Krasnogor et al. \cite{krasnogor2002multimeme}, where the  inclusion of the memetic codification inside the individual chromosome (\textsc{Multimemes}) to select which meme to use is applied;  or codify a set of rules, as proposed by Smith \cite{smith2002co} (\textsc{Co-evolving MAs}).
+%This kind of algorithms can be seen as an hybrid combination of the population-based evolution methods previously explained, coupled with some kind of local search. Initially, the hybridization was made just combining two o more methods with some kind of problem knowledge. For example combining a genetic algorithm with Simulated Annealing (SA) \cite{HybridRodriguez2012}. The local search can be performed before, during, or after the evaluation. New trends, such as adaptive MAs \cite{ong2006classification} lead to the usage of several memes for searching and deciding dynamically which meme should be applied to each individual. For example, Cowling et al.  proposed the term \textit{hyperheuristic} \cite{cowling2001hyperheuristic} as the strategy to choose the meme to be applied depending on the time and the region of the search space (or, in a brief, heuristic to choose memes).  Other examples are the work of Krasnogor et al. \cite{krasnogor2002multimeme}, where the  inclusion of the memetic codification inside the individual chromosome (\textit{Multimemes}) to select which meme to use is applied;  or codify a set of rules, as proposed by Smith \cite{smith2002co} (\textit{Co-evolving MAs}).
 
 
 %In brief, the memetic algorithms can be seen as a composition of other algorithms. The integration should be as easy as possible to allow researchers develop new algorithms easily. Moreover, not only the way to combine the algorithms that conform the memetic one, but also how to dynamically select among these available memes. Thus, mechanisms to announce memes and automatically discovering and binding should be applied. %FERGU: TODO terminar esto y dejalo más claro aún
@@ -228,11 +210,18 @@ Evolutionary Algorithms are inherently parallelizable, since each individual can
 or the population can be distributed among different nodes to be
 evolved at the same time. In 2002, two main types of parallelization
 models for EAs were classified by Alba and Tomassini in
-\cite{Alba02Parallelism}: \textsc{Global parallel EAs} and
-\textsc{Spatially structured EAs}. However, with the aim of new
+\cite{Alba02Parallelism}: \textit{Global parallel EAs} and
+\textit{Spatially structured EAs}. However, with the aim of new
 technologies and architectures, such as P2P, new ways to parallelize
 EAs have been proposed. In this section, the differences of the existing classification
 with these new trends are explained, and the requirements of each one are presented.
+
+********
+Initially the EAs were proposed as a sequential set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were presented, with new schemes and operations. Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
+These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
+scalability or decentralization.
+********
+
 
 %\subsubsection{Traditional parallelization classification}
 
@@ -241,7 +230,7 @@ scalability or decentralization were not taken into consideration.
 The number of computational nodes are fixed during the whole execution and both the network and the nodes are reliable and trustworthy.
 
 \subsubsection{Global parallel evolutionary algorithms} 
-In this model, also called \textsc{Farming model}, \textsc{Master-Slave} or \textsc{Centralized EA}, the parallelism is applied at evaluation level, where a central node coordinate several slave nodes. The central node executes the EA in a sequential way, but distributes the individuals of the population to the slaves just for being evaluated. Figure \ref{fig:masterslave} depicts this situation.
+In this model, also called \textit{Farming model}, \textit{Master-Slave} or \textit{Centralized EA}, the parallelism is applied at evaluation level, where a central node coordinate several slave nodes. The central node executes the EA in a sequential way, but distributes the individuals of the population to the slaves just for being evaluated. Figure \ref{fig:masterslave} depicts this situation.
 
 \begin{figure}[tb]
 \centering
@@ -254,7 +243,7 @@ In this model, also called \textsc{Farming model}, \textsc{Master-Slave} or \tex
 \subsubsection{Spatially structured algorithms}
 The parallelism is performed at population level, that is, dividing the population among the different computing elements. Depending on how the distribution is performed we have:
 \begin{description}
-\item[Coarse-grained approach] One of the most usual approaches is the \textsc{Island model}, where a number of nodes executes simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
+\item[Coarse-grained approach] One of the most usual approaches is the \textit{Island model}, where a number of nodes executes simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
 
 \begin{figure}[tb]
 \centering
@@ -264,7 +253,7 @@ The parallelism is performed at population level, that is, dividing the populati
 \label{fig:ring}
 \end{figure}
 
-\item[Fine-grained approach] In this approach, also called \textsc{Cellular EA} (CEA), each node has one individual of the population, and selection and reproduction are limited to the individuals of the neighbourhood of the node \cite{alba-cellular-2008}. Usually a bi-dimensional grid is used as topology, such as the one showed in the Figure \ref{fig:cellular}.
+\item[Fine-grained approach] In this approach, also called \textit{Cellular EA} (CEA), each node has one individual of the population, and selection and reproduction are limited to the individuals of the neighbourhood of the node \cite{alba-cellular-2008}. Usually a bi-dimensional grid is used as topology, such as the one showed in the Figure \ref{fig:cellular}.
 
 \begin{figure}[tb]
 \centering
@@ -280,22 +269,8 @@ The parallelism is performed at population level, that is, dividing the populati
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Throughput, parallelism and GPUs}
+\section{Massive parallelization on General Purpose GPUs}
 \label{sec:parall_and_GPUs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -416,6 +391,8 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 \caption{CPUs, APUs and GPUs comparison of the best professional and commodity desktop hardware available nowadays. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
+% Antonio - TODO: update table with new cards
+
 Nowadays NVIDIA has one of the best performance for GPU computing \cite{benchmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of theirs GPUs. AMD has more execution units but its memory hierarchy is weaker. This way software bounded by memory bandwidth or with strong ordering inter-dependencies prefers NVIDIA hardware. On the other side, loads capped by pure ALU execution power use to be faster on AMD hardware.
 
 Traditionally CPUs and GPUs have been separated. In 2016 the trend is
@@ -439,6 +416,7 @@ As CPU makers did some years ago, passing from single core to symmetric multipro
 
 Most information shown in this and next sections is available from the websites of the respective manufacturer: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GPUs Programming}
 \label{sec:programming}
@@ -461,6 +439,7 @@ OpenCL aimed to became the OpenGL of heterogeneous computing for parallel applic
 Most companies support OpenCL across their products. Apart from AMD and NVIDIA we can use it on graphic hardware from S3 and VIA. Also IBM has a version of OpenCL for PowerPC and CELL processors. Intel started to offer support from the APU architecture Ivy Bridge and GPUs. Embedded world is also interested in OpenCL. Imagination Technologies offer support for the SGX545 graphics core. As does Samsung with their ARM based microprocessors.
 
 To make life easier for potential users many libraries are appearing. One significant example are STL like extensions for the C++ language. In \cite{doi:10.1137/120903683} we can read a comparison of several modern C++ libraries providing high-level interfaces for programming multi- and many-core architectures on top of CUDA and OpenCL.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Execution Model}
@@ -505,19 +484,30 @@ These problem have been with us because current CPUs and GPUs have been designed
 
 Different EAs adapt to the limitations of the memory model with different degrees of success. Talking about population size, the smaller the the better. The variability is huge between different kinds. Also when possible, many small islands is preferable to a big unique population. The same is valid for any aspect of the algorithm which demands a big quantity of memory.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Frameworks used with EAs}
+\section{Parallelizing EAs on GPGPUs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we cite some relevant material not int the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most EC metaheuristics can be implemented without effort by using any of the existing frameworks. 
+
+\subsection{Frameworks used with EAs}
+
+In this section we cite some relevant material not in the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most evolutionary metaheuristics can be implemented without effort by using any of the existing frameworks. 
 
 The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
 
 PUGACE\cite{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
 
 
+\subsection{Requirements and constraints to parallelize EAs on GPUs}
+
+% Antonio - TODO: Fill this section with the general features/issues to take into account when parallelizing EAs on GPUs. Try not to overlap with the Taxonomy section.
+
+** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Proposed Taxonomy}
+\section{Parallelization Taxonomy}
 \label{sec:taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
