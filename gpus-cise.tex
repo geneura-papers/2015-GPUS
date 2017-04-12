@@ -64,7 +64,15 @@ many real world problems or large instances of some benchmark problems
 requires a high amount of computational power. In order to deal with
 them, parallelization of this kind of algorithms has been performed
 with the main objective of reducing the computational time whereas,
-eventually, the quality of the solutions is improved. These algorithms
+eventually, the quality of the solutions is improved. 
+
+%******** Antonio - TO DO: Revise and rewrite/integrate this with the other text
+Initially the EAs were proposed as a sequential set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were presented, with new schemes and operations. Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
+These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
+scalability or decentralization.
+%********
+
+These algorithms
 were usually executed in one or more central processing units (CPUs)
 each one with one or more cores. However the advances in the video
 game industry have led to the production of low cost and
@@ -100,12 +108,17 @@ The rest of the paper is structured as follows: Next section presents GPUs as hi
 higher level programming languages used to take advantage on GPUs is described. The following section proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
 Then, a set of representative works describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. Finally, some conclusions are remarked in the last section.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evolutionary Algorithms}
 \label{sec:eas}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section gives a general overview of the most used types of Evolutionary Algorithms (EAs) describing their common elements. In addition, the most extended models to parallelize EAs are presented, to understand all their possible architectural possibilities. 
+
+% ------------------------------------------------------------------------------
+\subsection{Description}
+\label{subsec:eas-description}
 
 Evolutionary Algorithms are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
 Thus, the fittest individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material. 
@@ -171,7 +184,7 @@ However, there are other EAs that do not match in the previous classification. F
 
 Differential Evolution \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation.
 
-% Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs. :D
+% Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D
 
 Table \ref{tab:summaryEAs} shows the main differences between all these types of EAs. Note that we have selected the common features of each algorithm. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
 
@@ -190,47 +203,32 @@ Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Gener
 \hline
 \end{tabular}
 }
-\caption{Differences between the types of EAs.}
+\caption{Differences between the types of EAs \cite{eiben2003introduction}.}
 \label{tab:summaryEAs}
 \end{table}
 
 
-
-%Combining elements of all the previous algorithms with other heuristics is the base of \textit{Memetic Algorithms} (MAs). These algorithms are based on the concept of {\em meme}  proposed by Dawkins \cite{dawkins2006selfish}. In this context, a meme is domain specific knowledge coded by a computational representation to the effective solving of a problem.
-
-%This kind of algorithms can be seen as an hybrid combination of the population-based evolution methods previously explained, coupled with some kind of local search. Initially, the hybridization was made just combining two o more methods with some kind of problem knowledge. For example combining a genetic algorithm with Simulated Annealing (SA) \cite{HybridRodriguez2012}. The local search can be performed before, during, or after the evaluation. New trends, such as adaptive MAs \cite{ong2006classification} lead to the usage of several memes for searching and deciding dynamically which meme should be applied to each individual. For example, Cowling et al.  proposed the term \textit{hyperheuristic} \cite{cowling2001hyperheuristic} as the strategy to choose the meme to be applied depending on the time and the region of the search space (or, in a brief, heuristic to choose memes).  Other examples are the work of Krasnogor et al. \cite{krasnogor2002multimeme}, where the  inclusion of the memetic codification inside the individual chromosome (\textit{Multimemes}) to select which meme to use is applied;  or codify a set of rules, as proposed by Smith \cite{smith2002co} (\textit{Co-evolving MAs}).
+% Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's).
 
 
-%In brief, the memetic algorithms can be seen as a composition of other algorithms. The integration should be as easy as possible to allow researchers develop new algorithms easily. Moreover, not only the way to combine the algorithms that conform the memetic one, but also how to dynamically select among these available memes. Thus, mechanisms to announce memes and automatically discovering and binding should be applied. %FERGU: TODO terminar esto y dejalo más claro aún
+% ------------------------------------------------------------------------------
+\subsection{Models of Parallel and Distributed Evolutionary Algorithms}
+\label{subsec:eas-distributed:parallel}
 
-\subsection{Parallel and Distributed Evolutionary Algorithms models}
-\label{sec:distributed:parallel}
+Evolutionary Algorithms are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, in principle, there are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time. 
 
-Evolutionary Algorithms are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, there exist several ways to parallelize: for example, fitness evaluation can be distributed into several slave machines,
-or the population can be distributed among different nodes to be
-evolved at the same time. In 2002, two main types of parallelization
-models for EAs were classified by Alba and Tomassini in
-\cite{Alba02Parallelism}: \textit{Global parallel EAs} and
-\textit{Spatially structured EAs}. However, with the aim of new
-technologies and architectures, such as P2P, new ways to parallelize
-EAs have been proposed. In this section, the differences of the existing classification
-with these new trends are explained, and the requirements of each one are presented.
-
-********
-Initially the EAs were proposed as a sequential set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were presented, with new schemes and operations. Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
-These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
-scalability or decentralization.
-********
+Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
+\textit{Spatially structured EAs}. However, with the arise of new
+technologies and architectures, such as P2P or Cloud Computing, new ways of parallelization of EAs were proposed. 
 
 
 %\subsubsection{Traditional parallelization classification}
 
-As this classification was established in 2002, issues such as fault-tolerance, churn, massive
-scalability or decentralization were not taken into consideration. 
-The number of computational nodes are fixed during the whole execution and both the network and the nodes are reliable and trustworthy.
+This classification is still the most extended, even if it was established in 2002, however, it does not consider issues such as fault-tolerance, churn, massive scalability or decentralization. So, the number of computational nodes are considered constant during the whole execution and both the network and the nodes are reliable and trustworthy. Since a GPGPU is a kind of stable and reliable architecture, we consider the classification also as valid for the purposes of this paper.
 
+% ----------------------------------------
 \subsubsection{Global parallel evolutionary algorithms} 
-In this model, also called \textit{Farming model}, \textit{Master-Slave} or \textit{Centralized EA}, the parallelism is applied at evaluation level, where a central node coordinate several slave nodes. The central node executes the EA in a sequential way, but distributes the individuals of the population to the slaves just for being evaluated. Figure \ref{fig:masterslave} depicts this situation.
+In this model, also called \textit{Farming model}, \textit{Master-Slave} or \textit{Centralized EA}, the parallelism is applied at evaluation level. Thus, a central node coordinates several slave nodes. This node executes the EA in a sequential way, but it distributes the individuals of the population among the slaves just for being evaluated. Figure \ref{fig:masterslave} depicts this approach.
 
 \begin{figure}[tb]
 \centering
@@ -240,10 +238,12 @@ In this model, also called \textit{Farming model}, \textit{Master-Slave} or \tex
 \label{fig:masterslave}
 \end{figure}
 
+% ----------------------------------------
 \subsubsection{Spatially structured algorithms}
-The parallelism is performed at population level, that is, dividing the population among the different computing elements. Depending on how the distribution is performed we have:
+In this scheme the parallelism is performed at population level, that is, the population is divided and distributed among the different computing elements. Depending on how the distribution is performed there are:
+
 \begin{description}
-\item[Coarse-grained approach] One of the most usual approaches is the \textit{Island model}, where a number of nodes executes simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
+\item[Coarse-grained approach] In which independent subsets of individuals are considered. One of the most extended approaches is the \textit{Island model}, where a number of nodes execute simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
 
 \begin{figure}[tb]
 \centering
@@ -253,7 +253,7 @@ The parallelism is performed at population level, that is, dividing the populati
 \label{fig:ring}
 \end{figure}
 
-\item[Fine-grained approach] In this approach, also called \textit{Cellular EA} (CEA), each node has one individual of the population, and selection and reproduction are limited to the individuals of the neighbourhood of the node \cite{alba-cellular-2008}. Usually a bi-dimensional grid is used as topology, such as the one showed in the Figure \ref{fig:cellular}.
+\item[Fine-grained approach] In this approach, also called \textit{Cellular EA} (CEA) \cite{alba-cellular-2008}, each node has one individual of the population, and selection and reproduction are limited to the individuals on the neighbourhood of every node . Usually a bi-dimensional grid is used as topology, such as the one shown in Figure \ref{fig:cellular}.
 
 \begin{figure}[tb]
 \centering
@@ -607,9 +607,7 @@ With respect to the type of publication, as expected, it can be seen in Figure \
 
 \begin{figure*}[!ht]
 \centering
-
-\includegraphics[width=0.5\textwidth,trim={1.5cm 1.5cm 1.5cm 1.5cm},clip]{papertype.eps}
-
+\includegraphics[width=0.6\textwidth]{papertype.eps}
 \caption{Type of publication, being Conference paper, Journal Paper, or Book Chapter.}
 \label{figure:type_publication}
 \end{figure*}
@@ -618,7 +616,7 @@ Regarding the type of EA implemented or studied in those papers, Figure \ref{fig
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.5\textwidth,trim={1.5cm 1.5cm 1.5cm 1.5cm},clip]{algorithmtype.eps}
+\includegraphics[width=0.6\textwidth]{algorithmtype.eps}
 \caption{Type of Evolutionary Algorithm implemented in the analyzed publications.}
 \label{figure:type_algorithm}
 \end{figure*}
@@ -627,7 +625,7 @@ Finally, the majority of the analysed publications deal with solving real proble
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.5\textwidth,trim={1.5cm 1.5cm 1.5cm 1.5cm},clip]{realproblem.eps}
+\includegraphics[width=0.6\textwidth]{realproblem.eps}
 \caption{Portion of the analyzed publications which address real problems.}
 \label{figure:type_problem}
 \end{figure*}
