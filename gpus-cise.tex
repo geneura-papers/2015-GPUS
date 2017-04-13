@@ -217,10 +217,10 @@ Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Gener
 
 
 % ------------------------------------------------------------------------------
-\subsection{Models of Parallel and Distributed Evolutionary Algorithms}
+\subsection{Parallel and Distributed Evolutionary Algorithm Models}
 \label{subsec:eas-distributed:parallel}
 
-Evolutionary Algorithms are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, in principle, there are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time. 
+EAs are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, in principle, there are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time. 
 
 Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
 \textit{Spatially structured EAs}. However, with the arise of new
@@ -402,11 +402,10 @@ Nowadays NVIDIA has one of the best performance for GPU computing \cite{benchmar
 
 Traditionally CPUs and GPUs have been separated. In 2016 the trend is
 to integrate both into a single chip for cost efficiency reasons. Only
-top models remain as discrete devices. Some of this are top models
-from Intel's Core i7 or AMD's Opteron 6300 families. Also best
-discrete GPUs from NVIDIA and AMD, like consumer GeForce GTX 1080 and
-Radeon RX 480 and professional line QUADRO K6000 and Radeon FirePro
-S10000.
+in top models they remain as discrete devices. Some of them are top models
+from Intel's Core i7 or AMD's Opteron 6300 families. 
+Also best discrete GPUs from NVIDIA and AMD, like consumer GeForce GTX 1080 and
+Radeon RX 480 and professional line QUADRO K6000 and Radeon FirePro S10000.   %this sentence is "unlinked" with the rest...  [pedro]
 
 From 2006 CPUs with an integrated GPU have became popular. AMD and Intel started selling this kind of combined processor and graphics card. The term Accelerated Processing Unit has been coined for this kind of chips. The architectural names are Llano for AMD and Sandy Bridge for Intel. Many reviews state that AMD's CPU cores are slower than Intel's ones but their GPU is faster. Latest Intel APUs, based on Skylake microarchitecture, integrate a more powerful GPU unit with up to 72 cores, Iris Pro Graphics 580. Which combination is better is not an easy question to answer. It must be backed by specific benchmarks, or better, the real application that we want it to run.
 
@@ -516,11 +515,12 @@ PUGACE\cite{5586286} is a framework in CUDA for cellular GAs (cGAs), but only fo
 \label{sec:taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section proposes a taxonomy to distinguish between the different distribution methods applied in the literature. It is inspired by the classical models used in the distribution of EAs. 
+In this section, a taxonomy to distinguish between the different distribution methods applied in the literature is proposed. 
+It is inspired by the classical models used in the distribution of EAs. 
 There are many different bioinspired approaches included in the bibliography, but we are mainly focused on Parallel Evolutionary Computation (EC). That is the most extended metaheuristic to address many types of large or complex problems, which require some kind of parallelization to be solved with enough quality and on a reasonable quantity of time.
 
 
-Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics on EC (Evolutionary Computation). They identified the majority of paradigms with respect to parallel/distributed Evolutionary Algorithms (EAs), according to Flynn's taxonomy, under the Multiple Instruction Multiple Data (MIMD) category. This argument has been fairly valid during the last two decades because the most dominant platform for running parallel/distributed EAs were distributed memory architectures, like clusters. However fine-grained EAs deployed on massive parallel processors (MPPs) are resurfacing, due to GPUs architecture gives low cost support for them.
+Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics on EC. They identified the majority of paradigms with respect to parallel/distributed EAs, according to Flynn's taxonomy, under the Multiple Instruction Multiple Data (MIMD) category. This argument has been fairly valid during the last two decades because the most dominant platform for running parallel/distributed EAs were distributed memory architectures, like clusters. However fine-grained EAs deployed on massive parallel processors (MPPs) are resurfacing, due to GPUs architecture gives low cost support for them.
 
 The parallel EAs community has a wide legacy with MIMD architectures and a very little contribution for SIMD systems. This comes in part due to the dominance of MIMD architectures as compared to SIMD ones.
 
@@ -541,7 +541,8 @@ Alba classifies the main parallel metaheuristics models as follows:
 \item Parallel Heterogeneous Metaheuristics  \cite{ANL04}. 
 \end{itemize}
 
-Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we revise the bibliography taking in mind how an algorithm has been parallelized using that paradigm, so, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \cite{ZhangImplementationMasterSlave}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901_1570089} \cite{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
+Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we have revised the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  
+For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \cite{ZhangImplementationMasterSlave}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901_1570089} \cite{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -593,22 +594,21 @@ In this section we present a quantitative analysis of published papers on EAs on
 
 \subsection{Paper gathering} % Gustavo: que te parece este
 
-Firstly, a deep analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS)\cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
+Firstly, a deep analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
 % Antonio - comprobar si se buscó en cualquier parte de los artículos
-We got 320 references, and we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, we kept 191 results, which we read in order to extract its features and useful information for this survey.
+We got 320 references, and we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, we kept 191 results, which we read in order to extract its features and useful information for this survey.  % maybe we should rewrite these sentences avoiding the  "we"  [pedro]
 
 Looking at the publication rate per year inside this scope, it can be noticed in Figure \ref{figure:publications}, the publication figures has been increased  every year, starting from 2004 (according to the results), being nowadays a field very attractive for researchers and very prolific.
 
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{years.eps}
-\caption{Papers published per year inside the scope analyzed here (EAs on GPGPUs) according to Web of Science database.}
+\caption{Papers published per year in the scope of EAs on GPGPUs, according to Web of Science database.}
 \label{figure:publications}
 \end{figure*}
 
 
-
-With respect to the type of publication, as expected, it can be seen in Figure \ref{figure:type_publication} that conferences and journals share almost all the cake, being slightly higher the figures for conference papers, as it is obviously easier to get published there. However, this factor should be taken just as a reference, since not all the conferences and journals are indexed in WoS, but mainly relevant ones.
+Paying attention to the type of publication, Figure \ref{figure:type_publication} shows, as expected, that conferences and journals share almost all the cake, being slightly higher the figures for conference papers, as it is obviously easier to get published there. However, this factor should be taken just as a reference, since not all the conferences and journals are indexed in WoS, but mainly relevant ones.
 
 \begin{figure*}[!ht]
 \centering
@@ -636,7 +636,7 @@ Finally, the majority of the analysed publications deal with solving real proble
 \end{figure*}
 
 
-Once we have analyzed the whole literature, in the following sections we will go through each of the different groups of the proposed taxonomy. Then, for every one the most representative or relevant works (mainly according to their number of citations) are reviewed and commented.
+Once we have analyzed the whole literature from a general perspective, in the following sections we will go through each of the different groups of the proposed taxonomy. Then, for every one the most representative or relevant works (mainly according to their number of citations) are reviewed and commented.
 
 %After reading this section it is clear than PEAs is an active research field and there are so many different variations that almost for sure one of then can fit the needs of most users. Following this reasoning, in the next 5 sections, the most representative works of every type of EA are going to be presented for your convenience.
 
