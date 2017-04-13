@@ -43,6 +43,7 @@ The paper also includes a review of advances in hardware and software along with
 Thus, more than 200 associated publications, from the last 13 years, have been revised and their properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems. 
 We also define a taxonomy of the approaches used for parallelization on the literature. Then, a more in-depth analysis has been conducted on a wide selection, also describing the most representative in each category. 
 As a remark, Genetic Algorithms, the most widely used EAs, have been frequently applied to real world problems due to the advantages that GPGPUs offer.
+% [pedro]  I suggest changing this sentence, trying to indicate something like:  main approaches to solve real world problems taking advantage of GPGPUs have been reviewed.
 % Antonio - TODO: complete with more conclusions...
 \end{abstract}
 
@@ -67,7 +68,8 @@ with the main objective of reducing the computational time whereas,
 eventually, the quality of the solutions is improved. 
 
 %******** Antonio - TO DO: Revise and rewrite/integrate this with the other text
-Initially the EAs were proposed as a sequential set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were presented, with new schemes and operations. Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
+Initially the EAs were proposed as a sequential set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were presented, with new schemes and operations.  % operators    ???
+Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
 These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
 %********
@@ -82,7 +84,7 @@ every PC nowadays and also in most of the mobile devices.  % There are
                                 % change the text by using synonyms?
                                 % - Jj
 
-GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations.
+GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations. % use calculus or calculations along the text  [pedro]
 
 Depending on the power of a GPU, the number of threads that can be executed in parallel on such devices is currently in the order of hundreds to thousands and this number is expected to be increased every year. Nowadays, developers can write their own high-level programs on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
 
@@ -96,7 +98,9 @@ There are several subtypes, depending on the data structure that is preferential
 selected solutions. Thus, after an initial population is created, usually randomly, the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
 If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population increases with the number of generations.
 
-EAs present a structure which is inherently parallel because the individuals of the population are relatively independent. They work independently, but all of them cooperate to find a solution. Thus, their distribution on different computation nodes is quite straight and not very difficult to implement. Normally every node is devoted to work on a subpopulation or island \cite{Cantu-Paz_parallel_GAs}. In the finest-grained models, or fully distributed, every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
+EAs present a structure which is inherently parallel because the individuals of the population are relatively independent, 
+%They work independently, but all of them cooperate
+cooperating to find a solution. Thus, their distribution on different computation nodes is quite straight and not very difficult to implement. Usually, every node is devoted to work on a subpopulation or island \cite{Cantu-Paz_parallel_GAs}, but in the finest-grained models, or fully distributed, every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
 
 The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a different searching area of the space of solutions and thus, to a different solution or set of solutions for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
 For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the recent distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
@@ -120,7 +124,7 @@ This section gives a general overview of the most used types of Evolutionary Alg
 \subsection{Description}
 \label{subsec:eas-description}
 
-Evolutionary Algorithms are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
+EAs are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
 Thus, the fittest individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material. 
 
 
@@ -162,7 +166,8 @@ Although most of the EAs follow this structure, there are some differences depen
 
 
 \begin{description}
-\item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and later `refined' by Goldberg \cite{goldberg1988genetic}. In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then \textit{recombination} and/or \textit{mutation} are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
+\item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and later `refined' by Goldberg \cite{goldberg1988genetic}. % I am not sure if someone could complaint about the word 'refined'...  [pedro]
+In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then \textit{recombination} and/or \textit{mutation} are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
 
 \item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
 
