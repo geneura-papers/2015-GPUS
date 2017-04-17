@@ -187,7 +187,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. 
 
-Differential Evolution \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation.
+DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation.
 
 % Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D
 
@@ -533,7 +533,7 @@ Alba classifies the main parallel metaheuristics models as follows:
 \item Parallel Estimation of Distribution Algorithms  \cite{springerlink:10.1007_3_540_32494_1_7}.
 \item Parallel Scatter Search \cite{GarciaLopez2003575}.
 \item Parallel Variable Neighborhood Search \cite{Garcia_lopez_theparallel}.
-\item Parallel Simulated Annealing \cite{Genetic_parallelsimulated} .
+\item Parallel Simulated Annealing (SA) \cite{Genetic_parallelsimulated} .
 \item Parallel Tabu Search \cite{Crainic97towardsa}.
 \item Parallel Greedy Randomized Adaptive Search Procedures \cite{Resendeparallelgreedy}.
 \item Parallel Hybrid Metaheuristics  \cite{Cotta05e:parallel}. 
@@ -617,7 +617,7 @@ Paying attention to the type of publication, Figure \ref{figure:type_publication
 \label{figure:type_publication}
 \end{figure*}
 
-Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. The most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and normally yields very good results.  GP and DE (Differential Evolution) are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms), to cite a few.
+Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. The most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and normally yields very good results.  GP and DE are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms), to cite a few.
 
 \begin{figure*}[!ht]
 \centering
@@ -762,6 +762,10 @@ Sequential and parallel implementations are compared, obtaining a speedup of $\t
 Pospichal et al. \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253} propose a parallel GA with island model running on GPU. The authors map threads to individuals, thus, threads-individuals can be synchronized easily in order to maintain data consistency, and on-chip hardware scheduler can swiftly swap existing islands between multiprocessors to hide memory latency. Fast, shared memory within the multiprocessor is used to maintain populations.
 Since the population size is limited to 16KB per island on most GPUs, if the population is larger, slower main memory has to be used. The migration process is based on an asynchronous unidirectional ring that requires an inter-island communication (slower main memory has to be used). The authors report speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
 
+Li et al \cite{Li2016} develop a parallel GA for GPUs, taking advantage of the many cores of GPUs to enhance computation efficiency, by using a large amount of threads simultaneously; this strategy allows the population to scale and accelerates the speed to find the global optimal solution. 
+
+Zhengfu et al. \cite{Zhengfu2016} propose to improve the computational efficiency of information entropy multi-population GA, and to reduce the computing time, by using a CUDA-based implementation.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Hierarchical Models}
@@ -772,7 +776,7 @@ The design and implementation of a hybrid EA with local search to solve MAX-SAT 
 
 Diego et al. \cite{fjdiego-vrp}proposed a parallel strategy for solving the Capacitated Vehicle Routing Problem (CVRP) by means of an ACO algorithm. They combined the CPU processing, random number generation and centralized pheromone information dealing, with the GPU parallel capabilities: initialization of trails, build solutions, choosing of the best solution, and pheromone evaporation. The experiments were conducted on a GeForce GTX460 in a Pentium Dual Core 2.7GHz with 2GB RAM, using CUDA. The results showed a speedup of $\times12$ in the best case.
 
-Delevacq et al. \cite{ACO-on-GPU_Develacq} tests different parallel strategies for the ACO metaheuristic on a NVIDIA Fermi C2050 GPU, on a four-core Xeon E5640 @2.6 GHz with 24GB RAM. The Max-Min Ant System is considered for solving the Travelling Salesman Problem (TSP) for problem sizes of up to 2100 cities. Authors proposed multi-ant (one colony) and multi-colony approaches implemented with CUDA. They distributed the solutions on the GPU processing elements: an ant per thread, and an ant per block respectively. The common structures, pheromone matrix, distances and candidate lists, are stored in shared memory, meanwhile the CPU is used for a preliminary set of random numbers generation and centralized control tasks. For the multi-colony algorithms, a set of ants is assigned to every processing element. This time, almost the whole algorithm is run in the GPU. They obtained speedups of up to $\times19$ in the multi-ant, and up to 8 in the multi-colony approaches, having similar solution quality than the original sequential approach.
+Delevacq et al. \cite{ACO-on-GPU_Develacq} tests different parallel strategies for the ACO metaheuristic on a NVIDIA Fermi C2050 GPU, on a four-core Xeon E5640 @2.6 GHz with 24GB RAM. The Max-Min Ant System is considered for solving the TSP for problem sizes of up to 2100 cities. Authors proposed multi-ant (one colony) and multi-colony approaches implemented with CUDA. They distributed the solutions on the GPU processing elements: an ant per thread, and an ant per block respectively. The common structures, pheromone matrix, distances and candidate lists, are stored in shared memory, meanwhile the CPU is used for a preliminary set of random numbers generation and centralized control tasks. For the multi-colony algorithms, a set of ants is assigned to every processing element. This time, almost the whole algorithm is run in the GPU. They obtained speedups of up to $\times19$ in the multi-ant, and up to 8 in the multi-colony approaches, having similar solution quality than the original sequential approach.
 
 Cecilia et al. \cite{Cecilia201342} proposed three different techniques for improving the classical ACO algorithms parallelization on GPUs: a data parallelism scheme for tour construction on GPU, a GPU-based pheromone updating stage, and a roulette wheel implementation on GPU, called I-Roulette. They introduced the queen ants, associated with CUDA blocks, and the worker ants, associated to CUDA threads. The experiments were performed on a four-core Intel Xeon E5620 running at 2.4 GHz, with 16GB RAM, and a NVIDIA Tesla C2050 Fermi. The proposed techniques lead to obtain a speedup factor of up to $\times20$ in comparison with the sequential implementation.
 
@@ -784,6 +788,8 @@ Authors mapped the population to the GPU and applied the parallel metaheuristic 
 
 In 2014,  \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+GPU high performance EA. 16 islands of 8 individuals were set as parameters. The experiments were carried in a combination of Intel Xeon X5650 @2.66GHz and  Intel Xeon X7550 @2.0GHz processors, although the paper do not includes information about the graphic cards used. Several instances of heterogeneous scheduling problems were used to compared with other metaheuristics, obtaining better makespans. 
 
+In \cite{Lin:2016:AGA:2895619.2895696}, an auto-tuning approach based on SA and GA for GPGPU applications taking into account the performance and power models is presented. Thus, no sub-optimal configuration that leads to poor performance and/or high power consumption is used.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Non-standard Approaches}
@@ -791,9 +797,16 @@ In 2014,  \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+
 
 Pospichal et al. in 2011 has presented several papers related with GPU devices. One of the last is \cite{DBLP:conf/gecco/PospichalMOSJ11} where they propose to use a GPU device for Grammatical Evolution, evolving complete programs in an arbitrary language using variable length binary strings. For this problem, every individual is a program, so it must be compiled and sent to the GPU for being evaluated every generation. However the most time-consuming part of this approach is to sent the individuals to the GPU and not the evaluation itself, so, the authors propose to evolve the whole Grammatical Evolution algorithm on the GPU with a special mapping function. They mapped one individual per block of threads and one thread is used to manage each individual. They compare the execution time of an Intel Core i7 with NVIDIA GTX 480 using CUDA (CPU implementation with C) an a Java library called GEVA \cite{O'Neill:2008:GGE:1527063.1527066}, which is an interpreted language (CPU implementation using GEVA).  The authors include results for both implementations (C and GEVA) and one GPU implementation, and they compare them with and without overhead for CPU-GPU communication. We include only the results with overhead, because the parallel version needs the CPU-GPU communication, so the authors might take care about it. The results of GPU implementation are in average 5.3 speedup than CPU with C implementation which is an expected result. The speedup grows until $\times102.8$ when GPU implementation and CPU implementation with GEVA are analysed, but the authors do not include any standard deviation results, so we do not consider the last result as the most important of the paper. Thus, this paper proposes two levels of parallelism: 1) individuals are evaluated in parallel (by threads in the same block); and 2) data within individuals (genes, crossover points, mutations, fitness points, etc.) are maintained by parallel access as well (by block of threads).
 
+Wang et al. \cite{Wang129} proposed a GPU based Neural Network Learning Algorithm based on DE with Improved Elite Strategy. Authors compared the performance with the learning algorithm based on DE with elite strategy running on CPU, resulting that the training time of proposed implementation is shorter while the prediction precision is higher.
+
+Brevilliers et al. \cite{Brevilliers2016} introduce a hybridization of Backtracking Search Optimization Algorithm (BSA) with DE and SA in order to improve the convergence speed of BSA implemented in CUDA. Experimental results show a high performance in terms of solution quality, convergence speed and speedup achieved.
+
 In another hand, Hwang et al. \cite{Hwang7470556} proposed an EA inspired by biological deoxyribonucleic acid (DNA) computing  to perform the task of optimization. However, to avoid the problems of biological DNA computing and fully utilize parallelism characteristics of it, authors propose to implement the algorithm in a GPU devices, thus optimizing the processing time efficiency.
 
-Finally, due to the complexity of some real problems, several authors have proposed parallel multi-objective implementations on GPU devices, such as Oliveira et al. \cite{Oliveira7744337} who present a GPU-based parallel implementation of NSGA-II to solve the energy dispatch problem of a hydroelectric power plants, taking into account the real time restrictions posed by the operation of a real power plant. The use of a parallel implementation using GPUs improved both the performance and solution quality obtained using the parallel approach. In \cite{Bian2016} a CPU+GPU heterogeneous computing orientation based multi-objective test case prioritization technique that utilizes GPGPU to accelerate the process of test case prioritization is proposed. In this case, the implementation, based on NSGA-II achieves 30 times speed-up rate on a well-known real world problem.
+Finally, due to the complexity of some real problems, several authors have proposed parallel multi-objective implementations on GPU devices, such as Oliveira et al. \cite{Oliveira7744337} who present a GPU-based parallel implementation of NSGA-II to solve the energy dispatch problem of a hydroelectric power plants, taking into account the real time restrictions posed by the operation of a real power plant. The use of a parallel implementation using GPUs improved both the performance and solution quality obtained using the parallel approach. 
+In \cite{Bian2016} a CPU+GPU heterogeneous computing orientation based multi-objective test case prioritization technique that utilizes GPGPU to accelerate the process of test case prioritization is proposed. In this case, the implementation, based on NSGA-II achieves 30 times speed-up rate on a well-known real world problem.
+Manoatl and Coello \cite{ManoatlLopez2016} propose a GPU-based parallelization of a multi-objective memetic algorithms (MOMAs) which switches between a hypervolume-based global optimizer and an IGD+ based local search engine for splitting the objective space into sub-regions. The parallel implementation lead to a high performance and speedup improvement.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
