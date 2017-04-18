@@ -60,7 +60,7 @@ As a remark, Genetic Algorithms, the most widely used EAs, have been frequently 
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The application of Evolutionary Algorithms to obtain the solution of
+The application of Evolutionary Algorithms (EAs) to obtain the solution of
 many real world problems or large instances of some benchmark problems
 requires a high amount of computational power. In order to deal with
 them, parallelization of this kind of algorithms has been performed
@@ -686,7 +686,7 @@ fitness at the end of the parallel process to the CPU, for the next
 evolution cycle. 
 
 A Genetic Programming (GP) method proposed by Harding and Banzhaf \cite{4215552} uses the GPU only for performing the evaluation, while the rest of the steps of the algorithm are run on the CPU. The authors tested real-coded expressions in up to 10000 nodes, boolean expressions in up to 1500 nodes, and some real world problem where they evaluate expressions in up to 10000 nodes. In some cases, the results yielded speedup of thousand times.
-In another hand, Chitty et al. \cite{Chitty2016} proposed different techniques to improve the performance of a graphics card implementation of tree-based GP in order to better exploiting this faster device. Authors demonstrated that both L1 cache and shared memory need to be considered for extracting the maximum performance.
+Besides, Chitty et al. \cite{Chitty2016} proposed different techniques to improve the performance of a graphics card implementation of tree-based GP in order to better exploiting this faster device. Authors demonstrated that both L1 cache and shared memory need to be considered for extracting the maximum performance.
 
 Zhang et al. \cite{ZhangImplementationMasterSlave} adapt different EAs to a GPU using CUDA. The authors implemented an hierarchical parallel genetic algorithm using a deme model at high level, and a master-slave schema at low level. In this implementation, the CPU initializes the populations and distributes them to thread blocks in shared memory. Then, GPU threads within each block run a GA independently, selection, crossover, mutation and evaluation, and migrates individuals to other thread blocks in its neighborhood. In this case, no speedup results were reported.
 
