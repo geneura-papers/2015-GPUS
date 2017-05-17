@@ -5,6 +5,7 @@
 \usepackage{url}
 \usepackage[latin1]{inputenc}
 \usepackage[dvips]{graphicx}
+\usepackage{pdflscape}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % front page
@@ -207,24 +208,23 @@ DE \cite{storn1997differential} also exploits a population of potential solution
 Table \ref{tab:summaryEAs} shows the main differences between all these types of EAs. Note that we have selected the common features of each algorithm. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
 
 \begin{table}
-\resizebox{17cm}{!}{
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+  \centering
+\begin{tabular}{|p{2.2cm}|p{2.1cm}|p{2.1cm}|p{2.1cm}|p{2.1cm}|p{2.1cm}|}
 \hline
 				& GA 	 & ES  & EP & GP & DE  \\
 \hline\hline
-Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-depending					& Tree 				& Real-value vectors 	 \\
-Initialization  & \multicolumn{5}{c}{Random, depending of the problem and individual structure} 						 \\
+Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-dependent					& Tree 				& Real-value vectors 	 \\
+Initialization  & \multicolumn{5}{c|}{Random, depending of the problem and individual structure} 						 \\
 Selection 	& Fitness proportional 	& Random 				& 						& Fitness proportional & Random to create noisy vectors \\
 Recombination   & Genome crossover		& Genome crossover		& 						& Sub-tree exchange		& Random gene by gene			\\
 Mutation  		& Random 				& Gaussian perturbation	& 						& Random 				& Implicit in the noisy vectors	 \\
 Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Generational 			& Compared with the original	 \\
 \hline
 \end{tabular}
-}
+
 \caption{Differences between the types of EAs \cite{eiben2003introduction}.}
 \label{tab:summaryEAs}
 \end{table}
-
 
 % Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's).
 
