@@ -181,7 +181,7 @@ Although most of the EAs follow this structure, there are some differences depen
 
 \begin{description}
 \item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and later `refined' by Goldberg \cite{goldberg1988genetic}. % I am not sure if someone could complaint about the word 'refined'...  [pedro]
-In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then \textit{recombination} and/or \textit{mutation} are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
+In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then different \textit{recombination} and/or \textit{mutation} operators are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
 
 \item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
 
@@ -199,13 +199,11 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 %\subsection{Other models}
 
-However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. 
+However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation. In the case of EDAs \cite{larranaga2002estimation}, instead of directly codifying the variables to optimize, the algorithm tries to find the probability distribution of each one. In each generation, the individuals are generated from previous individuals probability distributions. BOA \cite{pelikan2005bayesian} are based in the creation of Bayesian networks to generate the offspring from a set of promising individuals.
 
-DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation. In the case of EDAs, instead of directly codifying the variables to optimize, the algorithm tries to find the probability distribution of each one. In each generation, the individuals are generated from previous individuals probability distributions. 
+% Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D PABLO: Explained
 
-% Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D
-
-Table \ref{tab:summaryEAs} shows the main differences between all these types of EAs. Note that we have selected the common features of each algorithm. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
+Table \ref{tab:summaryEAs} shows the main differences between all these types of EAs. Note that we have selected the common features of each algorithm, but also their typical configurations. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
 
 \begin{table}
   \centering
@@ -213,20 +211,20 @@ Table \ref{tab:summaryEAs} shows the main differences between all these types of
 \hline
 				& GA 	 & ES  & EP & GP & DE  \\
 \hline\hline
-Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-dependent					& Tree 				& Real-value vectors 	 \\
-Initialization  & \multicolumn{5}{c|}{Usually random, and depending on the problem and individual structure} 						 \\
-Selection 	& Fitness proportional 	& Random 				& 						& Fitness proportional & Random to create noisy vectors \\
-Recombination   & Genome crossover		& Genome crossover		& 						& Sub-tree exchange		& Random gene by gene			\\
-Mutation  		& Random 				& Gaussian perturbation	& 						& Random 				& Implicit in the noisy vectors	 \\
-Replacement		& Generational			& ($\mu,\lambda$) or ($\mu + \lambda$) &			& Generational 			& Compared with the original	 \\
+Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-dependent			& Tree 				         & Real-value vectors 	 \\ \hline
+Initialization  & \multicolumn{5}{c|}{Usually random, and depending on the problem and individual structure} 						 \\ \hline
+Selection 	    & Fitness proportional 	          & Random 				      & Random			          & Fitness proportional & Random to create noisy vectors \\ \hline
+Recombination   & Genome crossover		            & Genome crossover		& Typically not used	  & Sub-tree exchange		 & Random gene by gene			\\ \hline
+Mutation  		 & Random 				                  & Gaussian perturbation	& Gaussian perturbation& Random 				       & Implicit in the noisy vectors	 \\ \hline
+Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \lambda$) survivor selection & 	($\mu + \mu$) survivor selection    & Generational 			   & Compared with the original	 \\ \hline
 \hline
 \end{tabular}
 
-\caption{Differences between the types of EAs \cite{eiben2003introduction}.}
+\caption{Differences between the types of EAs \cite{eiben2003introduction}. These are the typical design choices, but they can vary depending on the problem to solve.}
 \label{tab:summaryEAs}
 \end{table}
 
-% Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's).
+
 
 
 % ------------------------------------------------------------------------------
@@ -283,6 +281,9 @@ In this scheme the parallelism is performed at population level, that is, the po
 
 \end{description}
 
+% Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's). PABLO: Added
+However, with the advent of new
+technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P \cite{laredo2010evag} or the data-intensive computing frameworks, used in cloud computing \cite{VermaCloud10}.
 
 
 
