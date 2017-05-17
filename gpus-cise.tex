@@ -340,12 +340,21 @@ scheduling of threads.
 \label{fig:cpu-gpu}
 \end{figure*}
 
-Physically GPUs are huge in comparison with CPUs as shown in Table \ref{tab:features}. Latest microprocessors from the two main vendors, AMD and Intel, are over 1 billion transistors while latest GPUs from AMD and NVIDIA \cite{nvidia} are over 7 billion transistors. CPUs draw 100W at most, a limit established by the cost of commodity heat sinks and fans. GPUs have bigger power consumption and currently can be reach 400 to 500W. This is made possible with the use of exotic cooling solutions. CPUs are built with the finest technology, read best lithography available, while GPUs are made with budget in mind in cheaper processes.
+GPUs are physically  huge in comparison with CPUs as shown in Table
+\ref{tab:features}. Latest microprocessors from the two main vendors,
+AMD and Intel, are over 1 billion transistors while latest GPUs from
+AMD and NVIDIA \cite{nvidia} are over 7 billion transistors. CPUs draw
+100W at most, a limit established by the cost of commodity heat sinks
+and fans. GPUs have a bigger power consumption and currently can
+reach 400 to 500W, which is made possible with the use of exotic
+cooling solutions. CPUs are built with the best lithography techniques
+available, while GPUs are made with budget in mind in 
+cheaper processes. % that is why they have higher consumption? - JJ
 
 No standard terminology can be found in the world of graphics hardware.
-Every company have a  different set of terms to refer to the same
+Every company has a  different set of terms to refer to the same
 underlying objects and principles. Many authors try to alleviate this
-lack of standard terms calling `shader core' to an Intel Execution
+lack of standard terms calling {\em shader core} to an Intel Execution
 Unit (EU), an AMD Single Instruction Multiple Data (SIMD) or an NVIDIA
 Streaming Multiprocessors (SM). Any of these refer to a single
 processor core inside of the GPU that can fetch, decode, issue and
@@ -506,6 +515,7 @@ Different EAs adapt to the limitations of the memory model with different degree
 \section{Parallelizing EAs on GPGPUs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Always write intros to sections - JJ
 
 \subsection{Frameworks used with EAs}
 
@@ -607,7 +617,7 @@ In this section we present a quantitative analysis of published papers on EAs on
 
 \subsection{Paper gathering} % Gustavo: que te parece este
 
-Firstly, a deep analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
+Firstly, an in-depth analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
 % Antonio - comprobar si se buscó en cualquier parte de los artículos
 We got 320 references, and we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, we kept 191 results, which we read in order to extract its features and useful information for this survey.  % maybe we should rewrite these sentences avoiding the  "we"  [pedro]
 
@@ -814,7 +824,7 @@ Wang et al. \cite{Wang129} proposed a GPU based Neural Network Learning Algorith
 
 Brevilliers et al. \cite{Brevilliers2016} introduce a hybridization of Backtracking Search Optimization Algorithm (BSA) with DE and SA in order to improve the convergence speed of BSA implemented in CUDA. Experimental results show a high performance in terms of solution quality, convergence speed and speedup achieved.
 
-In another hand, Hwang et al. \cite{Hwang7470556} proposed an EA inspired by biological deoxyribonucleic acid (DNA) computing  to perform the task of optimization. However, to avoid the problems of biological DNA computing and fully utilize parallelism characteristics of it, authors propose to implement the algorithm in a GPU devices, thus optimizing the processing time efficiency.
+On the other hand, Hwang et al. \cite{Hwang7470556} proposed an EA inspired by biological deoxyribonucleic acid (DNA) computing  to perform the task of optimization. However, to avoid the problems of biological DNA computing and fully utilize parallelism characteristics of it, authors propose to implement the algorithm in a GPU devices, thus optimizing the processing time efficiency.
 
 Finally, due to the complexity of some real problems, several authors have proposed parallel multi-objective implementations on GPU devices, such as Oliveira et al. \cite{Oliveira7744337} who present a GPU-based parallel implementation of NSGA-II to solve the energy dispatch problem of a hydroelectric power plants, taking into account the real time restrictions posed by the operation of a real power plant. The use of a parallel implementation using GPUs improved both the performance and solution quality obtained using the parallel approach. 
 In \cite{Bian2016} a CPU+GPU heterogeneous computing orientation based multi-objective test case prioritization technique that utilizes GPGPU to accelerate the process of test case prioritization is proposed. In this case, the implementation, based on NSGA-II achieves 30 times speed-up rate on a well-known real world problem.
