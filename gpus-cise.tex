@@ -15,7 +15,7 @@
 %\begin{frontmatter}
 
 
-\title{Parallelizing Evolutionary Algorithms on GPUs:\\ Methodology and Trends}
+\title{Parallelizing Evolutionary Algorithms on GPUs:\\ Current Methodologies and Trends}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -37,14 +37,27 @@ A.M. Mora$^1$, P. García-Sánchez$^2$, J.J. Merelo$^1$\\ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Metaheuristics and bioinspired methods have been widely adapted to General Purpose Graphics Processing Units (GPGPUs). Among them, Evolutionary Algorithms (EAs) stand out since they are inherently parallel structures based on a population of independent agents. Due to this reason there are many different distributed schemes for EAs.
-This paper describes the parallelization methodologies usually applied to EAs, and presents a survey on the literature related to their application on GPGPUs.
-The paper also includes a review of advances in hardware and software along with new trends in the field.
-Thus, more than 200 associated publications, from the last 13 years, have been revised and their properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems. 
-We also define a taxonomy of the approaches used for parallelization on the literature. Then, a more in-depth analysis has been conducted on a wide selection, also describing the most representative in each category. 
+Metaheuristics and bioinspired methods have been widely adapted to
+General Purpose Graphics Processing Units (GPGPUs). Among them,
+Evolutionary Algorithms (EAs) stand out since they are inherently
+parallel, based on a population of independent representations of
+solutions. Thanks to this feature, there are many different distributed
+schemes for EAs. This paper is devoted to describe them and presents a
+survey on the literature related to their application on GPGPUs, along
+with a review of advances in hardware and software and other new
+trends in the field. 
+More than 200 associated publications, from the last 13 years, have
+been revised and their properties have been extracted: type of EA
+implemented, hybridization, configuration and whether they have been
+applied to solve real world problems.  
+We also define a taxonomy of the approaches used for parallelization
+on the literature. Then, a more in-depth analysis has been conducted
+on a wide selection, also describing the most representative in each
+category. 
 As a remark, Genetic Algorithms, the most widely used EAs, have been frequently applied to real world problems due to the advantages that GPGPUs offer.
 % [pedro]  I suggest changing this sentence, trying to indicate something like:  main approaches to solve real world problems taking advantage of GPGPUs have been reviewed.
 % Antonio - TODO: complete with more conclusions...
+% Don't like that "remark" either - JJ
 \end{abstract}
 
 %\begin{keyword}
