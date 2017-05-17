@@ -160,7 +160,7 @@ BEGIN
  OD
 END
 \end{verbatim}
-\caption{General scheme of an evolutionary algorithm in pseudo-code}
+\caption{General scheme of an evolutionary algorithm in pseudo-code, obtained from \cite{eiben2010whatis}.}
 \label{fig:basicscheme}
 \end{figure}
 
@@ -201,7 +201,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. 
 
-DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation.
+DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation. In the case of EDAs, instead of directly codifying the variables to optimize, the algorithm tries to find the probability distribution of each one. In each generation, the individuals are generated from previous individuals probability distributions. 
 
 % Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D
 
@@ -214,7 +214,7 @@ Table \ref{tab:summaryEAs} shows the main differences between all these types of
 				& GA 	 & ES  & EP & GP & DE  \\
 \hline\hline
 Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-dependent					& Tree 				& Real-value vectors 	 \\
-Initialization  & \multicolumn{5}{c|}{Random, depending of the problem and individual structure} 						 \\
+Initialization  & \multicolumn{5}{c|}{Usually random, and depending on the problem and individual structure} 						 \\
 Selection 	& Fitness proportional 	& Random 				& 						& Fitness proportional & Random to create noisy vectors \\
 Recombination   & Genome crossover		& Genome crossover		& 						& Sub-tree exchange		& Random gene by gene			\\
 Mutation  		& Random 				& Gaussian perturbation	& 						& Random 				& Implicit in the noisy vectors	 \\
