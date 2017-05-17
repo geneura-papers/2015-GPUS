@@ -185,8 +185,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 \item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
 
-% Antonio - TO DO: fix this description. ;)
-\item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution is usually another algorithm, so it depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals.
+
 
 \item[Genetic Programming] The objective of this technique is to
   generate (and evolve) functions or programs to solve specific
@@ -194,6 +193,9 @@ In this kind of EA, the representation of the solution is a string of numbers (n
   composed by operators (or {\em primitives}) and variables ({\em
     terminals}). These sets are usually fixed and known in advance. 
   The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. %GP has been used to evolve LISP (LISt Processing) programs   \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet     Language Transformations) scripts \cite{Garcia2008XSLT}, among  others.
+
+  % Antonio - TO DO: fix this description. ;) PABLO: Done
+\item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals. Another big difference is that is mainly based on self-adaptive mutation, and not in crossover, for individual variation.
 
 \end{description}
 
@@ -213,7 +215,7 @@ Table \ref{tab:summaryEAs} shows the main differences between all these types of
 \hline\hline
 Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-dependent			& Tree 				         & Real-value vectors 	 \\ \hline
 Initialization  & \multicolumn{5}{c|}{Usually random, and depending on the problem and individual structure} 						 \\ \hline
-Selection 	    & Fitness proportional 	          & Random 				      & Random			          & Fitness proportional & Random to create noisy vectors \\ \hline
+Selection 	    & Fitness proportional 	          & Deterministic	      & Tournament-based       & Fitness proportional & Random to create noisy vectors \\ \hline
 Recombination   & Genome crossover		            & Genome crossover		& Typically not used	  & Sub-tree exchange		 & Random gene by gene			\\ \hline
 Mutation  		 & Random 				                  & Gaussian perturbation	& Gaussian perturbation& Random 				       & Implicit in the noisy vectors	 \\ \hline
 Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \lambda$) survivor selection & 	($\mu + \mu$) survivor selection    & Generational 			   & Compared with the original	 \\ \hline
@@ -282,9 +284,9 @@ In this scheme the parallelism is performed at population level, that is, the po
 \end{description}
 
 % Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's). PABLO: Added
-% Antonio - Great, but please comment also the works by Meri et al. (Meri_CloudEA13 in BIB) and Merelo et al. (Merelo_Couch13).
+% Antonio - Great, but please comment also the works by Meri et al. (Meri_CloudEA13 in BIB) and Merelo et al. (Merelo_Couch13). PABLO: DONE
 However, with the advent of new
-technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P \cite{laredo2010evag} or the data-intensive computing frameworks, used in cloud computing \cite{VermaCloud10}.
+technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed filesystems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
 
 
 
