@@ -526,18 +526,16 @@ This section describes the most frequent frameworks used for the parallelization
 
 \subsection{Frameworks used with EAs}
 
-In this section we cite some relevant material not in the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most evolutionary metaheuristics can be implemented without effort by using any of the existing frameworks. 
+Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the creation of this kind of algorithms. Many of them include implementations for the most commons operators, problems and individual representations, using different technologies and programming languages.
 
-The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. However, out of ten most extended EA frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA), none included references to GPU capabilities when this paper was published.
+The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore not only focused in EAs. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. However, out of ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA), none included references to GPU capabilities when this paper was published.
 
-But in the recent years, some of these frameworks have included some GPU  
-
-PARADISEO
-
-Some authors have created library extensions to existing frameworks to allow the evaluation of the individuals in GPUs, for example Robiliard et al. \cite{RobilliardECJGPU08} for ECJ, and Cano et al. for jCLEC \cite{CanoJCLECGPU12}.
+But in the recent years, some of these EA frameworks have included some kind of GPU integration. Some authors have created library extensions to existing frameworks to allow the evaluation of the individuals in GPUs, for example Robilliard et al. \cite{RobilliardECJGPU08} for ECJ, and Cano et al. for jCLEC \cite{CanoJCLECGPU12}. ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, is another framework built upon one existent one, but for now, it is only focused in single solution metaheuristics, and not in population-based ones, such as the EAs. 
 
 
-PUGACE\cite{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
+PUGACE\cite{5586286} is one of the few new frameworks focused exclusively on the execution of EAs in GPUs. It is based on MALLBA and uses CUDA to execute cellular GAs (cGAs), but only for linear neighborhood structures. %The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+. 
+ Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to facilitate the development of EAs to be run in GPUs. This is done by compiling from a specific algorithm specification language (EASEA) to code suitable to be run in a CPU-GPU manner, but as in previous frameworks, only the code for the fitness evaluation is sent to the GPU to be executed in parallel.
+
 
 
 \subsection{Requirements and constraints to parallelize EAs on GPUs}
