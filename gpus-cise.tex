@@ -528,7 +528,14 @@ This section describes the most frequent frameworks used for the parallelization
 
 In this section we cite some relevant material not in the EA field but involved with the programming frameworks used to implement EAs in a more convenient way. Most evolutionary metaheuristics can be implemented without effort by using any of the existing frameworks. 
 
-The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. The difference is that this survey just includes frameworks with GPGPU support only for evolutionary computation metaheuristics. 
+The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas has been selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. However, out of ten most extended EA frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA), none included references to GPU capabilities when this paper was published.
+
+But in the recent years, some of these frameworks have included some GPU  
+
+PARADISEO
+
+Some authors have created library extensions to existing frameworks to allow the evaluation of the individuals in GPUs, for example Robiliard et al. \cite{RobilliardECJGPU08} for ECJ, and Cano et al. for jCLEC \cite{CanoJCLECGPU12}.
+
 
 PUGACE\cite{5586286} is a framework in CUDA for cellular GAs (cGAs), but only for linear neighborhood structures. The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
 
