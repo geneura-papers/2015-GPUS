@@ -13,19 +13,19 @@ PDF = $(TEX:.tex=.pdf)
 all: $(PNG) $(PDF)
 
 auto: $(PNG)
-	latexmk -pdf -pvc
+	latexmk -pdfps -pvc
 
 clean:
 	-latexmk -C
-	-$(RM) -fv $(TMP) *-eps-converted-to.pdf *~
+	-rm -fv $(TMP) *~
 
 ###############################################################################
 
 %.png: %.dia
 	dia -e $@ $<
 
-%.pdf: $(DIA) $(PNG) %.bib %.tex
-	latexmk -f -pdf $*
+%.pdf: $(PNG) %.bib %.tex
+	latexmk -pdfps -f $*
 
 ###############################################################################
 
