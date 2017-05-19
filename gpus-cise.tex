@@ -16,7 +16,7 @@
 %\begin{frontmatter}
 
 
-\title{Parallelizing Evolutionary Algorithms on GPUs:\\ Current Methodologies and Trends}
+\title{Parallelizing Evolutionary Algorithms on GPUs:\\ Current Trends and Methodologies}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -24,7 +24,7 @@
 %% \address[label2]{}
 
 \author{Gustavo Romero$^1$, M.G. Arenas$^1$, P.A. Castillo$^1$,\\ 
-A.M. Mora$^1$, P. García-Sánchez$^2$, J.J. Merelo$^1$\\ \\
+A.M. Mora$^1$, P. García-Sánchez$^2$, J. J. Merelo$^1$\\ \\
 \small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
 \small{$^2$ Dept. Computer Engineering, University of Cádiz (Spain)}\\
@@ -39,11 +39,11 @@ A.M. Mora$^1$, P. García-Sánchez$^2$, J.J. Merelo$^1$\\ \\
 
 \begin{abstract}
 Metaheuristics and bioinspired methods have been widely adapted to
-General Purpose Graphics Processing Units (GPGPUs). Among them,
+General Purpose Graphics Processing Units (GPGPUs). Among them, % Title says EAs, here you talk about metaheuristics. One or the other - JJ
 Evolutionary Algorithms (EAs) stand out since they are inherently
 parallel, as they are based on a population of independent representations of
 solutions. Thanks to this feature, there are many different distributed
-schemes for EAs. 
+schemes for EAs. % distributed != parallel ~ JJ
 This paper is mainly devoted to describe them and presents a
 survey on the literature related to their adaptation to GPGPUs. 
 More than 200 related publications from the last 13 years have
@@ -51,10 +51,16 @@ been revised, and their properties have been extracted: type of EA
 implemented, hybridization, configuration and whether they have been
 applied to solve real world problems.  
 We have also defined a taxonomy of the approaches used for GPGPU parallelization
-on the literature. Then, a more in-depth analysis has been conducted
+in the literature. Then, a more in-depth analysis has been conducted
 on a wide selection, also describing the most representative work in each
-category.
-But previously, the work revises the new advances in hardware and software in this field, and gives an introduction on how to parallelize EA algorithms on GPGPUs, describing both several frameworks which allow to do it easily, and the main issues to have into account for these implementations. 
+category. % How did you select it? - JJ
+But previously, the work revises the new advances in hardware and
+software in this field, and gives an introduction on how to
+parallelize EA algorithms on GPGPUs, describing both several
+frameworks which allow to do it easily, and the main issues to have
+into account for these implementations.  % Structure this abstract
+                                % better, avoiding things like
+                                % "previously"- JJ
 \end{abstract}
 
 %\begin{keyword}
@@ -70,15 +76,23 @@ But previously, the work revises the new advances in hardware and software in th
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The application of Evolutionary Algorithms (EAs) to obtain the solution of
-many real world problems or large instances of some benchmark problems
+The application of Evolutionary Algorithms (EAs) to find the solution of
+either real world problems or large instances of some benchmark problems
 requires a high amount of computational power. In order to deal with
 them, parallelization of this kind of algorithms has been performed
 with the main objective of reducing the computational time whereas,
-eventually, the quality of the solutions is improved. 
+eventually, the quality of the solutions is improved. % What do you
+                                % mean by "whereas, ...". Please
+                                % rephrase. 
 
 %******** Antonio - TO DO: Revise and rewrite/integrate this with the other text
-Initially the EAs were proposed as a sequential set of steps with different operators and data structures. Then, several ways to parallelize these algorithms were presented, with new schemes and operations.  % operators    ???
+Initially the EAs were proposed as a sequential set of steps with
+different operators and data structures. % This sentence can probably
+                                % rephrased - JJ
+Then, several ways to parallelize these algorithms were presented,
+with new schemes and operations.  % operators    ???
+% This sentence is also too general. Specify the sequence in a few
+% words, and then explain how it can be generalized - JJ
 Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
 These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
