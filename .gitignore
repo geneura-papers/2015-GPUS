@@ -1,11 +1,13 @@
 *.aux
 *.bbl
 *.blg
+*.dvi
 *-eps-converted-to.pdf
 *.fdb_latexmk
 *.fls
 *.log
 *.out
 *.pdf
+*.ps
 *.spl
 *~
