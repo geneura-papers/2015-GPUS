@@ -41,24 +41,20 @@ A.M. Mora$^1$, P. García-Sánchez$^2$, J.J. Merelo$^1$\\ \\
 Metaheuristics and bioinspired methods have been widely adapted to
 General Purpose Graphics Processing Units (GPGPUs). Among them,
 Evolutionary Algorithms (EAs) stand out since they are inherently
-parallel, based on a population of independent representations of
+parallel, as they are based on a population of independent representations of
 solutions. Thanks to this feature, there are many different distributed
-schemes for EAs. This paper is devoted to describe them and presents a
-survey on the literature related to their application on GPGPUs, along
-with a review of advances in hardware and software and other new
-trends in the field. 
-More than 200 associated publications, from the last 13 years, have
-been revised and their properties have been extracted: type of EA
+schemes for EAs. 
+This paper is mainly devoted to describe them and presents a
+survey on the literature related to their adaptation to GPGPUs. 
+More than 200 related publications from the last 13 years have
+been revised, and their properties have been extracted: type of EA
 implemented, hybridization, configuration and whether they have been
 applied to solve real world problems.  
-We also define a taxonomy of the approaches used for parallelization
+We have also defined a taxonomy of the approaches used for GPGPU parallelization
 on the literature. Then, a more in-depth analysis has been conducted
-on a wide selection, also describing the most representative in each
-category. 
-As a remark, Genetic Algorithms, the most widely used EAs, have been frequently applied to real world problems due to the advantages that GPGPUs offer.
-% [pedro]  I suggest changing this sentence, trying to indicate something like:  main approaches to solve real world problems taking advantage of GPGPUs have been reviewed.
-% Antonio - TODO: complete with more conclusions...
-% Don't like that "remark" either - JJ
+on a wide selection, also describing the most representative work in each
+category.
+But previously, the work revises the new advances in hardware and software in this field, and gives an introduction on how to parallelize EA algorithms on GPGPUs, describing both several frameworks which allow to do it easily, and the main issues to have into account for these implementations. 
 \end{abstract}
 
 %\begin{keyword}
@@ -524,17 +520,19 @@ Different EAs adapt to the limitations of the memory model with different degree
 
 This section describes the most frequent frameworks used for the parallelization of EAs to take advantage of the power of GPGPUs. In addition, common issues and constraints to take into account when such a parallel evolutionary approach is going to be implemented are also pointed out.
 
-\subsection{Frameworks used with EAs}
+\subsection{Frameworks to parallelize EAs on GPGPUs}
 
-Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the creation of this kind of algorithms. Many of them include implementations for the most commons operators, problems and individual representations, using different technologies and programming languages.
+Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the creation of this kind of algorithms. Many of them include implementations for the most common operators, problems and individual representations, using different technologies and programming languages.
 
-The most complete and comprehensive review of these frameworks is from Parejo \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore not only focused in EAs. As criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation and user interface. However, out of ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA), none included references to GPU capabilities when this paper was published.
+The most complete and comprehensive review of these kind of frameworks is from Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore not only focused on EAs. As a criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA) included references to GPU capabilities when this paper was published.
 
-But in the recent years, some of these EA frameworks have included some kind of GPU integration. Some authors have created library extensions to existing frameworks to allow the evaluation of the individuals in GPUs, for example Robilliard et al. \cite{RobilliardECJGPU08} for ECJ, and Cano et al. for jCLEC \cite{CanoJCLECGPU12}. ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, is another framework built upon one existent one, but for now, it is only focused in single solution metaheuristics, and not in population-based ones, such as the EAs. 
+However, in recent years, some of these EA-based frameworks have added some kind of GPU integration. Several authors have created library extensions to the frameworks, in order to allow the evaluation of the individuals in GPGPUs (which is normally the hardest computational part). For example Robilliard et al. \cite{RobilliardECJGPU08} did it for ECJ, and Cano et al. for jCLEC \cite{CanoJCLECGPU12}. 
+ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, is another framework built upon an existing one, but for now, it is only focused in single solution metaheuristics, and not in population-based ones, such as EAs. 
 
 
-PUGACE\cite{5586286} is one of the few new frameworks focused exclusively on the execution of EAs in GPUs. It is based on MALLBA and uses CUDA to execute cellular GAs (cGAs), but only for linear neighborhood structures. %The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+. 
- Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to facilitate the development of EAs to be run in GPUs. This is done by compiling from a specific algorithm specification language (EASEA) to code suitable to be run in a CPU-GPU manner, but as in previous frameworks, only the code for the fitness evaluation is sent to the GPU to be executed in parallel.
+PUGACE \cite{5586286} is one of the few new frameworks focused exclusively on the execution of EAs in GPGPUs. It is based on MALLBA and uses CUDA to execute cellular GAs (cGAs), but only for linear neighborhood structures. %The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+. 
+
+Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to facilitate the development of EAs to be run in GPGPUs. This is done by compiling the code from a specific algorithm specification language (EASEA) into code suitable to be run in a CPU-GPU manner, but as in previous frameworks, only the code for the fitness evaluation is sent to the GPU to be executed in parallel.
 
 
 
@@ -577,7 +575,7 @@ Alba classifies the main parallel metaheuristics models as follows:
 \end{itemize}
 
 Nevertheless, when the research community uses GPGPU, all the EC approaches are parallel, so we have revised the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  
-For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \cite{ZhangImplementationMasterSlave}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901_1570089} \cite{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
+For that reason, we focus the rest of the survey on the different ways for implementation of Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming propose in \cite{ZhangImplementationMasterSlave}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089} \cite{pospichalParallelGeneticAlgorithOnCUDA2010} or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
