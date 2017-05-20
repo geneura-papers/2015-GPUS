@@ -320,7 +320,7 @@ GPUs and CPUs are similar in many ways but there is one key difference: the phil
 
 Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features} shows. Best processors from AMD and Intel are built with several billion transistors while best GPUs from AMD and NVIDIA can have over 7 billion. This explains the power consumption difference. While CPUs draws 100W at most GPUs can reach 500W. This difference is established by the cost and weight of commodity heat sinks and fans. To keep a 500W monster at reasonable temperatures the use of exotic cooling solutions is a must. Also CPUs has traditional benefit from employing better lithography techniques than GPUs.
 
-Internal CPUs parts have well known standard names. With GPUs the situation is the opossite. Every vendor has a different name for the same part. People try to easy this problem by calling {\em shader core} to an Intel Execution Unit (EU), an AMD Single Instruction Multiple Data (SIMD) or an NVIDIA Streaming Multiprocessors (SM). A shader is a processor core inside of a GPU capable of fetching, decoding, issuing and executing instructions. Every shader is composed by several execution units (EU). Every EU can execute an individual vector operation in the same way of an Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core. In the next Table, \ref{tab:features}, we can see detailed comparison of these parts inside modern CPUs and GPUs.
+Internal CPUs parts have well known standard names. With GPUs the situation is the opposite. Every vendor has a different name for the same part. Basic cores inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by AMD an Streaming Multiprocessors (SM) by NVIDIA. Here a core is anything capable of fetching, decoding, issuing and executing instructions. Every core can be composed by several execution units that can execute an individual vector operation in the same way of an Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people. In the next Table, \ref{tab:features}, we can see detailed comparison of these parts inside modern CPUs and GPUs.
 
 \begin{table*}[!ht]
 \resizebox{\textwidth}{!}{
@@ -344,7 +344,7 @@ Intel Core i7 6950X     & 3.2           & 122          & 10            & 3.0    
 \hline
 AMD A10-7850K           & 2.41          & 245          & 4/512         & 4.1/0.866  & 15.76        & 1018           & 95  & 150    \\
 \hline
-Intel Core i7-7700K     & 1.75          & 149          & 4/24          & 4.2/0.950  & 68           & 745.24         & 91  & 339    \\
+Intel Core i7-7700K     & 1.75          & 149          & 4/192         & 4.2/0.950  & 68           & 745.24         & 91  & 339    \\
 \hline
 \hline
 AMD Radeon RX 480       & 6.2           & 438          & 2304          & 1.266      & 256          & 5100           & 150 & 200    \\
@@ -378,9 +378,7 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 \caption{APU, CPU and GPU comparison of the best professional and commodity desktop hardware available nowadays, May 2017. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
-% Antonio - TODO: update table with new cards
-
-Nowadays NVIDIA has one of the best performance for GPU computing \cite{benchmarkGPU2015} and in the second step is AMD. Both makers take different compromises in the design of theirs GPUs. AMD has more execution units but its memory hierarchy is weaker. This way software bounded by memory bandwidth or with strong ordering inter-dependencies prefers NVIDIA hardware. On the other side, loads capped by pure ALU execution power use to be faster on AMD hardware.
+Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
 
 Traditionally CPUs and GPUs have been separated. In 2016 the trend is
 to integrate both into a single chip for cost efficiency reasons. Only
