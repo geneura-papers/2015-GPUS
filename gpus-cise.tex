@@ -318,23 +318,9 @@ GPUs and CPUs are similar in many ways but there is one key difference: the phil
 \label{fig:cpu-gpu}
 \end{figure*}
 
-Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features} shows. Best processors from AMD and Intel are built with more than 1 billion transistors while best GPUs from AMD and NVIDIA are over 7 billion. This explains the power consumption difference. While CPUs draws 100W at most GPUs can reach 500W. This difference is established by the cost and weight of commodity heat sinks and fans. To keep a 500W monster at reasonable temperatures the use of exotic cooling solutions is a must. Also CPUs has traditional benefit from employing better lithography techniques than GPUs.
+Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features} shows. Best processors from AMD and Intel are built with several billion transistors while best GPUs from AMD and NVIDIA can have over 7 billion. This explains the power consumption difference. While CPUs draws 100W at most GPUs can reach 500W. This difference is established by the cost and weight of commodity heat sinks and fans. To keep a 500W monster at reasonable temperatures the use of exotic cooling solutions is a must. Also CPUs has traditional benefit from employing better lithography techniques than GPUs.
 
-No standard terminology can be found in the world of graphics hardware.
-Every company has a  different set of terms to refer to the same
-underlying objects and principles. Many authors try to alleviate this
-lack of standard terms calling {\em shader core} to an Intel Execution
-Unit (EU), an AMD Single Instruction Multiple Data (SIMD) or an NVIDIA
-Streaming Multiprocessors (SM). Any of these refer to a single
-processor core inside of the GPU that can fetch, decode, issue and
-execute instructions. The shader core is composed of several
-execution units (EU) that can execute an individual vector operation
-equivalent to an Advanced Vector Extensions (AVX) or Streaming SIMD
-Extensions (SSE) instruction. AMD call this kind of EU streaming
-processor (SP), while NVIDIA uses the term CUDA core. Table
-\ref{tab:features} compares several existing CPUs, GPUs and
-Accelerated Processing Units (APUs), taking into account these terms
-and their meaning.
+Internal CPUs parts have well known standard names. With GPUs the situation is the opossite. Every vendor has a different name for the same part. People try to easy this problem by calling {\em shader core} to an Intel Execution Unit (EU), an AMD Single Instruction Multiple Data (SIMD) or an NVIDIA Streaming Multiprocessors (SM). A shader is a processor core inside of a GPU capable of fetching, decoding, issuing and executing instructions. Every shader is composed by several execution units (EU). Every EU can execute an individual vector operation in the same way of an Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core. In the next Table, \ref{tab:features}, we can see detailed comparison of these parts inside modern CPUs and GPUs.
 
 \begin{table*}[!ht]
 \resizebox{\textwidth}{!}{
@@ -354,6 +340,11 @@ Intel Xeon E7 8890 V4   & 5.69          & 662          & 24            & 2.2    
 AMD Ryzen 7 1800X       & 4.8           & 195          & 8             & 3.6        & 46           & 529.04         & 95  & 465    \\
 \hline
 Intel Core i7 6950X     & 3.2           & 122          & 10            & 3.0        & 34           & 627.6          & 140 & 1723   \\
+\hline
+\hline
+AMD A10-7850K           & 2.41          & 245          & 4/512         & 4.1/0.866  & 15.76        & 1018           & 95  & 150    \\
+\hline
+Intel Core i7-7700K     & 1.75          & 149          & 4/24          & 4.2/0.950  & 68           & 745.24         & 91  & 339    \\
 \hline
 \hline
 AMD Radeon RX 480       & 6.2           & 438          & 2304          & 1.266      & 256          & 5100           & 150 & 200    \\
@@ -384,7 +375,7 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 
 \end{tabular}
 }
-\caption{CPUs, APUs and GPUs comparison of the best professional and commodity desktop hardware available nowadays, May 2017. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
+\caption{APU, CPU and GPU comparison of the best professional and commodity desktop hardware available nowadays, May 2017. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
 % Antonio - TODO: update table with new cards
