@@ -380,19 +380,13 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 
 Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
 
-The trend observed with CPUs of integrating many companion chips inside is now becoming true with the GPU also. The main reason is the lower cost of the complete system. They only remain separate in powerful systems with top processors and discrete graphics. GPUs have been integrated inside CPUs from 2006 in cost effective desktop PCs like in mobile phones since many years.
-
-Over time the use of GPUs has passed from odd to common in our
-systems. Actually, several time consuming processes have been
-parallelized inside our operating systems such as web page
-rendering. However, the speedup that graphics hardware can bring to us
-is not free, as each application to be accelerated must be rewritten
-to take full advantage of the GPU.
+The trend observed with CPUs of integrating many companion chips inside is now becoming true with the GPU also. The main reason is the lower cost of the complete system. They only remain separate in powerful systems with top processors and discrete graphics. GPUs have been integrated inside CPUs from 2006 in cost effective desktop PCs like in mobile phones since many years. Over time the use of the GPUs has grown a lot as they became cheaper and cheaper. Many heavy task have been parallelized like, for example, web page rendering. This speed up is not trouble free because to be able to profit from GPUs our applications must be rewritten in a parallel fashion.
 
 As CPU makers did some years ago, passing from single core to symmetric multiprocessing system (SMP), and more recently to multi-cores, GPU makers are following the same trend. We can connect more than one graphic card to our computer to improve its GPU capacities or buy a card with 2 graphic chips inside. GPUs are so much powerful than CPUs that even a small cluster of a few GPUs can be faster than classic, and much more expensive, big cluster of computers. First cluster of this kind appear in the scientific literature in 2004 \cite{10.1109/SC.2004.26} with big success. Nowadays, more and more people build small GPU clusters with a couple of mighty graphic cards just to game. Connecting 2, 3 or 4 graphics card is called CrossFire by AMD and Scalable Link Interface (SLI) by NVIDIA.
 
-Most information shown in this and next sections is available from the websites of the respective manufacturer: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
+In the same way we learn to make faster computers by joining several CPUs together inside of a system, GPU maker are following the same trick. We can connect several GPUs and profit from the extra performance for our calculations. As the number of ALUs inside a GPU is so big, even small cluster filled with a few GPUs can became faster than traditional supercomputers. This trend can be easily proved by just taking a look at the Top500 website. The first cluster made of GPUs date from 2004 \cite{10.1109/SC.2004.26} and was a big success. Connecting 2 or more GPUs has a different name for every vendor: AMD called it CrossFire and NVIDIA Scalable Link Interface (SLI).
 
+Most information shown in this and next sections has been extracted from the websites of the mentioned vendors: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GPUs Programming}
