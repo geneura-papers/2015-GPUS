@@ -8,13 +8,6 @@ BIB = $(wildcard *.bib)
 TEX = $(wildcard *.tex)
 TMP = $(TEX:.tex=.aux) $(TEX:.tex=.bbl) $(TEX:.tex=.blg) $(TEX:.tex=.fdb_latexmk) $(TEX:.tex=.fls) $(TEX:.tex=.log) $(TEX:.tex=.out) $(TEX:.tex=.spl)
 PDF = $(TEX:.tex=.pdf)
-PDFLATEX := $(shell pdflatex --version  2> /dev/null)
-
-ifdef PDFLATEX
-	LATEX=pdflatex
-else
-	LATEX=latexmk -pdfps -f
-endif
 
 ###############################################################################
 
@@ -33,7 +26,13 @@ clean:
 	dia -e $@ $<
 
 %.pdf: %.bib %.tex
-	$(LATEX) $* && bibtex $(basename $<) && $(LATEX) $*	
+	if hash latexmk; then \
+		latexmk -pdfps $*; \
+	else \
+		if hash pdflatex; then \
+			pdflatex $* && bibtex $* && pdflatex $*; \
+		fi; \
+	fi
 
 ###############################################################################
 
