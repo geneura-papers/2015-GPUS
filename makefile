@@ -3,6 +3,7 @@
 ###############################################################################
 
 DIA = $(wildcard *.dia)
+EPS = $(DIA:.dia=.eps)
 PNG = $(DIA:.dia=.png)
 BIB = $(wildcard *.bib)
 TEX = $(wildcard *.tex)
@@ -11,9 +12,9 @@ PDF = $(TEX:.tex=.pdf)
 
 ###############################################################################
 
-all: $(PNG) $(PDF)
+all: $(PNG) $(EPS) $(PDF)
 
-auto: $(PNG)
+auto: $(PNG) $(EPS)
 	latexmk -pdfps -pvc
 
 clean:
@@ -22,10 +23,13 @@ clean:
 
 ###############################################################################
 
+%.eps: %.dia
+	dia -e $@ -t eps-builtin $<
+
 %.png: %.dia
 	dia -e $@ $<
 
-%.pdf: %.bib %.tex
+%.pdf: $(PNG) $(EPS) %.bib %.tex
 	if command -v latexmk &> /dev/null; then \
 		latexmk -pdfps $*; \
 	elif command -v pdflatex &> /dev/null; then \
