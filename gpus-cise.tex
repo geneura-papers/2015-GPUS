@@ -309,16 +309,7 @@ Parallel computation has passed from been an utility to a necessity. As newer pr
 
 At the same time graphics card has evolved from small and simple devices composed by weak arithmetic and logic units to powerful nearly general purpose devices. Earliest academic work about general computation on GPUs date back to 2002, University of Washington \cite{Thompson:2002:UMG:774861.774894}, and 2004, Stanford \cite{Buck:2004:BGS:1015706.1015800}.
 
-GPUs are similar to multi-core CPUs but with two main differences,
-as can be seen in Figure \ref{fig:cpu-gpu}. Traditionally, CPU
-main interest has been fast execution of single threaded code instead
-GPUs are made for throughput. CPUs try to improve the execution of a
-single instruction stream while GPUs take the opposite route obtaining
-benefits from massively threaded streams of instructions and/or
-data. The second difference is how threads are scheduled. The
-operating system schedule threads over different cores of a CPU in a
-preemptive fashion. GPUs have dedicated hardware for the cooperative
-scheduling of threads.
+GPUs and CPUs are similar in many ways but there is one key difference: the philosophy of how to execute a workload. The main target of a CPU is the fast execution of a single thread of code. GPUs, on the other side, pursuit to maximize the throughput of multithreaded streams of instructions and data. This is just the opposite of CPUs. Another difference is the scheduling of threads. For CPUs, the operating system schedule threads over free cores in a competitive way. GPUs does it cooperatively with the help from dedicated hardware.
 
 \begin{figure*}[!ht]
 \centering

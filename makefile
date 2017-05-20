@@ -28,10 +28,8 @@ clean:
 %.pdf: %.bib %.tex
 	if command -v latexmk &> /dev/null; then \
 		latexmk -pdfps $*; \
-	else \
-		if command -v pdflatex &> /dev/null; then \
-			pdflatex $* && bibtex $* && pdflatex $*; \
-		fi; \
+	elif command -v pdflatex &> /dev/null; then \
+		pdflatex $* && bibtex $* && pdflatex $*; \
 	fi
 
 ###############################################################################
