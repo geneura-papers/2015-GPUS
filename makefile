@@ -26,10 +26,10 @@ clean:
 	dia -e $@ $<
 
 %.pdf: %.bib %.tex
-	if hash latexmk; then \
+	if command -v latexmk &> /dev/null; then \
 		latexmk -pdfps $*; \
 	else \
-		if hash pdflatex; then \
+		if command -v pdflatex &> /dev/null; then \
 			pdflatex $* && bibtex $* && pdflatex $*; \
 		fi; \
 	fi
