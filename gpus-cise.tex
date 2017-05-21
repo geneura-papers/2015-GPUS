@@ -485,13 +485,13 @@ Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to faci
 
 % Antonio - TODO: Fill this section with the general features/issues to take into account when parallelizing EAs on GPUs. Try not to overlap with the Taxonomy section.
 
-** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
+%** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
 
-The first step for parallelizing an evolutionary algoritm using a GPU, is to study the GPU architecture, because each GPU has special features the programmer has to be in mind to take adventage of it. Due to that reason, the algorithm and so the code must to be adapted as well as possible to the GPU's architecture where the algorithm will be runned. If this basic requirement is not clear for everybody, the adventage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequencial one. 
+The first step for parallelizing an evolutionary algorithm using a GPU, is to study the GPU architecture, because each GPU has special features the programmer has to be in mind to take advantage of it. Due to that reason, the algorithm and so the code must be adapted as well as possible to the GPU's architecture where the algorithm will be run. If this basic requirement is not clear for everybody, the advantage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequential one. 
 
 %Lo primero que debemos plantearnos cuando queremos paralelizar un algoritmo evolutivo utilizando una GPU es que una GPU es una arquitectura muy específica y que los cambios que vamos a tener que hacer en el código y por tanto en el algoritmo deben estar adaptados a esta arquitectura, puesto que sino, la ganancia en velocidad que normalmente se busca cuando se decide paralelizar un algoritmo, puede no ser tan grande como esperamos. También queremos dejar claro que en este apartado hemos intentado generalizar lo más posible, para no centrarnos en ningún tipo de problema concreto, sino intentar que estos pasos sean válidos para cualquier investigador que se plantee la posibilidad de paralelizar su algoritmo con una GPU.
 
-It is important to say too the basic steps we list here are as general as possible because we want all of them are valid steps for each evolutionary algorithm any programmer parallelizes for a general GPU. In most parallelization approach for evolutionary algorithms and GPUs, the normal processor executes the evolutionary cycle and the processors of the GPU execute the evaluation step. This approach is the most simple for implementation and the programmer only change a part of their evolutionary algorithm codification. The steps for this approach are carried out in two scopes, the CPU and the GPU one:
+It is important to say too, the basic steps we list here are as general as possible because we want all of them are valid steps for each evolutionary algorithm any programmer parallelizes for a general GPU. In most parallelization approach for evolutionary algorithms and GPUs, the normal processor executes the evolutionary cycle and the processors of the GPU execute the evaluation step. This approach is the most simple for implementation and the programmer only change a part of their evolutionary algorithm codification. The steps for this approach are carried out in two scopes, the CPU and the GPU one:
 \begin{itemize}
 \item In GPU scope:
 	\begin{itemize}
@@ -504,7 +504,7 @@ It is important to say too the basic steps we list here are as general as possib
 	\begin{itemize}
 		\item To copy the individuals and data for the evaluation from CPU's scope to GPU's scope.
 		\item To copy from GPU's scope the evaluation results to CPU's scope. 
-		\item To define the grid of threads for kernel function execution, fixing the dimmension of each thread's block and, how many and how the blocks are organised for the grid using one, two or three dimmension. 
+		\item To define the grid of threads for kernel function execution, fixing the dimension of each thread's block and, how many and how the blocks are organised for the grid using one, two or three dimension. 
 		\item To call the kernel function or functions using the grid of threads defined in previous step.
 		\item To integrate the evaluation results with the rest of evolutionary algorithm.   
 	\end{itemize}  
@@ -519,7 +519,12 @@ It is important to say too the basic steps we list here are as general as possib
 %	- Copia de resultados desde la GPU hasta la memoria principal de la CPU.
 %	- Integración de resultados generados con el desarrollo del ciclo evolutivo para poder abordar el siguiente paso.
 	
-	Estos pasos básicos se pueden llevar a cabo en todas las versiones de CUDA, e incluso, en algunas versiones pueden ser simplificados, puesto que la propia GPU puede acceder a los datos disponibles en la memoria principal, o memoria de la CPU para realizar sus cálculos o evaluaciones, pagando eso sí, un coste en tiempo considerable.
+	
+		These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
+
+	
+%	Estos pasos básicos se pueden llevar a cabo en todas las versiones de CUDA, e incluso, en algunas versiones pueden ser simplificados, puesto que la propia GPU puede acceder a los datos disponibles en la memoria principal, o memoria de la CPU para realizar sus cálculos o evaluaciones, pagando eso sí, un coste en tiempo considerable.
+
 
 Si el enfoque de la paralelización no incluye solo la evaluación, sino todo el algoritmo, entonces la metodología SPMD por la que se rige una GPU debe ser adaptada para que todas las hebras hagan todos los pasos del algoritmo evolutivo a la vez que cooperan entre ellas para obtener una solución. En este enfoque, los tipos de algoritmos más próximos a este enfoque son los algoritmos celulares, donde cada hebra evoluciona una solución o muy pocas soluciones o individuos y se coordina con las hebras vecinas dentro del kernel para todas las etapas del algoritmo.
 	
