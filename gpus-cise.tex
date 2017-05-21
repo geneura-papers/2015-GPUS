@@ -487,18 +487,37 @@ Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to faci
 
 ** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
 
-The first step for parallelizing an evolutionary algoritm using a GPU, is to study the GPU architecture, because each GPU has special features the programmer has to be in mind to take adventage of it. Due to that reason, the algorithm and so the code must to be adapted as well as possible to the GPU's architecture where the algorithm will be runned. If this basic requirement is not clear for everybody, the adventage the programmer hope to get, can become 
+The first step for parallelizing an evolutionary algoritm using a GPU, is to study the GPU architecture, because each GPU has special features the programmer has to be in mind to take adventage of it. Due to that reason, the algorithm and so the code must to be adapted as well as possible to the GPU's architecture where the algorithm will be runned. If this basic requirement is not clear for everybody, the adventage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequencial one. 
 
-Lo primero que debemos plantearnos cuando queremos paralelizar un algoritmo evolutivo utilizando una GPU es que una GPU es una arquitectura muy específica y que los cambios que vamos a tener que hacer en el código y por tanto en el algoritmo deben estar adaptados a esta arquitectura, puesto que sino, la ganancia en velocidad que normalmente se busca cuando se decide paralelizar un algoritmo, puede no ser tan grande como esperamos. También queremos dejar claro que en este apartado hemos intentado generalizar lo más posible, para no centrarnos en ningún tipo de problema concreto, sino intentar que estos pasos sean válidos para cualquier investigador que se plantee la posibilidad de paralelizar su algoritmo con una GPU.
+%Lo primero que debemos plantearnos cuando queremos paralelizar un algoritmo evolutivo utilizando una GPU es que una GPU es una arquitectura muy específica y que los cambios que vamos a tener que hacer en el código y por tanto en el algoritmo deben estar adaptados a esta arquitectura, puesto que sino, la ganancia en velocidad que normalmente se busca cuando se decide paralelizar un algoritmo, puede no ser tan grande como esperamos. También queremos dejar claro que en este apartado hemos intentado generalizar lo más posible, para no centrarnos en ningún tipo de problema concreto, sino intentar que estos pasos sean válidos para cualquier investigador que se plantee la posibilidad de paralelizar su algoritmo con una GPU.
 
-En la mayoría de los enfoques de paralelización, los algoritmos evolutivos se pueden adaptar a una GPU ejecutando la evaluación de individuos en la GPU y el resto del algoritmo en la CPU. Los pasos para este enfoque son claros. Suponiendo una iteración del ciclo evolutivo formada por varios pasos en los que la evaluación es uno de ellos, debemos sustituir la evaluación por:
-	- Reserva de memoria en la GPU para copiar los individuos a evaluar.
-	- Reserva de memoria en la GPU de los datos que los individuos necesitan para evaluarse (por ejemplo la matriz de distancias para un problema del viajante de comercio)
-	- Reserva de la memoria en la GPU donde se almacenará la evalución de los individuos.
-	- Copia de los datos y los individuos en la memoria reservada
-	- Ejecución de la función kernel que evaluará a los individuos en la GPU (durante esta ejecución cada procesador de la GPU evaluará un individuo o parte de un individuo haciendo uso de los datos previamente copiados y generando una evaluación en la memoria reservada para tal efecto)
-	- Copia de resultados desde la GPU hasta la memoria principal de la CPU.
-	- Integración de resultados generados con el desarrollo del ciclo evolutivo para poder abordar el siguiente paso.
+It is important to say too the basic steps we list here are as general as possible because we want all of them are valid steps for each evolutionary algorithm any programmer parallelizes for a general GPU. In most parallelization approach for evolutionary algorithms and GPUs, the normal processor executes the evolutionary cycle and the processors of the GPU execute the evaluation step. This approach is the most simple for implementation and the programmer only change a part of their evolutionary algorithm codification. The steps for this approach are carried out in two scopes, the CPU and the GPU one:
+\begin{itemize}
+\item In GPU scope:
+	\begin{itemize}
+		\item To allocate memory for the individuals to evaluate.
+		\item To allocate memory for the data the individuals need for evaluation (the matrix distances for Travel Salesman Problem, for example).
+		\item To allocate memory for the evaluation results.
+		\item Each GPU processor evaluates one individual or part of each individual executing one or more kernel. The first one is called from CPU's scope and the rest of them might be called from the same scope or the GPU one.
+	\end{itemize}  
+\item In CPU scope:
+	\begin{itemize}
+		\item To copy the individuals and data for the evaluation from CPU's scope to GPU's scope.
+		\item To copy from GPU's scope the evaluation results to CPU's scope. 
+		\item To define the grid of threads for kernel function execution, fixing the dimmension of each thread's block and, how many and how the blocks are organised for the grid using one, two or three dimmension. 
+		\item To call the kernel function or functions using the grid of threads defined in previous step.
+		\item To integrate the evaluation results with the rest of evolutionary algorithm.   
+	\end{itemize}  
+\end{itemize}
+
+%En la mayoría de los enfoques de paralelización, los algoritmos evolutivos se pueden adaptar a una GPU ejecutando la evaluación de individuos en la GPU y el resto del algoritmo en la CPU. Los pasos para este enfoque son claros. Suponiendo una iteración del ciclo evolutivo formada por varios pasos en los que la evaluación es uno de ellos, debemos sustituir la evaluación por:
+%	- Reserva de memoria en la GPU para copiar los individuos a evaluar.
+%	- Reserva de memoria en la GPU de los datos que los individuos necesitan para evaluarse (por ejemplo la matriz de distancias para un problema del viajante de comercio)
+%	- Reserva de la memoria en la GPU donde se almacenará la evalución de los individuos.
+%	- Copia de los datos y los individuos en la memoria reservada
+%	- Ejecución de la función kernel que evaluará a los individuos en la GPU (durante esta ejecución cada procesador de la GPU evaluará un individuo o parte de un individuo haciendo uso de los datos previamente copiados y generando una evaluación en la memoria reservada para tal efecto)
+%	- Copia de resultados desde la GPU hasta la memoria principal de la CPU.
+%	- Integración de resultados generados con el desarrollo del ciclo evolutivo para poder abordar el siguiente paso.
 	
 	Estos pasos básicos se pueden llevar a cabo en todas las versiones de CUDA, e incluso, en algunas versiones pueden ser simplificados, puesto que la propia GPU puede acceder a los datos disponibles en la memoria principal, o memoria de la CPU para realizar sus cálculos o evaluaciones, pagando eso sí, un coste en tiempo considerable.
 
