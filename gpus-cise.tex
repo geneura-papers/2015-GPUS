@@ -487,6 +487,29 @@ Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to faci
 
 ** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
 
+Lo primero que debemos plantearnos cuando queremos paralelizar un algoritmo evolutivo utilizando una GPU es que una GPU es una arquitectura muy específica y que los cambios que vamos a tener que hacer en el código y por tanto en el algoritmo deben estar adaptados a esta arquitectura, puesto que sino, la ganancia en velocidad que normalmente se busca cuando se decide paralelizar un algoritmo, puede no ser tan grande como esperamos. También queremos dejar claro que en este apartado hemos intentado generalizar lo más posible, para no centrarnos en ningún tipo de problema concreto, sino intentar que estos pasos sean válidos para cualquier investigador que se plantee la posibilidad de paralelizar su algoritmo con una GPU.
+
+En la mayoría de los enfoques de paralelización, los algoritmos evolutivos se pueden adaptar a una GPU ejecutando la evaluación de individuos en la GPU y el resto del algoritmo en la CPU. Los pasos para este enfoque son claros. Suponiendo una iteración del ciclo evolutivo formada por varios pasos en los que la evaluación es uno de ellos, debemos sustituir la evaluación por:
+	- Reserva de memoria en la GPU para copiar los individuos a evaluar.
+	- Reserva de memoria en la GPU de los datos que los individuos necesitan para evaluarse (por ejemplo la matriz de distancias para un problema del viajante de comercio)
+	- Reserva de la memoria en la GPU donde se almacenará la evalución de los individuos.
+	- Copia de los datos y los individuos en la memoria reservada
+	- Ejecución de la función kernel que evaluará a los individuos en la GPU (durante esta ejecución cada procesador de la GPU evaluará un individuo o parte de un individuo haciendo uso de los datos previamente copiados y generando una evaluación en la memoria reservada para tal efecto)
+	- Copia de resultados desde la GPU hasta la memoria principal de la CPU.
+	- Integración de resultados generados con el desarrollo del ciclo evolutivo para poder abordar el siguiente paso.
+	
+	Estos pasos básicos se pueden llevar a cabo en todas las versiones de CUDA, e incluso, en algunas versiones pueden ser simplificados, puesto que la propia GPU puede acceder a los datos disponibles en la memoria principal, o memoria de la CPU para realizar sus cálculos o evaluaciones, pagando eso sí, un coste en tiempo considerable.
+
+Si el enfoque de la paralelización no incluye solo la evaluación, sino todo el algoritmo, entonces la metodología SPMD por la que se rige una GPU debe ser adaptada para que todas las hebras hagan todos los pasos del algoritmo evolutivo a la vez que cooperan entre ellas para obtener una solución. En este enfoque, los tipos de algoritmos más próximos a este enfoque son los algoritmos celulares, donde cada hebra evoluciona una solución o muy pocas soluciones o individuos y se coordina con las hebras vecinas dentro del kernel para todas las etapas del algoritmo.
+	
+	Si pensamos ya en requisitos para una paralelización en la GPU podríamos enumerar:
+		- Que la capacidad de memoria de la GPU sea suficiente para albergar todos los datos necesarios para llevar a cabo la evaluación. 
+		- Que todas las funciones necesarias en la CPU para la evaluación estén igualmente disponibles en la GPU, puesto que el repertorio de utilidades y herramientas disponibles en la GPU y en la CPU no son las mismas.
+		- Que la evaluación pueda llevarse a cabo siguiendo la metodología SPMD para cada procesador o que la coordinación entre varias hebras sea factible para obtener una solución.
+		
+	Si intentamos enumerar las restricciones, en realidad van de la mano de los requisitos, puesto que la única restricción sería la capacidad de la memoria de la que dispone la GPU para poder albergar el problema que se intenta solucionar. Una solución posible es aplicar una metodología de Divide y vencerás y partir el problema en partes más pequeñas, si fuera posible, por lo que la restricción se eliminaría.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Parallelization Taxonomy}
