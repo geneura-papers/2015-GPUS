@@ -207,8 +207,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 %\subsection{Other models}
 
-However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. 
-DE \cite{storn1997differential} also exploits a population of potential solutions. In this method, three individuals are selected randomly from the population to create \textit{random noisy vectors} that are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation. In the case of EDAs \cite{larranaga2002estimation}, instead of directly codifying the variables to optimize, the algorithm tries to find the probability distribution of each one. In each generation, the individuals are generated from previous individuals probability distributions. BOA \cite{pelikan2005bayesian} are based in the creation of Bayesian networks to generate the offspring from a set of promising individuals.
+However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation. In the case of EDAs \cite{larranaga2002estimation}, instead of directly codifying the variables to optimize, the algorithm tries to find the probability distribution of each one. In each generation, the individuals are generated from previous individuals probability distributions. BOA \cite{pelikan2005bayesian} are based in the creation of Bayesian networks to generate the offspring from a set of promising individuals.
 
 % Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D PABLO: Explained
 
@@ -490,7 +489,7 @@ Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} is another attempt to faci
 
 The first step for parallelizing an evolutionary algorithm using a GPU, is to study the GPU architecture, because each GPU has special features the programmer has to be in mind to take advantage of it. Due to that reason, the algorithm and so the code must be adapted as well as possible to the GPU's architecture where the algorithm will be run. If this basic requirement is not clear for everybody, the advantage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequential one. 
 
-%Lo primero que debemos plantearnos cuando queremos paralelizar un algoritmo evolutivo utilizando una GPU es que una GPU es una arquitectura muy específica y que los cambios que vamos a tener que hacer en el código y por tanto en el algoritmo deben estar adaptados a esta arquitectura, puesto que sino, la ganancia en velocidad que normalmente se busca cuando se decide paralelizar un algoritmo, puede no ser tan grande como esperamos. También queremos dejar claro que en este apartado hemos intentado generalizar lo más posible, para no centrarnos en ningún tipo de problema concreto, sino intentar que estos pasos sean válidos para cualquier investigador que se plantee la posibilidad de paralelizar su algoritmo con una GPU.
+
 
 Besides, it is important to say also, the basic steps we list here are as general as possible because all of them are valid steps for each evolutionary algorithm any programmer parallelizes for any basic GPU. 
 
@@ -513,31 +512,19 @@ First, we introduce the most general parallelization approach. That uses normal 
 	\end{itemize}  
 \end{itemize}
 
-%En la mayoría de los enfoques de paralelización, los algoritmos evolutivos se pueden adaptar a una GPU ejecutando la evaluación de individuos en la GPU y el resto del algoritmo en la CPU. Los pasos para este enfoque son claros. Suponiendo una iteración del ciclo evolutivo formada por varios pasos en los que la evaluación es uno de ellos, debemos sustituir la evaluación por:
-%	- Reserva de memoria en la GPU para copiar los individuos a evaluar.
-%	- Reserva de memoria en la GPU de los datos que los individuos necesitan para evaluarse (por ejemplo la matriz de distancias para un problema del viajante de comercio)
-%	- Reserva de la memoria en la GPU donde se almacenará la evalución de los individuos.
-%	- Copia de los datos y los individuos en la memoria reservada
-%	- Ejecución de la función kernel que evaluará a los individuos en la GPU (durante esta ejecución cada procesador de la GPU evaluará un individuo o parte de un individuo haciendo uso de los datos previamente copiados y generando una evaluación en la memoria reservada para tal efecto)
-%	- Copia de resultados desde la GPU hasta la memoria principal de la CPU.
-%	- Integración de resultados generados con el desarrollo del ciclo evolutivo para poder abordar el siguiente paso.
 	
 	
 	These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
 
-	
-%	Estos pasos básicos se pueden llevar a cabo en todas las versiones de CUDA, e incluso, en algunas versiones pueden ser simplificados, puesto que la propia GPU puede acceder a los datos disponibles en la memoria principal, o memoria de la CPU para realizar sus cálculos o evaluaciones, pagando eso sí, un coste en tiempo considerable.
 
-Moreover, there are other GPU's parallelization approaches where the GPU parallizes not only the evaluation stage, but all the stages of the algorithm. 
+Moreover, there are other parallelization approaches where the GPU runs not only the evaluation stage, but all the stages of the algorithm. If the developer decides to use this option, usually each thread, or each block of threads, evolve few individuals, and all thread blocks cooperate for population evolution. This second approach is easily implemented when the evolutionary algorithm is a fine-grained one. If you, as programmer, decides to parallel using this approach, each thread of the block usually evolves one individual or part of one individual and interacts with neighbour threads for the rest of algorithm stages. 
 
-Si el enfoque de la paralelización no incluye solo la evaluación, sino todo el algoritmo, entonces la metodología SPMD por la que se rige una GPU debe ser adaptada para que todas las hebras hagan todos los pasos del algoritmo evolutivo a la vez que cooperan entre ellas para obtener una solución. En este enfoque, los tipos de algoritmos más próximos a este enfoque son los algoritmos celulares, donde cada hebra evoluciona una solución o muy pocas soluciones o individuos y se coordina con las hebras vecinas dentro del kernel para todas las etapas del algoritmo.
 	
-	Si pensamos ya en requisitos para una paralelización en la GPU podríamos enumerar:
-		- Que la capacidad de memoria de la GPU sea suficiente para albergar todos los datos necesarios para llevar a cabo la evaluación. 
-		- Que todas las funciones necesarias en la CPU para la evaluación estén igualmente disponibles en la GPU, puesto que el repertorio de utilidades y herramientas disponibles en la GPU y en la CPU no son las mismas.
-		- Que la evaluación pueda llevarse a cabo siguiendo la metodología SPMD para cada procesador o que la coordinación entre varias hebras sea factible para obtener una solución.
-		
-	Si intentamos enumerar las restricciones, en realidad van de la mano de los requisitos, puesto que la única restricción sería la capacidad de la memoria de la que dispone la GPU para poder albergar el problema que se intenta solucionar. Una solución posible es aplicar una metodología de Divide y vencerás y partir el problema en partes más pequeñas, si fuera posible, por lo que la restricción se eliminaría.
+At the end, the challenge for using a GPU is to understand the Single Program Multiple Data programming method and to take advantage of it for your algorithm. The  
+implementation's requirements will depend of the problem nature and of the programmer ability. We have tried to make a list, but all the points of this list could get over with innovation and experience. 
+
+In the other hand, the constraints could be related with the problem size,  with the memory consumption, or with the threads coordination, but we are sure the experience and the innovative ideas of GPU's coders, will find solutions for each constraint providing new tools and tips for Evolutionary Computation researcher.
+
 
 
 
