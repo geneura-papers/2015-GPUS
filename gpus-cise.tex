@@ -491,7 +491,9 @@ The first step for parallelizing an evolutionary algorithm using a GPU, is to st
 
 %Lo primero que debemos plantearnos cuando queremos paralelizar un algoritmo evolutivo utilizando una GPU es que una GPU es una arquitectura muy específica y que los cambios que vamos a tener que hacer en el código y por tanto en el algoritmo deben estar adaptados a esta arquitectura, puesto que sino, la ganancia en velocidad que normalmente se busca cuando se decide paralelizar un algoritmo, puede no ser tan grande como esperamos. También queremos dejar claro que en este apartado hemos intentado generalizar lo más posible, para no centrarnos en ningún tipo de problema concreto, sino intentar que estos pasos sean válidos para cualquier investigador que se plantee la posibilidad de paralelizar su algoritmo con una GPU.
 
-It is important to say too, the basic steps we list here are as general as possible because we want all of them are valid steps for each evolutionary algorithm any programmer parallelizes for a general GPU. In most parallelization approach for evolutionary algorithms and GPUs, the normal processor executes the evolutionary cycle and the processors of the GPU execute the evaluation step. This approach is the most simple for implementation and the programmer only change a part of their evolutionary algorithm codification. The steps for this approach are carried out in two scopes, the CPU and the GPU one:
+Besides, it is important to say also, the basic steps we list here are as general as possible because all of them are valid steps for each evolutionary algorithm any programmer parallelizes for any basic GPU. 
+
+First, we introduce the most general parallelization approach. That uses normal processors, CPUs, for running the evolutionary cycle and the GPU's processors for running the evaluation stage. This approach is the most simple for implementation and the programmer only change a part of their evolutionary algorithm codification. The steps for this approach are carried out in two scopes, the CPU and the GPU one:
 \begin{itemize}
 \item In GPU scope:
 	\begin{itemize}
@@ -520,11 +522,12 @@ It is important to say too, the basic steps we list here are as general as possi
 %	- Integración de resultados generados con el desarrollo del ciclo evolutivo para poder abordar el siguiente paso.
 	
 	
-		These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
+	These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
 
 	
 %	Estos pasos básicos se pueden llevar a cabo en todas las versiones de CUDA, e incluso, en algunas versiones pueden ser simplificados, puesto que la propia GPU puede acceder a los datos disponibles en la memoria principal, o memoria de la CPU para realizar sus cálculos o evaluaciones, pagando eso sí, un coste en tiempo considerable.
 
+Moreover, there are other GPU's parallelization approaches where the GPU parallizes not only the evaluation stage, but all the stages of the algorithm. 
 
 Si el enfoque de la paralelización no incluye solo la evaluación, sino todo el algoritmo, entonces la metodología SPMD por la que se rige una GPU debe ser adaptada para que todas las hebras hagan todos los pasos del algoritmo evolutivo a la vez que cooperan entre ellas para obtener una solución. En este enfoque, los tipos de algoritmos más próximos a este enfoque son los algoritmos celulares, donde cada hebra evoluciona una solución o muy pocas soluciones o individuos y se coordina con las hebras vecinas dentro del kernel para todas las etapas del algoritmo.
 	
