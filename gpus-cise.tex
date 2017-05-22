@@ -495,34 +495,37 @@ However, as in previous frameworks, only the code for the fitness evaluation is 
 
 %** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
 
-The first step for parallelizing an evolutionary algorithm using a GPU, is to study the GPU architecture, because each GPU has special features the programmer has to be in mind to take advantage of it. Due to that reason, the algorithm and so the code must be adapted as well as possible to the GPU's architecture where the algorithm will be run. If this basic requirement is not clear for everybody, the advantage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequential one. 
+The first step for parallelizing an evolutionary algorithm using a GPU is to study the GPU architecture, as each GPU has special features the programmer has to take into account to take advantage of the device. 
+Thus, the algorithm and so the code must be adapted to the GPU architecture in which the algorithm will run. 
+%If this basic requirement is not clear for everybody, the advantage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequential one. 
+This step should be done carefully, because a code that has not been adapted properly might require a higher time to run than its sequential version.
 
+%Besides, it is important to say also, the basic steps we list here are as general as possible because all of them are valid steps for each evolutionary algorithm any programmer parallelizes for any basic GPU. 
+Next, basic steps a researcher should take in order to parallelize a general EA on a GPU-based system are detailled.
 
+The most general parallelization approach is based on running the evolutionary cycle on the CPU while the GPU processors run the evaluation stage. This approach is the simplest one, and the programmer only have to change a part of the EA codification. 
+In this case, the EA is run in two scopes:
 
-Besides, it is important to say also, the basic steps we list here are as general as possible because all of them are valid steps for each evolutionary algorithm any programmer parallelizes for any basic GPU. 
-
-First, we introduce the most general parallelization approach. That uses normal processors, CPUs, for running the evolutionary cycle and the GPU's processors for running the evaluation stage. This approach is the most simple for implementation and the programmer only change a part of their evolutionary algorithm codification. The steps for this approach are carried out in two scopes, the CPU and the GPU one:
 \begin{itemize}
 \item In GPU scope:
 	\begin{itemize}
-		\item To allocate memory for the individuals to evaluate.
-		\item To allocate memory for the data the individuals need for evaluation (the matrix distances for Travel Salesman Problem, for example).
-		\item To allocate memory for the evaluation results.
-		\item Each GPU processor evaluates one individual or part of each individual executing one or more kernel. The first one is called from CPU's scope and the rest of them might be called from the same scope or the GPU one.
+		\item Allocating memory for the individuals to evaluate.
+		\item Allocating memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Travel Salesman Problem).
+		\item Allocating memory for the evaluation results.
+		\item Each GPU processor evaluates one individual or part of each individual executing one or more kernel. The first one is called from the CPU scope and the rest of them might be called from the same scope or from the GPU one.
 	\end{itemize}  
 \item In CPU scope:
 	\begin{itemize}
-		\item To copy the individuals and data for the evaluation from CPU's scope to GPU's scope.
-		\item To copy from GPU's scope the evaluation results to CPU's scope. 
-		\item To define the grid of threads for kernel function execution, fixing the dimension of each thread's block and, how many and how the blocks are organised for the grid using one, two or three dimension. 
-		\item To call the kernel function or functions using the grid of threads defined in previous step.
-		\item To integrate the evaluation results with the rest of evolutionary algorithm.   
+		\item Copying the individuals and data for the evaluation from CPU scope to GPU scope.
+		\item Copying the obtained results from GPU to CPU scope. 
+		\item Defining the grid of threads for kernel function execution, fixing the dimension of each thread's block and, how many and how the blocks are organised for the grid using one, two or three dimension. 
+		\item Calling the kernel function or functions using the grid of threads defined in previous step.
+		\item Integrating the evaluation results with the rest of evolutionary algorithm.   
 	\end{itemize}  
 \end{itemize}
 
-	
-	
-	These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
+
+These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
 
 
 Moreover, there are other parallelization approaches where the GPU runs not only the evaluation stage, but all the stages of the algorithm. If the developer decides to use this option, usually each thread, or each block of threads, evolve few individuals, and all thread blocks cooperate for population evolution. This second approach is easily implemented when the evolutionary algorithm is a fine-grained one. If you, as programmer, decides to parallel using this approach, each thread of the block usually evolves one individual or part of one individual and interacts with neighbour threads for the rest of algorithm stages. 
