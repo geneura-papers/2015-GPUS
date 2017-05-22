@@ -47,7 +47,7 @@ solutions. Thanks to this feature, there are many different distributed and para
 % Antonio - I know. But there are distributed and parallel schemes in EAs
 Thus, this paper is mainly focused in two main objectives: firstly it aims to be a tutorial as it describes general features of EAs and their main distributed models. It also reviews the new advances in hardware and software in this field, and gives an introduction on how to parallelize evolutionary algorithms on GPGPUs, describing both, several frameworks which allow to do it easily, and the main issues to take into account in order to carry out these implementations.
 Secondly the paper presents a survey on the literature related to the adaptation of EAs to GPGPUs.  
-So, more than 200 related publications   % in this paper 87 citations have been included, so... should be say 200 ????   [pedro]
+So, more than 200 related publications   % in this paper 87 citations have been included, so... should we say 200 ????   [pedro]
 from the last 13 years have been revised, and some properties have been extracted: type of EA
 implemented, hybridization, configuration and whether they have been
 applied to solve real world problems.  
@@ -108,13 +108,14 @@ every PC nowadays and also in most of the mobile devices.  % There are
 
 GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations. % use calculus or calculations along the text  [pedro]
 
-Depending on the power of a GPU, the number of threads that can be executed in parallel on such devices is currently in the order of hundreds to thousands and this number is expected to be increased every year. Nowadays, developers can write their own high-level programs on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
+Depending on the power of a GPU, the number of threads that can be run in parallel on such devices is currently in the order of hundreds to thousands and this number is expected to increase every year. Nowadays, developers can write their own high-level programs to be run on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
 
 Since some years ago, GPUs are exposed to the programmer as a set of general-purpose shared-memory Single Instruction Multiple Data (SIMD) multi-core processors. This makes these architectures well suited to run large or complex computational problems in parallel.
 Thus, nowadays, these units are used as general-purpose processors, and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
 
-General-purpose computing on graphics processing units (GPGPU) consists in the use of a Graphics Processing Unit (GPU), which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a central processing unit (CPU). Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform massive and restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
+General-purpose computing on graphics processing units (GPGPU) consists in the use of a GPU, which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a CPU. Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform massive and restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
 
+% 
 EAs \cite{EAs_Back96} are a class of probabilistic search and optimisation algorithms inspired on the model of Darwinistic evolution. 
 There are several subtypes, depending on the data structure that is preferentially used for representing solutions, but Genetic Algorithms (GAs) \cite{GAs_Goldberg89} and Genetic Programming (GP) \cite{GP_Koza92} are the most extended. The main features are common to all of them: a population of individuals or potential solutions of the target problem, a selection method that favours better solutions, and a set of operators that act upon the
 selected solutions. Thus, after an initial population is created, usually randomly, the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
@@ -127,12 +128,15 @@ cooperating to find a solution. Thus, their distribution on different computatio
 The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a different searching area of the space of solutions and thus, to a different solution or set of solutions for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
 For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the recent distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
 
-Thus, the paper presents a survey of the most extended evolutionary algorithms and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy, which is also introduced.
+Thus, this paper presents a survey of the most extended EAs and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy, which is also introduced.
 In addition, this work describes the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU model, and gives an overview of currently available programming tools and software systems.
 
-The rest of the paper is structured as follows: Next section presents GPUs as highly parallel devices architectures. Then, a background on the different
-higher level programming languages used to take advantage on GPUs is described. The following section proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
-Then, a set of representative works (according to their number of cites) describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. Finally, some conclusions are remarked in the last section.
+The rest of the paper is structured as follows: 
+Section \ref{sec:eas} presents GPUs as highly parallel devices architectures. 
+Then, a background on the different higher level programming languages used to take advantage on GPUs is described. 
+Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
+Then, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. 
+Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -859,8 +863,8 @@ the communication cost between GPUs and CPUs. % That's it? Will you not use this
 %********************************************************************************
 \section*{Acknowledgements}
 
-This work has been supported in part by projects PreTEL (PRM Consultores - Trevenque S.L.), TIN2014-56494-C4-3-P and TEC2015-68752 (Spanish Ministry of Economy and Competitiveness and FEDER), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci{\'o}n), and PROY-PP2015-06 (Plan Propio 2015, funded by the University of Granada, Spain).
-
+%This work has been supported in part by projects PreTEL (PRM Consultores - Trevenque S.L.), TIN2014-56494-C4-3-P and TEC2015-68752 (Spanish Ministry of Economy and Competitiveness and FEDER), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci{\'o}n), and PROY-PP2015-06 (Plan Propio 2015, funded by the University of Granada, Spain).
+This work has been supported in part by projects TIN2014-56494-C4-3-P and TEC2015-68752 (Spanish Ministry of Economy and Competitiveness and FEDER).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % appendix
