@@ -72,56 +72,41 @@ category.
 \section{Introduction}
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+Evolutionary Algorithms \cite{EAs_Back96} are a class of probabilistic search and optimisation methods inspired on the model of Darwinistic evolution. 
+The main features common to all the approaches are a population of individuals or potential solutions for the target problem, a selection method that favours better solutions, and a set of operators that iteratively act upon the selected solutions. If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population will increase with the number of generations.
 
-The application of Evolutionary Algorithms (EAs) to find the solution of
-either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms, aiming to reduce the required computational time to solve the problem. Moreover, sometimes these parallel schemes also lead to an improvement on the quality of the obtained solutions.
+
+%EAs present a structure which is inherently parallel because the individuals of the population are relatively independent, 
+%They work independently, but all of them cooperate
+%cooperating to find a solution. Thus, their distribution on different computation nodes is quite straight and not very difficult to implement. Usually, every node is devoted to work on a subpopulation or island \cite{Cantu-Paz_parallel_GAs}, but in the finest-grained models, or fully distributed, every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
+%
+%The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a different searching area of the space of solutions and thus, to a different solution or set of solutions for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
+%For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the recent distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
+
+
+The application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms, aiming to reduce the required computational time to solve the problem. Moreover, sometimes these parallel schemes also lead to an improvement on the quality of the obtained solutions.
 % What do you mean by "whereas, ...". Please rephrase. 
 % Antonio - done
 
-Even if EAs were proposed as sequential methods, their features, such as the population of solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed/parallelized.
+Even if EAs were proposed as sequential methods, their features, such as the population of solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed or parallelized.
 
 % This sentence is also too general. Specify the sequence in a few
 % words, and then explain how it can be generalized - JJ
 % Antonio - rephrased.
 
-% Antonio - TO-DO (for me): Continue rewriting the abstract
-
-Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
-These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
+In the last years, new emerging trends in parallelization and distribution are arising. These are technologies such as Peer-to-Peer (P2P) \footnote{\url{https://en.wikipedia.org/wiki/Peer-to-peer}}, Cloud Computing \footnote{\url{https://en.wikipedia.org/wiki/Cloud_computing}}, or Volunteer Computing \footnote{\url{https://en.wikipedia.org/wiki/Volunteer_computing}}, to cite the most relevant.
+These trends require a new way to develop parallel EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
-%********
+% Antonio - add here a cite?
 
-These algorithms
-were usually executed in one or more central processing units (CPUs)
-each one with one or more cores. However the advances in the video
-game industry have led to the production of low cost and
-high-performance graphics processing units (GPUs) included in almost
-every PC nowadays and also in most of the mobile devices.  % There are
-                                % weird words here. Are you trying to
-                                % change the text by using synonyms?
-                                % - Jj
+However, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues. 
+GPUs are specialized stream processors, composed by hundreds (or thousands) of computation units, and designed to perform graphics manipulations applying optimized graphical primitive operations, at a much higher speed than a general purpose CPU.
 
-GPUs are specialized stream processors, initially designed for rendering graphics in all kind of applications, but specially games. Typically, a GPU is able to perform graphics manipulations at a much higher speed than a general purpose CPU, since the graphics processor is specifically designed to handle certain primitive operations which occur frequently in graphics applications. Internally, the GPU contains a number of small processors that are used to perform calculations. % use calculus or calculations along the text  [pedro]
+GPUs have been adapted to be used as General Purpose multi-processors with shared memory, or GPGPUs, in a similar shape to Single Instruction Multiple Data (SIMD) architectures. To this end, there are specific programming languages and structures to be used. Thus, developers can write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing).
+This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
 
-Depending on the power of a GPU, the number of threads that can be run in parallel on such devices is currently in the order of hundreds to thousands and this number is expected to increase every year. Nowadays, developers can write their own high-level programs to be run on GPU. Due to the wide availability, programmability, and high-performance of these consumer-level GPUs, they are cost-effective for, not just game playing, but also scientific computing.
-
-Since some years ago, GPUs are exposed to the programmer as a set of general-purpose shared-memory Single Instruction Multiple Data (SIMD) multi-core processors. This makes these architectures well suited to run large or complex computational problems in parallel.
-Thus, nowadays, these units are used as general-purpose processors, and leveraged as powerful substitutes or complements for CPUs in many problem solving frameworks.
-
-General-purpose computing on graphics processing units (GPGPU) consists in the use of a GPU, which typically handles computer graphics related calculus, to perform any kind of computation traditionally carried out by a CPU. Recently there has been a growing interest in GPU computation, due to the fact that this kind of processors has the ability to perform massive and restricted parallel processing, which is very attractive to researchers with applications that require intensive parallel computation.
-
-% 
-EAs \cite{EAs_Back96} are a class of probabilistic search and optimisation algorithms inspired on the model of Darwinistic evolution. 
-There are several subtypes, depending on the data structure that is preferentially used for representing solutions, but Genetic Algorithms (GAs) \cite{GAs_Goldberg89} and Genetic Programming (GP) \cite{GP_Koza92} are the most extended. The main features are common to all of them: a population of individuals or potential solutions of the target problem, a selection method that favours better solutions, and a set of operators that act upon the
-selected solutions. Thus, after an initial population is created, usually randomly, the selection and operators - crossover and mutation - are applied to the individuals, and the new population then replaces the older one. This is repeated for a number of generations or until another stop condition is met. 
-If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population increases with the number of generations.
-
-EAs present a structure which is inherently parallel because the individuals of the population are relatively independent, 
-%They work independently, but all of them cooperate
-cooperating to find a solution. Thus, their distribution on different computation nodes is quite straight and not very difficult to implement. Usually, every node is devoted to work on a subpopulation or island \cite{Cantu-Paz_parallel_GAs}, but in the finest-grained models, or fully distributed, every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
-
-The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a different searching area of the space of solutions and thus, to a different solution or set of solutions for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
-For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the recent distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
+% Antonio - To DO: rewrite this
 
 Thus, this paper presents a survey of the most extended EAs and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy, which is also introduced.
 In addition, this work describes the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU model, and gives an overview of currently available programming tools and software systems.
@@ -750,7 +735,7 @@ Researchers implement fine-grained algorithms using GPGPU, making every scalar p
 The second problem of this approach is the random number generator. The CPU can easily generate random numbers, but the GPU is not designed for this task. So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every thread. 
 
 
-Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPU, for solving the Colville problem \cite{Ng:2005:DFF:1064290.1064296} in 2005. The population is distributed in a toroidal 2D grid and the classical Von Newmann neighborhood structure with five cells was used. Chromosomes and their fitness values were stored in the texture memory on the graphic card, and both, fitness evaluation and genetic operations, were implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals were represented as a set of 2D texture maps. BLX-$\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
+Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPUs, for solving the Colville problem \cite{Ng:2005:DFF:1064290.1064296} in 2005. The population is distributed in a toroidal 2D grid and the classical Von Newmann neighborhood structure with five cells was used. Chromosomes and their fitness values were stored in the texture memory on the graphic card, and both, fitness evaluation and genetic operations, were implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals were represented as a set of 2D texture maps. BLX-$\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
 
 In 2006, \cite{man-leung-wong-parallel-2006} proposed a parallel hybrid GA (HGA) where the whole evolutionary process run on the GPU, and only the random number generation is done in CPU. Every individual is assigned to a GPU thread, and each one selects probabilistically an individual in its neighborhood to mate with it. Just one offspring individual is generated each time, and it replaces the old one in that GPU thread. The authors compare their implementation with a standard GA run in a CPU and the FEP \cite{man-leung-wong-parallel-2005} algorithm. Using a new pseudo-deterministic selection method, the amount of random numbers transferred from the CPU is reduced. HGA reaches speedup of $\times5.30$ when compared against the sequential version. In 2009 Wong et al. \cite{wong-implementation-2009} provide implementation details for fine-grained evolutionary algorithms.  
 
