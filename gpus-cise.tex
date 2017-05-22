@@ -48,9 +48,8 @@ solutions. Thanks to this feature, there are many different distributed and para
 Thus, this paper is mainly focused in two main objectives: firstly it aims to be a tutorial as it describes general features of EAs and their main distributed models. It also reviews the new advances in hardware and software in this field, and gives an introduction on how to parallelize evolutionary algorithms on GPGPUs, describing both, several frameworks which allow to do it easily, and the main issues to take into account in order to carry out these implementations.
 Secondly the paper presents a survey on the literature related to the adaptation of EAs to GPGPUs.  
 So, more than 200 related publications   % in this paper 87 citations have been included, so... should we say 200 ????   [pedro]
-from the last 13 years have been revised, and some properties have been extracted: type of EA
-implemented, hybridization, configuration and whether they have been
-applied to solve real world problems.  
+% Antonio - we actually revised more than 200, but several of them weren't interesting, or maybe they used other methods instead of EAs. Moreover, we have said we have included here the most representative. ;) 
+from the last 13 years have been revised, and some properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems.  
 We have also defined a taxonomy of the approaches used for GPGPU parallelization
 in the literature. Then, a more in-depth analysis has been conducted
 on a wide selection, also describing the most representative works in each
@@ -75,22 +74,18 @@ category.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The application of Evolutionary Algorithms (EAs) to find the solution of
-either real world problems or large instances of some benchmark problems
-requires a high amount of computational power. In order to deal with
-them, parallelization of this kind of algorithms has been performed
-with the main objective of reducing the computational time whereas,
-eventually, the quality of the solutions is improved. % What do you
-                                % mean by "whereas, ...". Please
-                                % rephrase. 
+either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms, aiming to reduce the required computational time to solve the problem. Moreover, sometimes these parallel schemes also lead to an improvement on the quality of the obtained solutions.
+% What do you mean by "whereas, ...". Please rephrase. 
+% Antonio - done
 
-%******** Antonio - TO DO: Revise and rewrite/integrate this with the other text
-Initially the EAs were proposed as a sequential set of steps with
-different operators and data structures. % This sentence can probably
-                                % rephrased - JJ
-Then, several ways to parallelize these algorithms were presented,
-with new schemes and operations.  % operators    ???
+Even if EAs were proposed as sequential methods, their features, such as the population of solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed/parallelized.
+
 % This sentence is also too general. Specify the sequence in a few
 % words, and then explain how it can be generalized - JJ
+% Antonio - rephrased.
+
+% Antonio - TO-DO (for me): Continue rewriting the abstract
+
 Nowadays, new emerging trends that deal with new technologies (such as P2P or Cloud Computing) and new algorithmic methods (such as parameter adaptation) are being used. 
 These trends require a new way to develop EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
