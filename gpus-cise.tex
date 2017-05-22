@@ -512,7 +512,7 @@ In this case, the EA is run in two scopes:
 		\item Allocating memory for the individuals to evaluate.
 		\item Allocating memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Travel Salesman Problem).
 		\item Allocating memory for the evaluation results.
-		\item Each GPU processor evaluates one individual or part of each individual executing one or more kernel. The first one is called from the CPU scope and the rest of them might be called from the same scope or from the GPU one.
+		\item Each GPU processor evaluates one individual or a part using a kernel function for the evaluation. The first one is called from the CPU scope and the rest of them might be called from the same scope or from the GPU one.
 	\end{itemize}  
 \item In CPU scope:
 	\begin{itemize}
@@ -524,17 +524,21 @@ In this case, the EA is run in two scopes:
 	\end{itemize}  
 \end{itemize}
 
+%These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU processors are able to access CPU memory scope directly. 
+The previous steps can be used in any CUDA versión. Moreover, in some recent versions those steps can be simplified, as the GPU processors are able to access CPU memory scope directly.
+However, this approach is unsuitable for most programmers, because the time required for CPU memory access is too large and usually it is only used when the accessed data is needed only one time for one operation. Moreover, if the evaluation process needs the data several times, it might be better copying it to the GPU memory in order to speedup following data-loads.
 
-These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU's processors are able to access CPU's memory scope directly. This approach is unsuitable for most of the programmers because the time for CPU's memory access is too large and usually it is only used when the accessed data is needed  one time.
+
+In any case, there are other parallelization approaches where the GPU runs not only the evaluation stage, but all the stages of the algorithm. 
+In order to use this alternative implementation, usually each thread or each block of threads must evolve a small number of individuals, and all thread blocks must cooperate for population evolution. 
+This alternative approach is easily implemented when the evolutionary algorithm is a fine-grained one. 
+The implementation might be based on evolving one individual or part of one individual on each thread of a block, and those threads must interact with their neighbours in order to carry out the rest of algorithm stages. 
 
 
-Moreover, there are other parallelization approaches where the GPU runs not only the evaluation stage, but all the stages of the algorithm. If the developer decides to use this option, usually each thread, or each block of threads, evolve few individuals, and all thread blocks cooperate for population evolution. This second approach is easily implemented when the evolutionary algorithm is a fine-grained one. If you, as programmer, decides to parallel using this approach, each thread of the block usually evolves one individual or part of one individual and interacts with neighbour threads for the rest of algorithm stages. 
-
-	
-At the end, the challenge for using a GPU is to understand the Single Program Multiple Data programming method and to take advantage of it for your algorithm. The  
-implementation's requirements will depend of the problem nature and of the programmer ability. We have tried to make a list, but all the points of this list could get over with innovation and experience. 
-
-In the other hand, the constraints could be related with the problem size,  with the memory consumption, or with the threads coordination, but we are sure the experience and the innovative ideas of GPU's coders, will find solutions for each constraint providing new tools and tips for Evolutionary Computation researcher.
+%At the end, the challenge for using a GPU is to understand the Single Program Multiple Data programming method and to take advantage of it for your algorithm. 
+Finally, it is very important to understand and to properly implement the Single Program Multiple Data (SPMD) programming concept in order to take advantage of it in the EA implementation, always taking into account that constraints related to the problem size, to the memory consumption or to the threads syncronization might affect the obtained performance.
+% next sentences are expendable and can be deleted  [pedro]
+%The implementation's requirements will depend on the problem nature and on the programmer skills. We have tried to make a list, but all the points of this list could get over with innovation and experience. In the other hand, the constraints could be related with the problem size, with the memory consumption, or with the threads syncronization, but we are sure the experience and the innovative ideas of GPU's coders, will find solutions for each constraint providing new tools and tips for Evolutionary Computation researcher.
 
 
 
