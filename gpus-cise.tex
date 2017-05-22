@@ -133,7 +133,8 @@ In addition, this work describes the features and advantages of GPGPUs, then it 
 
 The rest of the paper is structured as follows: 
 Section \ref{sec:eas} presents GPUs as highly parallel devices architectures. 
-Then, a background on the different higher level programming languages used to take advantage on GPUs is described. 
+In Section \ref{sec:parall_and_GPUs}, a review of different general purpose GPUs is presented, giving details on different hardware products.
+Then, a background on the different higher level programming languages used to take advantage on GPUs is described (Section \ref{sec:programming}) followed by a description of the most frequent frameworks used to parallelize EAs to take advantage of the power of GPGPUs in Section \ref{sec:parallelizing}. 
 Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
 Then, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. 
 Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
@@ -464,6 +465,7 @@ Different EAs adapt to the limitations of the memory model with different degree
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Parallelizing EAs on GPGPUs}
+\label{sec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Always write intros to sections - JJ
