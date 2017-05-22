@@ -76,47 +76,33 @@ category.
 Evolutionary Algorithms \cite{EAs_Back96} are a class of probabilistic search and optimisation methods inspired on the model of Darwinistic evolution. 
 The main features common to all the approaches are a population of individuals or potential solutions for the target problem, a selection method that favours better solutions, and a set of operators that iteratively act upon the selected solutions. If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population will increase with the number of generations.
 
+This metaheuristic has been widely used in the literature to solve many different problems, due to its simplicity and facility to be implemented. However, the application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms. 
 
-%EAs present a structure which is inherently parallel because the individuals of the population are relatively independent, 
-%They work independently, but all of them cooperate
-%cooperating to find a solution. Thus, their distribution on different computation nodes is quite straight and not very difficult to implement. Usually, every node is devoted to work on a subpopulation or island \cite{Cantu-Paz_parallel_GAs}, but in the finest-grained models, or fully distributed, every node is assigned to one individual \cite{Tomassini_fully_distributed_EAs}.
-%
-%The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. Sometimes this distribution could also imply a different searching scheme, which can lead to a different searching area of the space of solutions and thus, to a different solution or set of solutions for an optimization problem, which, in turn, could be better than the one obtained in a sequential approach.
-%For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, including the recent distribution on GPUs, by means of the new parallelization paradigm which we focus on here.
+Even if EAs were proposed as sequential methods, their features, such as the population of independent solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed or parallelized (at different grain levels).
+The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. But sometimes this distribution also implies a different searching scheme, which leads to a different searching area of the space of solutions and thus, which yields a different solution or set of solutions for the problem, that could be better than the one obtained in the sequential approach.
+For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, as this survey will show.
 
-
-The application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms, aiming to reduce the required computational time to solve the problem. Moreover, sometimes these parallel schemes also lead to an improvement on the quality of the obtained solutions.
-% What do you mean by "whereas, ...". Please rephrase. 
-% Antonio - done
-
-Even if EAs were proposed as sequential methods, their features, such as the population of solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed or parallelized.
-
-% This sentence is also too general. Specify the sequence in a few
-% words, and then explain how it can be generalized - JJ
-% Antonio - rephrased.
-
-In the last years, new emerging trends in parallelization and distribution are arising. These are technologies such as Peer-to-Peer (P2P) \footnote{\url{https://en.wikipedia.org/wiki/Peer-to-peer}}, Cloud Computing \footnote{\url{https://en.wikipedia.org/wiki/Cloud_computing}}, or Volunteer Computing \footnote{\url{https://en.wikipedia.org/wiki/Volunteer_computing}}, to cite the most relevant.
-These trends require a new way to develop parallel EAs taking into account some shortcomings, such as integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
+In the last years, new emerging trends in parallelization and distribution are arising. These are technologies such as Peer-to-Peer (P2P) \footnote{\url{https://en.wikipedia.org/wiki/Peer-to-peer}}, Service-Oriented Architectures \footnote{\url{https://en.wikipedia.org/wiki/Service-oriented_architecture}}, Cloud Computing \footnote{\url{https://en.wikipedia.org/wiki/Cloud_computing}}, or Volunteer Computing \footnote{\url{https://en.wikipedia.org/wiki/Volunteer_computing}}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14}, 
+% Antonio - poner otras citas? Son todas nuestras. :_D
+which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
-% Antonio - add here a cite?
 
-However, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues. 
+Besides, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues. 
 GPUs are specialized stream processors, composed by hundreds (or thousands) of computation units, and designed to perform graphics manipulations applying optimized graphical primitive operations, at a much higher speed than a general purpose CPU.
 
 GPUs have been adapted to be used as General Purpose multi-processors with shared memory, or GPGPUs, in a similar shape to Single Instruction Multiple Data (SIMD) architectures. To this end, there are specific programming languages and structures to be used. Thus, developers can write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing).
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
 
-% Antonio - To DO: rewrite this
+EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
+Thus, this paper presents a taxonomy regarding the different parallelization models, along with a complete survey of the most relevant proposals in this scope, extracted after revising more than 200 works published since 2004.
 
-Thus, this paper presents a survey of the most extended EAs and the different proposals of GPUs-parallelization approaches made in a number of research works. They are organized according to a parallelization taxonomy, which is also introduced.
-In addition, this work describes the features and advantages of GPGPUs, then it explains the general approaches to use and profit a GPGPU model, and gives an overview of currently available programming tools and software systems.
+In addition, the manuscript introduces the main concepts related with GPUs, from their internal architecture, to the usual programming models and structures, along with several extended tools and frameworks which can help to do this task. The work also describes how to parallelize an EA using GPGPUs, pointing out the main issues and constraints to take into account.
 
 The rest of the paper is structured as follows: 
-Section \ref{sec:eas} presents GPUs as highly parallel devices architectures. 
-In Section \ref{sec:parall_and_GPUs}, a review of different general purpose GPUs is presented, giving details on different hardware products.
-Then, a background on the different higher level programming languages used to take advantage on GPUs is described (Section \ref{sec:programming}) followed by a description of the most frequent frameworks used to parallelize EAs to take advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). 
-Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
-In Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. 
+Section \ref{sec:eas} introduces EAs, and describes the most usual parallelization and distribution models in the literature. 
+In Section \ref{sec:parall_and_GPUs}, GPUs are described regarding their internal structure and utility as GPGPUs. In addition, a comparison of the existing cards in the market is shown.
+Then, the GPUs programming schemes, languages and tools are presented in Section \ref{sec:programming}, followed by a description of the best frameworks used to parallelize EAs in order to take advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). In the same section, the main issues to consider in order to parallelize an EA on a GPGPU are commented. 
+Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel models implemented in the literature, in order to categorize the revised papers. Thus, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPGPUs are reviewed and divided following the proposed taxonomy, plotting also some interesting numbers and graphs related to them.
 Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
 
 
