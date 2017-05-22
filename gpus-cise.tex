@@ -23,8 +23,8 @@
 %% \address[label1]{}
 %% \address[label2]{}
 
-\author{Gustavo Romero$^1$, M.G. Arenas$^1$, P.A. Castillo$^1$,\\ 
-A.M. Mora$^1$, P. García-Sánchez$^2$, J. J. Merelo$^1$\\ \\
+\author{Gustavo Romero$^1$, M.G. Arenas$^1$, A.M. Mora$^1$, \\ 
+P. Garc{\'\i}a-S{\'a}nchez$^2$, J. J. Merelo$^1$, P.A. Castillo$^1$  \\ \\
 \small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
 \small{$^2$ Dept. Computer Engineering, University of Cádiz (Spain)}\\
@@ -134,9 +134,9 @@ In addition, this work describes the features and advantages of GPGPUs, then it 
 The rest of the paper is structured as follows: 
 Section \ref{sec:eas} presents GPUs as highly parallel devices architectures. 
 In Section \ref{sec:parall_and_GPUs}, a review of different general purpose GPUs is presented, giving details on different hardware products.
-Then, a background on the different higher level programming languages used to take advantage on GPUs is described (Section \ref{sec:programming}) followed by a description of the most frequent frameworks used to parallelize EAs to take advantage of the power of GPGPUs in Section \ref{sec:parallelizing}. 
+Then, a background on the different higher level programming languages used to take advantage on GPUs is described (Section \ref{sec:programming}) followed by a description of the most frequent frameworks used to parallelize EAs to take advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). 
 Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel structures implemented in the literature, in order to categorize all the papers.
-Then, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. 
+In Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPUs are reviewed and divided following the proposed taxonomy. 
 Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
 
 
@@ -471,13 +471,13 @@ Different EAs adapt to the limitations of the memory model with different degree
 % Always write intros to sections - JJ
 % Antonio - done
 
-This section describes the most frequent frameworks used for the parallelization of EAs to take advantage of the power of GPGPUs. In addition, common issues and constraints to take into account when such a parallel evolutionary approach is going to be implemented are also pointed out.
+This section describes the most frequent frameworks used to parallelize EAs to take advantage of the power of GPGPUs. In addition, common issues and constraints to take into account when such a parallel evolutionary approach is going to be implemented are also pointed out.
 
 \subsection{Frameworks to parallelize EAs on GPGPUs}
 
-Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the creation of this kind of algorithms. Many of them include implementations for the most common operators, problems and individual representations, using different technologies and programming languages.
+Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the implementation of this kind of algorithms. Many of them include implementations for the most common operators, problems and individual representations, using different technologies and programming languages.
 
-The most complete and comprehensive review of these kind of frameworks is from Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore not only focused on EAs. As a criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA) included references to GPU capabilities when this paper was published.
+The most complete and comprehensive review of these kind of frameworks was proposed by Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore not only focused on EAs. As a criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA) included references to GPU capabilities when this paper was published.
 
 However, in recent years, some of these EA-based frameworks have added some kind of GPU integration. Several authors have created library extensions to the frameworks, in order to allow the evaluation of the individuals in GPGPUs (which is normally the hardest computational part). For example Robilliard et al. \cite{RobilliardECJGPU08} did it for ECJ, and Cano et al. for jCLEC \cite{SpeedingTheEvaluationofGPCano:2012}. 
 ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, is another framework built upon an existing one, but for now, it is only focused in single solution metaheuristics, and not in population-based ones, such as EAs. 
