@@ -362,7 +362,7 @@ In the same way we learn to make faster computers by joining several CPUs togeth
 Most information shown in this and next sections has been extracted from the websites of the mentioned vendors: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{GPUs Programming}
+\section{GPU Programming}
 \label{sec:programming}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -370,20 +370,13 @@ Most information shown in this and next sections has been extracted from the web
 \subsection{Programming Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The way GPUs can be exploited is deeply rooted on its hardware. There exists several APIs: every company has a proprietary one tied to their respective products. This way AMD started with Close to Metal and NVIDIA with CUDA. Over time another standard appear, OpenCL \cite{opencl}.
+At the beginning, to benefit from GPU computational power, we had to learn about its internal design. The closer to the bare metal, the better. With the pass of time several Application Program Interfaces (APIs) have appeared to alleviate this inconvenience. The problem, again, is that every manufacturer designed its own proprietary one: AMD created Close to Metal and NVIDIA created CUDA. Over time a truly open and universal standard was introduced, OpenCL \cite{opencl}. It works even on Intel hardware. Today it is supported by all vendors. Only NVIDIA keeps pushing its own, CUDA, at the same time. OpenCL was initially developed by Apple who pass it to Khronos Group for open and free release. At the same time Microsoft created DirectX for its operating systems.
 
-With respect to the programming tools available for developers, most the Application Program Interfaces (APIs) are based on C-like languages, but having some restrictions to improve the parallel throughput, such as no recursion at all or limited pointers usage. A popular option is the open source compiler LLVM \cite{LLVM} from the University of Illinois.
+OpenCL aspired to reach fame in the same way that OpenGL. The first with heterogeneous computing and the second in the graphics world. OpenCL is cross-platform and very inclusive about software and hardware. Primarily targeting GPUs but also capable of running on multi-core CPUs and FPGAs. Applications can be made portable across operating systems and hardware platforms keeping functionality and correctness. The first implementation was release in 2009.
 
-From 2003 the two main GPU developers, ATI an NVIDIA, started selling hardware solutions that need to be programmed with proprietary APIs. Despite previous work, the first widely supported GPUs were DX10 generation GeForce 8 series from NVIDIA, using the more mature CUDA API. On the other hand, the Radeon series from ATI, were programmed with the Close To Metal API.
+Most APIs are based on C-like languages but with some constraints in order to improve its parallel throughput. Usual limitations are avoiding recursion and restricting pointer usage to a minimum. Apart from GNU GCC, another open source compiler is gaining relevance, LLVM \cite{LLVM} from the University of Illinois.
 
-Paying attention to operating system vendors, there were efforts in the same direction. Some people at Apple betted on the potential of GPUs and started developing an open API, latter known as OpenCL. In the same time, Microsoft created the DirectCompute API for Windows.
-
-OpenCL aimed to became the OpenGL of heterogeneous computing for parallel applications. It is a cross-platform API with a broad and inclusive approach to parallelism, both in software and in hardware. While explicitly targeting GPUs, it also considers multi-core CPUs and FPGAs. The applications are portable across different hardware platforms, varying performance while keeping functionality and correctness. The first software implementations date back to 2009.
-
-Most companies support OpenCL across their products. Apart from AMD and NVIDIA we can use it on graphic hardware from S3 and VIA. Also IBM has a version of OpenCL for PowerPC and CELL processors. Intel started to offer support from the APU architecture Ivy Bridge and GPUs. Embedded world is also interested in OpenCL. Imagination Technologies offer support for the SGX545 graphics core. As does Samsung with their ARM based microprocessors.
-
-To make life easier for potential users many libraries are appearing. One significant example are STL like extensions for the C++ language. In \cite{doi:10.1137/120903683} we can read a comparison of several modern C++ libraries providing high-level interfaces for programming multi- and many-core architectures on top of CUDA and OpenCL.
-
+Developers are now working hard to delight new user with libraries that make using the GPU very easy. Some examples of this are the C++ parallel extensions of STL and the incorporation of GPU offloading in OpenMP into GCC version 7. A very interesting comparison of many modern C++ parallel libraries on top of CUDA and OpenCL can be found in \cite{doi:10.1137/120903683}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Execution Model}
