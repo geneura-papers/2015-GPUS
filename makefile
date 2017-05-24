@@ -9,7 +9,6 @@ BIB = $(wildcard *.bib)
 TEX = $(wildcard *.tex)
 TMP = $(TEX:.tex=.aux) $(TEX:.tex=.bbl) $(TEX:.tex=.blg) $(TEX:.tex=.fdb_latexmk) $(TEX:.tex=.fls) $(TEX:.tex=.log) $(TEX:.tex=.out) $(TEX:.tex=.spl)
 PDF = $(TEX:.tex=.pdf)
-LATEXMK = $(shell command -v latexmk 2> /dev/null)
 
 ###############################################################################
 
@@ -31,10 +30,15 @@ clean:
 	dia -e $@ $<
 
 %.pdf: $(PNG) $(EPS) %.bib %.tex
-ifndef LATEXMK
+ifneq ($(shell command -v latexmk 2> /dev/null),)
+	latexmk -pdfps $*
+else
+ifneq ($(shell command -v pdflatex 2> /dev/null),)
 	pdflatex $* && bibtex $* && pdflatex $*
 else
-	latexmk -pdfps $*
+	echo "I can't find latexmk nor pdflatex!!!"
+	exit 1
+endif
 endif
 
 ###############################################################################
