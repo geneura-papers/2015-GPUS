@@ -398,28 +398,25 @@ One of the strongest limitations compared to general computing is the communicat
 \subsection{Memory Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Programmers in general are used to read and write freely in any type of memory. Using the CPU we can read and write from registers, local memory (stack), global memory (heap) and disk. Accessing data for a GPU is more restricted.
+
 Data storage and communication within a device and between devices, mainly CPU and GPU, is dictated by the memory model. It can represented in Figure \ref{figure:memory}. Again, every vendor use the same four memory types but with a different name. This is true for DirectCompute, CUDA and OpenCL.
 
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{memory.eps}
-\caption{Memory model defines how the data is stored and communicated between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
+\caption{The memory model defines how data is stored and moved between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure*}
 
 \begin{itemize}
-\item Global memory: it is available for both read and write access to any work-item and the host CPU.
-\item Constant memory: is a read-only region for work-items on the GPU device, but the host CPU has full read and write access. Since the region is read-only, it is freely accessible to any work-item.
-\item Private memory: is accessible to a single work-item for reads and writes and inaccessible for the CPU host. The vast majority of computation is done using private memory, thus in many ways it is the most critical term of performance.
-\item Local memory: is accessible to a single work-group for reads and writes and is inaccessible for the CPU host. It is intended for shared variables and communication between work-items and is shared between a limited number of work-items.
+\item Global memory: any work-item and the host CPU can read and write.
+\item Constant memory: any work-item and the host CPU can read this read-only region. Writing is only allowed to the CPU.
+\item Private memory: a single work-item can read and write from it and is inaccessible for the host CPU. Most computation should be done here because it is the fastest one and the the most critical in terms of performance.
+\item Local memory: a single work-group can read and write on it and is inaccessible for the CPU. Its main target is to share data between a limited number of work-items.
 \end{itemize} 
 
-Unfortunately many times we have to pass data from CPU to GPU before a serious calculation can be done. Also after that, CPU must gather results from the GPU. Too much data passing can ruin speedups so they should be minimized if it can't be avoided at all.
-
-These problem have been with us because current CPUs and GPUs have been designed as separate processing elements and do not work together efficiently. At least until last APUs from AMD. New AMD A7 series uses what they call Heterogeneous System Architecture (HSA). HSA seamlessly shares data between CPU and GPU, without memory copies or cache flushes with minimal dispatch overhead. Both components can share a common memory architecture.
-
-Different EAs adapt to the limitations of the memory model with different degrees of success. Talking about population size, the smaller the the better. The variability is huge between different kinds. Also when possible, many small islands is preferable to a big unique population. The same is valid for any aspect of the algorithm which demands a big quantity of memory.
-
+The need of moving data in and out of the GPU memory is very common: to start a calculation, to gather results,... If the bandwidth consumed by this process involves an excessive amount of time the target speedup can be ruined. Data movement should be avoided or at least minimized. This bandwidth problem has arose many times in the computation era. Every time a new powerful device has appear we must feed it with enough data. Two solutions of recent appearance try to alleviate it. The first is a fourth level of cache between the CPU and the GPU. This is only useful when both processors are glued together in the same chip or encapsulation. The second solution involves changing the way we access memory from GPU and its called Heterogeneous System Architecture (HSA). HSA shares data between CPU and GPU in a seamless way, avoiding as many memory copies as caches permits. This way both devices can share a common memory architecture.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Parallelizing EAs on GPGPUs}
