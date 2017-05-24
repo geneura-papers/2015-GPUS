@@ -385,12 +385,12 @@ Most APIs mentioned are designed with heterogeneous computing in mind. They use 
 
 A kernel executes a single set of instructions over an usually large quantity of data. Data are organized as multidimensional arrays, between 1 and 3. In the OpenCL terminology, a \textit{work-item} is a piece of data in the sense previously described. One kernel is responsible for the execution of many work-items but it use to divide then in more manageable \textit{work-groups} of smaller size. These way a kernel may execute 32K work-items, composed of 64 work-groups of 512 items each.
 
-One of the strongest limitations compared to general computing is the communication between kernels. Communication and synchronization within work-groups works as we are used but not further. In this sense, a work-group serves two purposes: breaking a kernel in more manageable and shareable chunks and defining a limit to cheap, or possible, communications.
+One of the strongest limitations compared to general computing is the communication between kernels. Communication and synchronization within work-groups works as we are used but not further. In this sense, a work-group serves two purposes: breaking a kernel in more manageable and shareable chunks and defining a limit to fast, or possible, communications.
 
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=1.0\textwidth]{grid.eps}
-\caption{Execution model: Each piece of data is a work-item (thread); a kernel has thousands of work-items and is organized into many work-groups (thread blocks); each work-group process many work-items.}
+\caption{Execution model: A piece of data is called {\it work-item} (thread); a kernel has many work-items subdivided into many {\it work-groups} (thread blocks); each work-group process many work-items.}
 \label{figure:grid}
 \end{figure*}
 
