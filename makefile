@@ -9,6 +9,8 @@ BIB = $(wildcard *.bib)
 TEX = $(wildcard *.tex)
 TMP = $(TEX:.tex=.aux) $(TEX:.tex=.bbl) $(TEX:.tex=.blg) $(TEX:.tex=.fdb_latexmk) $(TEX:.tex=.fls) $(TEX:.tex=.log) $(TEX:.tex=.out) $(TEX:.tex=.spl)
 PDF = $(TEX:.tex=.pdf)
+LATEXMK :=  $(command -v latexmk &> /dev/null)
+
 
 ###############################################################################
 
@@ -30,11 +32,11 @@ clean:
 	dia -e $@ $<
 
 %.pdf: $(PNG) $(EPS) %.bib %.tex
-	if command -v latexmk &> /dev/null; then \
-		latexmk -pdfps $*; \
-	elif command -v pdflatex &> /dev/null; then \
-		pdflatex $* && bibtex $* && pdflatex $*; \
-	fi
+ifndef LATEXMK
+	pdflatex $* && bibtex $* && pdflatex $*; 
+else
+	latexmk -pdfps $*; 
+endif
 
 ###############################################################################
 
