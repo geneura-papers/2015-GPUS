@@ -9,8 +9,7 @@ BIB = $(wildcard *.bib)
 TEX = $(wildcard *.tex)
 TMP = $(TEX:.tex=.aux) $(TEX:.tex=.bbl) $(TEX:.tex=.blg) $(TEX:.tex=.fdb_latexmk) $(TEX:.tex=.fls) $(TEX:.tex=.log) $(TEX:.tex=.out) $(TEX:.tex=.spl)
 PDF = $(TEX:.tex=.pdf)
-LATEXMK :=  $(command -v latexmk &> /dev/null)
-
+LATEXMK = $(shell command -v latexmk 2> /dev/null)
 
 ###############################################################################
 
@@ -33,9 +32,9 @@ clean:
 
 %.pdf: $(PNG) $(EPS) %.bib %.tex
 ifndef LATEXMK
-	pdflatex $* && bibtex $* && pdflatex $*; 
+	pdflatex $* && bibtex $* && pdflatex $*
 else
-	latexmk -pdfps $*; 
+	latexmk -pdfps $*
 endif
 
 ###############################################################################
