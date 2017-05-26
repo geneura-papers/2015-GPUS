@@ -803,17 +803,22 @@ Manoatl and Coello \cite{ManoatlLopez2016} propose a GPU-based parallelization o
 \label{sec:conclusions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Evolutionary Algorithms have been widely parallelized in clusters or distributed-processor systems in the past decades. However with the current technological enhancement of computer graphics, and thus, with the emergence of powerful GPGPUs, a new way to execute this kind of algorithms has been opened. 
+This work has considered the most parallelized and distributed metaheuristic on the literature, Evolutionary Algorithms (EAs), and has conducted an exhaustive revision of the existing works, using General Purpose Graphic Processing Units (GPGPUs) to implement these approaches. 
 
-This paper presents an introduction to the different existing GPU architectures, programming languages, and frameworks, used nowadays in the industry and in this scientific area. % A conclusion must be a conclusion. What conclusions do you draw? Are there some outstanding problems that should be approached? Is there any issue?
+The paper gives an introduction to the different existing GPU architectures, physical cards in the market, usual programming languages, and main frameworks, used nowadays in the industry and in this scientific area. 
+Some guidelines are presented to the reader, in order to point out the main restrictions and issues to take into account when such a parallelization approach wants to be implemented on an EA.
 
-Focusing in the latter, this work is also a survey of the usage of General-Purpose GPUs for running Evolutionary Computation approaches, implemented to solve large-scale or complex optimization problems. Thus, a number of research works available in the literature have been reviewed, including a description of a taxonomy to classify them. % Does this taxonomy establish a estate of the art in taxonomies? Can you put it forward so that people using that taxonomy would reference this paper?
+In addition, the work also proposes a novel taxonomy to classify the different types of GPU-based EA parallelization models published, and then, most of the existing papers in the literature have been revised, commented and analysed in a deep and wide survey.
+Thus, the work aims to be a reference for future authors, both, from the point of view of its introductory or tutorial use, and also as a compendium of the main proposals in this area, and their characteristics.
+% Does this taxonomy establish a estate of the art in taxonomies? Can you put it forward so that people using that taxonomy would reference this paper?
+% Antonio - I have rewritten and (hopefully) clarified that
 
-In the majority of cases, speedups are attained in comparison with
-traditional CPU sequential and parallel versions. Most authors agree
-that bottlenecks appear copying data from main memory to the GPU device,
-so new hardware and software solutions are emerging trying to minimize
-the communication cost between GPUs and CPUs. % That's it? Will you not use this as a lead to talk about future work?
+The main conclusion reached in this work is also its main justification, as the publication tendency in this field is growing continuously, being in the last three years more than 25 papers on average. The main implemented methods are Genetic Algorithm approaches (more than 50\% of the revised papers), and around 60\% the publications are focused on solving real problems, taking advantage of the high computational power than GPGPUs offer to the researchers.
+
+With respect to the most extended programming language, CUDA (for NVIDIA cards) is the clearly the winner, as it seems to offer better performance and specific tools for the most prolific cards.
+
+Of course, in almost all the cases, very big speedups are attained in comparison with traditional CPU-based sequential and parallel versions. However, most authors agree that bottlenecks appear copying data from main memory to the GPGPU device, so new hardware and software solutions are emerging trying to minimize
+the communication cost between GPUs and CPUs. 
 
 % nada de trabajo futuro? - JJ
 % Antonio - para un survey no se me ocurre, salvo decir que lo mejoraremos analizando más artículos u otras técnicas, pero me suena raro, ¿no?
