@@ -721,10 +721,18 @@ Depending on the problem size, fine-grained approaches may improve the efficienc
 \subsection{Coarse-grained Approaches (island model)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherently possibilities they offer, as these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones. This kind of EAs work by dividing the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, individuals are moved from one island to another. This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
+The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherently possibilities they offer, as these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones. 
+This kind of EAs works by dividing the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, individuals are moved from one island to another. 
+This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
 
-In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
-%PABLO: este párrafo no se entiende, intentad escribirlo mejor :P
+%In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
+
+% a ver qué tal esta versión:     [pedro]
+In order to run a coarse-grained EA using a GPU device, several kernels could be run simultaneously.
+In that case, each kernel could handle a sub-population of individuals, establishing some synchronisation points.
+However, the GPU architecture is not designed for synchronising different kernels into the same grid.
+Thus, taking into account this limitation, using a GPU to run a coarse-grained EA might require changing some standard mechanism of the algorithm.
+
 
 One of the first island models on GPU-based approaches was presented on the GECCO 2009 GPU Competition \cite{gecco2009CompetitionPospichal}. This technical report presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. As it was a first attempt, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
 
