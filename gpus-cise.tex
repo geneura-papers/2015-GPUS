@@ -90,7 +90,7 @@ scalability or decentralization.
 Besides, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues. 
 GPUs are specialized stream processors, composed by hundreds (or thousands) of computation units, and designed to perform graphics manipulations applying optimized graphical primitive operations, at a much higher speed than a general purpose CPU.
 
-GPUs have been adapted to be used as General Purpose multi-processors with shared memory, or GPGPUs, in a similar shape to Single Instruction Multiple Data (SIMD) architectures. To this end, there are specific programming languages and structures to be used. Thus, developers can write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing).
+GPUs have been adapted to be used as General Purpose multi-processors with shared memory, or GPGPUs, in a similar shape to Single Instruction Multiple Data (SIMD)\footnote{\url{https://en.wikipedia.org/wiki/SIMD}} architectures. To this end, there are specific programming languages and structures to be used. Thus, developers can write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing).
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
 
 EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
@@ -444,58 +444,43 @@ Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} attempts to facilitate the
 However, as in previous frameworks, only the code for the fitness evaluation is sent to the GPU to be run in parallel.
 
 
-\subsection{Requirements and constraints to parallelize EAs on GPUs}
+\subsection{Requirements and constraints to parallelize EAs on GPGPUs}
 
-% Antonio - TODO: Fill this section with the general features/issues to take into account when parallelizing EAs on GPUs. Try not to overlap with the Taxonomy section.
+The first step for parallelizing an evolutionary algorithm using a GPGPU is to study the GPU architecture, as the cards of different families would have special features which the programmer has to consider, in order to really take advantage of the hardware. 
+Thus, the algorithm and so its source code must be adapted to the GPU architecture in which the algorithm will run. 
+This task should be conducted carefully, since a code that has not been properly adapted might expend a higher time to run than its sequential version.
 
-%** The idea here is to describe overall the way to parallelize EAs on GPUs: requirements, issues to consider, constraints that GPUs have (to do this task), etc **
+Next, usual basic steps a researcher (programmer) should consider in order to conduct a standard - and very common - parallelization of an EA on a GPU-based system are detailed.
 
-The first step for parallelizing an evolutionary algorithm using a GPU is to study the GPU architecture, as each GPU has special features the programmer has to take into account to take advantage of the device. 
-Thus, the algorithm and so the code must be adapted to the GPU architecture in which the algorithm will run. 
-%If this basic requirement is not clear for everybody, the advantage the programmer hope to get, can become a disadvantage, because the not arranged parallel version of code might spend more time than the sequential one. 
-This step should be done carefully, because a code that has not been adapted properly might require a higher time to run than its sequential version.
-
-%Besides, it is important to say also, the basic steps we list here are as general as possible because all of them are valid steps for each evolutionary algorithm any programmer parallelizes for any basic GPU. 
-Next, basic steps a researcher should take in order to parallelize a general EA on a GPU-based system are detailled.
-
-The most general parallelization approach is based on running the evolutionary cycle on the CPU while the GPU processors run the evaluation stage. This approach is the simplest one, and the programmer only have to change a part of the EA codification. 
-In this case, the EA is run in two scopes:
+The most extended parallelization approach is based on running the evolutionary loop on the CPU, while the GPU processors just run the evaluation stage (as this is usually the computationally hardest task). This approach is the simplest one, and the programmer only have to change a very specific part of the EA implementation. In this case, the EA is executed in two scopes, and some issues must be considered in each of them:
 
 \begin{itemize}
 \item In GPU scope:
 	\begin{itemize}
-		\item Allocating memory for the individuals to evaluate.
-		\item Allocating memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Travel Salesman Problem).
-		\item Allocating memory for the evaluation results.
-		\item Each GPU processor evaluates one individual or a part using a kernel function for the evaluation. The first one is called from the CPU scope and the rest of them might be called from the same scope or from the GPU one.
+		\item Allocate memory for the individuals to evaluate.
+		\item Allocate memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Travelling Salesman Problem).
+		\item Allocate memory for the evaluation results.
+		\item Each GPU processor evaluates one individual (or a part of it) using a kernel function. But while the first one is called/launched from the CPU scope, the rest of them might be called from the same scope or from the GPU one.
 	\end{itemize}  
 \item In CPU scope:
 	\begin{itemize}
-		\item Copying the individuals and data for the evaluation from CPU scope to GPU scope.
-		\item Copying the obtained results from GPU to CPU scope. 
-		\item Defining the grid of threads for kernel function execution, fixing the dimension of each thread's block and, how many and how the blocks are organised for the grid using one, two or three dimension. 
-		\item Calling the kernel function or functions using the grid of threads defined in previous step.
-		\item Integrating the evaluation results with the rest of evolutionary algorithm.   
+		\item Copy the individuals and data for the evaluation from CPU scope to GPU scope.
+		\item Copy the obtained results from GPU scope to CPU scope. 
+		\item Define the grid of threads for kernel function execution. Set the dimensions of each thread's block, determine how many blocks will be used, and how these blocks will be organised for the grid to use one, two or three dimensions.
+		\item Call the kernel function or several functions using the grid of threads defined in previous step.
+		\item Integrate the evaluation results with the rest of the evolutionary process.
 	\end{itemize}  
 \end{itemize}
 
-%These basic steps are possible using any CUDA version, and even for the last versions, the steps might be simplified, because the GPU processors are able to access CPU memory scope directly. 
-The previous steps can be used in any CUDA versión. Moreover, in some recent versions those steps can be simplified, as the GPU processors are able to access CPU memory scope directly.
-However, this approach is unsuitable for most programmers, because the time required for CPU memory access is too large and usually it is only used when the accessed data is needed only one time for one operation. Moreover, if the evaluation process needs the data several times, it might be better copying it to the GPU memory in order to speedup following data-loads.
+Previous steps can be implemented in any CUDA version. Moreover, in recent versions of this programming language those steps can be simplified, as the GPU processors are able to access CPU memory scope directly.
+However, this approach is not useful in most of the cases, as the time required for CPU memory access is too large. Thus, normally, it is only used when the data to access is just needed one time for one operation. If the evaluation process needs to use the data several times, it might be better copying them to the GPU memory, in order to speedup following data loadings.
 
+There are other parallelization approaches where the GPGPU runs not only the evaluation phase, but all the stages of the algorithm. 
+In the most usual implementation of this alternative, each thread or each block of threads must evolve a small number of individuals, so all the thread blocks must cooperate to evolve the whole population. 
+This approach can be easily implemented if the evolutionary algorithm is a fine-grained one. 
+In that case, the implementation will be based on assigning one individual (or even a part of it) to each thread of a block. Then, related threads must interact with their neighbours in order to `co-evolve' individuals and also to carry out the rest of algorithm stages. 
 
-In any case, there are other parallelization approaches where the GPU runs not only the evaluation stage, but all the stages of the algorithm. 
-In order to use this alternative implementation, usually each thread or each block of threads must evolve a small number of individuals, and all thread blocks must cooperate for population evolution. 
-This alternative approach is easily implemented when the evolutionary algorithm is a fine-grained one. 
-The implementation might be based on evolving one individual or part of one individual on each thread of a block, and those threads must interact with their neighbours in order to carry out the rest of algorithm stages. 
-
-
-%At the end, the challenge for using a GPU is to understand the Single Program Multiple Data programming method and to take advantage of it for your algorithm. 
-Finally, it is very important to understand and to properly implement the Single Program Multiple Data (SPMD) programming concept in order to take advantage of it in the EA implementation, always taking into account that constraints related to the problem size, to the memory consumption or to the threads syncronization might affect the obtained performance.
-% next sentences are expendable and can be deleted  [pedro]
-%The implementation's requirements will depend on the problem nature and on the programmer skills. We have tried to make a list, but all the points of this list could get over with innovation and experience. In the other hand, the constraints could be related with the problem size, with the memory consumption, or with the threads syncronization, but we are sure the experience and the innovative ideas of GPU's coders, will find solutions for each constraint providing new tools and tips for Evolutionary Computation researcher.
-
-
+Finally, it is very important to understand and to properly implement the Single Program Multiple Data (SPMD)\footnote{\url{https://en.wikipedia.org/wiki/SPMD}} programming concept, in order to take advantage of it in the EA implementation. The programmer should always take into account the constraints related to the problem size, to the GPU (and computer) memory consumptions, or to the synchronization of threads, as all these issues might affect the obtained performance.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
