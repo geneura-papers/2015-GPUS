@@ -556,6 +556,7 @@ Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary Algorithms 
 For this category of algorithms, each individual is a parent at the beginning of the algorithm and it looks for the second parent by selection in a neighborhood. As a result CEAs provide automatic niching effect, avoiding an early convergence. 
 
 \subsubsection{Coarse-grained approaches}
+\label{subsec:coarsegrainedapproaches}
 These approaches work with a set of sub-populations, normally a part of the whole population, distributed in different nodes, being every node devoted to work with just one of them, so they can work in parallel independently. Each of these sub-populations is known as an `island'. In the standard model, after a number of generations one or more individuals, normally the best, are interchanged, as dictated by migration rate, between islands, which are connected following a specific neighborhood topology.
 
 
@@ -571,7 +572,7 @@ Nevertheless, for the GPUs, hybrid EAs are a perfect candidate to exploit the hi
 
 
 \subsubsection{Non-standard approaches}
-By the end of the work we have included a subsection for non-standard approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including  papers which may not be included in any of the previous ones because they mapped the algorithms and the problem they solve in a special way that cannot be considered as fine grained, coarse grained or master-slave ones.
+By the end of the work we have included a subsection for non-standard approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including  papers which may not be included in any of the previous ones because they mapped the algorithms and the problem they solve in a special way that cannot be considered as fine-grained, coarse-grained or master-slave ones.
 
 
 
@@ -735,26 +736,24 @@ Depending on the problem size, fine-grained approaches may improve the efficienc
 \subsection{Coarse-grained Approaches (island model)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Coarse grained algorithms are the most common among parallel EAs. Generally, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained. Coarse-grained EAs divide the main population into sub-populations (also known as islands) which evolve concurrently. This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
+The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherently possibilities they offer, as these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones. Coarse-grained EAs divide the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, individuals are moved from one island to another. This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
 
 In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
+%PABLO: este párrafo no se entiende, intentad escribirlo mejor :P
 
-With regard to this topology, one of the first island models on GPU approaches was published on the GPU competition of GECCO 2009 \cite{gecco2009CompetitionPospichal}. It presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. Nevertheless, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
+One of the first island models on GPU-based approaches was published on the GPU competition of GECCO 2009 \cite{gecco2009CompetitionPospichal}. This technical report presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. Nevertheless, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
 
-Tsutsui and Noriyuki \cite{1570355} propose run a coarse-grained GA on GPU to solve the QAP problem using CUDA. This is one of the hardest optimization problems in permutation domains. 
-Their model generates the initial population on CPU and copied it to the GPU VRAM; then, each subpopulation in a GPU (NVIDIA GeForce GTX285) is evolved. At some generations, individuals in subpopulations are shuffled through the GPU VRAM. Results show a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor. 
-
-The model by \cite{LUONG:2010:INRIA-00520464:1} is based on a re-design of the island model.
-Three different schemes are proposed: The first one implements a coarse-grained EA using a master-slave model to run the evaluation step on GPU. The second one distributes the EA population on GPUs, while the third proposal extends the second one using fast on-chip memory. 
-Second and third approaches reduce the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. 
-Sequential and parallel implementations are compared, obtaining a speedup of $\times1757$ using the third approach.
-
-Pospichal et al. \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253} propose a parallel GA with island model running on GPU. The authors map threads to individuals, thus, threads-individuals can be synchronized easily in order to maintain data consistency, and on-chip hardware scheduler can swiftly swap existing islands between multiprocessors to hide memory latency. Fast, shared memory within the multiprocessor is used to maintain populations.
+After this, Pospichal et al. continued working on their approach \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253}. The authors map threads to individuals, thus, threads-individuals can be synchronized easily in order to maintain data consistency. The use of a on-chip hardware scheduler can swiftly swap existing islands between multiprocessors to hide memory latency. Fast, shared memory within the multiprocessor was used to maintain populations.
 Since the population size is limited to 16KB per island on most GPUs, if the population is larger, slower main memory has to be used. The migration process is based on an asynchronous unidirectional ring that requires an inter-island communication (slower main memory has to be used). The authors report speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
 
-Li et al \cite{Li2016} develop a parallel GA for GPUs, taking advantage of the many cores of GPUs to enhance computation efficiency, by using a large amount of threads simultaneously; this strategy allows the population to scale and accelerates the speed to find the global optimal solution. 
+Permutation domain problems have been studied by some authors. Tsutsui and Noriyuki \cite{1570355} also run a coarse-grained GA on GPU, to solve the QAP problem using CUDA. Their model generates the initial population on CPU and copied it to the GPU VRAM; then, each sub-population in a GPU (NVIDIA GeForce GTX285) is evolved. At some generations, individuals in sub-populations are shuffled through the GPU VRAM. Results show a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor. 
 
-Zhengfu et al. \cite{Zhengfu2016} propose to improve the computational efficiency of information entropy multi-population GA, and to reduce the computing time, by using a CUDA-based implementation.
+Comparison of several approaches is a very important task to do when presenting a new model. The work by \cite{LUONG:2010:INRIA-00520464:1} compared three different schemes, including his new re-design of the island model. The first scheme presented implements a coarse-grained EA using a master-slave model to run the evaluation step on GPU. The second one distributes the EA population on GPUs, while the third proposal extends the second one using fast on-chip memory. 
+Second and third approaches reduce the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. Sequential and parallel implementations were compared, obtaining a speedup of $\times1757$ using the third approach.
+
+
+
+The coarse-grained models are still being investigated. Recently, Li et al \cite{Li2016} develop a parallel GA for GPUs, taking advantage of the many cores of GPUs to enhance computation efficiency, by using a large amount of threads simultaneously; this strategy allows the population to scale and accelerates the speed to find the global optimal solution. Zhengfu et al. \cite{Zhengfu2016} propose to improve the computational efficiency of information entropy multi-population GA, and to reduce the computing time, by using a CUDA-based implementation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
