@@ -94,18 +94,45 @@ manipulations applying optimized graphical primitive operations, at a
 much higher speed than a general purpose CPU. % composed by → lo que
                                 % hacen los compositores - JJ
 
-GPUs have been adapted to be used as General Purpose multi-processors with shared memory, or GPGPUs, in a similar shape to Single Instruction Multiple Data (SIMD)\footnote{\url{https://en.wikipedia.org/wiki/SIMD}} architectures. To this end, there are specific programming languages and structures to be used. Thus, developers can write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing).
+GPUs have been adapted to be used as General Purpose multi-processors
+with shared memory, or GPGPUs, in a similar shape to Single
+Instruction Multiple Data
+(SIMD)\footnote{\url{https://en.wikipedia.org/wiki/SIMD}}
+architectures. To this end, there are specific programming languages
+and structures that can be used by developers to write their own
+high-level programs to be run on a GPU, which are cost-effective for
+scientific computing, given their extremely high performance (in the
+comparison with CPU-based computing). 
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
 
 EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
-Thus, this paper presents a taxonomy regarding the different parallelization models, along with a complete survey of the most relevant proposals in this scope, extracted after revising more than 200 works published since 2004.
+Thus, this paper presents a taxonomy regarding the different
+parallelization models, along with a complete survey of the most
+relevant proposals in this scope, extracted after revising more than
+200 works published since 2004. 
 
-In addition, the manuscript introduces the main concepts related with GPUs, from their internal architecture, to the usual programming models and structures, along with several extended tools and frameworks which can help to do this task. The work also describes how to parallelize an EA using GPGPUs, pointing out the main issues and constraints to take into account.
+In addition, the manuscript introduces the main concepts related with
+GPUs, from their internal architecture, to the usual programming
+models and structures, through several widely used tools and
+frameworks which can help to do this task. The work also describes
+how % "also" should be avoided. Use some logical particle. "after
+    % doing this, we do that which emanates from the first thing" - JJ
+to parallelize an EA using GPGPUs, pointing out the main issues and
+constraints that should be taken into account. 
 
 The rest of the paper is structured as follows: 
-Section \ref{sec:eas} introduces EAs, and describes the most usual parallelization and distribution models in the literature. 
-In Section \ref{sec:parall_and_GPUs}, GPUs are described regarding their internal structure and utility as GPGPUs. In addition, a comparison of the existing cards in the market is shown.
-Then, the GPUs programming schemes, languages and tools are presented in Section \ref{sec:programming}, followed by a description of the best frameworks used to parallelize EAs in order to take advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). In the same section, the main issues to consider in order to parallelize an EA on a GPGPU are commented. 
+Section \ref{sec:eas} introduces EAs and describes the most usual parallelization and distribution models in the literature. 
+In Section \ref{sec:parall_and_GPUs}, the internal structure of GPUs
+and their utility as GPGPUs are described, as well as a
+comparison of the existing cards in the market is shown. % Remember:
+                                % almost every time you use
+                                % "regarding", you should not - JJ
+Then, programming schemes, languages and tools used in GPUs are
+presented in Section \ref{sec:programming}, followed by a description
+of the best frameworks used to parallelize EAs in order to take
+advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). In
+the same section, the main issues to consider in order to parallelize
+an EA on a GPGPU are commented.  
 Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel models implemented in the literature, in order to categorize the revised papers. Thus, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPGPUs are reviewed and divided following the proposed taxonomy, plotting also some interesting numbers and graphs related to them.
 Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
 
