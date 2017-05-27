@@ -27,7 +27,7 @@
 P. Garc{\'\i}a-S{\'a}nchez$^2$, J. J. Merelo$^1$, P.A. Castillo$^1$  \\ \\
 \small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
-\small{$^2$ Dept. Computer Engineering, University of Cádiz (Spain)}\\
+\small{$^2$ Dept. Computer Engineering, University of CÃ¡diz (Spain)}\\
 \small{\texttt{\{gustavo,mgarenas,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
 } 
 
@@ -88,7 +88,11 @@ which involve a new way to develop parallel EAs, taking into account some shortc
 scalability or decentralization.
 
 Besides, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues. 
-GPUs are specialized stream processors, composed by hundreds (or thousands) of computation units, and designed to perform graphics manipulations applying optimized graphical primitive operations, at a much higher speed than a general purpose CPU.
+GPUs are specialized stream processors, composed of hundreds (or
+thousands) of computation units, and designed to perform graphics
+manipulations applying optimized graphical primitive operations, at a
+much higher speed than a general purpose CPU. % composed by â†’ lo que
+                                % hacen los compositores - JJ
 
 GPUs have been adapted to be used as General Purpose multi-processors with shared memory, or GPGPUs, in a similar shape to Single Instruction Multiple Data (SIMD)\footnote{\url{https://en.wikipedia.org/wiki/SIMD}} architectures. To this end, there are specific programming languages and structures to be used. Thus, developers can write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing).
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
@@ -169,7 +173,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 \item[Genetic Programming] The objective of this technique is to
   generate (and evolve) functions or programs to solve specific
   problems. Each individual is represented in the form of a tree,
-  composed by operators (or {\em primitives}) and variables ({\em
+  composed of operators (or {\em primitives}) and variables ({\em
     terminals}). These sets are usually fixed and known in advance. 
   The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. %GP has been used to evolve LISP (LISt Processing) programs   \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet     Language Transformations) scripts \cite{Garcia2008XSLT}, among  others.
 
@@ -250,7 +254,7 @@ In this scheme the parallelism is performed at population level, that is, the po
 \label{fig:ring}
 \end{figure}
 
-\item[Fine-grained approach] In this approach, also called \textit{Cellular EA} (CEA) \cite{alba-cellular-2008}, each node has one individual of the population, and selection and reproduction are limited to the individuals on the neighbourhood of every node . Usually a bi-dimensional grid is used as topology, such as the one shown in Figure \ref{fig:cellular}.
+\item[Fine-grained approach] In this approach, also called \textit{Cellular EA} (CEA) \cite{alba-cellular-2008}, each node has one individual of the population, and selection and reproduction are limited to the individuals on the neighbourhood of every node. Usually a bi-dimensional grid is used as topology, such as the one shown in Figure \ref{fig:cellular}.
 
 \begin{figure}[tb]
 \centering
@@ -277,11 +281,33 @@ technologies, new evolutionary approaches have been proposed that take into acco
 
 As Gordon Moore predicts in 1965 the number of transistors placed on integrated circuits has doubled approximately every two years. Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half.
 
-Parallel computation has passed from been an utility to a necessity. As newer processors are barely faster than previous ones the only way to take advantage of the amount of transistors is putting many cores together. For many year, clock rates and instruction-level parallelism has grown fast enough to let us execute the same faster on a new processor without modification. Adding heat to this equation has finally forced chip makers to favor multi-core designs. Now the only way to benefit from many cores is multi-threaded software \cite{6307773}.
+Parallel computation has passed from been an utility to a
+necessity. As newer processors are barely faster than previous ones
+the only way to take advantage of the amount of transistors is putting
+many cores together. For many year, clock rates and instruction-level
+parallelism has become fast enough to allow faster execution of the
+same payload on a new processor without modification. Adding heat to
+this equation has finally forced chip makers to favor multi-core
+designs. Now the only way to benefit from many cores is multi-threaded
+software \cite{6307773}. 
 
-At the same time graphics card has evolved from small and simple devices composed by weak arithmetic and logic units to powerful nearly general purpose devices. Earliest academic work about general computation on GPUs date back to 2002, University of Washington \cite{Thompson:2002:UMG:774861.774894}, and 2004, Stanford \cite{Buck:2004:BGS:1015706.1015800}.
+At the same time graphics card have evolved from small and simple
+devices composed of weak arithmetic and logic units to powerful, and
+almost general-purpose devices. Earliest academic work about general
+computation on GPUs date back to 2002 at the University of Washington
+\cite{Thompson:2002:UMG:774861.774894}, and 2004 in Stanford
+\cite{Buck:2004:BGS:1015706.1015800}. % so... - JJ
 
-GPUs and CPUs are similar in many ways but there is one key difference: the philosophy of how to execute a workload. The main target of a CPU is the fast execution of a single thread of code. GPUs, on the other side, pursuit to maximize the throughput of multithreaded streams of instructions and data. This is just the opposite of CPUs. Another difference is the scheduling of threads. For CPUs, the operating system schedule threads over free cores in a competitive way. GPUs does it cooperatively with the help from dedicated hardware. Some of this characteristics can be deduced from Figure \ref{fig:cpu-gpu}.
+GPUs and CPUs are similar in many ways but there is one key
+difference: the philosophy of how to execute a workload. The main
+design purpose of a CPU is the fast execution of a single thread of
+code. GPUs, on the other side, pursue to maximize the throughput of
+multithreaded streams of instructions and data. This is just the
+opposite of CPUs. Another difference is the scheduling of threads. For
+CPUs, the operating system schedule threads over free cores in a
+competitive way. GPUs does it cooperatively with the help from
+dedicated hardware. Some of this characteristics can be deduced from
+Figure \ref{fig:cpu-gpu}. 
 
 \begin{figure*}[!ht]
 \centering
@@ -290,9 +316,32 @@ GPUs and CPUs are similar in many ways but there is one key difference: the phil
 \label{fig:cpu-gpu}
 \end{figure*}
 
-Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features} shows. Best processors from AMD and Intel are built with several billion transistors while best GPUs from AMD and NVIDIA can have over 7 billion. This explains the power consumption difference. While CPUs draws 100W at most GPUs can reach 500W. This difference is established by the cost and weight of commodity heat sinks and fans. To keep a 500W monster at reasonable temperatures the use of exotic cooling solutions is a must. Also CPUs has traditional benefit from employing better lithography techniques than GPUs.
+Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features}
+shows. The best processors from AMD and Intel are built with several
+billion transistors while best GPUs from AMD and NVIDIA can have over
+7 billion. This explains the power consumption difference. While CPUs
+draw 100W at most, GPUs can reach 500W. This difference is established
+by the cost and weight of commodity heat sinks and fans. To keep a
+500W monster at reasonable temperatures the use of exotic cooling
+solutions is a must. Also CPUs has traditional benefit from employing
+better lithography techniques than GPUs.  % Is all this relevant to
+                                % the main objective of the paper? - JJ
 
-Internal CPUs parts have well known standard names. With GPUs the situation is the opposite. Every vendor has a different name for the same part. Basic cores inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by AMD an Streaming Multiprocessors (SM) by NVIDIA. Here a core is anything capable of fetching, decoding, issuing and executing instructions. Every core can be composed by several execution units that can execute an individual vector operation in the same way of an Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people. In the next Table, \ref{tab:features}, we can see detailed comparison of these parts inside modern CPUs and GPUs.
+The internal parts of the CPUs all have well known standard names;
+however, with GPUs the situation is the opposite. Every vendor has a
+different name for part that essentially share the same function; for
+instance, basic cores %which are ... - JJ
+inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by
+AMD and Streaming Multiprocessors (SM) by NVIDIA. Here a core is
+anything capable of fetching, decoding, issuing and executing
+instructions. Every core can be composed of several execution units
+that can execute an individual vector operation in the same way of an
+Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE)
+instruction. AMD prefer the term streaming processors (SP), and
+NVIDIA, CUDA core. It is way easier comparing them by counting the
+number of classical Arithmetic Logic Units (ALUs), called shader cores
+by many people. In the next Table, \ref{tab:features}, we can see
+detailed comparison of these parts inside modern CPUs and GPUs. 
 
 \begin{table*}[!ht]
 \resizebox{\textwidth}{!}{
@@ -571,7 +620,7 @@ In this section we present a quantitative analysis of published papers on EAs on
 \subsection{Paper gathering} % Gustavo: que te parece este
 
 Firstly, an in-depth analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
-% Antonio - comprobar si se buscó en cualquier parte de los artículos
+% Antonio - comprobar si se buscÃ³ en cualquier parte de los artÃ­culos
 We got 320 references, and we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, we kept 191 results, which we read in order to extract its features and useful information for this survey.  % maybe we should rewrite these sentences avoiding the  "we"  [pedro]
 
 Looking at the publication rate per year inside this scope, it can be noticed in Figure \ref{figure:publications}, the publication figures has been increased  every year, starting from 2004 (according to the results), being nowadays a field very attractive for researchers and very prolific.
@@ -727,7 +776,7 @@ This basic feature of coarse-grained EAs hits a physical limit of GPUs.
 
 %In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
 
-% a ver qué tal esta versión:     [pedro]
+% a ver quÃ© tal esta versiÃ³n:     [pedro]
 In order to run a coarse-grained EA using a GPU device, several kernels could be run simultaneously.
 In that case, each kernel could handle a sub-population of individuals, establishing some synchronisation points.
 However, the GPU architecture is not designed for synchronising different kernels into the same grid.
@@ -815,10 +864,10 @@ Of course, in almost all the cases, very big speedups are attained in comparison
 the communication cost between GPUs and CPUs. 
 
 % nada de trabajo futuro? - JJ
-% Antonio - para un survey no se me ocurre, salvo decir que lo mejoraremos analizando más artículos u otras técnicas, pero me suena raro, ¿no?
+% Antonio - para un survey no se me ocurre, salvo decir que lo mejoraremos analizando mÃ¡s artÃ­culos u otras tÃ©cnicas, pero me suena raro, Â¿no?
 
 %As future work another sources of works on the field will be considered to improve the completeness of this work and gain further quality on its analysis.
-% Antonio - yo no pondría esto, porque te pueden decir los revisores que por qué no lo has hecho ya... :_(
+% Antonio - yo no pondrÃ­a esto, porque te pueden decir los revisores que por quÃ© no lo has hecho ya... :_(
 
 
 %********************************************************************************
