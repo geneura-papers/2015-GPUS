@@ -80,9 +80,14 @@ This metaheuristic has been widely used in the literature to solve many differen
 
 Even if EAs were proposed as sequential methods, their features, such as the population of independent solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed or parallelized (at different grain levels).
 The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. But sometimes this distribution also implies a different searching scheme, which leads to a different searching area of the space of solutions and thus, which yields a different solution or set of solutions for the problem, that could be better than the one obtained in the sequential approach.
-For these reasons, EAs are so far the most prolific metaheuristic in terms of existing parallel approaches, as this survey will show.
+For these reasons, EAs are so far the most prolific metaheuristic in
+terms of existing parallel approaches, as this survey will show. % Are
+                                % you going to compare it with other
+                                % metaheuristics? - JJ
 
-In the last years, new emerging trends in parallelization and distribution are arising. These are technologies such as Peer-to-Peer (P2P) \footnote{\url{https://en.wikipedia.org/wiki/Peer-to-peer}}, Service-Oriented Architectures \footnote{\url{https://en.wikipedia.org/wiki/Service-oriented_architecture}}, Cloud Computing \footnote{\url{https://en.wikipedia.org/wiki/Cloud_computing}}, or Volunteer Computing \footnote{\url{https://en.wikipedia.org/wiki/Volunteer_computing}}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14}, 
+In the last years, new trends in parallelization and
+distribution %of what? - JJ
+have emerged. These are technologies such as Peer-to-Peer (P2P) \footnote{\url{https://en.wikipedia.org/wiki/Peer-to-peer}}, Service-Oriented Architectures \footnote{\url{https://en.wikipedia.org/wiki/Service-oriented_architecture}}, Cloud Computing \footnote{\url{https://en.wikipedia.org/wiki/Cloud_computing}}, or Volunteer Computing \footnote{\url{https://en.wikipedia.org/wiki/Volunteer_computing}}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14}, 
 % Antonio - poner otras citas? Son todas nuestras. :_D
 which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
@@ -157,7 +162,7 @@ Thus, the fittest individuals have more chances to be selected for reproduction,
 The general scheme of an EA, extracted from the work by Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}.  
 
 \begin{figure}[tb]
-\begin{verbatim}
+\begin{verbatim} % There is a nicer "Algorithmic" package. Use it - JJ
 BEGIN
  INITIALISE population with random candidate solutions;
  EVALUATE each candidate;
@@ -207,15 +212,45 @@ In this kind of EA, the representation of the solution is a string of numbers (n
   % Antonio - TO DO: fix this description. ;) PABLO: Done
 \item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals. Another big difference is that is mainly based on self-adaptive mutation, and not in crossover, for individual variation.
 
+  %Don't see a point in making distinctions between these
+  %algorithms. They are pretty much the same: population with
+  %population-level and individual-level operators. Parallel
+  %algorithms won't care if it's GP or GA. Besides, GP and GA are only
+  %different with respect to the data structure used - JJ
 \end{description}
 
 %\subsection{Other models}
 
-However, there are other EAs that do not match in the previous classification. For example \textit{Differential Evolution} (DE) \cite{storn1997differential}, \textit{Estimation of Distribution Algorithms} (EDAs) \cite{larranaga2002estimation} or \textit{Bayesian Optimization Algorithms} (BOAs) \cite{pelikan2005bayesian}. DE \cite{storn1997differential} also exploits a population of potential solutions. Three individuals are selected randomly from the population to create \textit{random noisy vectors}. These vectors are recombined with the initial random individuals to create the \textit{trial vectors}. They are compared one by one with the original vectors and the best of each comparison is kept for the next generation. In the case of EDAs \cite{larranaga2002estimation}, instead of directly codifying the variables to optimize, the algorithm tries to find the probability distribution of each one. In each generation, the individuals are generated from previous individuals probability distributions. BOA \cite{pelikan2005bayesian} are based in the creation of Bayesian networks to generate the offspring from a set of promising individuals.
+However, there are other EAs that do not match in the previous
+classification. For example \textit{Differential Evolution} (DE)
+\cite{storn1997differential}, \textit{Estimation of Distribution
+  Algorithms} (EDAs) \cite{larranaga2002estimation} or
+\textit{Bayesian Optimization Algorithms} (BOAs)
+\cite{pelikan2005bayesian}. DE \cite{storn1997differential} also
+exploits a population of potential solutions. Three individuals are
+selected randomly from the population to create \textit{random noisy
+  vectors}. These vectors are recombined with the initial random
+individuals to create the \textit{trial vectors}. They are compared
+one by one with the original vectors and the best of each comparison
+is kept for the next generation. In the case of EDAs
+\cite{larranaga2002estimation}, instead of directly codifying the
+variables to optimize, the algorithm tries to find the probability
+distribution of each one. In each generation, the individuals are
+generated from previous individuals probability distributions. BOA
+\cite{pelikan2005bayesian} are based in the creation of Bayesian
+networks to generate the offspring from a set of promising
+individuals. % So what? If they are not going to be parallelized, why
+             % mention them? Just say the basic features you need in
+             % al algorithm to be parallelized - JJ
 
 % Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D PABLO: Explained
 
-Table \ref{tab:summaryEAs} shows the main differences between all these types of EAs. Note that we have selected the common features of each algorithm, but also their typical configurations. For example, the replacement in GAs can be different from the generational one, or the representation can also be a real-value vector. 
+Table \ref{tab:summaryEAs} shows the main differences between all
+these types of EAs. Note that we have selected the common features of
+each algorithm, but also their typical configurations. For example,
+the replacement in GAs can be different from the generational one, or
+the representation can also be a real-value vector.  % This is
+                                % relevant for what? - JJ
 
 \begin{table}
   \centering
@@ -243,20 +278,40 @@ Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \l
 \subsection{Parallel and Distributed Evolutionary Algorithm Models}
 \label{subsec:eas-distributed:parallel}
 
-EAs are inherently parallelizable, since each individual can be considered as an independent unit \cite{Alba13parallel}. Thus, in principle, there are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time. 
+EAs are inherently parallelizable, since each individual can be
+considered as an independent unit \cite{Alba13parallel}. % That's not
+                                % really true... You need several
+                                % individuals for most operations - JJ
+Thus, in principle, there are several possible ways to parallelize % You can paralellize in several ways even if it is not inherently paralellizable - JJ
+them: for example, fitness evaluation can be conducted in several
+slave machines, or the population can be distributed among different
+nodes to be evolved at the same time.  
 
 Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
-\textit{Spatially structured EAs}. However, with the arise of new
-technologies and architectures, such as P2P or Cloud Computing, new ways of parallelization of EAs were proposed. 
+\textit{Spatially structured EAs}. This classification is still the
+most widely extended, even if it was established in 2002; however, it
+does not consider issues such as fault-tolerance, churn, massive
+scalability or decentralization. The number of computational nodes are
+considered constant during the whole execution and both the network
+and the nodes are reliable and trustworthy. % Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's). PABLO: Added
+% Antonio - Great, but please comment also the works by Meri et al. (Meri_CloudEA13 in BIB) and Merelo et al. (Merelo_Couch13). PABLO: DONE
+However, with the advent of new
+technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed filesystems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
 
-
-%\subsubsection{Traditional parallelization classification}
-
-This classification is still the most extended, even if it was established in 2002, however, it does not consider issues such as fault-tolerance, churn, massive scalability or decentralization. So, the number of computational nodes are considered constant during the whole execution and both the network and the nodes are reliable and trustworthy. Since a GPGPU is a kind of stable and reliable architecture, we consider the classification also as valid for the purposes of this paper.
+On the other hand, since a GPGPU is a kind of
+stable and reliable architecture, we consider the classification also
+as valid for the purposes of this paper. We will present these
+paralellization modes below. 
 
 % ----------------------------------------
 \subsubsection{Global parallel evolutionary algorithms} 
-In this model, also called \textit{Farming model}, \textit{Master-Slave} or \textit{Centralized EA}, the parallelism is applied at evaluation level. Thus, a central node coordinates several slave nodes. This node executes the EA in a sequential way, but it distributes the individuals of the population among the slaves just for being evaluated. Figure \ref{fig:masterslave} depicts this approach.
+In this model, also called \textit{Farming model},
+\textit{Master-Slave} or \textit{Centralized EA}, the parallelism is
+applied at evaluation level. Thus, a central node coordinates several
+slave nodes. This node executes the EA in a sequential way, but it
+distributes the individuals of the population among the slaves just
+for being evaluated. Figure \ref{fig:masterslave} depicts this
+approach. 
 
 \begin{figure}[tb]
 \centering
@@ -293,10 +348,7 @@ In this scheme the parallelism is performed at population level, that is, the po
 
 \end{description}
 
-% Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's). PABLO: Added
-% Antonio - Great, but please comment also the works by Meri et al. (Meri_CloudEA13 in BIB) and Merelo et al. (Merelo_Couch13). PABLO: DONE
-However, with the advent of new
-technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed filesystems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
+
 
 
 
