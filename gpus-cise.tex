@@ -358,10 +358,14 @@ In this scheme the parallelism is performed at population level, that is, the po
 \label{sec:parall_and_GPUs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-As Gordon Moore predicts in 1965 the number of transistors placed on integrated circuits has doubled approximately every two years. Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half.
+As Gordon Moore predicted in 1965 the number of transistors placed on
+integrated circuits has doubled approximately every two years. % This
+                                % is not the place to say
+                                % this. Probably in the intro - JJ
+Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half.
 
 Parallel computation has passed from been an utility to a
-necessity. As newer processors are barely faster than previous ones
+necessity. As newer processors are barely faster than previous ones 
 the only way to take advantage of the amount of transistors is putting
 many cores together. For many year, clock rates and instruction-level
 parallelism has become fast enough to allow faster execution of the
@@ -509,11 +513,32 @@ Developers are now working hard to delight new user with libraries that make usi
 \subsection{Execution Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Most APIs mentioned are designed with heterogeneous computing in mind. They use a traditional CPU and an optional GPU in the case that one, or more, are present. In every parallel application we can find  mixture of serial and parallel parts. This way, serial parts are executed on the CPU and parallel parts, now known as \textit{kernels}, may execute on any parallel device, the CPU or the GPU, as long as synchronization is enforced between both parts. OpenCL is aimed at task and parallel data while CUDA and DirectCompute, a part of DirectX, only target are data parallelism.
+Most APIs mentioned are designed with heterogeneous computing in
+mind. They use a traditional CPU and an optional GPU in the case that
+one, or more, are present. In every parallel application we can find
+mixture of serial and parallel parts. This way, serial parts are
+executed on the CPU and parallel parts, designated \textit{kernels},
+may execute on any parallel device, the CPU or the GPU, as long as
+synchronization is enforced between both parts. OpenCL is aimed at
+task and parallel data while CUDA and DirectCompute, a part of
+DirectX, only target are data parallelism. 
 
-A kernel executes a single set of instructions over an usually large quantity of data. Data are organized as multidimensional arrays, between 1 and 3. In the OpenCL terminology, a \textit{work-item} is a piece of data in the sense previously described. One kernel is responsible for the execution of many work-items but it use to divide then in more manageable \textit{work-groups} of smaller size. These way a kernel may execute 32K work-items, composed of 64 work-groups of 512 items each.
+A kernel executes a single set of instructions over an usually large
+quantity of data. Data is organized in the shape of 1 to 3
+multidimensional arrays. In the OpenCL terminology, a
+\textit{work-item} is a 
+piece of data in the sense previously described. One kernel is
+responsible for the execution of many work-items but it use to divide
+then in more manageable \textit{work-groups} of smaller size. These
+way a kernel may execute 32K work-items, composed of 64 work-groups of
+512 items each. 
 
-One of the strongest limitations compared to general computing is the communication between kernels. Communication and synchronization within work-groups works as we are used but not further. In this sense, a work-group serves two purposes: breaking a kernel in more manageable and shareable chunks and defining a limit to fast, or possible, communications.
+One of the strongest limitations compared to general computing is the
+communication between kernels. Communication and synchronization
+within work-groups works as we are used but not further. In this
+sense, a work-group serves two purposes: breaking a kernel in more
+manageable and shareable chunks and defining a limit to fast, or
+possible, communications. 
 
 \begin{figure*}[!ht]
 \centering
@@ -544,7 +569,28 @@ Data storage and communication within a device and between devices, mainly CPU a
 \item Local memory: a single work-group can read and write on it and is inaccessible for the CPU. Its main target is to share data between a limited number of work-items.
 \end{itemize} 
 
-The need of moving data in and out of the GPU memory is very common: to start a calculation, to gather results,... If the bandwidth consumed by this process involves an excessive amount of time the target speedup can be ruined. Data movement should be avoided or at least minimized. This bandwidth problem has arose many times in the computation era. Every time a new powerful device has appear we must feed it with enough data. Two solutions of recent appearance try to alleviate it. The first is a fourth level of cache between the CPU and the GPU. This is only useful when both processors are glued together in the same chip or encapsulation. The second solution involves changing the way we access memory from GPU and its called Heterogeneous System Architecture (HSA). HSA shares data between CPU and GPU in a seamless way, avoiding as many memory copies as caches permits. This way both devices can share a common memory architecture.
+The need to move data in and out of the GPU memory is very common; it
+will happen when a calculation is started or when results are
+gathered. If the bandwidth consumed by this process involves an
+excessive amount of time the target speedup can be ruined. Data
+movement should be avoided or at least minimized. This bandwidth
+problem has arisen many times in the computation era. % computation
+                                % era? WTF? - JJ
+Every time a new
+powerful device has appear we must feed it  data fast enough. Two
+solutions of recent appearance try to alleviate it. The first is a
+fourth level of cache between the CPU and the GPU. %reference - JJ
+This is only useful
+when both processors are glued together in the same chip or
+encapsulation. The second solution involves changing the way we access
+memory from GPU and its called Heterogeneous System Architecture
+(HSA). % reference - JJ
+HSA shares data between CPU and GPU in a seamless way, avoiding
+as many memory copies as caches permits. This way both devices can
+share a common memory architecture.
+
+% You always have to relate whatever you say with the paper objectives
+% - JJ
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Parallelizing EAs on GPGPUs}
@@ -554,7 +600,11 @@ The need of moving data in and out of the GPU memory is very common: to start a 
 % Always write intros to sections - JJ
 % Antonio - done
 
-This section describes the most frequent frameworks used to parallelize EAs to take advantage of the power of GPGPUs. In addition, common issues and constraints to take into account when such a parallel evolutionary approach is going to be implemented are also pointed out.
+This section describes the most frequent frameworks used to
+parallelize EAs to take advantage of the power of GPGPUs. In addition,
+common issues and constraints to take into account when such a
+parallel evolutionary approach is going to be implemented are also
+pointed out. 
 
 \subsection{Frameworks to parallelize EAs on GPGPUs}
 
@@ -562,14 +612,22 @@ Since the creation of the EAs, many Universities and research groups have develo
 
 The most complete and comprehensive review of these kind of frameworks was proposed by Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore it is not focused only on EAs. As a criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA) included references to GPU capabilities when this paper was published.
 
-However, recently, some of these EA-based frameworks have added some kind of GPU integration. Several authors have created library extensions to the frameworks, in order to allow the evaluation of the individuals in GPGPUs (which is normally the hardest computational part). For example, Robilliard et al. \cite{RobilliardECJGPU08} did it for ECJ, and Cano et al. for jCLEC \cite{SpeedingTheEvaluationofGPCano:2012}. 
-In another hand, ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, another framework built upon an existing one, for now is only focused in single solution metaheuristics, and it does not support population-based ones, such as EAs. 
+However, recently, some of these EA-based frameworks have added some
+kind of GPU integration. Several authors have created library
+extensions to the frameworks, in order to allow the evaluation of the
+individuals in GPGPUs (which is normally the hardest computational
+part). For example, Robilliard et al. \cite{RobilliardECJGPU08} did it
+for ECJ, and Cano et al. for jCLEC
+\cite{SpeedingTheEvaluationofGPCano:2012}.  % 2008 is not recently - JJ
+On the other hand, ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, another framework built upon an existing one, for now is only focused in single solution metaheuristics, and it does not support population-based ones, such as EAs. 
 
 
 PUGACE \cite{5586286} is one of the few new frameworks focused exclusively on the execution of EAs in GPGPUs. It is based on MALLBA and uses CUDA to execute cellular GAs (cGAs), but only for linear neighborhood structures. %The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+. 
 
 Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} attempts to facilitate the development of EAs to be run in GPGPUs by compiling the code from a specific algorithm specification language (EASEA) into code suitable to be run in a CPU-GPU manner. 
-However, as in previous frameworks, only the code for the fitness evaluation is sent to the GPU to be run in parallel.
+However, as in previous frameworks, only the code for the fitness
+evaluation is sent to the GPU to be run in parallel. % That is not
+                                % good because... JJ
 
 
 \subsection{Requirements and constraints to parallelize EAs on GPGPUs}
@@ -600,15 +658,37 @@ The most extended parallelization approach is based on running the evolutionary 
 	\end{itemize}  
 \end{itemize}
 
-Previous steps can be implemented in any CUDA version. Moreover, in recent versions of this programming language those steps can be simplified, as the GPU processors are able to access CPU memory scope directly.
-However, this approach is not useful in most of the cases, as the time required for CPU memory access is too large. Thus, normally, it is only used when the data to access is just needed one time for one operation. If the evaluation process needs to use the data several times, it might be better copying them to the GPU memory, in order to speedup following data loadings.
+Previous steps can be implemented in any CUDA version. Moreover, in
+recent versions of this programming language those steps can be
+simplified, as the GPU processors are able to access CPU memory scope
+directly. 
+However, this approach is not useful in most of the cases, since the
+time required for CPU memory access is too large. Thus, normally, it
+is only used when the data to access is just needed once for every
+operation. If the evaluation process needs to use the data several
+times, it might be better copying them to the GPU memory, in order to
+speedup the next data loadings. %loadings? - JJ
 
-There are other parallelization approaches where the GPGPU runs not only the evaluation phase, but all the stages of the algorithm. 
+There are other parallelization approaches where the GPGPU runs not
+only the evaluation phase, but all the stages of the algorithm.  
 In the most usual implementation of this alternative, each thread or each block of threads must evolve a small number of individuals, so all the thread blocks must cooperate to evolve the whole population. 
 This approach can be easily implemented if the evolutionary algorithm is a fine-grained one. 
-In that case, the implementation will be based on assigning one individual (or even a part of it) to each thread of a block. Then, related threads must interact with their neighbours in order to `co-evolve' individuals and also to carry out the rest of algorithm stages. 
+In that case, the implementation will be based on assigning one
+individual (or even a part of it) to each thread of a block. Then,
+related threads must interact with their neighbours in order to
+`co-evolve' individuals and also to carry out the rest of algorithm
+stages.  
 
-Finally, it is very important to understand and to properly implement the Single Program Multiple Data (SPMD)\footnote{\url{https://en.wikipedia.org/wiki/SPMD}} programming concept, in order to take advantage of it in the EA implementation. The programmer should always take into account the constraints related to the problem size, to the GPU (and computer) memory consumptions, or to the synchronization of threads, as all these issues might affect the obtained performance.
+Finally, it is very important to understand and to properly implement
+the Single Program Multiple Data
+(SPMD)\footnote{\url{https://en.wikipedia.org/wiki/SPMD}} programming
+concept, in order to take advantage of it in the EA
+implementation. The programmer should always take into account the
+constraints related to the problem size, to the GPU (and computer)
+memory consumptions, or to the synchronization of threads, as all
+these issues might affect the obtained performance.
+% The different papers should have been here, or at least some
+% introduction - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -616,14 +696,27 @@ Finally, it is very important to understand and to properly implement the Single
 \label{sec:taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, a taxonomy to distinguish between the different distribution methods applied in the literature is proposed. 
+% This is a repetition of subsec:eas-distributed:parallel . Why don't
+% you put them together? - JJ
+In this section, a taxonomy to distinguish between the different
+distribution methods applied in the literature is proposed.  
 It is inspired by the classical models used in the distribution of EAs. 
 There are many different bioinspired approaches included in the bibliography, but we are mainly focused on Parallel Evolutionary Computation (EC). That is the most extended metaheuristic to address many types of large or complex problems, which require some kind of parallelization to be solved with enough quality and on a reasonable quantity of time.
 
 
-Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics on EC. They identified the majority of paradigms with respect to parallel/distributed EAs, according to Flynn's taxonomy, under the Multiple Instruction Multiple Data (MIMD) category. This argument has been fairly valid during the last two decades because the most dominant platform for running parallel/distributed EAs were distributed memory architectures, like clusters. However fine-grained EAs deployed on massive parallel processors (MPPs) are resurfacing, due to GPUs architecture gives low cost support for them.
+Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics
+on EC. They identified the majority of paradigms with respect to
+parallel/distributed EAs, according to Flynn's taxonomy, under the
+Multiple Instruction Multiple Data (MIMD) category. This argument has
+been fairly valid during the last two decades because the most
+dominant platform for running parallel/distributed EAs were
+distributed memory architectures, like clusters. However fine-grained
+EAs deployed on massive parallel processors (MPPs) are resurfacing,
+due to GPUs architecture gives low cost support for them. 
 
-The parallel EAs community has a wide legacy with MIMD architectures and a very little contribution for SIMD systems. This comes in part due to the dominance of MIMD architectures as compared to SIMD ones.
+The parallel EAs community has a wide legacy % wide legacy is not a
+                                % thing - JJ
+with MIMD architectures and a very little contribution for SIMD systems. This comes in part due to the dominance of MIMD architectures as compared to SIMD ones.
 
 %PABLO: I've commented this list because it doesn't make sense here :P
 %Alba classifies the main parallel metaheuristics models as follows:
@@ -649,16 +742,40 @@ or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or m
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Taxonomy}
+\subsection{Taxonomy} % A section named taxonomy can't have a
+                      % subsection called taxonomy. Simply eliminate
+                      % the subsection, and leave this as an
+                      % introduction - JJ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
 
 \subsubsection{Master-slave approaches}
-Master-slave Evolutionary Algorithms traditionally solve problems involving computationally expensive fitness functions, where the master node runs the entire algorithm while the slaves execute the fitness evaluation of the individuals. Using this approach, the evaluation of the fitness function is not sequential, but in parallel, so the master-slave version is more efficient because the evaluations usually are the more expensive portion of the total run time.
+Master-slave Evolutionary Algorithms traditionally solve problems
+involving computationally expensive fitness functions, where the
+master node runs the entire algorithm while the slaves execute the
+fitness evaluation of the individuals. Using this approach, the
+evaluation of the fitness function is not sequential, but in parallel,
+so the master-slave version is more efficient because the evaluations
+usually are the more expensive portion of the total run time.
+% if this is a different classification, this should go with the
+% section mentionad above. just say that they are classification along
+% different axes, but there are too many classifications for a single
+% paper - JJ
 
 \subsubsection{Fine-grained approaches}
-Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary Algorithms have not had as much impact as other types of PEAs. The main reason is that they adapt themselves very well to the especial hardware architecture, with shared memory, but very bad to other distributed memory architectures. On the other hand, parallel distributed memory architectures supply all loosely coupled algorithms and the fine-grained EAs are not included into this category. The main reason behind that is the high cost of building massively parallel architectures which normally attracted fewer researchers to work on fine-grained EAs. However, a review of the trends in parallel architectures foresees a strong increase in fine-grained EAs face to face other EA categories. This is due to three reasons: 
+Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary
+Algorithms have not had as much impact as other types of PEAs. The
+main reason is that they adapt themselves very well to the special
+hardware architecture, with shared memory, but very badly to other
+distributed memory architectures. On the other hand, parallel
+distributed memory architectures supply all loosely coupled algorithms
+and the fine-grained EAs are not included into this category. The main
+reason behind that is the high cost of building massively parallel
+architectures which normally attracted fewer researchers to work on
+fine-grained EAs. However, a review of the trends in parallel
+architectures foresees a strong increase in fine-grained EAs face to
+face other EA categories. This is due to three reasons:  
 
 \begin{itemize}
 \item Growing trend of massive number of processors on chip or card. 
@@ -670,7 +787,14 @@ For this category of algorithms, each individual is a parent at the beginning of
 
 \subsubsection{Coarse-grained approaches}
 \label{subsec:coarsegrainedapproaches}
-These approaches work with a set of sub-populations, normally a part of the whole population, distributed in different nodes, being every node devoted to work with just one of them, so they can work in parallel independently. Each of these sub-populations is known as an `island'. In the standard model, after a number of generations one or more individuals, normally the best, are interchanged, as dictated by migration rate, between islands, which are connected following a specific neighborhood topology.
+These approaches work with a set of sub-populations, normally a part
+of the whole population, distributed in different nodes, being every
+node devoted to work with just one of them, so they can work in
+parallel independently. Each of these sub-populations is known as an
+`island'. In the standard model, after a number of generations one or
+more individuals, normally the best, are interchanged, as dictated by
+migration rate, between islands, which are connected following a
+specific neighborhood topology. 
 
 
 \subsubsection{Hierarchical models}
@@ -685,7 +809,12 @@ Nevertheless, for the GPUs, hybrid EAs are a perfect candidate to exploit the hi
 
 
 \subsubsection{Non-standard approaches}
-By the end of the work we have included a subsection for non-standard approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including  papers which may not be included in any of the previous ones because they mapped the algorithms and the problem they solve in a special way that cannot be considered as fine-grained, coarse-grained or master-slave ones.
+By the end of the work we have included a subsection for non-standard
+approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including papers
+which may not be included in any of the previous ones because they
+mapped the algorithms and the problem they solve in a special way that
+cannot be considered as fine-grained, coarse-grained or master-slave
+ones. 
 
 
 
@@ -694,9 +823,11 @@ By the end of the work we have included a subsection for non-standard approaches
 \label{sec:survey}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we present a quantitative analysis of published papers on EAs on GPUs. Then, the most relevant ones are classified following the previously described taxonomy.
+In this section we present a quantitative analysis of published papers
+on EAs on GPUs. Then, the most relevant ones are classified following
+the previously described taxonomy. % Why not the other? - JJ
 
-\subsection{Paper gathering} % Gustavo: que te parece este
+\subsection{Paper sampling} % Gustavo: que te parece este
 
 Firstly, an in-depth analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
 % Antonio - comprobar si se buscó en cualquier parte de los artículos
@@ -812,16 +943,63 @@ Recent works are currently being applied to real-world problems. Jaros et al. \c
 
 In \cite{Contreras:2012:UGA:2150467.2150469} the authors use a CPU-GPU architecture for stock market trading. The proposed architecture offers the benefices of GPU distribution for stock market researchers, rather for computer architecture experts. The authors used Jacket \cite{jacket:Matlab}, a software platform for the rapid development of GPGPU computing applications within the MATLAB computing environment, C, and C++. However, this framework is no longer available \footnote{\url{http://blog.accelereyes.com/blog/2012/12/12/exciting-updates-from-accelereyes/}}. Steps and guidelines to migrate from CPU code to GPU code are explained, what is a great contribution, because usually, the authors do not include this information in the papers. The algorithm run in the CPU, but all  {\em for} loops in selection, evaluation, crossover and mutation are translated to Jacket's {\em gfor} to be parallelized in the GPU. Three different CPU configurations are used for the experiments: Pentium 4, Pentium SU41000 and Intel Core i7-860. The former is also combined with an nVidia 460GTX for GPU experiments. Different population size are also tested. The time is reduced to 65\% in comparison with the CPU version. Other conclusions are obtained: speedups with high number of individuals, rather than increasing the number of evaluations; and time reduction for  tournament selection  over roulette-wheel selection.
 
-Stock market trading analysis has also been recently addressed by using GP in GPUs. The algorithm described in the work by Sungjoo et al. \cite{Sungjoo15fastknowledge} is used to solve the problem of knowledge discovery in stock market time series, i.e. finding the so-called precursor patterns, which model events occurred in the time series. Thus, every individual (tree) in the GP algorithm is a pattern, which must be contrasted against the whole dataset to find out if it is a precursor. This is what the evaluation function does. The time series is divided into different subsets, and stored in several GPUs. The data is then copied once and just the new individuals to evaluate and the partial results of the evaluation must be transferred and updated. The run is conducted for 50 generations and with 500 individuals of a maximum depth of 3 levels, using a i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690). The authors considered 512 threads per block, 260 blocks per grid and just one grid per GPU. The comparison in performance yields a reduction of 56 times for just one GPU to 277 using all of them. This improvement is got using local memory allocation, using the shared memory of blocks instead yields a smaller improvement of around 188 times faster in the best case. Regarding the influence of individuals' tree size (number of nodes) in the performance, the authors show that the running time grows for just one GPU, but when more than four are used, this growing is minimum and could be assumed in order to improve the quality of the results.
+Stock market trading analysis has also been recently addressed by
+using GP in GPUs. The algorithm described in the work by Sungjoo et
+al. \cite{Sungjoo15fastknowledge} is used to solve the problem of
+knowledge discovery in stock market time series, i.e. finding the
+so-called precursor patterns, which model events occurred in the time
+series. Thus, every individual (tree) in the GP algorithm is a
+pattern, which must be matched against the whole dataset to find
+out if it is a precursor. This is what the evaluation function
+does. The time series is divided into different subsets, and stored in
+several GPUs. The data is then copied once and just the new
+individuals to evaluate and the partial results of the evaluation must
+be transferred and updated. % avoiding bandwith problems? - JJ
+The run is conducted for 50 generations
+and with 500 individuals of a maximum depth of 3 levels, using a
+i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690). % You need to give that
+                                % amount of details? - JJ
+The authors considered
+512 threads per block, 260 blocks per grid and just one grid per
+GPU. The comparison in performance yields a reduction of 56 times for
+just one GPU to 277 using all of them. This improvement is obtained using
+local memory allocation, using the shared memory of blocks instead
+yields a smaller improvement of around 188 times faster in the best
+case. Regarding the influence of individuals' tree size (number of
+nodes) in the performance, the authors show that the running time
+grows for just one GPU, but when more than four are used, this growing
+is minimum and could be assumed in order to improve the quality of the
+results. % Some comment with respect to bandwidth? - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fine-grained Approaches}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Researchers implement fine-grained algorithms using GPGPU, making every scalar processor (SP) to evolve an individual. This individual interacts with other SPs that belongs to the same Streaming Multiprocessor (SM) to perform the basic operations of the algorithm like crossover or mutation. In this approach a big part of the algorithm runs within the GPU and not only the evaluation phase like in previous section (\ref{sec:masterSlave}). The GPU architecture assists the neighborhoods emerge since each group of SMs have a shared memory, where SPs access without penalty. The exchange of information between individuals through this shared memory is inexpensive. However, programmers have to be careful with the information exchange between individuals in different SMs. 
+Researchers implement fine-grained algorithms using GPGPU, making
+every scalar processor (SP) to evolve an individual. This individual
+interacts with other SPs that belongs to the same Streaming
+Multiprocessor (SM) to perform the basic operations of the algorithm
+like crossover or mutation. In this approach a big part of the
+algorithm runs within the GPU and not only the evaluation phase like
+in previous section (\ref{sec:masterSlave}). The GPU architecture
+assists the neighborhoods emerge since each group of SMs have a shared
+memory, where SPs access without penalty. The exchange of information
+between individuals through this shared memory is
+inexpensive. However, programmers have to be careful with the
+information exchange between individuals in different SMs.  
 
-The second problem of this approach is the random number generator. The CPU can easily generate random numbers, but the GPU is not designed for this task. So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every thread. 
+The second problem of this approach is the random number
+generator. The CPU can easily generate random numbers, but the GPU is
+not designed for this task. %In fact, the CPU is not either. - JJ
+So researchers have to think about how to
+solve this problem. Usually the algorithm's implementation generate at
+the beginning a big set of random numbers and they are copied to the
+GPU as a list. After that, the GPU uses the random list when needed
+and when it need. This approach saves time for random generation but
+the list of random numbers has to be limited. Moreover, all SPs could
+use the random numbers, so the list must be available for every
+thread.  
 
 
 Yu et al. \cite{yu-parallel-2005} implemented the first real cellular EA using GPUs, for solving the Colville problem \cite{Ng:2005:DFF:1064290.1064296} in 2005. The population is distributed in a toroidal 2D grid and the classical Von Newmann neighborhood structure with five cells was used. Chromosomes and their fitness values were stored in the texture memory on the graphic card, and both, fitness evaluation and genetic operations, were implemented entirely with fragment programs executed in parallel on GPU. Real-coded individuals were represented as a set of 2D texture maps. BLX-$\alpha$ crossover and non-uniform mutation was developed as tiny programs on every pixel at each step in a SIMD-like fashion. They solved some optimization problems and reached a speedup of $\times15$ with a population of 512x512 individuals. They store a set of random numbers at the beginning of the evolution process to solve the random number generation problem when using GPU processors. 
@@ -842,24 +1020,37 @@ In \cite{Li:2009:PIA:1726585.1726930} the authors proposed an Fine-grained paral
 
 
 
-Depending on the problem size, fine-grained approaches may improve the efficiency with respect to the coarse-grained version. For example, in the work of Franco et al. \cite{Franco15LargeScale}, two different approaches for strategies for GPU implementations of the evaluation stage of evolutionary rule learning are analyzed and the types of problems where each method performs best have been identified. The coarse-grained implementation is more conservative and only parallelizes the evaluation of instances, while the fine-grained implementation expands the parallelism to the attribute dimension and is faster on data sets with 10 to 50 discrete attributes.
+Depending on the problem size, fine-grained approaches may improve the
+efficiency with respect to the coarse-grained version. For example, in
+the work of Franco et al. \cite{Franco15LargeScale}, two different
+approaches for strategies for GPU implementations of the evaluation
+stage of evolutionary rule learning are analyzed and the types of
+problems where each method performs best have been identified. The
+coarse-grained implementation is more conservative and only
+parallelizes the evaluation of instances, while the fine-grained
+implementation expands the parallelism to the attribute dimension and
+is faster on data sets with 10 to 50 discrete attributes. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Coarse-grained Approaches (island model)}
+\subsection{Coarse-grained Approaches (island model)} % why mix caps
+                                % and not? - JJ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherently possibilities they offer, as these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones. 
 This kind of EAs works by dividing the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, individuals are moved from one island to another. 
-This basic feature of coarse-grained EAs hits a physical limit of GPUs. 
+This basic feature of coarse-grained EAs hits a physical limit of
+GPUs.  
 
 %In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
 
 % a ver qué tal esta versión:     [pedro]
 In order to run a coarse-grained EA using a GPU device, several kernels could be run simultaneously.
 In that case, each kernel could handle a sub-population of individuals, establishing some synchronisation points.
-However, the GPU architecture is not designed for synchronising different kernels into the same grid.
-Thus, taking into account this limitation, using a GPU to run a coarse-grained EA might require changing some standard mechanism of the algorithm.
+However, the GPU architecture is not designed for synchronising
+different kernels into the same grid, which means that using a GPU to
+run a coarse-grained EA might require changing some standard mechanism
+of the algorithm. 
 
 
 One of the first island models on GPU-based approaches was presented on the GECCO 2009 GPU Competition \cite{gecco2009CompetitionPospichal}. This technical report presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. As it was a first attempt, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
@@ -916,7 +1107,14 @@ On the other hand, Hwang et al. \cite{Hwang7470556} proposed an EA inspired by b
 
 Finally, due to the complexity of some real problems, several authors have proposed parallel multi-objective implementations on GPU devices, such as Oliveira et al. \cite{Oliveira7744337} who present a GPU-based parallel implementation of NSGA-II to solve the energy dispatch problem of a hydroelectric power plants, taking into account the real time restrictions posed by the operation of a real power plant. The use of a parallel implementation using GPUs improved both the performance and solution quality obtained using the parallel approach. 
 In \cite{Bian2016} a CPU+GPU heterogeneous computing orientation based multi-objective test case prioritization technique that utilizes GPGPU to accelerate the process of test case prioritization is proposed. In this case, the implementation, based on NSGA-II achieves 30 times speed-up rate on a well-known real world problem.
-Manoatl and Coello \cite{ManoatlLopez2016} propose a GPU-based parallelization of a multi-objective memetic algorithms (MOMAs) which switches between a hypervolume-based global optimizer and an IGD+ based local search engine for splitting the objective space into sub-regions. The parallel implementation lead to a high performance and speedup improvement.
+Manoatl and Coello \cite{ManoatlLopez2016} propose a GPU-based
+parallelization of a multi-objective memetic algorithms (MOMAs) which
+switches between a hypervolume-based global optimizer and an IGD+
+based local search engine for splitting the objective space into
+sub-regions. The parallel implementation lead to a high performance
+and speedup improvement.
+
+%These non-standard approaches do this or that... - JJ
 
 
 
@@ -925,7 +1123,11 @@ Manoatl and Coello \cite{ManoatlLopez2016} propose a GPU-based parallelization o
 \label{sec:conclusions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This work has considered the most parallelized and distributed metaheuristic on the literature, Evolutionary Algorithms (EAs), and has conducted an exhaustive revision of the existing works, using General Purpose Graphic Processing Units (GPGPUs) to implement these approaches. 
+This work has considered the most parallelized and distributed
+metaheuristic on the literature, Evolutionary Algorithms (EAs), and
+has conducted an exhaustive revision of the existing works, using
+General Purpose Graphic Processing Units (GPGPUs) to implement these
+approaches.  
 
 The paper gives an introduction to the different existing GPU architectures, physical cards in the market, usual programming languages, and main frameworks, used nowadays in the industry and in this scientific area. 
 Some guidelines are presented to the reader, in order to point out the main restrictions and issues to take into account when such a parallelization approach wants to be implemented on an EA.
@@ -943,7 +1145,11 @@ Of course, in almost all the cases, very big speedups are attained in comparison
 the communication cost between GPUs and CPUs. 
 
 % nada de trabajo futuro? - JJ
-% Antonio - para un survey no se me ocurre, salvo decir que lo mejoraremos analizando más artículos u otras técnicas, pero me suena raro, ¿no?
+% Antonio - para un survey no se me ocurre, salvo decir que lo
+% mejoraremos analizando más artículos u otras técnicas, pero me suena
+% raro, ¿no?
+% Puedes indicar por dónde crees que van a ir los tiros y qué
+% problemas hay por resolver - JJ
 
 %As future work another sources of works on the field will be considered to improve the completeness of this work and gain further quality on its analysis.
 % Antonio - yo no pondría esto, porque te pueden decir los revisores que por qué no lo has hecho ya... :_(
