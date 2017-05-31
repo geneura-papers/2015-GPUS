@@ -78,7 +78,7 @@ terms of existing parallel approaches, so this survey will be focused on them.
 % Antonio - I have fixed it
 
 In the last years, new trends in parallelization and
-distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \footnote{\url{https://en.wikipedia.org/wiki/Peer-to-peer}}, Service-Oriented Architectures \footnote{\url{https://en.wikipedia.org/wiki/Service-oriented_architecture}}, Cloud Computing \footnote{\url{https://en.wikipedia.org/wiki/Cloud_computing}}, or Volunteer Computing \footnote{\url{https://en.wikipedia.org/wiki/Volunteer_computing}}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14}, 
+distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14}, 
 % Antonio - poner otras citas? Son todas nuestras. :_D
 which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
@@ -93,13 +93,8 @@ much higher speed than a general purpose CPU.
 
 GPUs have been adapted to be used as General Purpose multi-processors
 with shared memory, or GPGPUs, in a similar shape to Single
-Instruction Multiple Data
-(SIMD)\footnote{\url{https://en.wikipedia.org/wiki/SIMD}}
-architectures. To this end, there are specific programming languages
-and structures that can be used by developers to write their own
-high-level programs to be run on a GPU, which are cost-effective for
-scientific computing, given their extremely high performance (in the
-comparison with CPU-based computing). 
+Instruction Multiple Data (SIMD)\cite{SIMD-wikipedia} architectures. 
+To this end, there are specific programming languages and structures that can be used by developers to write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing). 
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
 
 EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
@@ -670,13 +665,8 @@ related threads must interact with their neighbours in order to
 stages.  
 
 Finally, it is very important to understand and to properly implement
-the Single Program Multiple Data
-(SPMD)\footnote{\url{https://en.wikipedia.org/wiki/SPMD}} programming
-concept, in order to take advantage of it in the EA
-implementation. The programmer should always take into account the
-constraints related to the problem size, to the GPU (and computer)
-memory consumptions, or to the synchronization of threads, as all
-these issues might affect the obtained performance.
+the Single Program Multiple Data (SPMD)\cite{SPMD-wikipedia} programming
+concept, in order to take advantage of it in the EA implementation. The programmer should always take into account the constraints related to the problem size, to the GPU (and computer) memory consumptions, or to the synchronization of threads, as all these issues might affect the obtained performance.
 % The different papers should have been here, or at least some
 % introduction - JJ
 
