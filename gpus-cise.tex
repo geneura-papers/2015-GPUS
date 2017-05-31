@@ -180,7 +180,7 @@ Although most of the EAs follow this structure, there are some differences depen
 
 
 \begin{description}
-\item [Genetic Algorithms] These kind of algorithms were proposed by Holland \cite{holland1975adaptation}, and later `refined' by Goldberg \cite{goldberg1988genetic}. % I am not sure if someone could complaint about the word 'refined'...  [pedro]
+\item [Genetic Algorithms] These kind of algorithms were initially proposed by Holland \cite{holland1975adaptation}, and later revised by Goldberg \cite{goldberg1988genetic}. 
 In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then different \textit{recombination} and/or \textit{mutation} operators are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others. 
 
 \item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
@@ -194,7 +194,6 @@ In this kind of EA, the representation of the solution is a string of numbers (n
     terminals}). These sets are usually fixed and known in advance. 
   The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. %GP has been used to evolve LISP (LISt Processing) programs   \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet     Language Transformations) scripts \cite{Garcia2008XSLT}, among  others.
 
-  % Antonio - TO DO: fix this description. ;) PABLO: Done
 \item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution depends on the nature of the problem being solved, for example, neural networks \cite{Castillo1999gprop} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals. Another big difference is that is mainly based on self-adaptive mutation, and not in crossover, for individual variation.
 
   %Don't see a point in making distinctions between these
@@ -202,6 +201,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
   %population-level and individual-level operators. Parallel
   %algorithms won't care if it's GP or GA. Besides, GP and GA are only
   %different with respect to the data structure used - JJ
+% Antonio - The idea is just to present EAs and the main types to the reader, regardless their parallelization, it's just an introduction to let him/her understand what is a GA, GP or EP when we mention them later in the text.
 \end{description}
 
 %\subsection{Other models}
@@ -227,15 +227,16 @@ networks to generate the offspring from a set of promising
 individuals. % So what? If they are not going to be parallelized, why
              % mention them? Just say the basic features you need in
              % al algorithm to be parallelized - JJ
+             % Antonio - again, the aim is just to give an introduction
 
-% Antonio - TO DO: describe EDAs and BOAs... or not describe EDAs... or swap EDAs by EP in the list above. :D PABLO: Explained
 
 Table \ref{tab:summaryEAs} shows the main differences between all
 these types of EAs. Note that we have selected the common features of
 each algorithm, but also their typical configurations. For example,
 the replacement in GAs can be different from the generational one, or
-the representation can also be a real-value vector.  % This is
-                                % relevant for what? - JJ
+the representation can also be a real-value vector.  
+% This is relevant for what? - JJ
+% Antonio - for the same reason as before
 
 \begin{table}
   \centering
@@ -264,13 +265,10 @@ Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \l
 \label{subsec:eas-distributed:parallel}
 
 EAs are inherently parallelizable, since each individual can be
-considered as an independent unit \cite{Alba13parallel}. % That's not
-                                % really true... You need several
-                                % individuals for most operations - JJ
-Thus, in principle, there are several possible ways to parallelize % You can paralellize in several ways even if it is not inherently paralellizable - JJ
-them: for example, fitness evaluation can be conducted in several
-slave machines, or the population can be distributed among different
-nodes to be evolved at the same time.  
+considered in many senses as an independent unit \cite{Alba13parallel}. 
+% That's not really true... You need several individuals for most operations - JJ
+% Antonio - True. Fixed
+There are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time.  
 
 Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
 \textit{Spatially structured EAs}. This classification is still the
@@ -278,15 +276,14 @@ most widely extended, even if it was established in 2002; however, it
 does not consider issues such as fault-tolerance, churn, massive
 scalability or decentralization. The number of computational nodes are
 considered constant during the whole execution and both the network
-and the nodes are reliable and trustworthy. % Antonio - TO DO: add a brief description of other parellelization models, such as P2P or Cloud Computing-based ones. We could add our own cites (Juanlu's and Maribel's/JJ's). PABLO: Added
-% Antonio - Great, but please comment also the works by Meri et al. (Meri_CloudEA13 in BIB) and Merelo et al. (Merelo_Couch13). PABLO: DONE
-However, with the advent of new
-technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed filesystems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
+and the nodes are reliable and trustworthy. 
+
+However, with the advent of new technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed file systems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
 
 On the other hand, since a GPGPU is a kind of
 stable and reliable architecture, we consider the classification also
 as valid for the purposes of this paper. We will present these
-paralellization modes below. 
+parallelization modes below. 
 
 % ----------------------------------------
 \subsubsection{Global parallel evolutionary algorithms} 
