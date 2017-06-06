@@ -94,7 +94,7 @@ much higher speed than a general purpose CPU.
 GPUs have been adapted to be used as General Purpose multi-processors
 with shared memory, or GPGPUs, in a similar shape to Single
 Instruction Multiple Data (SIMD)\cite{SIMD-wikipedia} architectures. 
-To this end, there are specific programming languages and structures that can be used by developers to write their own high-level programs to be run on a GPU, which are cost-effective for scientific computing, given their extremely high performance (in the comparison with CPU-based computing). 
+To this end, there are specific programming languages and structures that can be used by developers to write their own programs to be run on a GPU, which are very effective for scientific computing in terms of cost, given their extremely high performance in the comparison with CPU-based computing.
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs.
 
 EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
@@ -399,10 +399,8 @@ instance, basic cores %which are ... - JJ
 inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by
 AMD and Streaming Multiprocessors (SM) by NVIDIA. Here a core is
 anything capable of fetching, decoding, issuing and executing
-instructions. Every core can be composed of several execution units
-that can execute an individual vector operation in the same way of an
-Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE)
-instruction. AMD prefer the term streaming processors (SP), and
+instructions. Every core is composed by some execution units. Every one 
+is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and
 NVIDIA, CUDA core. It is way easier comparing them by counting the
 number of classical Arithmetic Logic Units (ALUs), called shader cores
 by many people. In the next Table, \ref{tab:features}, we can see
@@ -519,7 +517,7 @@ One of the strongest limitations compared to general computing is the
 communication between kernels. Communication and synchronization
 within work-groups works as we are used but not further. In this
 sense, a work-group serves two purposes: breaking a kernel in more
-manageable and shareable chunks and defining a limit to fast, or
+manageable, and easily shareable, chunks and defining a limit to fast, or
 possible, communications. 
 
 \begin{figure*}[!ht]
@@ -592,7 +590,7 @@ pointed out.
 
 Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the implementation of this kind of algorithms. Many of them include implementations for the most common operators, problems and individual representations, using different technologies and programming languages.
 
-The most complete and comprehensive review of these kind of frameworks was proposed by Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore it is not focused only on EAs. As a criteria for comparison, a set of 271 features grouped in 30 characteristics and 6 areas were selected. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks (ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA) included references to GPU capabilities when this paper was published.
+The most complete and comprehensive review of these kind of frameworks was proposed by Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore it is not focused only on EAs. The criteria for comparison is a set of 271 features grouped in 30 characteristics and 6 areas. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks, ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA, included references to GPU capabilities when this paper was published.
 
 However, recently, some of these EA-based frameworks have added some
 kind of GPU integration. Several authors have created library
@@ -681,8 +679,8 @@ It is inspired by the classical models used in the distribution of EAs.
 There are many different bioinspired approaches included in the bibliography, but we are mainly focused on Parallel Evolutionary Computation (EC). That is the most extended metaheuristic to address many types of large or complex problems, which require some kind of parallelization to be solved with enough quality and on a reasonable quantity of time.
 
 
-Alba \cite{Alba2005book} reviewed and surveyed parallel metaheuristics
-on EC. They identified the majority of paradigms with respect to
+The survey in Alba \cite{Alba2005book} reviewed parallel metaheuristics
+on EC. Most paradigms were identified with respect to
 parallel/distributed EAs, according to Flynn's taxonomy, under the
 Multiple Instruction Multiple Data (MIMD) category. This argument has
 been fairly valid during the last two decades because the most
@@ -693,7 +691,7 @@ due to GPUs architecture gives low cost support for them.
 
 The parallel EAs community has a wide legacy % wide legacy is not a
                                 % thing - JJ
-with MIMD architectures and a very little contribution for SIMD systems. This comes in part due to the dominance of MIMD architectures as compared to SIMD ones.
+with MIMD architectures and a very little contribution for SIMD systems. The MIMD dominance over SIMD seems to be responsible for this.
 
 %PABLO: I've commented this list because it doesn't make sense here :P
 %Alba classifies the main parallel metaheuristics models as follows:
