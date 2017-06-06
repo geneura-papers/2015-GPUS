@@ -814,7 +814,7 @@ Looking at the publication rate per year inside this scope, it can be noticed in
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.9\textwidth]{years.eps}
+\includegraphics[width=0.8\textwidth]{years.eps}
 \caption{Papers published per year in the scope of EAs on GPGPUs, according to Web of Science database.}
 \label{figure:publications}
 \end{figure*}
@@ -824,7 +824,8 @@ Paying attention to the type of publication, Figure \ref{figure:type_publication
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.6\textwidth]{papertype.eps}
+%                     trim=left bottom right top
+\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{papertype.eps}
 \caption{Type of publication, being Conference paper, Journal Paper, or Book Chapter.}
 \label{figure:type_publication}
 \end{figure*}
@@ -833,7 +834,7 @@ Regarding the type of EA implemented or studied in those papers, Figure \ref{fig
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.6\textwidth]{algorithmtype.eps}
+\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{algorithmtype.eps}
 \caption{Type of Evolutionary Algorithm implemented in the analyzed publications.}
 \label{figure:type_algorithm}
 \end{figure*}
@@ -842,7 +843,7 @@ Finally, the majority of the analysed publications deal with solving real proble
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.6\textwidth]{realproblem.eps}
+\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{realproblem.eps}
 \caption{Portion of the analyzed publications which address real problems.}
 \label{figure:type_problem}
 \end{figure*}
