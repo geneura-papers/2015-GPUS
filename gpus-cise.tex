@@ -472,6 +472,7 @@ In the same way we learn to make faster computers by joining several CPUs togeth
 
 Most information shown in this and next sections has been extracted from the websites of the mentioned vendors: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GPU Programming}
 \label{sec:programming}
@@ -527,6 +528,7 @@ possible, communications.
 \label{figure:grid}
 \end{figure*}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Memory Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -554,11 +556,9 @@ will happen when a calculation is started or when results are
 gathered. If the bandwidth consumed by this process involves an
 excessive amount of time the target speedup can be ruined. Data
 movement should be avoided or at least minimized. This bandwidth
-problem has arisen many times in the computation era. % computation
-                                % era? WTF? - JJ
-Every time a new
-powerful device has appear we must feed it  data fast enough. Two
-solutions of recent appearance try to alleviate it. The first is a
+problem has arisen many times in the computation field. 
+
+Every time a new powerful device has appear we must feed it  data fast enough. Two solutions of recent appearance try to alleviate it. The first is a
 fourth level of cache between the CPU and the GPU. %reference - JJ
 This is only useful
 when both processors are glued together in the same chip or
@@ -577,28 +577,26 @@ share a common memory architecture.
 \label{sec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Always write intros to sections - JJ
-% Antonio - done
-
-This section describes the most frequent frameworks used to
+This section describes the most important frameworks used to
 parallelize EAs to take advantage of the power of GPGPUs. In addition,
 common issues and constraints to take into account when such a
 parallel evolutionary approach is going to be implemented are also
 pointed out. 
 
+%----------------------------------------------------------------------
 \subsection{Frameworks to parallelize EAs on GPGPUs}
 
 Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the implementation of this kind of algorithms. Many of them include implementations for the most common operators, problems and individual representations, using different technologies and programming languages.
 
 The most complete and comprehensive review of these kind of frameworks was proposed by Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore it is not focused only on EAs. The criteria for comparison is a set of 271 features grouped in 30 characteristics and 6 areas. These features include the different metaheuristic techniques covered, mechanisms for solution encoding, constraint handling, neighborhood specification, hybridization, parallel and distributed computation, software engineering best practices, documentation, and user interface. However, none of the ten most extended optimization frameworks, ECJ, ParadisEO, Eva2, FOM, jCLEC, OAT, Opt4j, EasyLocal, HeuristicLab and MALLBA, included references to GPU capabilities when this paper was published.
 
-However, recently, some of these EA-based frameworks have added some
+However, a few years ago, some of these EA-based frameworks have added some
 kind of GPU integration. Several authors have created library
 extensions to the frameworks, in order to allow the evaluation of the
 individuals in GPGPUs (which is normally the hardest computational
 part). For example, Robilliard et al. \cite{RobilliardECJGPU08} did it
 for ECJ, and Cano et al. for jCLEC
-\cite{SpeedingTheEvaluationofGPCano:2012}.  % 2008 is not recently - JJ
+\cite{SpeedingTheEvaluationofGPCano:2012}.  
 On the other hand, ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, another framework built upon an existing one, for now is only focused in single solution metaheuristics, and it does not support population-based ones, such as EAs. 
 
 
@@ -606,10 +604,11 @@ PUGACE \cite{5586286} is one of the few new frameworks focused exclusively on th
 
 Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} attempts to facilitate the development of EAs to be run in GPGPUs by compiling the code from a specific algorithm specification language (EASEA) into code suitable to be run in a CPU-GPU manner. 
 However, as in previous frameworks, only the code for the fitness
-evaluation is sent to the GPU to be run in parallel. % That is not
-                                % good because... JJ
+evaluation is sent to the GPU to be run in parallel, so the parallelization just affects to a part of the algorithm. 
+% That is not good because... JJ
+% Antonio - written
 
-
+%----------------------------------------------------------------------
 \subsection{Requirements and constraints to parallelize EAs on GPGPUs}
 
 The first step for parallelizing an evolutionary algorithm using a GPGPU is to study the GPU architecture, as the cards of different families would have special features which the programmer has to consider, in order to really take advantage of the hardware. 
@@ -624,7 +623,7 @@ The most extended parallelization approach is based on running the evolutionary 
 \item In GPU scope:
 	\begin{itemize}
 		\item Allocate memory for the individuals to evaluate.
-		\item Allocate memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Traveling Salesman Problem).
+		\item Allocate memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Travelling Salesman Problem).
 		\item Allocate memory for the evaluation results.
 		\item Each GPU processor evaluates one individual (or a part of it) using a kernel function. But while the first one is called/launched from the CPU scope, the rest of them might be called from the same scope or from the GPU one.
 	\end{itemize}  
@@ -647,7 +646,7 @@ time required for CPU memory access is too large. Thus, normally, it
 is only used when the data to access is just needed once for every
 operation. If the evaluation process needs to use the data several
 times, it might be better copying them to the GPU memory, in order to
-speedup the next data loading. %loadings? - JJ
+speedup the next data loading. 
 
 There are other parallelization approaches where the GPGPU runs not
 only the evaluation phase, but all the stages of the algorithm.  
