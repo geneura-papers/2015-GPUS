@@ -672,14 +672,14 @@ concept, in order to take advantage of it in the EA implementation. The programm
 
 % This is a repetition of subsec:eas-distributed:parallel . Why don't
 % you put them together? - JJ
+% Antonio - It is not the same as in that section. That was an introduction and this is a (similar) taxonomy. I have clarified this inthe text and removed those redundant paragraphs/sentences.
 In this section, a taxonomy to distinguish between the different
 distribution methods applied in the literature is proposed.  
-It is inspired by the classical models used in the distribution of EAs. 
-There are many different bioinspired approaches included in the bibliography, but we are mainly focused on Parallel Evolutionary Computation (EC). That is the most extended metaheuristic to address many types of large or complex problems, which require some kind of parallelization to be solved with enough quality and on a reasonable quantity of time.
+It is inspired by the classical models used in the distribution of EAs, described in Section \ref{subsec:eas-distributed:parallel}. 
+%As stated before, even if there are many different bioinspired approaches included in the bibliography, we are mainly focused in this work on Parallel Evolutionary Computation (EC). 
+%That is the most extended metaheuristic to address many types of large or complex problems, which require some kind of parallelization to be solved with enough quality and on a reasonable quantity of time.
 
-
-The survey in Alba \cite{Alba2005book} reviewed parallel metaheuristics
-on EC. Most paradigms were identified with respect to
+We take as a reference the survey by Alba \cite{Alba2005book}, who reviewed many parallel metaheuristics on EC. Most paradigms were identified with respect to
 parallel/distributed EAs, according to Flynn's taxonomy, under the
 Multiple Instruction Multiple Data (MIMD) category. This argument has
 been fairly valid during the last two decades because the most
@@ -688,43 +688,29 @@ distributed memory architectures, like clusters. However fine-grained
 EAs deployed on massive parallel processors (MPPs) are resurfacing,
 due to GPUs architecture gives low cost support for them. 
 
-The parallel EAs community has a wide legacy % wide legacy is not a
-                                % thing - JJ
-with MIMD architectures and a very little contribution for SIMD systems. The MIMD dominance over SIMD seems to be responsible for this.
-
-%PABLO: I've commented this list because it doesn't make sense here :P
-%Alba classifies the main parallel metaheuristics models as follows:
-%\begin{itemize}
-%\item Parallel Genetic Algorithms \cite{Cantu-Paz98asurvey} %G. Luque, et al..
-%\item Parallel Genetic Programming \cite{springerlink:10.1023_A:1021873026259}.
-%\item Parallel Evolution Strategies \cite{Rudolph92parallelapproaches}.
-%\item Parallel Ant Colony Algorithms \cite{ParallelAntColony}.
-%\item Parallel Estimation of Distribution Algorithms  \cite{springerlink:10.1007_3_540_32494_1_7}.
-%\item Parallel Scatter Search \cite{GarciaLopez2003575}.
-%\item Parallel Variable Neighborhood Search \cite{Garcia_lopez_theparallel}.
-%\item Parallel Simulated Annealing (SA) \cite{Genetic_parallelsimulated} .
-%\item Parallel Tabu Search \cite{Crainic97towardsa}.
-%\item Parallel Greedy Randomized Adaptive Search Procedures \cite{Resendeparallelgreedy}.
-%\item Parallel Hybrid Metaheuristics  \cite{Cotta05e:parallel}. 
-%\item Parallel MultiObjective Optimization  \cite{Nebro07mocell:a}.
-%\item Parallel Heterogeneous Metaheuristics  \cite{ANL04}. 
-%\end{itemize}
+The parallel EAs community has a big amount of contributions using 
+% wide legacy is not a thing - JJ
+% Antonio - fixed
+MIMD architectures, but a very little regarding SIMD systems, probably due to the MIMD dominance over SIMD.
 
 Nevertheless, when the research community uses GPGPUs, all the EC approaches are parallel, so we have revised the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.  
 For that reason, we focus the rest of the survey on the different ways for implementing Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming proposed in \cite{ZhangImplementationMasterSlave}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089}, %\cite{pospichalParallelGeneticAlgorithOnCUDA2010} 
-or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11} that use two or more of the previous parallel approaches in an hierarchical way. 
+or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11},  which use two or more of the previous parallel approaches in an hierarchical way. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Taxonomy} % A section named taxonomy can't have a
+%\subsection{Taxonomy} % A section named taxonomy can't have a
                       % subsection called taxonomy. Simply eliminate
                       % the subsection, and leave this as an
                       % introduction - JJ
+% Antonio - you're right
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
+Thus, the proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
 
-\subsubsection{Master-slave approaches}
+% -----------------------------------------------
+\subsection{Master-slave approaches}
+\label{subsec:masterslaveapproaches}
 Master-slave Evolutionary Algorithms traditionally solve problems
 involving computationally expensive fitness functions, where the
 master node runs the entire algorithm while the slaves execute the
@@ -736,8 +722,12 @@ usually are the more expensive portion of the total run time.
 % section mentionad above. just say that they are classification along
 % different axes, but there are too many classifications for a single
 % paper - JJ
+% Antonio- the classification is similar, but here we focus on the existing approaches in the GPGPU literature ad we extend the explanation given in previous section
 
-\subsubsection{Fine-grained approaches}
+% -----------------------------------------------
+\subsection{Fine-grained approaches}
+\label{subsec:finegrainedapproaches}
+
 Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary
 Algorithms have not had as much impact as other types of PEAs. The
 main reason is that they adapt themselves very well to the special
@@ -759,8 +749,10 @@ face other EA categories. This is due to three reasons:
 
 For this category of algorithms, each individual is a parent at the beginning of the algorithm and it looks for the second parent by selection in a neighborhood. As a result CEAs provide automatic niching effect, avoiding an early convergence. 
 
-\subsubsection{Coarse-grained approaches}
+% -----------------------------------------------
+\subsection{Coarse-grained approaches}
 \label{subsec:coarsegrainedapproaches}
+
 These approaches work with a set of sub-populations, normally a part
 of the whole population, distributed in different nodes, being every
 node devoted to work with just one of them, so they can work in
@@ -771,7 +763,10 @@ migration rate, between islands, which are connected following a
 specific neighborhood topology. 
 
 
-\subsubsection{Hierarchical models}
+% -----------------------------------------------
+\subsection{Hierarchical approaches}
+\label{subsec:hierarchicalapproaches}
+
 This hybrid model just utilizes two or more of the master-slave, coarse-grained and fine-grained approaches in an hierarchical method. At the higher level, an island model algorithm runs while at the lower level, the demes, or sub-populations, are running in parallel, fine-grained, master-slave or even another island model with high migration rates. Hybrid models are not the most common in traditional implementation of EAs due to:
 \begin{itemize}
  \item The need for additional parameters related to the more complex topology structure. 
@@ -782,7 +777,10 @@ This hybrid model just utilizes two or more of the master-slave, coarse-grained 
 Nevertheless, for the GPUs, hybrid EAs are a perfect candidate to exploit the hierarchical memory and flexible block sizing, by means of well structured populations. 
 
 
-\subsubsection{Non-standard approaches}
+% -----------------------------------------------
+\subsection{Non-standard approaches}
+\label{subsec:nonstandardapproaches}
+
 By the end of the work we have included a subsection for non-standard
 approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including papers
 which may not be included in any of the previous ones because they
