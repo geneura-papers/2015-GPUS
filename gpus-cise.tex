@@ -879,18 +879,10 @@ traffic.
 One of the first proposals for parallel Evolutionary Computation using
 a GPU was done by Wong et
 al. \cite{man-leung-wong-parallel-2005}. They presented an
-Evolutionary Programming (EP) algorithm %without crossover EP does not
-                                %have crossover - JJ
-for solving
-five simple test functions, called Fast Evolutionary Programming
-(FEP). In this master-slave approach, some actions such as the main loop of the algorithm were executed in
-the CPU, while evaluation and mutation were run within the GPU device
-because both steps do not need 
-of external information exchange. In this case, the reproduction
-process implies interaction among, at least, two individuals so the
-authors eliminated this step in the algorithm. A maximum speedup of
-$\times5.02$ was obtained when the population size increases. This is
-the most common organization in GPU implementations, since no
+Evolutionary Programming (EP) algorithm 
+%without crossover EP does not have crossover - JJ
+for solving five simple test functions, called Fast Evolutionary Programming
+(FEP). In this master-slave approach, some actions such as the main loop of the algorithm were executed in the CPU, while evaluation and mutation were run within the GPU device because both steps do not need of external information exchange. In this case, the reproduction process implies interaction among, at least, two individuals so the authors eliminated this step in the algorithm. A maximum speedup of $\times5.02$ was obtained when the population size increases. This is the most common organization in GPU implementations, since no
 interaction among individuals is required during the evaluation, so
 this process can be fully parallelized. In that paper the individuals
 was real-coded and the genomes were mapped into the texture
@@ -932,11 +924,9 @@ out if it is a precursor. This is what the evaluation function
 does. The time series is divided into different subsets, and stored in
 several GPUs. The data is then copied once and just the new
 individuals to evaluate and the partial results of the evaluation must
-be transferred and updated. % avoiding bandwith problems? - JJ
-The run is conducted for 50 generations
-and with 500 individuals of a maximum depth of 3 levels, using a
-i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690). % You need to give that
-                                % amount of details? - JJ
+be transferred and updated, avoiding bandwidth problems.
+The run is conducted for 50 generations and with 500 individuals of a maximum depth of 3 levels, using a i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690). 
+% You need to give that amount of details? - JJ
 The authors considered
 512 threads per block, 260 blocks per grid and just one grid per
 GPU. The comparison in performance yields a reduction of 56 times for
@@ -969,14 +959,10 @@ information exchange between individuals in different SMs.
 
 The second problem of this approach is the random number
 generator. The CPU can easily generate random numbers, but the GPU is
-not designed for this task. %In fact, the CPU is not either. - JJ
-So researchers have to think about how to
-solve this problem. Usually the algorithm's implementation generate at
-the beginning a big set of random numbers and they are copied to the
-GPU as a list. After that, the GPU uses the random list when needed
-and when it need. This approach saves time for random generation but
-the list of random numbers has to be limited. Moreover, all SPs could
-use the random numbers, so the list must be available for every
+not able to do this task. 
+% In fact, the CPU is not either. - JJ
+% Antonio - fixed
+So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every
 thread.  
 
 
@@ -1011,45 +997,43 @@ is faster on data sets with 10 to 50 discrete attributes.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Coarse-grained Approaches (island model)} % why mix caps
-                                % and not? - JJ
+\subsection{Coarse-grained Approaches (Island Model)} 
+% why mix caps and not? - JJ
+% Antonio - fixed
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherently possibilities they offer, as these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones. 
-This kind of EAs works by dividing the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, individuals are moved from one island to another. 
+The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherent parallelization possibilities they offer. Thus, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones. 
+This kind of EAs works by dividing the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, some individuals are moved from one island to another (migration). 
 This basic feature of coarse-grained EAs hits a physical limit of
 GPUs.  
 
-%In order to run a coarse-grained EA using a GPU, several kernels are run simultaneously, where each kernel handles a sub-population. GPU architecture is not designed to work this way. This limitation of GPU would mean the conventional mechanics of coarse-grained EAs would need to be changed if GPU would be used.
-
 % a ver qué tal esta versión:     [pedro]
-In order to run a coarse-grained EA using a GPU device, several kernels could be run simultaneously.
-In that case, each kernel could handle a sub-population of individuals, establishing some synchronisation points.
+% Antonio - mejor. ;)
+In order to run a coarse-grained EA using a GPU device, several kernels could be run simultaneously. In that case, each kernel could handle a sub-population of individuals, establishing some synchronisation points.
 However, the GPU architecture is not designed for synchronising
 different kernels into the same grid, which means that using a GPU to
-run a coarse-grained EA might require changing some standard mechanism
+run a coarse-grained EA might require changing some standard mechanisms
 of the algorithm. 
 
 
 One of the first island models on GPU-based approaches was presented on the GECCO 2009 GPU Competition \cite{gecco2009CompetitionPospichal}. This technical report presented some technical details of an island model entirely hard-coded on GPU, with a ring-neighborhood topology. As it was a first attempt, the evolutionary operators implemented on GPU were only specific to the GECCO competition, and the validity of the experiments is not clear, since the approach just worked on a small number of problems.
 
-However, after this, Pospichal et al. continued working on their approach \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253}. The authors map threads to individuals, and then, threads-individuals can be synchronized easily in order to maintain data consistency. To decrease memory latency, the usage of a on-chip hardware scheduler is proposed to swiftly swap existing islands between multiprocessors, with the combination of a fast-shared memory. In this case, the population size is limited to 16KB per island (as on most GPUs at the time), so if the population is larger, the main memory would need to be used, implying a time increase. In fact, the inter-island communication was used, by relying on it the migration, based in a asynchronous unidirectional ring model. Even that, authors report speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
+However, after this, Pospichal et al. continued working on their approach \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253}. The authors mapped threads to individuals, and then, these threads-individuals could be synchronized easily in order to maintain data consistency. To decrease memory latency, the usage of an on-chip hardware scheduler was proposed, which swiftly swaps existing islands between multiprocessors, with the combination of a fast-shared memory. In this case, the population size was limited to 16KB per island (as on most GPUs at that time), so if the population was larger, the main memory would be used, implying a time increase. In fact, the inter-island communication was used, by relying on it the migration, based in an asynchronous unidirectional ring model. Even that, authors reported speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
 
-Permutation domain problems have been studied by some authors. Tsutsui and Noriyuki \cite{1570355} also run a coarse-grained GA on GPU, to solve the QAP problem using CUDA. Their model generates the initial population on CPU and copied it to the GPU VRAM; then, each sub-population in a GPU (NVIDIA GeForce GTX285) is evolved. At some generations, individuals in sub-populations are shuffled through the GPU VRAM. Results show a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor. 
+Permutation domain problems have been studied by some authors. Tsutsui and Noriyuki \cite{1570355} also run a coarse-grained GA on a GPGPU, to solve the QAP problem using CUDA. Their model generated the initial population on CPU and copied it to the GPU VRAM; then, each sub-population in a GPU (NVIDIA GeForce GTX285) was evolved. At some generations, individuals in sub-populations were shuffled through the GPU VRAM. Results showed a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor. 
 
-Comparison of several approaches is a very important task to do when presenting a new model. The work by \cite{LUONG:2010:INRIA-00520464:1} compared three different schemes, including his new re-design of the island model. The first scheme presented implements a coarse-grained EA based on a master-slave model to run the evaluation step on GPU, as other papers mentioned early. The second one directly distributes the EA population on GPUs, and the use of a fast on-chip memory is proposed as an extension on the third approach. 
-The two latter approaches reduce the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. Sequential and parallel implementations were compared, obtaining a speedup of $\times1757$ using the third approach.
+Comparison of several approaches is a very important task to do when presenting a new model. The work by \cite{LUONG:2010:INRIA-00520464:1} compared three different schemes, including his new re-design of the island model. The first scheme presented implemented a coarse-grained EA based on a master-slave model to run the evaluation step on GPU, as other papers mentioned early. The second one directly distributed the EA population on GPUs. Finally, the use of a fast on-chip memory was proposed as an extension on the third approach. 
+The two latter approaches reduced the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. Sequential and parallel implementations were compared, obtaining a speedup of $\times1757$ using the third approach.
 
 
-
-The coarse-grained models are still being investigated. Recently, Li et al \cite{Li2016} develop a parallel GA for GPUs, taking advantage of the many cores of GPUs to enhance computation efficiency, by using a large amount of threads simultaneously; this strategy allows the population to scale and accelerates the speed to find the global optimal solution. Zhengfu et al. \cite{Zhengfu2016} propose to improve the computational efficiency of information entropy multi-population GA, and to reduce the computing time, by using a CUDA-based implementation.
+The coarse-grained models are still being investigated. Recently, Li et al \cite{Li2016} developed a parallel GA for GPGPUs. They took advantage of the many cores of GPUs to enhance computation efficiency, by using a large amount of threads simultaneously. This strategy allows the population to scale and accelerates the speed to find the global optimal solution. Zhengfu et al. \cite{Zhengfu2016} proposed to improve the computational efficiency of information entropy multi-population GA, and to reduce the computing time, by using a CUDA-based implementation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Hierarchical Models}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-These approaches aim to combine previous models, in order to take advantage of the best of every one, for instance, fuse the master-slave evaluation with the diversity mechanisms of island-based models.
+As mentioned before, these approaches aim to combine previous models, in order to take advantage of the best of every one, for instance, fusing the master-slave evaluation with the diversity mechanisms of island-based models.
 
 This is the case of the work by Munawar et al. \cite{Munawar:2009:HGA:1666141_1666143}, where the design and implementation of a hybrid EA with local search to solve MAX-SAT over GPUs was thoroughly discussed. The authors implemented a hierarchical algorithm of 2D structured sub-populations arranged as islands in a 2D grid. Thus, every individual and sub-population has 4 neighboring ones (north, south, east and west). A new technique called {\em diffusion} is used instead of a conventional algorithm for the migration between sub-populations, as it is more suitable for the implementation of cGAs based pGA over a GPU. In the proposal, the host processor (CPU) acts as a controller, while a NVIDIA Tesla C1060 GPU provides the required computational resources. This processor is also responsible of configuration, memory allocation and initialization. After the initialization stage, data is transferred to the device and the code enters a loop. The loop keeps on repeating until the maximum number of generation criteria is satisfied. Results were collected over a system with NVIDIA Tesla C1060 GPU mounted on a motherboard with Intel Core i7 920 2.67GHz as the host CPU. C1060 have 4GB of device memory, 30 streaming multiprocessors, and the total number of processing cores is 240. The maximum amount of shared memory per block is 16KB and clock rate is 1.30GHz. They compare the results of the algorithms over NVIDIA with optimized for local search, mutation, recombination, selection and diffusion (migration) with different implementations using serial implementation, OpenMP implementation over Intel and over Ultra Spark architectures. The found that the maximum speedup is for larger problems, and it is up to $\times25$ if compared the serial implementation over Intel Core 2 Duo 3.3GHz with the NVIDIA implementation. 
 
@@ -1066,7 +1050,7 @@ During 2012, Luong \cite{luongMetaheuristicsPpsn2012} implemented a GPGPU algori
 
 Authors mapped the population to the GPU and applied the parallel metaheuristic to each individual using its neighborhood structure taking advantage of the blocks of threads present in the GPU architecture. The parallelization of these metaheuristics generated several different individuals that the GPU evaluated at the same time. The critical issue was finding efficient mappings between a GPU thread and a particular neighbor. Indeed, this step is crucial in the design of new large neighborhood local search algorithms for binary problems since it is clearly identified as the gateway between a GPU process and a candidate neighbor. They reviewed neighborhoods based on a Hamming distance of one, two and three, and applied their suggestions to Permuted Perceptron problem \cite{KnudsenPermutedPerceptronProblem1999}. They considered a Tabu Search algorithm \cite{TaillardTabySearch1991} using CUDA for each neigborhood with a configuration of Intel Core 2 Duo 2.67GHz with a NVIDIA GTX 280 card. The CUDA implementation increased the number of successful solutions drastically every instance of the problem. Regarding execution time, acceleration factors using GPU are very significant (from $\times24.2$ to $\times25.8$).
 
-In 2014,  \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+GPU high performance EA. 16 islands of 8 individuals were set as parameters. The experiments were carried in a combination of Intel Xeon X5650 2.66GHz and  Intel Xeon X7550 2.0GHz processors, although the paper do not includes information about the graphic cards used. Several instances of heterogeneous scheduling problems were used to compared with other metaheuristics, obtaining better makespans. 
+In 2014, \cite{Wang14heterogeneous} used a supercomputer platform to run a CPU+GPU high performance EA. 16 islands of 8 individuals were set as parameters. The experiments were carried in a combination of Intel Xeon X5650 2.66GHz and  Intel Xeon X7550 2.0GHz processors, although the paper do not includes information about the graphic cards used. Several instances of heterogeneous scheduling problems were used to compared with other metaheuristics, obtaining better makespans. 
 
 In \cite{Lin:2016:AGA:2895619.2895696}, an auto-tuning approach based on SA and GA for GPGPU applications taking into account the performance and power models is presented. Thus, no sub-optimal configuration that leads to poor performance and/or high power consumption is used.
 
