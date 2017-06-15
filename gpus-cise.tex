@@ -45,7 +45,7 @@ parallel, as they are based on a population of independent representations of
 solutions. Thanks to this feature, there are many different distributed and parallel schemes for EAs. 
 Thus, this paper is mainly focused in two main objectives: firstly it aims to be a tutorial as it describes general features of EAs and their main distributed models. It also reviews the new advances in hardware and software in this field, and gives an introduction on how to parallelize evolutionary algorithms on GPGPUs, describing both, several frameworks which allow to do it easily, and the main issues to take into account in order to carry out these implementations.
 Secondly the paper presents a survey on the literature related to the adaptation of EAs to GPGPUs.  
-So, more than 200 related publications from the last 13 years have been revised, and some properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems.  
+So, 200 related publications from the last 13 years have been revised, and some properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems.  
 We have also defined a taxonomy of the approaches used for GPGPU parallelization
 in the literature. Then, a more in-depth analysis has been conducted
 on a wide selection, also describing the most representative works in each
@@ -797,19 +797,24 @@ ones.
 
 In this section we present a quantitative analysis of published papers
 on EAs on GPUs. Then, the most relevant ones are classified following
-the previously described taxonomy. % Why not the other? - JJ
+the previously described taxonomy. 
+% Why not the other? - JJ
+% Antonio - because it has been extended
 
 \subsection{Paper sampling} % Gustavo: que te parece este
+                            % Antonio - bien. ;D  
 
-Firstly, an in-depth analysis of the existing related literature has been conducted. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
+Firstly, an in-depth analysis of the existing related literature has been done. In order to conduct this analysis we performed the query ``\textit{(GPGPU OR GPU) AND (GENETIC OR EVOLUTIONARY)}'' in the Web Of Science (WoS) \cite{wos} database, referred to any part of the publications, and just enclosed into {\em Computer Science} research area. 
 % Antonio - comprobar si se buscó en cualquier parte de los artículos
-We got 320 references, and we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, we kept 191 results, which we read in order to extract its features and useful information for this survey.  % maybe we should rewrite these sentences avoiding the  "we"  [pedro]
+It yielded 329 references, from which we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, 194 results remain, which were carefully read in order to extract its features and useful information for this survey.  
+% maybe we should rewrite these sentences avoiding the  "we"  [pedro]
+% Antonio - I have rewritten this in par i order to avoid somany 'we's
 
-Looking at the publication rate per year inside this scope, it can be noticed in Figure \ref{figure:publications}, the publication figures has been increased  every year, starting from 2004 (according to the results), being nowadays a field very attractive for researchers and very prolific.
+Looking at the publication rate per year inside this scope, it can be noticed in Figure \ref{figure:publications}, that the publication figures has been increased every year, starting from 2004, being nowadays a field very attractive for researchers and very prolific (according to the results).
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.8\textwidth]{years.eps}
+\includegraphics[width=0.75\textwidth]{years.eps}
 \caption{Papers published per year in the scope of EAs on GPGPUs, according to Web of Science database.}
 \label{figure:publications}
 \end{figure*}
