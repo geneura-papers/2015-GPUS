@@ -38,18 +38,11 @@ P. Garc{\'\i}a-S{\'a}nchez$^2$, J. J. Merelo$^1$, P.A. Castillo$^1$  \\ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Metaheuristics and bioinspired methods have been widely adapted to
-General Purpose Graphics Processing Units (GPGPUs). Among them, 
-Evolutionary Algorithms (EAs) stand out since they are inherently
-parallel, as they are based on a population of independent representations of
-solutions. Thanks to this feature, there are many different distributed and parallel schemes for EAs. 
-Thus, this paper is mainly focused in two main objectives: firstly it aims to be a tutorial as it describes general features of EAs and their main distributed models. It also reviews the new advances in hardware and software in this field, and gives an introduction on how to parallelize evolutionary algorithms on GPGPUs, describing both, several frameworks which allow to do it easily, and the main issues to take into account in order to carry out these implementations.
-Secondly the paper presents a survey on the literature related to the adaptation of EAs to GPGPUs.  
-So, 200 related publications from the last 13 years have been revised, and some properties have been extracted: type of EA implemented, hybridization, configuration and whether they have been applied to solve real world problems.  
-We have also defined a taxonomy of the approaches used for GPGPU parallelization
-in the literature. Then, a more in-depth analysis has been conducted
-on a wide selection, also describing the most representative works in each
-category. 
+Evolutionary Algorithms (EAs) are the most prolific metaheuristic adapted to General Purpose Graphics Processing Units (GPGPUs), as they are population-based approaches inherently parallel. 
+Thus, this paper firstly aims to be a tutorial regarding the parallelization of EAs on GPGPUs, introducing their general features and main distributed models, together with several frameworks which allow to conduct this task easily, and the main issues to take into account in order to carry out these parallel implementations. 
+The work also reviews the new advances in hardware and software in this field.
+Finally, the paper presents a deep survey on the literature related to the adaptation of EAs to GPGPUs. Thus, 194 publications have been revised, extracting their key features to categorize them.
+We have followed a taxonomy of the approaches used for GPGPU parallelization. Then, a more in-depth analysis has been conducted on the most representative works in each category. 
 \end{abstract}
 
 %\begin{keyword}
@@ -146,8 +139,9 @@ Thus, the fittest individuals have more chances to be selected for reproduction,
 %\label{sec:distributed:types}
 The general scheme of an EA, extracted from the work by Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}.  
 
+% There is a nicer "Algorithmic" package. Use it - JJ
 \begin{figure}[tb]
-\begin{verbatim} % There is a nicer "Algorithmic" package. Use it - JJ
+\begin{verbatim} 
 BEGIN
  INITIALISE population with random candidate solutions;
  EVALUATE each candidate;
