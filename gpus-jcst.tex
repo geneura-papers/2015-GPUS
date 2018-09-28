@@ -412,6 +412,8 @@ manufacturer \& model   & transistors   & area         & cores         & (GHz)  
                         & (billions)    & ($mm^2$)     & CPU/GPU       & CPU/GPU    & (GB/s)       & precision)     & (W) & (\$)   \\
 \hline
 \hline
+AMD Threadripper 2990WX & 19.2          & $213\times4$ & 32            & 3          & 87.42        &                & 250 & 1799   \\
+AMD Threadripper 2950X  & 9.6           & $213\times2$ & 16            & 3.5        & 87.42        &                & 180 & 899    \\
 AMD Opteron 6386 SE     & 2.4           & 630          & 16            & 3.5        & 75           & 332.8          & 140 & 1392   \\
 \hline
 Intel Xeon E7 8890 V4   & 5.69          & 662          & 24            & 2.2        & 102          & 3500           & 165 & 7174   \\
@@ -419,6 +421,7 @@ Intel Xeon E7 8890 V4   & 5.69          & 662          & 24            & 2.2    
 \hline
 AMD Ryzen 7 1800X       & 4.8           & 195          & 8             & 3.6        & 46           & 529.04         & 95  & 465    \\
 \hline
+Intel Core i9-7980XE    &               &              & 18            & 2.6        & 79.47        &                & 165 & 1999   \\
 Intel Core i7 6950X     & 3.2           & 122          & 10            & 3.0        & 34           & 627.6          & 140 & 1723   \\
 \hline
 \hline
@@ -455,7 +458,7 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 
 \end{tabular}
 }
-\caption{APU, CPU and GPU comparison of the best professional and commodity desktop hardware available nowadays, May 2017. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
+\caption{APU, CPU and GPU comparison of the best professional and commodity hardware available nowadays, Sep 2018. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
 Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
