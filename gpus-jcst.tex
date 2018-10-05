@@ -69,8 +69,6 @@ Even if EAs were proposed as sequential methods, their features, such as the pop
 The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. But sometimes this distribution also implies a different searching scheme, which leads to a different searching area of the space of solutions and thus, which yields a different solution or set of solutions for the problem, that could be better than the one obtained in the sequential approach.
 For these reasons, EAs are so far the most prolific metaheuristic in
 terms of existing parallel approaches, so this survey will be focused on them.
-% Are you going to compare it with other metaheuristics? - JJ
-% Antonio - I have fixed it
 
 In the last years, new trends in parallelization and
 distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14},
@@ -819,16 +817,6 @@ Looking at the publication rate per year inside this scope, it can be noticed in
 \label{figure:publications}
 \end{figure*}
 
-
-Paying attention to the type of publication, Figure \ref{figure:type_publication} shows, as expected, that conferences and journals share almost all the cake, being slightly higher the figures for conference papers, as it is obviously easier to get published there. However, this factor should be taken just as a reference, since not all the conferences and journals are indexed in WoS, but mainly relevant ones.
-
-\begin{figure*}[!ht]
-\centering
-%                     trim=left bottom right top
-\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{papertype.eps}
-\caption{Type of publication, being Conference paper, Journal Paper, or Book Chapter.}
-\label{figure:type_publication}
-\end{figure*}
 
 Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. The most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and usually yields very good results.  GP and DE are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms), to cite a few.
 
