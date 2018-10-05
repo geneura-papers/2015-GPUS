@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 rm *.aux
 rm *.bbl
 rm *.blg
@@ -7,12 +8,14 @@ rm *.log
 rm *~
 rm *.dvi
 
-latex gpus-cise.tex && latex gpus-cise.tex &&  latex gpus-cise.tex 
-bibtex gpus-cise
-latex gpus-cise.tex && latex gpus-cise.tex && latex gpus-cise.tex
+PAPER=gpus-jcst.tex
+NAME=`basename $PAPER .tex`
+latex $PAPER && latex $PAPER &&  latex $PAPER 
+bibtex $NAME
+latex $PAPER && latex $PAPER
 
 echo "-----------------------------" 
 
-dvips gpus-cise.dvi -o && ps2pdf gpus-cise.ps  &&  rm *.ps
+dvips $NAME.dvi -o && ps2pdf $NAME.ps  &&  rm *.ps
 
 echo "-----------------------------"
