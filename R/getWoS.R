@@ -13,7 +13,7 @@ scale = 1
 
 token <- auth(username = NULL, password = NULL)
 
-query <- "TS =((GPGPU OR GPU OR NVIDIA) AND (GENETIC OR EVOLUTIONARY))"
+query <- "TS =((GPGPU OR GPU OR NVIDIA) AND ('GENETIC ALGORITHM' OR 'EVOLUTIONARY ALGORITHM' OR 'DIFFERENTIAL EVOLUTION' OR 'GENETIC PROGRAMMING' OR 'EVOLUTION STRATEGIES'))"
 
 query_wos(query,
           sid = token,  
