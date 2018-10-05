@@ -1,0 +1,44 @@
+Reviewer: 1
+
+Comments to the Author
+This paper aims to provide a survey of implementations of parallel evolutionary algorithms (EAs), particularly using general purpose of GPUs. The paper briefly introduces the categories of EAs by [18] and parallel EAs. As a survey, however, the paper has many issues should be addressed:
+
+1. The paper takes a lot effort on the hardware introduction, which I think it is away the focus of the paper. Reader can easily get them from any user manuals. The paper should focus on existing researches on parallel EAs rather than hardware comparison and introduction. 
+
+2. The paper fails to provide insight analysis of each type of algorithms, e.g., advantages/disadvantages, remaining issues, etc. Simply putting them in different classes is not enough for a survey paper.
+
+3. There is no discussion on future research directions based on existing research, I think this is very important for readers. 
+
+4. The trend of the technique development in terms of the design of parallel EAs on GPUs should be discussed. 
+
+5. The insight discussion of what kind of EAs are suitable for running on GPUs should be given, i.e., the bottleneck of the implementation of current EAs on GPUs. 
+
+Below are some minor issues:
+
+6. “while the GPU processors just run the evaluation stage (as this is usually the computationally hardest task).” This is not true for expensive optimization problems, which are computationally cost tasks but hard to evaluate on GPUs (objective values are obtained by simulations). A condition should be applied here.
+
+7. reference [18] is not complete, the same as [19]? 
+
+
+Reviewer: 2
+
+Comments to the Author
+The manuscript needs more efforts before it can be accepted for publication.
+194 selected papers are just roughly classified into 5 categories without summarization, even though each paper is briefly introduced.
+Thus it is better for the authors to summarize the procedures of parallelizing those algorithms by considering GPUs’ execution restrictions, particularly for EACH of 5 categories classified by the authors in Section 7.
+A simple data analysis on publication tendency has been made by showing three simple statistical figures.
+
+Other issues are listed below:
+Regarding 5 approaches categorized in Section 7, which one is better?
+What is the new trend of this field?
+Please add papers published in 2017 or later.
+Is Ref [18] the same as Ref [19]?
+Check and correct some English errors. 
+    Ex. 194 publications have been revised (it should be “reviewed”) 
+In the title of Figure 7, what is RW? What is RO? (is read and write? / read only?)
+
+Reviewer: 3
+
+Comments to the Author
+The paper provides a comprehensive review on EA on GPUs. The paper is well written and clear. As a survey paper, it would be good to also provide some future challenges as well.
+
