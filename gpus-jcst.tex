@@ -60,7 +60,7 @@ We have followed a taxonomy of the approaches used for GPGPU parallelization. Th
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Evolutionary Algorithms \cite{EAs_Back96} are a class of probabilistic search and optimisation methods inspired on the model of Darwinistic evolution.
+Evolutionary Algorithms (EAs) \cite{EAs_Back96} are a class of probabilistic search and optimisation methods inspired on the model of Darwinian evolution.
 The main features common to all the approaches are a population of individuals or potential solutions for the target problem, a selection method that favours better solutions, and a set of operators that iteratively act upon the selected solutions. If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population will increase with the number of generations.
 
 This metaheuristic has been widely used in the literature to solve many different problems, due to its simplicity and facility to be implemented. However, the application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms.
