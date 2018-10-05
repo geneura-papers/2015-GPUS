@@ -828,7 +828,7 @@ Once analyzed the whole literature from a general perspective, the following sec
 %After reading this section it is clear than PEAs is an active research field and there are so many different variations that almost for sure one of then can fit the needs of most users. Following this reasoning, in the next 5 sections, the most representative works of every type of EA are going to be presented for your convenience.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Server-client Approaches}
+\subsection{Server-client approaches}
 \label{sec:serverClient}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -854,7 +854,8 @@ One of the first proposals for parallel Evolutionary Computation using
 a GPU was done by Wong et
 al. \cite{man-leung-wong-parallel-2005}. They presented an
 Evolutionary Programming (EP) algorithm
-%without crossover EP does not have crossover - JJ
+% without crossover EP does not have crossover - JJ
+% EP is not included in the list of algorithms - JJ
 for solving five simple test functions, called Fast Evolutionary Programming
 (FEP). In this master-slave approach, some actions such as the main loop of the algorithm were executed in the CPU, while evaluation and mutation were run within the GPU device because both steps do not need of external information exchange. In this case, the reproduction process implies interaction among, at least, two individuals so the authors eliminated this step in the algorithm. A maximum speedup of $\times5.02$ was obtained when the population size increases. This is the most common organization in GPU implementations, since no
 interaction among individuals is required during the evaluation, so
