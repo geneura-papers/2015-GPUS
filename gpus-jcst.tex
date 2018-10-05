@@ -18,11 +18,6 @@
 
 \title{Parallelizing Evolutionary Algorithms on GPUs:\\ Current Trends and Methodologies}
 
-%% use optional labels to link authors explicitly to addresses:
-%% \author[label1,label2]{}
-%% \address[label1]{}
-%% \address[label2]{}
-
 %\author{Gustavo Romero$^1$, M.G. Arenas$^1$, A.M. Mora$^2$, \\
 %P. Garc{\'\i}a-S{\'a}nchez$^3$, J. J. Merelo$^1$, P.A. Castillo$^1$  \\ \\
 %\small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
@@ -73,6 +68,7 @@ terms of existing parallel approaches, so this survey will be focused on them.
 In the last years, new trends in parallelization and
 distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14},
 % Antonio - poner otras citas? Son todas nuestras. :_D
+% What about this? - JJ
 which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
 
@@ -81,8 +77,6 @@ GPUs are specialized stream processors, composed of hundreds (or
 thousands) of computation units, and designed to perform graphics
 manipulations applying optimized graphical primitive operations, at a
 much higher speed than a general purpose CPU.
-% composed by -> lo que hacen los compositores - JJ
-% Antonio - ok
 
 GPUs have been adapted to be used as General Purpose multi-processors
 with shared memory, or GPGPUs, in a similar shape to Single
@@ -100,10 +94,6 @@ In addition, the manuscript introduces the main concepts related with
 GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
 frameworks which can help to do this task. After this introduction, the work gives some guidelines to parallelize an EA using GPGPUs, pointing out the main issues and constraints that should be taken into account.
-% "also" should be avoided. Use some logical particle. "after
-% doing this, we do that which emanates from the first thing" - JJ
-% Antonio - Fixed
-
 
 The rest of the paper is structured as follows:
 Section \ref{sec:eas} introduces EAs and describes the most usual parallelization and distribution models in the literature.
@@ -292,7 +282,7 @@ approach.
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/serverClient.jpg}
-\includegraphics[width=20pc]{serverClient.eps}
+\includegraphics[width=20pc]{serverClient}
 \caption{Master-slave model.}
 \label{fig:serverClient}
 \end{figure}
@@ -307,7 +297,7 @@ In this scheme the parallelism is performed at population level, that is, the po
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/ring.jpg}
-\includegraphics[width=20pc]{ring.eps}
+\includegraphics[width=20pc]{ring}
 \caption{Island model scheme using a neighbourhood ring topology.}
 \label{fig:ring}
 \end{figure}
@@ -317,7 +307,7 @@ In this scheme the parallelism is performed at population level, that is, the po
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=5cm]{gfx/distributed/cellular.jpg}
-\includegraphics[width=15pc]{cellular.eps}
+\includegraphics[width=15pc]{cellular}
 \caption{Cellular Evolutionary Algorithm.}
 \label{fig:cellular}
 \end{figure}
@@ -370,7 +360,7 @@ Figure \ref{fig:cpu-gpu}.
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=\textwidth]{cpu-gpu.eps}
+\includegraphics[width=\textwidth]{cpu-gpu}
 \caption{CPU and GPU block diagram comparison.}
 \label{fig:cpu-gpu}
 \end{figure*}
@@ -521,7 +511,7 @@ possible, communications.
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.9\textwidth]{grid.eps}
+\includegraphics[width=0.9\textwidth]{grid}
 \caption{Execution model: A piece of data is called {\it work-item} (thread); a kernel has many work-items subdivided into many {\it work-groups} (thread blocks); each work-group process many work-items.}
 \label{figure:grid}
 \end{figure*}
@@ -537,7 +527,7 @@ Data storage and communication within a device and between devices, mainly CPU a
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.9\textwidth]{memory.eps}
+\includegraphics[width=0.9\textwidth]{memory}
 \caption{The memory model defines how data is stored and moved between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure*}
@@ -808,7 +798,7 @@ Looking at the publication rate per year inside this scope, it can be noticed in
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.75\textwidth]{years.eps}
+\includegraphics[width=0.75\textwidth]{years}
 \caption{Papers published per year in the scope of EAs on GPGPUs, according to Web of Science database.}
 \label{figure:publications}
 \end{figure*}
@@ -818,7 +808,7 @@ Regarding the type of EA implemented or studied in those papers, Figure \ref{fig
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{algorithmtype.eps}
+\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{algorithmtype}
 \caption{Type of Evolutionary Algorithm implemented in the analyzed publications.}
 \label{figure:type_algorithm}
 \end{figure*}
@@ -827,7 +817,7 @@ Finally, the majority of the analysed publications deal with solving real proble
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{realproblem.eps}
+\includegraphics[clip,trim=16 64 16 64,width=0.5\textwidth]{realproblem}
 \caption{Portion of the analyzed publications which address real problems.}
 \label{figure:type_problem}
 \end{figure*}

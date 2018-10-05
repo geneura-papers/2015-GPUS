@@ -10,12 +10,7 @@ rm *.dvi
 
 PAPER=gpus-jcst.tex
 NAME=`basename $PAPER .tex`
-latex $PAPER && latex $PAPER &&  latex $PAPER 
+pdflatex $PAPER && pdflatex $PAPER 
 bibtex $NAME
-latex $PAPER && latex $PAPER
+pdflatex $PAPER && pdflatex $PAPER 
 
-echo "-----------------------------" 
-
-dvips $NAME.dvi -o && ps2pdf $NAME.ps  &&  rm *.ps
-
-echo "-----------------------------"
