@@ -39,7 +39,7 @@
 Evolutionary Algorithms (EAs) are the most prolific metaheuristic adapted to General Purpose Graphics Processing Units (GPGPUs), as they are population-based approaches inherently parallel.
 Thus, this paper firstly aims to be a tutorial regarding the parallelization of EAs on GPGPUs, introducing their general features and main distributed models, together with several frameworks which allow to conduct this task easily, and the main issues to take into account in order to carry out these parallel implementations.
 The work also reviews the new advances in hardware and software in this field.
-Finally, the paper presents a deep survey on the literature related to the adaptation of EAs to GPGPUs. Thus, 194 publications have been revised, extracting their key features to categorize them.
+Finally, the paper presents a deep survey on the literature related to the adaptation of EAs to GPGPUs. Thus, 194 publications have been reviewed, extracting their key features to categorize them.
 We have followed a taxonomy of the approaches used for GPGPU parallelization. Then, a more in-depth analysis has been conducted on the most representative works in each category.
 \end{abstract}
 
@@ -107,7 +107,7 @@ of the best frameworks used to parallelize EAs in order to take
 advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). In
 the same section, the main issues to consider when a parallel version of
 an EA wants to be implemented on a GPGPU, are commented.
-Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel models implemented in the literature, in order to categorize the revised papers. Thus, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPGPUs are reviewed and divided following the proposed taxonomy, plotting also some interesting numbers and graphs related to them.
+Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel models implemented in the literature, in order to categorize the reviewed papers. Thus, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPGPUs are reviewed and divided following the proposed taxonomy, plotting also some interesting numbers and graphs related to them.
 Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
 
 
@@ -546,7 +546,7 @@ Data storage and communication within a device and between devices, mainly CPU a
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{memory}
-\caption{The memory model defines how data is stored and moved between CPU and GPU. Global memory is RW for both CPU and work-items; constant memory is RW for CPU and RO for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
+\caption{The memory model defines how data is stored and moved between CPU and GPU. Global memory is RW (read-write) for both CPU and work-items; constant memory is RW for CPU and RO (read-only) for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure*}
 
@@ -699,7 +699,7 @@ The parallel EAs community has a big amount of contributions using
 % Antonio - fixed
 MIMD architectures, but a very little regarding SIMD systems, probably due to the MIMD dominance over SIMD.
 
-Nevertheless, when the research community uses GPGPUs, all the EC approaches are parallel, so we have revised the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.
+Nevertheless, when the research community uses GPGPUs, all the EC approaches are parallel, so we have reviewed the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.
 For that reason, we focus the rest of the survey on the different ways for implementing Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming proposed in \cite{ZhangImplementationserverClient}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089}, %\cite{pospichalParallelGeneticAlgorithOnCUDA2010}
 or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11},  which use two or more of the previous parallel approaches in an hierarchical way.
 
@@ -1077,12 +1077,12 @@ approaches.
 The paper gives an introduction to the different existing GPU architectures, physical cards in the market, usual programming languages, and main frameworks, used nowadays in the industry and in this scientific area.
 Some guidelines are presented to the reader, in order to point out the main restrictions and issues to take into account when such a parallelization approach wants to be implemented on an EA.
 
-In addition, the work also proposes a novel taxonomy to classify the different types of GPU-based EA parallelization models published, and then, most of the existing papers in the literature have been revised, commented and analysed in a deep and wide survey.
+In addition, the work also proposes a novel taxonomy to classify the different types of GPU-based EA parallelization models published, and then, most of the existing papers in the literature have been reviewed, commented and analysed in a deep and wide survey.
 Thus, the work aims to be a reference for future authors, both, from the point of view of its introductory or tutorial use, and also as a compendium of the main proposals in this area, and their characteristics.
 % Does this taxonomy establish a estate of the art in taxonomies? Can you put it forward so that people using that taxonomy would reference this paper?
 % Antonio - I have rewritten and (hopefully) clarified that
 
-The main conclusion reached in this work is also its main justification, as the publication tendency in this field is growing continuously, being in the last three years more than 25 papers on average. The main implemented methods are Genetic Algorithm approaches (more than 50\% of the revised papers), and around 60\% the publications are focused on solving real problems, taking advantage of the high computational power than GPGPUs offer to the researchers.
+The main conclusion reached in this work is also its main justification, as the publication tendency in this field is growing continuously, being in the last three years more than 25 papers on average. The main implemented methods are Genetic Algorithm approaches (more than 50\% of the reviewed papers), and around 60\% the publications are focused on solving real problems, taking advantage of the high computational power than GPGPUs offer to the researchers.
 
 With respect to the most extended programming language, CUDA (for NVIDIA cards) is the clearly the winner, as it seems to offer better performance and specific tools for the most prolific cards.
 
