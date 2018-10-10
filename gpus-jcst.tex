@@ -6,6 +6,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{graphicx}
 \usepackage{pdflscape}
+\usepackage{algorithmic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % front page
@@ -130,23 +131,40 @@ Thus, the fittest individuals have more chances to be selected for reproduction,
 The general scheme of an EA, extracted from the work by Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}.
 
 % There is a nicer "Algorithmic" package. Use it - JJ
+%\begin{figure}[tb]
+%\begin{verbatim}
+%BEGIN
+% INITIALISE population with random candidate solutions;
+% EVALUATE each candidate;
+% REPEAT UNTIL (TERMINATION CONDITION is satisfied) DO
+%   1 SELECT parents;
+%   2 RECOMBINE pairs of parents;
+%   3 MUTATE the resulting offspring;
+%   4 EVALUATE new candidates;
+%   5 SELECT individuals for the next generation;
+% OD
+%END
+%\end{verbatim}
+%\caption{General scheme of an evolutionary algorithm in pseudo-code, obtained from \cite{eiben2010whatis}.}
+%\label{fig:basicscheme}
+%\end{figure}
+
 \begin{figure}[tb]
-\begin{verbatim}
-BEGIN
- INITIALISE population with random candidate solutions;
- EVALUATE each candidate;
- REPEAT UNTIL (TERMINATION CONDITION is satisfied) DO
-   1 SELECT parents;
-   2 RECOMBINE pairs of parents;
-   3 MUTATE the resulting offspring;
-   4 EVALUATE new candidates;
-   3 SELECT individuals for the next generation;
- OD
-END
-\end{verbatim}
+\begin{algorithmic}
+\STATE INITIALISE population with random candidate solutions
+\STATE EVALUATE each candidate
+\WHILE{TERMINATION CONDITION holds}
+  \STATE 1 SELECT parents
+  \STATE 2 RECOMBINE pairs of parents
+  \STATE 3 MUTATE the resulting offspring
+  \STATE 4 EVALUATE new candidates
+  \STATE 5 SELECT individuals for the next generation
+\ENDWHILE
+\end{algorithmic}
 \caption{General scheme of an evolutionary algorithm in pseudo-code, obtained from \cite{eiben2010whatis}.}
 \label{fig:basicscheme}
 \end{figure}
+
 
 Although most of the EAs follow this structure, there are some differences depending on the representation of solutions, the operators to apply, or even the kind of problem to solve. Thus, according to Eiben \cite{eiben2010whatis}, the classical types of EAs are:
 
