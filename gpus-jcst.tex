@@ -672,13 +672,14 @@ concept, in order to take advantage of it in the EA implementation. The programm
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Parallelization Taxonomy}
+\section{A high-level taxonomy of metaheuristics in GPUs}
 \label{sec:taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % This is a repetition of subsec:eas-distributed:parallel . Why don't
 % you put them together? - JJ
 % Antonio - It is not the same as in that section. That was an introduction and this is a (similar) taxonomy. I have clarified this inthe text and removed those redundant paragraphs/sentences.
+% Revising this, I have made the same comment. We should reconsider moving it to where they are actually used, with a little stub in the introduction - JJ
 In this section, a taxonomy to distinguish between the different
 distribution methods applied in the literature is proposed.
 It is inspired by the classical models used in the distribution of EAs, described in Section \ref{subsec:eas-distributed:parallel}.
@@ -695,22 +696,12 @@ EAs deployed on massive parallel processors (MPPs) are resurfacing,
 due to GPUs architecture gives low cost support for them.
 
 The parallel EAs community has a big amount of contributions using
-% wide legacy is not a thing - JJ
-% Antonio - fixed
 MIMD architectures, but a very little regarding SIMD systems, probably due to the MIMD dominance over SIMD.
 
 Nevertheless, when the research community uses GPGPUs, all the EC approaches are parallel, so we have reviewed the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.
 For that reason, we focus the rest of the survey on the different ways for implementing Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming proposed in \cite{ZhangImplementationserverClient}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089}, %\cite{pospichalParallelGeneticAlgorithOnCUDA2010}
 or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11},  which use two or more of the previous parallel approaches in an hierarchical way.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Taxonomy} % A section named taxonomy can't have a
-                      % subsection called taxonomy. Simply eliminate
-                      % the subsection, and leave this as an
-                      % introduction - JJ
-% Antonio - you're right
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Thus, the proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
 
@@ -789,11 +780,9 @@ Nevertheless, for the GPUs, hybrid EAs are a perfect candidate to exploit the hi
 
 By the end of the work we have included a subsection for non-standard
 approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including papers
-which may not be included in any of the previous ones because they
+which may not be easily clasified in any of the previous categories, since they
 mapped the algorithms and the problem they solve in a special way that
-cannot be considered as fine-grained, coarse-grained or master-slave
-ones.
-
+cannot be considered as fine-grained, coarse-grained or master-slave.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -809,8 +798,6 @@ Firstly, an in-depth analysis of the existing related literature has been done. 
 % Antonio - comprobar si se buscó en cualquier parte de los artículos
 % Check out these comments - JJ
 It yielded 329 references, from which we eliminated those references unrelated to the scope of this paper (for example, those whose topic is related with genetic engineering and not with genetic algorithms). After that removal, 194 results remained, which were carefully read in order to extract its features and useful information for this survey.
-% maybe we should rewrite these sentences avoiding the  "we"  [pedro]
-% Antonio - I have rewritten this in par i order to avoid somany 'we's
 
 Looking at the publication rate per year inside this scope, it can be noticed in Figure \ref{figure:publications}, that the publication figures has been increased every year, starting from 2004, being nowadays a very appealing and prolific field for researchers  (according to the results).
 
