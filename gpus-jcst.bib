@@ -2029,6 +2029,42 @@ abstract="an approach is proposed where the rule evaluation process is paralleli
 isbn="978-981-10-6487-6"
 }
 
+@Article{Jurczuk2017,
+author="Jurczuk, Krzysztof
+and Czajkowski, Marcin
+and Kretowski, Marek",
+title="Evolutionary induction of a decision tree for large-scale data: a GPU-based approach",
+journal="Soft Computing",
+year="2017",
+month="Dec",
+day="01",
+volume="21",
+number="24",
+pages="7363--7379",
+abstract="Evolutionary induction of decision trees is an emerging alternative to greedy top-down approaches. Its growing popularity results from good prediction performance and less complex output trees. However, one of the major drawbacks associated with the application of evolutionary algorithms is the tree induction time, especially for large-scale data. In the paper, we design and implement a graphics processing unit (GPU)-based parallelization of evolutionary induction of decision trees. We apply a Compute Unified Device Architecture programming model, which supports general-purpose computation on a GPU (GPGPU). The selection and genetic operators are performed sequentially on a CPU, while the evaluation process for the individuals in the population is parallelized. The data-parallel approach is applied, and thus, the parts of a dataset are spread over GPU cores. Each core processes the assigned chunk of the data. Finally, the results from all GPU cores are merged and the sought tree metrics are sent to the CPU. Computational performance of the proposed approach is validated experimentally on artificial and real-life datasets. A comparison with the traditional CPU version shows that evolutionary induction of decision trees supported by GPGPU can be accelerated significantly (even up to 800 times) and allows for processing of much larger datasets.",
+issn="1433-7479",
+doi="10.1007/s00500-016-2280-1",
+url="https://doi.org/10.1007/s00500-016-2280-1"
+}
+
+@Article{Vidal2017,
+author="Vidal, Pablo
+and Alba, Enrique
+and Luna, Francisco",
+title="Solving optimization problems using a hybrid systolic search on GPU plus CPU",
+journal="Soft Computing",
+year="2017",
+month="Jun",
+day="01",
+volume="21",
+number="12",
+pages="3227--3245",
+abstract="In recent years, graphics processing units (GPUs) have emerged as a powerful architecture for solving a broad spectrum of applications in very short periods of time. However, most existing GPU optimization approaches do not exploit the full power available in a CPU--GPU platform. They have a tendency to leave one of them partially unused (usually the CPU) and fail to establish an accurate exchange of information that could help solve the target problem efficiently. Thus, better performance is expected from devising a hybrid CPU--GPU parallel algorithm that combines the highly parallel stream processing power of GPUs with the higher power of multi-core architectures. We have developed a hybrid methodology to efficiently solve optimization problems. We use a hybrid CPU--GPU architecture, to benefit from running it, in parallel, on both the CPU and the GPU. Our experiments over a heterogeneous set of combinatorial optimization problems with increasing dimensionality show a time gain of up to {\$}{\$}365{\backslash}times {\$}{\$}365{\texttimes}in our proposal, while demonstrating high numerical accuracy. This work is intended to open up a new line of research that matches both architectures with new algorithms and cooperation techniques.",
+issn="1433-7479",
+doi="10.1007/s00500-015-2005-x",
+url="https://doi.org/10.1007/s00500-015-2005-x"
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%% 2018 citations
 
 @article{ZHOU2018,
