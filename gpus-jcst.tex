@@ -17,7 +17,7 @@
 %\begin{frontmatter}
 
 
-\title{High performance evolutionary algorithms on GPUs}
+\title{High performance evolutionary algorithms on GPUs: a survey}
 
 %\author{Gustavo Romero$^1$, M.G. Arenas$^1$, A.M. Mora$^2$, \\
 %P. Garc{\'\i}a-S{\'a}nchez$^3$, J. J. Merelo$^1$, P.A. Castillo$^1$  \\ \\
@@ -36,11 +36,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Evolutionary Algorithms (EAs) are the most prolific metaheuristic adapted to General Purpose Graphics Processing Units (GPGPUs), as they are population-based approaches inherently parallel.
-Thus, this paper firstly aims to be a tutorial regarding the parallelization of EAs on GPGPUs, introducing their general features and main distributed models, together with several frameworks which allow to conduct this task easily, and the main issues to take into account in order to carry out these parallel implementations.
+  % We should avoid qualifiers such as "most prolific". They are
+  % meaningless. - JJ
+Evolutionary Algorithms (EAs) are the most prolific metaheuristic
+adapted to General Purpose Graphics Processing Units (GPGPUs), as they
+are inherently parallel population-based approaches.
+% It's not a tutorial. It's a survey. Do you want to show people how
+% to put them to use? - JJ
+Thus, this paper firstly aims to be a tutorial regarding the
+parallelization of EAs on GPGPUs, introducing their general features
+and main distributed models, together with several frameworks which
+allow to conduct this task easily, and the main issues to take into
+account in order to carry out these parallel implementations.
+% Does it? Since 2015? - JJ
 The work also reviews the new advances in hardware and software in this field.
-Finally, the paper presents a deep survey on the literature related to the adaptation of EAs to GPGPUs. Thus, 194 publications have been reviewed, extracting their key features to categorize them.
-We have followed a taxonomy of the approaches used for GPGPU parallelization. Then, a more in-depth analysis has been conducted on the most representative works in each category.
+Finally, the paper presents a deep survey on the literature related to
+the adaptation of EAs to GPGPUs. Thus, 194 publications have been
+reviewed, extracting their key features to categorize them. % Better
+                                % not to say a number, because it will
+                                % change from version to version - JJ
+We have followed a taxonomy of the approaches used for GPGPU
+parallelization. % Followed which taxonomy? You mean followed with? - JJ
+Then, a more in-depth analysis has been conducted on
+the most representative works in each category. % In depth analysis of
+                                % what? - JJ
 \end{abstract}
 
 %\begin{keyword}
@@ -57,7 +76,13 @@ We have followed a taxonomy of the approaches used for GPGPU parallelization. Th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Evolutionary Algorithms (EAs) \cite{EAs_Back96} are a class of probabilistic search and optimisation methods inspired on the model of Darwinian evolution.
-The main features common to all the approaches are a population of individuals or potential solutions for the target problem, a selection method that favours better solutions, and a set of operators that iteratively act upon the selected solutions. If there is defined a correct {\em fitness function}, which assigns a reliable value to every individual, this process guarantees that the average quality of the population will increase with the number of generations.
+The main features common to all the approaches are a population of
+individuals or potential solutions for the target problem, a selection
+method that favours better solutions, and a set of operators that
+iteratively act upon the selected solutions. If there is defined a
+correct {\em fitness function}, which assigns a reliable value to
+every individual, this process guarantees that the average quality of
+the population will increase with the number of generations. 
 
 This metaheuristic has been widely used in the literature to solve many different problems, due to its simplicity and facility to be implemented. However, the application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms.
 
@@ -852,6 +877,7 @@ might be copied from CPU to GPU once at the beginning of the process,
 so the threads might access this data for evaluation minimizing CPU/GPU
 traffic.
 
+% Unify using EC or Evolutionary Computation through the paper - JJ
 One of the first proposals for parallel Evolutionary Computation using
 a GPU was done by Wong et
 al. \cite{man-leung-wong-parallel-2005}. They presented an
@@ -1016,7 +1042,15 @@ Comparison of several approaches is a very important task to do when presenting 
 The two latter approaches reduced the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. Sequential and parallel implementations were compared, obtaining a speedup of $\times1757$ using the third approach.
 
 
-The coarse-grained models are still being investigated. Recently, Li et al \cite{Li2016} developed a parallel GA for GPGPUs. They took advantage of the many cores of GPUs to enhance computation efficiency, by using a large amount of threads simultaneously. This strategy allows the population to scale and accelerates the speed to find the global optimal solution. Zhengfu et al. \cite{Zhengfu2016} proposed to improve the computational efficiency of information entropy multi-population GA, and to reduce the computing time, by using a CUDA-based implementation.
+The coarse-grained models are still being investigated. Recently, Li
+et al \cite{Li2016} developed a parallel GA for GPGPUs. They took
+advantage of the many cores of GPUs to enhance computation efficiency,
+by using a large amount of threads simultaneously. This strategy
+allows the population to scale and accelerates the speed to find the
+global optimal solution. Zhengfu et al. \cite{Zhengfu2016} proposed to
+improve the computational efficiency of information entropy
+multi-population GA, and to reduce the computing time, by using a
+CUDA-based implementation. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1028,7 +1062,34 @@ in order to take advantage of the best of every one, for instance,
 fusing the master-slave evaluation with the diversity mechanisms of
 island-based models. 
 
-This is the case of the work by Munawar et al. \cite{Munawar:2009:HGA:1666141_1666143}, where the design and implementation of a hybrid EA with local search to solve MAX-SAT over GPUs was thoroughly discussed. The authors implemented a hierarchical algorithm of 2D structured sub-populations arranged as islands in a 2D grid. Thus, every individual and sub-population has 4 neighboring ones (north, south, east and west). A new technique called {\em diffusion} is used instead of a conventional algorithm for the migration between sub-populations, as it is more suitable for the implementation of cGAs based pGA over a GPU. In the proposal, the host processor (CPU) acts as a controller, while a NVIDIA Tesla C1060 GPU provides the required computational resources. This processor is also responsible of configuration, memory allocation and initialization. After the initialization stage, data is transferred to the device and the code enters a loop. The loop keeps on repeating until the maximum number of generation criteria is satisfied. Results were collected over a system with NVIDIA Tesla C1060 GPU mounted on a motherboard with Intel Core i7 920 2.67GHz as the host CPU. C1060 have 4GB of device memory, 30 streaming multiprocessors, and the total number of processing cores is 240. The maximum amount of shared memory per block is 16KB and clock rate is 1.30GHz. They compare the results of the algorithms over NVIDIA with optimized for local search, mutation, recombination, selection and diffusion (migration) with different implementations using serial implementation, OpenMP implementation over Intel and over Ultra Spark architectures. The found that the maximum speedup is for larger problems, and it is up to $\times25$ if compared the serial implementation over Intel Core 2 Duo 3.3GHz with the NVIDIA implementation.
+This is the case of the work by Munawar et
+al. \cite{Munawar:2009:HGA:1666141_1666143}, where the design and
+implementation of a hybrid EA with local search to solve MAX-SAT over
+GPUs was thoroughly discussed. The authors implemented a hierarchical
+algorithm of 2D structured sub-populations arranged as islands in a 2D
+grid. Thus, every individual and sub-population has 4 neighboring ones
+(north, south, east and west). A new technique called {\em diffusion}
+is used instead of a conventional algorithm for the migration between
+sub-populations, as it is more suitable for the implementation of cGAs
+based pGA over a GPU. In the proposal, the host processor (CPU) acts
+as a controller, while a NVIDIA Tesla C1060 GPU provides the required
+computational resources. This processor is also responsible of
+configuration, memory allocation and initialization. After the
+initialization stage, data is transferred to the device and the code
+enters a loop. The loop keeps on repeating until the maximum number of
+generation criteria is satisfied. Results were collected over a system
+with NVIDIA Tesla C1060 GPU mounted on a motherboard with Intel Core
+i7 920 2.67GHz as the host CPU. C1060 have 4GB of device memory, 30
+streaming multiprocessors, and the total number of processing cores is
+240. The maximum amount of shared memory per block is 16KB and clock
+rate is 1.30GHz. They compare the results of the algorithms over
+NVIDIA with optimized for local search, mutation, recombination,
+selection and diffusion (migration) with different implementations
+using serial implementation, OpenMP implementation over Intel and over
+UltraSPARC architectures. The found that the maximum speedup is for
+larger problems, and it is up to $\times25$ if compared the serial
+implementation over Intel Core 2 Duo 3.3GHz with the NVIDIA
+implementation. 
 
 %Diego et al. \cite{fjdiego-vrp}proposed a parallel strategy for solving the Capacitated Vehicle Routing Problem (CVRP) by means of an ACO algorithm. They combined the CPU processing, random number generation and centralized pheromone information dealing, with the GPU parallel capabilities: initialization of trails, build solutions, choosing of the best solution, and pheromone evaporation. The experiments were conducted on a GeForce GTX460 in a Pentium Dual Core 2.7GHz with 2GB RAM, using CUDA. The results showed a speedup of $\times12$ in the best case.
 
