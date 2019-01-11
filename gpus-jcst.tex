@@ -706,7 +706,7 @@ or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11},  which use two o
 Thus, the proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
 
 % -----------------------------------------------
-\subsection{Master-slave approaches}
+\subsection{Client-server approaches}
 \label{subsec:serverClientapproaches}
 Master-slave Evolutionary Algorithms traditionally solve problems
 involving computationally expensive fitness functions, where the
@@ -809,7 +809,14 @@ Looking at the publication rate per year inside this scope, it can be noticed in
 \end{figure*}
 
 
-Regarding the type of EA implemented or studied in those papers, Figure \ref{figure:type_algorithm} shows the percentages of the different approaches. The most prolific ones are GAs, since it is the classic optimization method inside EAs. It is easy to implement and usually yields very good results.  GP and DE are more specific and thus, less extended or used. `Others' refers to EAs such as EDA (Estimation of Distribution Algorithm), SGS (Systolic Genetic Search) or MA (Memetic Algorithms), to cite a few.
+Regarding the type of EA implemented or studied in those papers,
+Figure \ref{figure:type_algorithm} shows the percentages of the
+different approaches. The most prolific ones are GAs, since it is the
+classic optimization method inside EAs. It is easy to implement and
+usually yields very good results.  GP and DE are more specific and
+thus, less extended or used. `Others' refers to EAs such as EDA
+(Estimation of Distribution Algorithm), SGS (Systolic Genetic Search)
+or MA (Memetic Algorithms), to cite a few.  
 
 \begin{figure*}[!ht]
 \centering
@@ -868,14 +875,27 @@ For example, Zhang et al. \cite{ZhangImplementationserverClient}, proposed the u
 On another hand, Djenouri et al. \cite{Djenouri2017a} propose using bio-inspired approaches (GA, PSO, and BSO) to solve wellknown large association rules mining instances; in their work, after the generation of the rules on CPU, all the obtained rules are sent to the GPU for the evaluation process. In a further works \cite{Djenouri2017b,DJENOURI2018}, an intelligent strategy is proposed to partition the search space of rules in several independent sub-spaces to allow multiple CPU cores to explore the search space efficiently and without performing redundant work, having obtained that the suggested approach outperforms the sequential version by up to at 600 times for large datasets. 
 
 In \cite{Jurczuk2017}, authors design and implement a graphics processing unit (GPU)-based parallelization of evolutionary induction of decision trees; in this method the selection and genetic operators are performed sequentially on a CPU, while the evaluation process for the individuals in the population is parallelized on GPU.
-A similar approach has been proposed by Vidal et al in \cite{Vidal2017}, where authors propose a hybrid CPU–GPU implementation on multi-core CPUs plus a GPU using OpenMP and CUDA respectively; in this method, the solutions of the CPU technique are used to replace—to improve—some of the solutions in the GPU algorithm.
+A similar approach has been proposed by Vidal et al in
+\cite{Vidal2017}, where authors propose a hybrid CPU--GPU
+implementation on multi-core CPUs plus a GPU using OpenMP and CUDA
+respectively; in this method, the solutions of the CPU technique are
+used to replace some of the solutions in the GPU algorithm.
 
 Van Luong et al. \cite{5586403} published in 2010 a methodology for mapping the search space onto the GPU memory hierarchy in three levels: (1) the distribution of the search process among the CPU and GPU, (2) the mapping of the neighborhood in the GPU threads, and (3) the effective usage of the texture memory in the context of hybrid EAs. Experiments to solve the QAP problem with CUDA were presented, where the evolutionary process was performed in the CPU and the generation of the Local Search neighborhood were conducted on parallel in the GPU, achieving an acceleration of $\times14.6$ times faster. Hardware used was Core 2 Duo 2.67GHz and Nvidia GTX 280. This work also showed the benefits of using a conjunction of CPU + GPU, being the GPU used only for intensive calculations.
 
-%There are other papers related with the previous approach, like the one by Tsutsui et al. \cite{Tsutsui:2011:GECCO}. This work uses a master-slave approach with an Ant Colony Optimization (ACO) algorithm \cite{Dorigo:1999:ACO:329055.329062} and Tabu Search \cite{Glover:1997:TS:549765}. Tsutsui uses an Intel Core i7 965 (3.2 GHz) processor and a single NVIDIA GeForce GTX480 GPU. They compare CPU and GPU implementations with and the results showed that GPU computation with MATA, an efficient method for thread assignment cost which they call Move-Cost Adjusted Thread Assignment, showed a promising speedup compared to computation with CPU. PABLO: REMOVED THIS, IT IS AN ACO
-
 There are papers related with other subjects % cuales subjects? - JJ
-like \cite{Pedemonte:2011:BOG:2001858.2002031} which studies the impact of using different representations for binary problems in GPUs to evaluate GAs: boolean data type versus packing multiple bits in a non-boolean data type. The execution platform was a PC with a Quad Core Intel Xeon E5530 processor at 2.4GHz and a Tesla C1060 with 240 CUDA cores. The CPU only calculates the initial population and a matrix of random numbers to be used in crossover and mutation by the GPU. The authors reviewed the problem of the data types when GPGPU is used. Several data types of 8, 16, 32, and 64 bits are compared in CPU and GPU versions. Results showed that packing in 32 bits data types achieve speedup values of up to $\times100$ compared with boolean data types, specially when the size
+like \cite{Pedemonte:2011:BOG:2001858.2002031} which studies the
+impact of using different representations for binary problems in GPUs
+to evaluate GAs: boolean data type versus packing multiple bits in a
+non-boolean data type. The execution platform was a PC with a Quad
+Core Intel Xeon E5530 processor at 2.4GHz and a Tesla C1060 with 240
+CUDA cores. The CPU only calculates the initial population and a
+matrix of random numbers to be used in crossover and mutation by the
+GPU. The authors reviewed the problem of the data types when GPGPU is
+used. Several data types of 8, 16, 32, and 64 bits are compared in CPU
+and GPU versions. Results showed that packing in 32 bits data types
+achieve speedup values of up to $\times100$ compared with boolean data
+types, specially when the size 
 of the instances increases. This make sense because the Tesla C1060
 are equipped with 32-bit integer ALUs.
 
@@ -936,8 +956,6 @@ information exchange between individuals in different SMs.
 The second problem of this approach is the random number
 generator. The CPU can easily generate random numbers, but the GPU is
 not able to do this task.
-% In fact, the CPU is not either. - JJ
-% Antonio - fixed
 So researchers have to think about how to solve this problem. Usually the algorithm's implementation generate at the beginning a big set of random numbers and they are copied to the GPU as a list. After that, the GPU uses the random list when needed and when it need. This approach saves time for random generation but the list of random numbers has to be limited. Moreover, all SPs could use the random numbers, so the list must be available for every
 thread.
 
@@ -957,8 +975,6 @@ As in previous work, fitness evaluation and genetic operators were applied in th
 The difference is that they used a pseudo random number generator provided by the SDK of CUDA named Merseinne Twister. Some general discrete and continuous optimization problems were used in the experimental setup, and physical and numerical efficacy were compared with respect to CPU implementation.
 
 In \cite{Li:2009:PIA:1726585.1726930} the authors proposed an Fine-grained parallel immune algorithm (FGIA) which is an Artificial Immune System combined with an EA. Three medium-size instances of the Travelling Salesman problem (TSP) were solved by using a fine-grained parallel algorithm with CUDA C. The algorithm enlarges the population size of FGIA maintaining better population diversity. As a remark, the authors included a sub-linear relation between the population size and the execution time, which made the proposal very useful for solving difficult problems that require huge population sizes.
-
-
 
 Depending on the problem size, fine-grained approaches may improve the
 efficiency with respect to the coarse-grained version. For example, in
@@ -983,8 +999,6 @@ This kind of EAs works by dividing the main population into sub-populations (als
 This basic feature of coarse-grained EAs hits a physical limit of
 GPUs.
 
-% a ver qué tal esta versión:     [pedro]
-% Antonio - mejor. ;)
 In order to run a coarse-grained EA using a GPU device, several kernels could be run simultaneously. In that case, each kernel could handle a sub-population of individuals, establishing some synchronisation points.
 However, the GPU architecture is not designed for synchronising
 different kernels into the same grid, which means that using a GPU to
@@ -1009,14 +1023,14 @@ The coarse-grained models are still being investigated. Recently, Li et al \cite
 \subsection{Hierarchical Models}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-As mentioned before, these approaches aim to combine previous models, in order to take advantage of the best of every one, for instance, fusing the master-slave evaluation with the diversity mechanisms of island-based models.
+As mentioned before, these approaches aim to combine previous models,
+in order to take advantage of the best of every one, for instance,
+fusing the master-slave evaluation with the diversity mechanisms of
+island-based models. 
 
 This is the case of the work by Munawar et al. \cite{Munawar:2009:HGA:1666141_1666143}, where the design and implementation of a hybrid EA with local search to solve MAX-SAT over GPUs was thoroughly discussed. The authors implemented a hierarchical algorithm of 2D structured sub-populations arranged as islands in a 2D grid. Thus, every individual and sub-population has 4 neighboring ones (north, south, east and west). A new technique called {\em diffusion} is used instead of a conventional algorithm for the migration between sub-populations, as it is more suitable for the implementation of cGAs based pGA over a GPU. In the proposal, the host processor (CPU) acts as a controller, while a NVIDIA Tesla C1060 GPU provides the required computational resources. This processor is also responsible of configuration, memory allocation and initialization. After the initialization stage, data is transferred to the device and the code enters a loop. The loop keeps on repeating until the maximum number of generation criteria is satisfied. Results were collected over a system with NVIDIA Tesla C1060 GPU mounted on a motherboard with Intel Core i7 920 2.67GHz as the host CPU. C1060 have 4GB of device memory, 30 streaming multiprocessors, and the total number of processing cores is 240. The maximum amount of shared memory per block is 16KB and clock rate is 1.30GHz. They compare the results of the algorithms over NVIDIA with optimized for local search, mutation, recombination, selection and diffusion (migration) with different implementations using serial implementation, OpenMP implementation over Intel and over Ultra Spark architectures. The found that the maximum speedup is for larger problems, and it is up to $\times25$ if compared the serial implementation over Intel Core 2 Duo 3.3GHz with the NVIDIA implementation.
 
 %Diego et al. \cite{fjdiego-vrp}proposed a parallel strategy for solving the Capacitated Vehicle Routing Problem (CVRP) by means of an ACO algorithm. They combined the CPU processing, random number generation and centralized pheromone information dealing, with the GPU parallel capabilities: initialization of trails, build solutions, choosing of the best solution, and pheromone evaporation. The experiments were conducted on a GeForce GTX460 in a Pentium Dual Core 2.7GHz with 2GB RAM, using CUDA. The results showed a speedup of $\times12$ in the best case.
-
-%PABLO: REMOVING ACO REFERENCES
-%Delevacq et al. \cite{ACO-on-GPU_Develacq} tests different parallel strategies for the ACO metaheuristic on a NVIDIA Fermi C2050 GPU, on a four-core Xeon E5640 @2.6 GHz with 24GB RAM. The Max-Min Ant System is considered for solving the TSP for problem sizes of up to 2100 cities. Authors proposed multi-ant (one colony) and multi-colony approaches implemented with CUDA. They distributed the solutions on the GPU processing elements: an ant per thread, and an ant per block respectively. The common structures, pheromone matrix, distances and candidate lists, are stored in shared memory, meanwhile the CPU is used for a preliminary set of random numbers generation and centralized control tasks. For the multi-colony algorithms, a set of ants is assigned to every processing element. This time, almost the whole algorithm is run in the GPU. They obtained speedups of up to $\times19$ in the multi-ant, and up to 8 in the multi-colony approaches, having similar solution quality than the original sequential approach.
 
 %Cecilia et al. \cite{Cecilia201342} proposed three different techniques for improving the classical ACO algorithms parallelization on GPUs: a data parallelism scheme for tour construction on GPU, a GPU-based pheromone updating stage, and a roulette wheel implementation on GPU, called I-Roulette. They introduced the queen ants, associated with CUDA blocks, and the worker ants, associated to CUDA threads. The experiments were performed on a four-core Intel Xeon E5620 running at 2.4 GHz, with 16GB RAM, and a NVIDIA Tesla C2050 Fermi. The proposed techniques lead to obtain a speedup factor of up to $\times20$ in comparison with the sequential implementation.
 
