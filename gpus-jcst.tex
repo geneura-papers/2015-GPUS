@@ -62,7 +62,7 @@ the most representative works in each category. % In depth analysis of
                                 % what? - JJ
 \end{abstract}
 
-%\begin{keyword}
+% \begin{keyword}
 %parallel computation \sep evolutionary algorithms \sep metaheuristics \sep GPUs \sep GPGPUs \sep survey
 %\end{keyword}
 %
@@ -86,8 +86,20 @@ the population will increase with the number of generations.
 
 This metaheuristic has been widely used in the literature to solve many different problems, due to its simplicity and facility to be implemented. However, the application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms.
 
-Even if EAs were proposed as sequential methods, their features, such as the population of independent solutions they manage, or some operators/functions which are applied on every individual at a time, make them intrinsically parallel approaches, and thus, very suitable to be distributed or parallelized (at different grain levels).
-The aim of the parallelization is usually the improvement of the running time for yielding an objective solution, if known, or for obtaining a certain degree of quality in the solution, if it is not the optimal. But sometimes this distribution also implies a different searching scheme, which leads to a different searching area of the space of solutions and thus, which yields a different solution or set of solutions for the problem, that could be better than the one obtained in the sequential approach.
+Even if EAs are sequential algorithms, their features, such as the
+population of independent solutions they manage, or some
+operators/functions which are applied on every individual at a time,
+make them amenable to a straighforward, and functionally equivalent,
+parallelization, and thus, very suitable
+to be distributed or parallelized (at different grain levels). 
+The aim of the parallelization is usually the improvement of the
+running time for yielding an objective solution, if known, or for
+obtaining a certain degree of quality in the solution, if it is not
+the optimal. But sometimes this distribution also implies a different
+searching scheme, which leads to a different searching area of the
+space of solutions and thus, which yields a different solution or set
+of solutions for the problem, that could be better than the one
+obtained in the sequential approach. 
 For these reasons, EAs are so far the most prolific metaheuristic in
 terms of existing parallel approaches, so this survey will be focused on them.
 
