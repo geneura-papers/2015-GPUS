@@ -38,28 +38,26 @@
 \begin{abstract}
   % We should avoid qualifiers such as "most prolific". They are
   % meaningless. - JJ
-Evolutionary Algorithms (EAs) are the most prolific metaheuristic
-adapted to General Purpose Graphics Processing Units (GPGPUs), as they
-are inherently parallel population-based approaches.
+% Antonio - done
+Evolutionary Algorithms (EAs) have been widely adapted to General Purpose Graphics Processing Units (GPGPUs), as they are inherently parallel population-based approaches.
 % It's not a tutorial. It's a survey. Do you want to show people how
 % to put them to use? - JJ
-Thus, this paper firstly aims to be a tutorial regarding the
-parallelization of EAs on GPGPUs, introducing their general features
-and main distributed models, together with several frameworks which
-allow to conduct this task easily, and the main issues to take into
-account in order to carry out these parallel implementations.
+% Antonio - Yes, there is a section about it and one of the journals aimed for tutorials. I have adapted it.
+Thus, this paper aims firstly to describe the parallelization process of EAs on GPGPUs, introducing their general features and main distributed models, together with several frameworks which allow to conduct this task easily, and the main issues to take into account in order to carry out these parallel implementations.
 % Does it? Since 2015? - JJ
-The work also reviews the new advances in hardware and software in this field.
+% Antonio - we are updating it to 2018, so...yes
+The work also reviews the new advances in hardware and software in this field, as well as new trends and challenges arising in this scope.
 Finally, the paper presents a deep survey on the literature related to
-the adaptation of EAs to GPGPUs. Thus, 194 publications have been
-reviewed, extracting their key features to categorize them. % Better
-                                % not to say a number, because it will
-                                % change from version to version - JJ
-We have followed a taxonomy of the approaches used for GPGPU
-parallelization. % Followed which taxonomy? You mean followed with? - JJ
-Then, a more in-depth analysis has been conducted on
-the most representative works in each category. % In depth analysis of
-                                % what? - JJ
+the adaptation of EAs to GPGPUs. Thus, more than 200 publications have been
+reviewed, extracting their key features to categorize them. 
+% Better not to say a number, because it will change from version to version - JJ
+% Antonio - fixed
+The papers have been grouped following a taxonomy of the approaches used for GPGPU parallelization. 
+% Followed which taxonomy? You mean followed with? - JJ
+% Antonio - Now it is clearer I think
+Then, a more in-depth review has been conducted on the most representative works in each category, extracting their main features and findings, and some statistical analyses on the publication history and tendency have been conducted.
+% In depth analysis of what? - JJ
+% Antonio - It is better now
 \end{abstract}
 
 % \begin{keyword}
@@ -100,8 +98,7 @@ searching scheme, which leads to a different searching area of the
 space of solutions and thus, which yields a different solution or set
 of solutions for the problem, that could be better than the one
 obtained in the sequential approach. 
-For these reasons, EAs are so far the most prolific metaheuristic in
-terms of existing parallel approaches, so this survey will be focused on them.
+For these reasons, parallel EAs have been widely studied in the literature, so this survey will be focused on them.
 
 In the last years, new trends in parallelization and
 distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14},
@@ -1185,7 +1182,7 @@ Thus, the work aims to be a reference for future authors, both, from the point o
 
 The main conclusion reached in this work is also its main justification, as the publication tendency in this field is growing continuously, being in the last three years more than 25 papers on average. The main implemented methods are Genetic Algorithm approaches (more than 50\% of the reviewed papers), and around 60\% the publications are focused on solving real problems, taking advantage of the high computational power than GPGPUs offer to the researchers.
 
-With respect to the most extended programming language, CUDA (for NVIDIA cards) is the clearly the winner, as it seems to offer better performance and specific tools for the most prolific cards.
+With respect to the most extended programming language, CUDA (for NVIDIA cards) is the clearly the winner, as it seems to offer better performance and specific tools for the most used cards.
 
 Of course, in almost all the cases, very big speedups are attained in comparison with traditional CPU-based sequential and parallel versions. However, most authors agree that bottlenecks appear copying data from main memory to the GPGPU device, so new hardware and software solutions are emerging trying to minimize
 the communication cost between GPUs and CPUs.
