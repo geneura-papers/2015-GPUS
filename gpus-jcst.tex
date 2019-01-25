@@ -302,8 +302,6 @@ Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \l
 
 EAs are inherently parallelizable, since each individual can be
 considered in many senses as an independent unit \cite{Alba13parallel}.
-% That's not really true... You need several individuals for most operations - JJ
-% Antonio - True. Fixed
 There are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time.
 
 Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
@@ -368,9 +366,6 @@ In this scheme the parallelism is performed at population level, that is, the po
 
 
 
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Massive parallelization on General Purpose GPUs}
 \label{sec:parall_and_GPUs}
@@ -380,7 +375,8 @@ As Gordon Moore predicted in 1965 the number of transistors placed on
 integrated circuits has doubled approximately every two years. % This
                                 % is not the place to say
                                 % this. Probably in the intro - JJ
-Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half. That is, as the primary factor influencing the limits of improving single-node performance is the energy efficiency, new heterogeneous architectures have emerged in response to those limits \cite{VetterHeterogeneous11}.
+% And it needs a reference - JJ
+Obviously this growth rate is not going to be kept into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half. That is, as the primary factor influencing the limits of improving single-node performance is the energy efficiency, new heterogeneous architectures have emerged in response to those limits \cite{VetterHeterogeneous11}.
 
 Parallel computation has passed from been an utility to a
 necessity. As newer processors are barely faster than previous ones
