@@ -58,6 +58,7 @@ The papers have been grouped following a taxonomy of the approaches used for GPG
 Then, a more in-depth review has been conducted on the most representative works in each category, extracting their main features and findings, and some statistical analyses on the publication history and tendency have been conducted.
 % In depth analysis of what? - JJ
 % Antonio - It is better now
+Finally, we have conducted a comparative analysis with other high-performance computing methods, such as parallelization through Cloud Computing or the use of FPGAs for accelerating specific operations.
 \end{abstract}
 
 % \begin{keyword}
@@ -101,9 +102,10 @@ obtained in the sequential approach.
 For these reasons, parallel EAs have been widely studied in the literature, so this survey will be focused on them.
 
 In the last years, new trends in parallelization and
-distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,Meri_CloudEA13,Volunteer-LaredoBGVAGF14},
+distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,VermaCloud10,Nouman-VolunComp14},
 % Antonio - poner otras citas? Son todas nuestras. :_D
 % What about this? - JJ
+% Antonio - Fixed. ;)
 which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
 scalability or decentralization.
 
@@ -123,12 +125,16 @@ EAs have also adopted this new trend, and a huge amount of parallel and distribu
 Thus, this paper presents a taxonomy regarding the different
 parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after revising more than
-200 works published since 2004.
+200 works published since their emergence in 2004.
 
 In addition, the manuscript introduces the main concepts related with
 GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
 frameworks which can help to do this task. After this introduction, the work gives some guidelines to parallelize an EA using GPGPUs, pointing out the main issues and constraints that should be taken into account.
+
+The work also compares this parallelization methodology with other extended high-performance methods such as Cloud Computing, massive Volunteer Computing, or specialized FPGAs.
+
+Finally, some of the new trends and open challenges in the scope of GPGPU computation are discussed.
 
 The rest of the paper is structured as follows:
 Section \ref{sec:eas} introduces EAs and describes the most usual parallelization and distribution models in the literature.
@@ -142,7 +148,7 @@ advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). In
 the same section, the main issues to consider when a parallel version of
 an EA wants to be implemented on a GPGPU, are commented.
 Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel models implemented in the literature, in order to categorize the reviewed papers. Thus, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPGPUs are reviewed and divided following the proposed taxonomy, plotting also some interesting numbers and graphs related to them.
-Finally, some conclusions are remarked in Section \ref{sec:conclusions}.
+GPGPU computing is compared with other high-performance approaches in Section \ref{sec:comparison-hpc} and new trends and challenges are discussed in Section \ref{sec:discussion}. Finally, Section \ref{sec:conclusions} remarks reached conclusions.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1138,10 +1144,26 @@ and speedup improvement.
 
 %These non-standard approaches do this or that... - JJ
 
-\section{Disussion on new trends and future challenges}
+% ---------------------------------------------------------------------
+
+\section{Comparison with other high-performance methods}
+\label{sec:comparison-hpc}
+
+Some methods to compare with:
+
+\begin{itemize}
+\item Cloud Computing
+\item HP Volunteer Computing    % https://www.arcos.inf.uc3m.es/hipervoco/
+\item FPGAs
+\end{itemize}
+
+
+% ---------------------------------------------------------------------
+
+\section{Discussion on new trends and future challenges}
 \label{sec:discussion}
 
-Afer reviewing previous papers, new trends can be drawn:
+After reviewing previous papers, new trends can be drawn:
 
 \begin{itemize}
 
