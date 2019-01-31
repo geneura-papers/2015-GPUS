@@ -170,25 +170,6 @@ Thus, the fittest individuals have more chances to be selected for reproduction,
 %\label{sec:distributed:types}
 The general scheme of an EA, extracted from the work by Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}.
 
-% There is a nicer "Algorithmic" package. Use it - JJ
-%\begin{figure}[tb]
-%\begin{verbatim}
-%BEGIN
-% INITIALISE population with random candidate solutions;
-% EVALUATE each candidate;
-% REPEAT UNTIL (TERMINATION CONDITION is satisfied) DO
-%   1 SELECT parents;
-%   2 RECOMBINE pairs of parents;
-%   3 MUTATE the resulting offspring;
-%   4 EVALUATE new candidates;
-%   5 SELECT individuals for the next generation;
-% OD
-%END
-%\end{verbatim}
-%\caption{General scheme of an evolutionary algorithm in pseudo-code, obtained from \cite{eiben2010whatis}.}
-%\label{fig:basicscheme}
-%\end{figure}
-
 \begin{figure}[tb]
 \begin{algorithmic}
 \STATE INITIALISE population with random candidate solutions
@@ -306,8 +287,7 @@ Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \l
 \subsection{Parallel and Distributed Evolutionary Algorithm Models}
 \label{subsec:eas-distributed:parallel}
 
-EAs are inherently parallelizable, since each individual can be
-considered in many senses as an independent unit \cite{Alba13parallel}.
+EAs, as most of the population-based methods are inherently parallelizable at different grain levels and operations, from a single individual (for their independent operations) to a subgroup of the whole population  \cite{Alba13parallel}.
 % That's not really true... You need several individuals for most operations - JJ
 % Antonio - True. Fixed
 There are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time.
@@ -382,14 +362,16 @@ In this scheme the parallelism is performed at population level, that is, the po
 \label{sec:parall_and_GPUs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-As Gordon Moore predicted in 1965 the number of transistors placed on
-integrated circuits has doubled approximately every two years. % This
-                                % is not the place to say
-                                % this. Probably in the intro - JJ
-Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half. That is, as the primary factor influencing the limits of improving single-node performance is the energy efficiency, new heterogeneous architectures have emerged in response to those limits \cite{VetterHeterogeneous11}.
+%As Gordon Moore predicted in 1965 the number of transistors placed on
+%integrated circuits has doubled approximately every two years. % This
+%                                % is not the place to say
+%                                % this. Probably in the intro - JJ
+% Antonio - I think we don't need to justify this
+%Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half. That is, as the primary factor influencing the limits of improving single-node performance is the energy efficiency, new heterogeneous architectures have emerged in response to those limits \cite{VetterHeterogeneous11}.
 
 Parallel computation has passed from been an utility to a
-necessity. As newer processors are barely faster than previous ones
+necessity due to the space and miniaturization limitations predicted by Moore's and Koomey's Laws \cite{10.1109/MAHC.2010.28}. 
+As newer processors are barely faster than previous ones
 the only way to take advantage of the amount of transistors is putting
 many cores together. For many year, clock rates and instruction-level
 parallelism has become fast enough to allow faster execution of the
@@ -398,12 +380,9 @@ this equation has finally forced chip makers to favor multi-core
 designs. Now the only way to benefit from many cores is multi-threaded
 software \cite{6307773}.
 
-At the same time graphics card have evolved from small and simple
-devices composed of weak arithmetic and logic units to powerful, and
-almost general-purpose devices. Earliest academic work about general
-computation on GPUs date back to 2002 at the University of Washington
-\cite{Thompson:2002:UMG:774861.774894}, and 2004 in Stanford
-\cite{Buck:2004:BGS:1015706.1015800}. % so... - JJ
+At the same time graphic cards became general-purpose devices long time ago. Indeed, earliest academic work about general computation on GPUs date back to 2002 at the University of Washington \cite{Thompson:2002:UMG:774861.774894}, and 2004 in Stanford \cite{Buck:2004:BGS:1015706.1015800}. 
+% so... - JJ
+% Antonio - rewritten
 
 GPUs and CPUs are similar in many ways but there is one key
 difference: the philosophy of how to execute a workload. The main
@@ -423,30 +402,27 @@ Figure \ref{fig:cpu-gpu}.
 \label{fig:cpu-gpu}
 \end{figure*}
 
-Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features}
-shows. The best processors from AMD and Intel are built with several
-billion transistors while best GPUs from AMD and NVIDIA can have over
-7 billion. This explains the power consumption difference. While CPUs
-draw 100W at most, GPUs can reach 500W. This difference is established
-by the cost and weight of commodity heat sinks and fans. To keep a
-500W monster at reasonable temperatures the use of exotic cooling
-solutions is a must. Also CPUs has traditional benefit from employing
-better lithography techniques than GPUs.  % Is all this relevant to
+%Nowadays GPUs can be much bigger than CPUs as Table \ref{tab:features}
+%shows. The best processors from AMD and Intel are built with several
+%billion transistors while best GPUs from AMD and NVIDIA can have over
+%7 billion. This explains the power consumption difference. While CPUs
+%draw 100W at most, GPUs can reach 500W. This difference is established
+%by the cost and weight of commodity heat sinks and fans. To keep a
+%500W monster at reasonable temperatures the use of exotic cooling
+%solutions is a must. Also CPUs has traditional benefit from employing
+%better lithography techniques than GPUs.  % Is all this relevant to
                                 % the main objective of the paper? - JJ
+% Antonio - Not really. I remove it
 
 The internal parts of the CPUs all have well known standard names;
 however, with GPUs the situation is the opposite. Every vendor has a
 different name for part that essentially share the same function; for
-instance, basic cores %which are ... - JJ
+instance, basic cores %which are ... - JJ  % Antonio - it is said in the following sentence
 inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by
 AMD and Streaming Multiprocessors (SM) by NVIDIA. Here a core is
 anything capable of fetching, decoding, issuing and executing
 instructions. Every core is composed by some execution units. Every one
-is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and
-NVIDIA, CUDA core \cite{YangCUDA15}. It is way easier comparing them by counting the
-number of classical Arithmetic Logic Units (ALUs), called shader cores
-by many people. In the next Table, \ref{tab:features}, we can see
-detailed comparison of these parts inside modern CPUs and GPUs.
+is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core \cite{YangCUDA15}. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people. In the next Table, \ref{tab:features}, we can see detailed comparison of these parts inside modern CPUs and GPUs.
 
 \begin{table*}[!ht]
 \resizebox{\textwidth}{!}{
@@ -505,7 +481,7 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 
 \end{tabular}
 }
-\caption{APU, CPU and GPU comparison of the best professional and commodity hardware available nowadays, Sep 2018. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
+\caption{APU, CPU and GPU comparison of the best professional and commodity hardware available in Sep 2018. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
 \end{table*}
 
 Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
@@ -523,6 +499,8 @@ Most information shown in this and next sections has been extracted from the web
 \section{GPU Programming}
 \label{sec:programming}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section introduces the most relevant aspects or concepts to know before using GPUs for General Purpose computing, which normally differs between vendors, namely: the different programming possibilities, the execution model that GPU computing follows, and the memory scheme to use.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Programming Model}
@@ -593,7 +571,7 @@ Data storage and communication within a device and between devices, mainly CPU a
 \begin{itemize}
 \item Global memory: any work-item and the host CPU can read and write.
 \item Constant memory: any work-item and the host CPU can read this read-only region. Writing is only allowed to the CPU.
-\item Private memory: a single work-item can read and write from it and is inaccessible for the host CPU. Most computation should be done here because it is the fastest one and the the most critical in terms of performance.
+\item Private memory: a single work-item can read and write from it and is inaccessible for the host CPU. Most computation should be done here because it is the fastest one and the most critical in terms of performance.
 \item Local memory: a single work-group can read and write on it and is inaccessible for the CPU. Its main target is to share data between a limited number of work-items.
 \end{itemize}
 
@@ -606,8 +584,7 @@ problem has arisen many times in the computation field.
 
 Every time a new powerful device has appear we must feed it  data fast enough. Two solutions of recent appearance try to alleviate it. The first is a
 fourth level of cache between the CPU and the GPU. %reference - JJ
-This is only useful
-when both processors are glued together in the same chip or
+This is only useful when both processors are glued together in the same chip or
 encapsulation. The second solution involves changing the way we access
 memory from GPU and its called Heterogeneous System Architecture
 (HSA). % reference - JJ
