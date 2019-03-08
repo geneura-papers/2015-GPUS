@@ -1145,26 +1145,26 @@ After reviewing previous papers, new trends can be drawn:
 
 \begin{itemize}
 
-\item Real World Problems: Real problems usually imply to deal with massive amount of records and high-dimensional data. In fact, new techniques proposed also address other related issues such as filtering, noise-removal or feature selection. 
+\item Real World Problems: We have observed an increase on the number of papers dealing with Real World Problems. These problems usually imply to deal with massive amount of records and high-dimensional data \cite{Hwang7470556}, or even Real-Time necessities \cite{Maggiani2018}. In fact, new techniques proposed also address other related issues such as filtering, noise-removal or feature selection. 
 
-\item Big data: Dealing with all these previous issues has led to the emergence of new techniques, mainly the Map-Reduce paradigm. Different authors propose to...  DeepLearning \cite{Gadea-Girones2018} 
+\item Big data: Dealing with all these previous issues has led to the emergence of new techniques, mainly the Map-Reduce paradigm. Different works take advantage of the GPU capabilities to deal with large datasets using techniques such as pattern discovery \cite{Djenouri2017b},  ... DeepLearning \cite{Gadea-Girones2018} 
 
 \item Virtualization: 
 
 \item Cloud Computing:
 
 
-\item Multi-objective optimization: Dealing with more than one optimization objective implies a different way to deal with the fitness calculation. As all the solutions need to be compared to each other to calculate their Pareto Front, traditional parallel schemes need to be adapted in a non-trivial way...
+\item Multi-objective optimization: Dealing with more than one optimization objective implies a different way to deal with the fitness calculation. As all the solutions need to be compared to each other to calculate their Pareto Front, traditional parallel schemes need to be adapted in a non-trivial way. Different methods to deal with this issue have been proposed, such as ...
 
 \item Parameter control: Since the origin of the research 
 
 
 
-\item Heterogeneous architectures: Different methods to combine technologies ... have been proposed. Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPGPU, the GPGPUs are still the best cost-effective solutions \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}. 
+\item Heterogeneous architectures: Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPGPU, the GPGPUs are still the best cost-effective solutions \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid paralleziationns, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
 
-\item Load balancing: Related with the previous issue, different master-slave approaches have been proposed, usually distributing the evaluation of the individuals among the available threads in the GPU. However, new trends involve island-based models...
+\item Load balancing: Related with the previous issue, different master-slave approaches have been proposed, usually distributing the evaluation of the individuals among the available threads in the GPU. However, new trends involve island-based models... Future research is aimed on how to reduce convergence time by managing the concurrent pool of solutions \cite{Rey2018} or...
 
-\item Energy consumption: Techniques such as power-aware scheduling \cite{Escobar17GPUCPU} are being proposed to deal with ...
+\item Energy consumption: An important aspecte requiring further investigation is power consuption, as this issue is becoming crucial \cite{Maggiani2018}. Techniques such as power-aware scheduling \cite{Escobar17GPUCPU} are being proposed to deal with ...
 
 \end{itemize}
 
