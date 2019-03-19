@@ -685,8 +685,6 @@ stages.
 Finally, it is very important to understand and to properly implement
 the Single Program Multiple Data (SPMD)\cite{SPMD-wikipedia} programming
 concept, in order to take advantage of it in the EA implementation. The programmer should always take into account the constraints related to the problem size, to the GPU, and computer, memory consumption, or to the synchronization of threads, as all these issues might affect the obtained performance.
-% The different papers should have been here, or at least some
-% introduction - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -696,13 +694,12 @@ concept, in order to take advantage of it in the EA implementation. The programm
 
 % This is a repetition of subsec:eas-distributed:parallel . Why don't
 % you put them together? - JJ
-% Antonio - It is not the same as in that section. That was an introduction and this is a (similar) taxonomy. I have clarified this inthe text and removed those redundant paragraphs/sentences.
+% Antonio - It is not the same as in that section. That was an introduction and this is a (similar) taxonomy. I have clarified this in the text and removed those redundant paragraphs/sentences.
 % Revising this, I have made the same comment. We should reconsider moving it to where they are actually used, with a little stub in the introduction - JJ
+% Antonio - Due to the structure of the paper we think that moving this upper or bringing section 2.2 here will be a wrong decision regarding the coherence of the whole work. I have changed a bit the aforementioned section to do it less relevant (as a very brief introduction), reducing the overlapping with this section to the minimum.
 In this section, a taxonomy to distinguish between the different
 distribution methods applied in the literature is proposed.
 It is inspired by the classical models used in the distribution of EAs, described in Section \ref{subsec:eas-distributed:parallel}.
-%As stated before, even if there are many different bioinspired approaches included in the bibliography, we are mainly focused in this work on Parallel Evolutionary Computation (EC).
-%That is the most extended metaheuristic to address many types of large or complex problems, which require some kind of parallelization to be solved with enough quality and on a reasonable quantity of time.
 
 We take as a reference the survey by Alba \cite{Alba2005book}, who reviewed many parallel metaheuristics on EC. Most paradigms were identified with respect to
 parallel/distributed EAs, according to Flynn's taxonomy, under the
@@ -838,7 +835,7 @@ or MA (Memetic Algorithms), to cite a few.
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[clip,width=0.9\textwidth]{algorithmtype}
+\includegraphics[clip,width=0.7\textwidth]{algorithmtype}
 \caption{Type of Evolutionary Algorithm implemented in the analyzed publications.}
 \label{figure:type_algorithm}
 \end{figure*}
