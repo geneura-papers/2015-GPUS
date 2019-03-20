@@ -582,15 +582,17 @@ excessive amount of time the target speedup can be ruined. Data
 movement should be avoided or at least minimized. This bandwidth
 problem has arisen many times in the computation field.
 
-Every time a new powerful device has appear we must feed it  data fast enough. Two solutions of recent appearance try to alleviate it. The first is a
-fourth level of cache between the CPU and the GPU. %reference - JJ
+Every time a new powerful device has appear we must feed it data fast enough. Two solutions of recent appearance try to alleviate it. The first is a
+fourth level of cache between the CPU and the GPU (or an optimized version of third level one) \cite{Li_EAR_2017}. %reference - JJ
+% Antonio/Gustavo - Added
 This is only useful when both processors are glued together in the same chip or
 encapsulation. The second solution involves changing the way we access
 memory from GPU and its called Heterogeneous System Architecture
-(HSA). % reference - JJ
+(HSA) \cite{mukherjee2016comprehensive}. % reference - JJ
+% Antonio/Gustavo - Added
 HSA shares data between CPU and GPU in a seamless way, avoiding
 as many memory copies as caches permits. This way both devices can
-share a common memory architecture.
+share a common memory architecture. Moreover HSAIL is emerging nowadays, in which an intermediate code is used in order to ease the communication process.
 
 % You always have to relate whatever you say with the paper objectives
 % - JJ
