@@ -1,0 +1,20 @@
+501   2015                                                             A COMPREHENSIVE SURVEY ON PARTICLE SWARM OPTIMIZATION ALGORITHM AND ITS APPLICATIONS       157
+399   2013                                                                                          PARALLEL METAHEURISTICS: RECENT ADVANCES AND NEW TRENDS        96
+77    2015                                                           DISTRIBUTED EVOLUTIONARY ALGORITHMS AND THEIR MODELS: A SURVEY OF THE STATE-OF-THE-ART        81
+669   2011                                                       MESO-SCALE ORIENTED SIMULATION TOWARDS VIRTUAL PROCESS ENGINEERING (VPE)-THE EMMS PARADIGM        75
+377   2011                                                GBOOST: A GPU-BASED TOOL FOR DETECTING GENE-GENE INTERACTIONS IN GENOME-WIDE CASE CONTROL STUDIES        72
+174   2010                                                                                              PARALLEL GENETIC ALGORITHM ON THE CUDA ARCHITECTURE        57
+73    2008                                                                                 A SIMD INTERPRETER FOR GENETIC PROGRAMMING ON GPU GRAPHICS CARDS        49
+574   2017                                                                                A RESOURCE-EFFICIENT ENCRYPTION ALGORITHM FOR MULTIMEDIA BIG DATA        49
+401   2010 SHESISEPI, A GPU-ENHANCED GENOME-WIDE SNP-SNP INTERACTION SCANNING ALGORITHM, EFFICIENTLY REVEALS THE RISK GENETIC EPISTASIS IN BIPOLAR DISORDER        47
+165   2010                                                           CFD-BASED ANALYSIS AND TWO-LEVEL AERODYNAMIC OPTIMIZATION ON GRAPHICS PROCESSING UNITS        45
+114   2007                                                                                                                 FAST GENETIC PROGRAMMING ON GPUS        44
+652   2014                                                THE 55 CANCRI PLANETARY SYSTEM: FULLY SELF-CONSISTENT N-BODY CONSTRAINTS AND A DYNAMICAL ANALYSIS        40
+662   2012                    AUTOMATIC LOCALIZATION OF VERTEBRAL LEVELS IN X-RAY FLUOROSCOPY USING 3D-2D REGISTRATION: A TOOL TO REDUCE WRONG-SITE SURGERY        38
+317   2012                                                                                               EFFICIENT 3D DNS OF GAS-SOLID FLOWS ON FERMI GPGPU        35
+536   2013                            DEVELOPMENT OF GMDR-GPU FOR GENE-GENE INTERACTION ANALYSIS AND ITS APPLICATION TO WTCCC GWAS DATA FOR TYPE 2 DIABETES        34
+108   2008                                                                        GP ON SPMD PARALLEL GRAPHICS HARDWARE FOR MEGA BIOINFORMATICS DATA MINING        32
+655   2016                                                         INITIAL REACTION MECHANISMS OF CELLULOSE PYROLYSIS REVEALED BY REAXFF MOLECULAR DYNAMICS        32
+70    2011                                                                                   GRAPHICS PROCESSING UNITS AND GENETIC PROGRAMMING: AN OVERVIEW        29
+125   2008                                                                     EFFICIENT COMPUTATION OF SUM-PRODUCTS ON GPUS THROUGH SOFTWARE-MANAGED CACHE        29
+628   2017            A NOVEL HARDWARE/SOFTWARE PARTITIONING METHOD BASED ON POSITION DISTURBED PARTICLE SWARM OPTIMIZATION WITH INVASIVE WEED OPTIMIZATION        29

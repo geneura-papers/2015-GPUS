@@ -1,0 +1,21 @@
+    date.y                                                                                                                                                              title tot_cites
+574   2017                                                                                                  A RESOURCE-EFFICIENT ENCRYPTION ALGORITHM FOR MULTIMEDIA BIG DATA        49
+628   2017                              A NOVEL HARDWARE/SOFTWARE PARTITIONING METHOD BASED ON POSITION DISTURBED PARTICLE SWARM OPTIMIZATION WITH INVASIVE WEED OPTIMIZATION        29
+653   2017                                                                                  HIGH-PERFORMANCE COMPOSITE HOLLOW FIBER MEMBRANE FOR FLUE GAS AND AIR SEPARATIONS        22
+671   2018 TINKER-HP: A MASSIVELY PARALLEL MOLECULAR DYNAMICS PACKAGE FOR MULTISCALE SIMULATIONS OF LARGE COMPLEX SYSTEMS WITH ADVANCED POINT DIPOLE POLARIZABLE FORCE FIELDS        17
+670   2017                                                               AUTOMATIC SEGMENTATION APPROACH TO EXTRACTING NEONATAL CEREBRAL VENTRICLES FROM 3D ULTRASOUND IMAGES        15
+555   2017                                                     A MULTI-CORE CPU AND MANY-CORE GPU BASED FAST PARALLEL SHUFFLED COMPLEX EVOLUTION GLOBAL OPTIMIZATION APPROACH        12
+664   2017       A COMPUTATIONAL FRAMEWORK FOR THE ANALYSIS OF RAIN-INDUCED EROSION IN WIND TURBINE BLADES, PART I: STOCHASTIC RAIN TEXTURE MODEL AND DROP IMPACT SIMULATIONS        11
+456   2018                                                                                    A MULTITHREADED PROGRAMMING APPROACH FOR MULTIMEDIA BIG DATA: ENCRYPTION SYSTEM         9
+355   2017                                                                  GPU ACCELERATION FOR EVOLUTIONARY TOPOLOGY OPTIMIZATION OF CONTINUUM STRUCTURES USING ISOSURFACES         7
+412   2018                                                 A PARALLEL GENETIC ALGORITHM WITH DISPERSION CORRECTION FOR HW/SW PARTITIONING ON MULTI-CORE CPU AND MANY-CORE GPU         6
+599   2017                                                              SPEEDUP FOR QUANTUM OPTIMAL CONTROL FROM AUTOMATIC DIFFERENTIATION BASED ON GRAPHICS PROCESSING UNITS         6
+608   2017                                                                                   EFFICIENT DEEP NETWORK FOR VISION-BASED OBJECT DETECTION IN ROBOTIC APPLICATIONS         6
+42    2017                                                                               EVOLUTIONARY INDUCTION OF A DECISION TREE FOR LARGE-SCALE DATA: A GPU-BASED APPROACH         5
+329   2018                                                                                          FAST GENETIC ALGORITHM PATH PLANNER FOR FIXED-WING MILITARY UAV USING GPU         5
+433   2017                                                                                        GPU-BASED ONLINE OPTIMIZATION OF LOW VOLTAGE DISTRIBUTION NETWORK OPERATION         5
+434   2018                                                                           3D BRAIN TUMOR LOCALIZATION AND PARAMETER ESTIMATION USING THERMOGRAPHIC APPROACH ON GPU         5
+442   2017                        COMPARISON OF COMMON PARALLEL ARCHITECTURES FOR THE EXECUTION OF THE ISLAND MODEL AND THE GLOBAL PARALLELIZATION OF EVOLUTIONARY ALGORITHMS         5
+66    2017                                                                           NON-DOMINATED SORTING PROCEDURE FOR PARETO DOMINANCE RANKING ON MULTICORE CPU AND/OR GPU         4
+207   2017                                                 GPU IMPLEMENTATION OF DPSO-RE ALGORITHM FOR PARAMETERS IDENTIFICATION OF SURFACE PMSM CONSIDERING VSI NONLINEARITY         4
+249   2017                                                                                            THE NEW SCIARA-FV3 NUMERICAL MODEL AND ACCELERATION BY GPGPU STRATEGIES         4
