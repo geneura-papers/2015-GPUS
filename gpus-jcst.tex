@@ -1116,6 +1116,8 @@ based local search engine for splitting the objective space into
 sub-regions. The parallel implementation lead to a high performance
 and speedup improvement.
 
+Latest works are based on more complex evolutionary processes. Algorithms, such as the SCE-UA, that can be deteriorated performance when dealing with complex models and big data, can benefit from the combination of multi-core CPUs and many-core GPUS. In \cite{Kan17SCEUA} the SCE-UA algorithm was improved by the use of heterogeneous parallel computing. This algorithm is a more complex process of evolution of solutions, being conformed by several steps: combination of probabilistic and deterministic  approaches, clustering, systematic evolution of a complex of points spanning the space, and competitive evolution.
+
 % These non-standard approaches do this or that... - JJ
 % this comment still not addressed - JJ
 
@@ -1142,7 +1144,7 @@ After reviewing previous papers, new trends can be drawn:
 
 \begin{itemize}
 
-\item Real World Problems: We have observed an increase on the number of papers dealing with Real World Problems. These problems usually imply to deal with massive amount of records and high-dimensional data \cite{Hwang7470556}, or even Real-Time necessities \cite{Maggiani2018}. In fact, new techniques proposed also address other related issues such as filtering, noise-removal or feature selection. 
+\item Real World Problems: We have observed an increase on the number of papers dealing with Real World Problems. These problems usually imply to deal with massive amount of records and high-dimensional data \cite{Hwang7470556}, or even Real-Time necessities \cite{Maggiani2018}. In fact, new techniques proposed also address other related issues such as filtering, noise-removal or feature selection. Complex models can be leveraged by the use of more advanced optimization techniques, such as the SCE-UA, in combination with multi-core CPU and many-core GPU approaches \cite{Kan17SCEUA}.
 
 \item Big data: Dealing with all these previous issues has led to the emergence of new techniques, mainly the Map-Reduce paradigm. Different works take advantage of the GPU capabilities to deal with large datasets using techniques such as pattern discovery \cite{Djenouri2017b},  ... DeepLearning \cite{Gadea-Girones2018} 
 
