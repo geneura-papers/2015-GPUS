@@ -308,10 +308,10 @@ parallelization modes below.
 % ----------------------------------------
 \subsubsection{Global parallel evolutionary algorithms}
 In this model, also called \textit{Farming model},
-\textit{Master-Slave} or \textit{Centralized EA}, the parallelism is
-applied at evaluation level. Thus, a central node coordinates several
-slave nodes. This node executes the EA in a sequential way, but it
-distributes the individuals of the population among the slaves just
+\textit{client-server} or \textit{Centralized EA}, the parallelism is
+applied at evaluation level. Thus, a central node or server coordinates several
+client nodes. This node executes the EA in a sequential way, but it
+distributes the individuals of the population among the clients just
 for being evaluated. Figure \ref{fig:serverClient} depicts this
 approach.
 
@@ -319,7 +319,7 @@ approach.
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/serverClient.jpg}
 \includegraphics[width=20pc]{serverClient}
-\caption{Master-slave model.}
+\caption{Client-server model.}
 \label{fig:serverClient}
 \end{figure}
 
@@ -714,7 +714,7 @@ The parallel EAs community has a big amount of contributions using
 MIMD architectures, but a very little regarding SIMD systems, probably due to the MIMD dominance over SIMD.
 
 Nevertheless, when the research community uses GPGPUs, all the EC approaches are parallel, so we have reviewed the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.
-For that reason, we focus the rest of the survey on the different ways for implementing Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming proposed in \cite{ZhangImplementationserverClient}: master-slave model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089}, %\cite{pospichalParallelGeneticAlgorithOnCUDA2010}
+For that reason, we focus the rest of the survey on the different ways for implementing Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming proposed in \cite{ZhangImplementationserverClient}: client-server model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089}, %\cite{pospichalParallelGeneticAlgorithOnCUDA2010}
 or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11},  which use two or more of the previous parallel approaches in an hierarchical way.
 
 
@@ -723,12 +723,12 @@ Thus, the proposed taxonomy is based on the classical approach followed by other
 % -----------------------------------------------
 \subsection{Client-server approaches}
 \label{subsec:serverClientapproaches}
-Master-slave Evolutionary Algorithms traditionally solve problems
+Client-server Evolutionary Algorithms traditionally solve problems
 involving computationally expensive fitness functions, where the
-master node runs the entire algorithm while the slaves execute the
+server node runs the entire algorithm while the clients execute the
 fitness evaluation of the individuals. Using this approach, the
 evaluation of the fitness function is not sequential, but in parallel,
-so the master-slave version is more efficient because the evaluations
+so the client-server version is more efficient because the evaluations
 usually are the more expensive portion of the total run time.
 % if this is a different classification, this should go with the
 % section mentionad above. just say that they are classification along
@@ -779,7 +779,7 @@ specific neighborhood topology.
 \subsection{Hierarchical approaches}
 \label{subsec:hierarchicalapproaches}
 
-This hybrid model just utilizes two or more of the master-slave, coarse-grained and fine-grained approaches in an hierarchical method. At the higher level, an island model algorithm runs while at the lower level, the demes, or sub-populations, are running in parallel, fine-grained, master-slave or even another island model with high migration rates. Hybrid models are not the most common in traditional implementation of EAs due to:
+This hybrid model just utilizes two or more of the client-server, coarse-grained and fine-grained approaches in an hierarchical method. At the higher level, an island model algorithm runs while at the lower level, the demes, or sub-populations, are running in parallel, fine-grained, client-server or even another island model with high migration rates. Hybrid models are not the most common in traditional implementation of EAs due to:
 \begin{itemize}
  \item The need for additional parameters related to the more complex topology structure.
  \item The need for `quite rare' hierarchical parallel architectures to host hybrid algorithms.
@@ -797,7 +797,7 @@ By the end of the work we have included a subsection for non-standard
 approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including papers
 which may not be easily clasified in any of the previous categories, since they
 mapped the algorithms and the problem they solve in a special way that
-cannot be considered as fine-grained, coarse-grained or master-slave.
+cannot be considered as fine-grained, coarse-grained or client-server.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -875,7 +875,7 @@ Evolutionary Programming (EP) algorithm
 % without crossover EP does not have crossover - JJ
 % EP is not included in the list of algorithms - JJ
 for solving five simple test functions, called Fast Evolutionary Programming
-(FEP). In this master-slave approach, some actions such as the main loop of the algorithm were executed in the CPU, while evaluation and mutation were run within the GPU device because both steps do not need of external information exchange. In this case, the reproduction process implies interaction among, at least, two individuals so the authors eliminated this step in the algorithm. A maximum speedup of $\times5.02$ was obtained when the population size increases. This is the most common organization in GPU implementations, since no
+(FEP). In this client-server approach, some actions such as the main loop of the algorithm were executed in the CPU, while evaluation and mutation were run within the GPU device because both steps do not need of external information exchange. In this case, the reproduction process implies interaction among, at least, two individuals so the authors eliminated this step in the algorithm. A maximum speedup of $\times5.02$ was obtained when the population size increases. This is the most common organization in GPU implementations, since no
 interaction among individuals is required during the evaluation, so
 this process can be fully parallelized. In that paper the individuals
 was real-coded and the genomes were mapped into the texture
@@ -887,7 +887,15 @@ A Genetic Programming (GP) method proposed by Harding and Banzhaf \cite{4215552}
 Besides, Chitty et al. \cite{Chitty2016} proposed different techniques to improve the performance of a graphics card implementation of tree-based GP in order to better exploiting this faster device. Authors demonstrated that both L1 cache and shared memory need to be considered for obtaining the maximum performance.
 
 Hierarchical parallel GAs have been adapted using other models. 
-For example, Zhang et al. \cite{ZhangImplementationserverClient}, proposed the use of {\em deme} model at high level, and a master-slave schema at low level. In this case, the CPU initializes the population and distributes the individuals to thread blocks in shared memory. Then, the GPU threads within each block run a GA independently, by applying selection, crossover, mutation and performing the evaluation; and it migrates individuals to other thread blocks in its neighborhood. However, no speedup results were reported in this paper.
+For example, Zhang et al. \cite{ZhangImplementationserverClient},
+proposed the use of {\em deme} model at high level, and a
+client-server schema at low level. In this case, the CPU initializes
+the population and distributes the individuals to thread blocks in
+shared memory. Then, the GPU threads within each block run a GA
+independently, by applying selection, crossover, mutation and
+performing the evaluation; and it migrates individuals to other thread
+blocks in its neighborhood. However, no speedup results were reported
+in this paper. 
 On another hand, Djenouri et al. \cite{Djenouri2017a} propose using bio-inspired approaches (GA, PSO, and BSO) to solve wellknown large association rules mining instances; in their work, after the generation of the rules on CPU, all the obtained rules are sent to the GPU for the evaluation process. In a further works \cite{Djenouri2017b,DJENOURI2018}, an intelligent strategy is proposed to partition the search space of rules in several independent sub-spaces to allow multiple CPU cores to explore the search space efficiently and without performing redundant work, having obtained that the suggested approach outperforms the sequential version by up to at 600 times for large datasets. 
 
 In \cite{Jurczuk2017}, authors design and implement a graphics processing unit (GPU)-based parallelization of evolutionary induction of decision trees; in this method the selection and genetic operators are performed sequentially on a CPU, while the evaluation process for the individuals in the population is parallelized on GPU.
@@ -917,7 +925,7 @@ are equipped with 32-bit integer ALUs.
 
 Cano et al. \cite{SpeedingTheEvaluationofGPCano:2012} described a massively parallel evaluation model using a Genetic Programming algorithm for evolving rules for dataset classification. They copied the dataset to the GPU global memory, and evaluated the rules (individuals) for each instance of the dataset in parallel (match kernel). At the end, each successful match was reduced getting each individual fitness (reduction kernel). The implementation, based on CUDA, speedups the fitness calculation phase and greatly reduce the computation time. Results were compared using one, two and four CPU threads and the combination of one or two GPUs of different features (285 cores for GPUa -NVIDIA GeForce 285 GTX- or 480 cores for GPUb -NVIDIA GeForce 480 GTX-). They test three classification algorithms and the results were not very significant for small datasets, but they increased the speedup with large datasets until $\times820$ using two GPUs with 480 cores each one.
 
-The work by Chitty \cite{Chitty16FastParallel} uses a Master-Slave architecture for evaluating at time the population for four GP problems. The results were achieved using an NVidia GeForce Kepler 670 GTX graphics card and compared with a previous one-dimensional stack approach for the same problems. The author fit the algorithm until to observe a peak computational speed of over 55 billion Genetic Programming Operations per second a twofold improvement over the previous one-dimensional stack approach.
+The work by Chitty \cite{Chitty16FastParallel} uses a client-server architecture for evaluating at time the population for four GP problems. The results were achieved using an NVidia GeForce Kepler 670 GTX graphics card and compared with a previous one-dimensional stack approach for the same problems. The author fit the algorithm until to observe a peak computational speed of over 55 billion Genetic Programming Operations per second a twofold improvement over the previous one-dimensional stack approach.
 
 
 Recent works are currently being applied to real-world problems. Jaros et al. \cite{Jaros14Wormhole} use GPUs to lower the run time and improve the quality of the solutions in the problem of wormhole switching in collective communications. The start from an evolutionary tool capable of finding optimal communication schedules for various communication patterns on wide range of interconnection networks topologies of up to 256 nodes. The tool consumes tens of hours so they decide to improve it. As the fitness evaluation was responsible for the 93\% of the execution time this was the only part moved to the GPU. In a first step only one GPU was used with speedups up to $\times5$. After that they made a new implementation capable of using 8 GPUs and 30 times faster than the original.
@@ -1028,7 +1036,7 @@ However, after this, Pospichal et al. continued working on their approach \cite{
 
 Permutation domain problems have been studied by some authors. Tsutsui and Noriyuki \cite{1570355} also run a coarse-grained GA on a GPGPU, to solve the QAP problem using CUDA. Their model generated the initial population on CPU and copied it to the GPU VRAM; then, each sub-population in a GPU (NVIDIA GeForce GTX285) was evolved. At some generations, individuals in sub-populations were shuffled through the GPU VRAM. Results showed a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor.
 
-Comparison of several approaches is a very important task to do when presenting a new model. The work by \cite{LUONG:2010:INRIA-00520464:1} compared three different schemes, including his new re-design of the island model. The first scheme presented implemented a coarse-grained EA based on a master-slave model to run the evaluation step on GPU, as other papers mentioned early. The second one directly distributed the EA population on GPUs. Finally, the use of a fast on-chip memory was proposed as an extension on the third approach.
+Comparison of several approaches is a very important task to do when presenting a new model. The work by \cite{LUONG:2010:INRIA-00520464:1} compared three different schemes, including his new re-design of the island model. The first scheme presented implemented a coarse-grained EA based on a client-server model to run the evaluation step on GPU, as other papers mentioned early. The second one directly distributed the EA population on GPUs. Finally, the use of a fast on-chip memory was proposed as an extension on the third approach.
 The two latter approaches reduced the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. Sequential and parallel implementations were compared, obtaining a speedup of $\times1757$ using the third approach.
 
 
@@ -1049,7 +1057,7 @@ CUDA-based implementation.
 
 As mentioned before, these approaches aim to combine previous models,
 in order to take advantage of the best of every one, for instance,
-fusing the master-slave evaluation with the diversity mechanisms of
+fusing the client-server evaluation with the diversity mechanisms of
 island-based models. 
 
 This is the case of the work by Munawar et
@@ -1162,7 +1170,7 @@ After reviewing previous papers, new trends can be drawn:
 
 \item Heterogeneous architectures: Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPGPU, the GPGPUs are still the best cost-effective solutions \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid paralleziationns, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
 
-\item Load balancing: Related with the previous issue, different master-slave approaches have been proposed, usually distributing the evaluation of the individuals among the available threads in the GPU. However, new trends involve island-based models... Future research is aimed on how to reduce convergence time by managing the concurrent pool of solutions \cite{Rey2018} or...
+\item Load balancing: Related with the previous issue, different client-server approaches have been proposed, usually distributing the evaluation of the individuals among the available threads in the GPU. However, new trends involve island-based models... Future research is aimed on how to reduce convergence time by managing the concurrent pool of solutions \cite{Rey2018} or...
 
 \item Energy consumption: An important aspecte requiring further investigation is power consuption, as this issue is becoming crucial \cite{Maggiani2018}. Techniques such as power-aware scheduling \cite{Escobar17GPUCPU} are being proposed to deal with ... 
 
