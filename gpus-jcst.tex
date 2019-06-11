@@ -1217,9 +1217,19 @@ After reviewing previous papers, new trends can be drawn:
 
 \item Heterogeneous architectures: Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPGPU, the GPGPUs are still the best cost-effective solutions \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid paralleziationns, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
 
-\item Load balancing: Related with the previous issue, different client-server approaches have been proposed, usually distributing the evaluation of the individuals among the available threads in the GPU. However, new trends involve island-based models... Future research is aimed on how to reduce convergence time by managing the concurrent pool of solutions \cite{Rey2018} or...
+\item Load balancing: Related with the previous issue, different
+  client-server approaches have been proposed, usually distributing
+  the evaluation of the individuals among the available threads in the
+  GPU. However, new trends involve island-based models... Future
+  research is aimed on how to reduce convergence time by managing the
+  concurrent pool of solutions \cite{Rey2018} or... % Please add here
+                                % - JJ
 
-\item Energy consumption: An important aspecte requiring further investigation is power consuption, as this issue is becoming crucial \cite{Maggiani2018}. Techniques such as power-aware scheduling \cite{Escobar17GPUCPU} are being proposed to deal with ... 
+\item Energy consumption: An important aspecte requiring further
+  investigation is power consuption, as this issue is becoming crucial
+  \cite{Maggiani2018}. Techniques such as power-aware scheduling
+  \cite{Escobar17GPUCPU} are being proposed to deal with ...  % Please
+                                % add here - JJ
 
 \end{itemize}
 
