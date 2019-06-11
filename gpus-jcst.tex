@@ -360,43 +360,42 @@ In this scheme the parallelism is performed at population level, that is, the po
 \label{sec:parall_and_GPUs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%As Gordon Moore predicted in 1965 the number of transistors placed on
-%integrated circuits has doubled approximately every two years. % This
-%                                % is not the place to say
-%                                % this. Probably in the intro - JJ
-% Antonio - I think we don't need to justify this
-%Obviously this growth rate is not going to be keep into an indefinite future. This trend has been true until the last decade and now it seems to be replaced by Koomey's Law \cite{10.1109/MAHC.2010.28}. It is the equivalent speaking about energy consumption: energy efficiency is doubled every 18 months. For a fixed computation, the amount of battery needed will fall by a factor of two every year and a half. That is, as the primary factor influencing the limits of improving single-node performance is the energy efficiency, new heterogeneous architectures have emerged in response to those limits \cite{VetterHeterogeneous11}.
-
-Parallel computation has passed from been an utility to a
+Parallel computation has passed from been an enhancement to regular computing to a
 necessity due to the space and miniaturization limitations predicted by Moore's and Koomey's Laws \cite{10.1109/MAHC.2010.28}. 
 As newer processors are barely faster than previous ones
 the only way to take advantage of the amount of transistors is putting
-many cores together. For many year, clock rates and instruction-level
+many cores together. For many years, clock rates and instruction-level
 parallelism has become fast enough to allow faster execution of the
 same payload on a new processor without modification. Adding heat to
 this equation has finally forced chip makers to favor multi-core
 designs. Now the only way to benefit from many cores is multi-threaded
-software \cite{6307773}.
+software \cite{6307773} and languages
+\cite{DBLP:conf/evoW/GuervosLCVG19}. 
 
-At the same time graphic cards became general-purpose devices long time ago. Indeed, earliest academic work about general computation on GPUs date back to 2002 at the University of Washington \cite{Thompson:2002:UMG:774861.774894}, and 2004 in Stanford \cite{Buck:2004:BGS:1015706.1015800}. 
-% so... - JJ
-% Antonio - rewritten
+At the same time graphic cards became general-purpose devices long
+time ago. Indeed, earliest academic work about general purpose
+computing on GPUs date back to 2002 at the University of Washington
+\cite{Thompson:2002:UMG:774861.774894}, and 2004 in Stanford
+\cite{Buck:2004:BGS:1015706.1015800}; in fact, before multicore
+processors became a commodity, GPUs included in every computer were
+able to use their many cores.
+
 
 GPUs and CPUs are similar in many ways but there is one key
 difference: the philosophy of how to execute a workload. The main
-design purpose of a CPU is the fast execution of a single thread of
+design purpose of a CPU core is the fast execution of a single thread of
 code. GPUs, on the other side, pursue to maximize the throughput of
-multithreaded streams of instructions and data. This is just the
-opposite of CPUs. Another difference is the scheduling of threads. For
+multithreaded streams of instructions and data. Another difference is the scheduling of threads: For
 CPUs, the operating system schedule threads over free cores in a
 competitive way. GPUs does it cooperatively with the help from
-dedicated hardware. Some of this characteristics can be deduced from
+dedicated hardware. Some of this characteristics are shown in 
 Figure \ref{fig:cpu-gpu}.
 
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=\textwidth]{cpu-gpu}
-\caption{CPU and GPU block diagram comparison.}
+\caption{CPU and GPU block diagram comparison. PE is a processing
+  element, ALU stands for Arithmetic Logic Unit. DRAM is the dynamic RAM.}
 \label{fig:cpu-gpu}
 \end{figure*}
 
@@ -484,8 +483,23 @@ Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053  
 
 Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
 
-The trend observed with CPUs of integrating many companion chips inside is now becoming true with the GPU also. The main reason is the lower cost of the complete system. They only remain separate in powerful systems with top processors and discrete graphics. GPUs have been integrated inside CPUs from 2006 in cost effective desktop PCs like in mobile phones since many years. Over time the use of the GPUs has grown a lot as they became cheaper and cheaper. Many heavy task have been parallelized like, for example, web page rendering. This speed up is not trouble free because to be able to profit from GPUs our applications must be rewritten in a parallel fashion.
+The trend observed with CPUs of integrating many companion cores
+inside is now becoming true with the GPU also. The main reason is the
+lower cost of the complete system. They only remain separate in
+powerful systems with top processors and discrete graphics. % What is
+                                % that? - JJ
+GPUs have
+been integrated inside CPUs from 2006 in budget desktop PCs
+as well as in mobile phones for many years. Over time the use of the GPUs
+has grown a lot as they became cheaper. Many heavy tasks
+have been parallelized like, for example, web page
+rendering. %reference - JJ
+This
+speed up is not trouble free because in order to be able to profit from GPUs
+our applications must be rewritten in a parallel fashion. % Not really
+                                % - JJ
 
+% Please revise all this for grammar and references - JJ
 As CPU makers did some years ago, passing from single core to symmetric multiprocessing system (SMP), and more recently to multi-cores, GPU makers are following the same trend. We can connect more than one graphic card to our computer to improve its GPU capacities or buy a card with 2 graphic chips inside. GPUs are so much powerful than CPUs that even a small cluster of a few GPUs can be faster than classic, and much more expensive, big cluster of computers. First cluster of this kind appear in the scientific literature in 2004 \cite{10.1109/SC.2004.26} with big success. Nowadays, more and more people build small GPU clusters with a couple of mighty graphic cards just to game. Connecting 2, 3 or 4 graphics card is called CrossFire by AMD and Scalable Link Interface (SLI) by NVIDIA.
 
 In the same way we learn to make faster computers by joining several CPUs together inside of a system, GPU maker are following the same trick. We can connect several GPUs and profit from the extra performance for our calculations. As the number of ALUs inside a GPU is so big, even small cluster filled with a few GPUs can became faster than traditional supercomputers. This trend can be easily proved by just taking a look at the Top500 website. The first cluster made of GPUs date from 2004 \cite{10.1109/SC.2004.26} and was a big success. Connecting 2 or more GPUs has a different name for every vendor: AMD called it CrossFire and NVIDIA Scalable Link Interface (SLI).
