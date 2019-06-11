@@ -72,20 +72,28 @@ operations. % Is this done finally? - JJ
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Evolutionary Algorithms (EAs) \cite{EAs_Back96} are a class of probabilistic search and optimisation methods inspired on the model of Darwinian evolution.
-The main features common to all the approaches are a population of
-individuals or potential solutions for the target problem, a selection
-method that favours better solutions, and a set of operators that
-iteratively act upon the selected solutions. If there is defined a
-correct {\em fitness function}, which assigns a reliable value to
-every individual, this process guarantees that the average quality of
-the population will increase with the number of generations. 
+Evolutionary Algorithms (EAs) \cite{EAs_Back96} are a class of
+probabilistic search and optimisation methods inspired on the model of
+Darwinian evolution.  The main features common to all the approaches
+are a population of individuals that are evaluated using what is
+called a {\em fitness function} as potential solutions for the target
+problem, a selection method that favours better solutions, and a set
+of operators that iteratively act upon the selected solutions. In
+general, EAs guarantee that the average quality of
+the population will increase with the number of generations.
 
-This metaheuristic has been widely used in the literature to solve many different problems, due to its simplicity and facility to be implemented. However, the application of EAs to find the solution of either real world problems or large instances of some benchmark problems, requires a high amount of computational power. Thus, it is quite frequent to implement a parallel or distributed version of this kind of algorithms.
+This metaheuristic has been widely used in the literature to solve
+many different problems, due to its simplicity and straightforward
+implementation. However, the application of EAs to find the solution
+of either real world problems or large instances of some benchmark
+problems, requires a high amount of computational power. Thus, it is
+quite frequent to design a parallel or distributed version of this
+kind of algorithms. % Design is not the same as implementation. One
+                    % does not "implement" algorithms, we design them
+                    % - JJ
 
-Even if EAs are sequential algorithms, their features, such as the
-population of independent solutions they manage, or some
-operators/functions which are applied on every individual at a time,
+Even if EAs are sequential algorithms the fact that they operate on
+populations of solutions and some operators are applied on every individual at a time,
 make them amenable to a straighforward, and functionally equivalent,
 parallelization, and thus, very suitable
 to be distributed or parallelized (at different grain levels). 
@@ -97,22 +105,37 @@ searching scheme, which leads to a different searching area of the
 space of solutions and thus, which yields a different solution or set
 of solutions for the problem, that could be better than the one
 obtained in the sequential approach. 
-For these reasons, parallel EAs have been widely studied in the literature, so this survey will be focused on them.
+For these reasons, parallel EAs have been widely studied in the
+literature, so this survey will be focused on how to implement them
+using general purpose GPU techniques. 
 
 In the last years, new trends in parallelization and
-distribution of algorithms have emerged. These are technologies such as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Service-Oriented Architectures \cite{SOA-wikipedia}, Cloud Computing \cite{CloudComputing-wikipedia}, or Volunteer Computing \cite{VolunteerComputing-wikipedia}, to cite the most relevant. There are several adaptations of EAs to every of them \cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,VermaCloud10,Nouman-VolunComp14},
+distribution of algorithms have emerged. These are technologies such
+as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Cloud Computing
+\cite{CloudComputing-wikipedia}, or Volunteer Computing
+\cite{VolunteerComputing-wikipedia}, to cite the most relevant. There
+are several adaptations of EAs to every of them
+\cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,VermaCloud10,Nouman-VolunComp14}, 
 % Antonio - poner otras citas? Son todas nuestras. :_D
 % What about this? - JJ
 % Antonio - Fixed. ;)
+% You can't cite wikipedia everywhere. Make better references and add
+% ours if possible. SOA is not current any more... - JJ
 which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
-scalability or decentralization.
+scalability or decentralization. 
 
+% Here is where you introduce the motivation for the paper, which,
+% besides, repeats the introduction you've made above. These
+% paragraphs should be either moved or eliminated - JJ
 Besides, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues.
 GPUs are specialized stream processors, composed of hundreds (or
 thousands) of computation units, and designed to perform graphics
 manipulations applying optimized graphical primitive operations, at a
 much higher speed than a general purpose CPU.
 
+% This should probably be on the top. The main focus are GPUs, not
+% evolutionary algorithms. You also mention GPGPUs above with a couple
+% of references. This is really not structured - JJ
 GPUs have been adapted to be used as General Purpose multi-processors
 with shared memory, or GPGPUs, in a similar shape to Single
 Instruction Multiple Data (SIMD)\cite{SIMD-wikipedia} architectures.
@@ -125,6 +148,7 @@ parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after revising more than
 200 works published since their emergence in 2004.
 
+% Introduces? REally? - JJ
 In addition, the manuscript introduces the main concepts related with
 GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
@@ -134,19 +158,29 @@ The work also compares this parallelization methodology with other extended high
 
 Finally, some of the new trends and open challenges in the scope of GPGPU computation are discussed.
 
-The rest of the paper is structured as follows:
-Section \ref{sec:eas} introduces EAs and describes the most usual parallelization and distribution models in the literature.
-In Section \ref{sec:parall_and_GPUs}, the internal structure of GPUs
-and their utility as GPGPUs are described, as well as a
-comparison of the existing cards in the market is shown.
-Then, programming schemes, languages and tools used in GPUs are
-presented in Section \ref{sec:programming}, followed by a description
-of the best frameworks used to parallelize EAs in order to take
-advantage of the power of GPGPUs (Section \ref{sec:parallelizing}). In
-the same section, the main issues to consider when a parallel version of
-an EA wants to be implemented on a GPGPU, are commented.
-Next, Section \ref{sec:taxonomy} proposes a taxonomy based on the different parallel models implemented in the literature, in order to categorize the reviewed papers. Thus, in Section \ref{sec:survey} a set of representative works (according to their number of citations) describing different approaches using GPGPUs are reviewed and divided following the proposed taxonomy, plotting also some interesting numbers and graphs related to them.
-GPGPU computing is compared with other high-performance approaches in Section \ref{sec:comparison-hpc} and new trends and challenges are discussed in Section \ref{sec:discussion}. Finally, Section \ref{sec:conclusions} remarks reached conclusions.
+The rest of the paper is structured as follows: Section \ref{sec:eas}
+introduces EAs and describes the most usual parallelization and
+distribution models in the literature.  In Section
+\ref{sec:parall_and_GPUs}, the internal structure of GPUs and their
+utility as GPGPUs are described, as well as a comparison of the
+existing cards in the market is shown.  Then, programming schemes,
+languages and tools used in GPUs are presented in Section
+\ref{sec:programming}, followed by a description of the best
+frameworks used to parallelize EAs in order to take advantage of the
+power of GPGPUs (Section \ref{sec:parallelizing}). In the same
+section, the main issues to consider when a parallel version of an EA
+wants to be implemented on a GPGPU, are commented.  Next, Section
+\ref{sec:taxonomy} proposes a taxonomy based on the different parallel
+models implemented in the literature, in order to categorize the
+reviewed papers. Thus, in Section \ref{sec:survey} a set of
+representative works (according to their number of citations)
+describing different approaches using GPGPUs are reviewed and divided
+following the proposed taxonomy, plotting also some interesting
+numbers and graphs related to them.  GPGPU computing is compared with
+other high-performance approaches in Section \ref{sec:comparison-hpc}
+and new trends and challenges are discussed in Section
+\ref{sec:discussion}. Finally, Section \ref{sec:conclusions} remarks
+reached conclusions.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -154,11 +188,10 @@ GPGPU computing is compared with other high-performance approaches in Section \r
 \label{sec:eas}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section gives a general overview of the most used types of Evolutionary Algorithms (EAs) describing their common elements. In addition, the most extended models to parallelize EAs are presented, to understand all their possible architectural possibilities.
-
-% ------------------------------------------------------------------------------
-\subsection{Description}
-\label{subsec:eas-description}
+This section gives a general overview of the most used types of
+Evolutionary Algorithms (EAs) describing their common elements. In
+addition, the most extended models to parallelize EAs are presented,
+to understand all their possible architectural possibilities. 
 
 EAs are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
 Thus, the fittest individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material.
