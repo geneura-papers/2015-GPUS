@@ -678,26 +678,21 @@ usually are the more expensive portion of the total run time.
 \subsection{Fine-grained approaches}
 \label{subsec:finegrainedapproaches}
 
-Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary
-Algorithms have not had as much impact as other types of PEAs. The
-main reason is that they adapt themselves very well to the special
-hardware architecture, with shared memory, but very badly to other
-distributed memory architectures. On the other hand, parallel
-distributed memory architectures supply all loosely coupled algorithms
-and the fine-grained EAs are not included into this category. The main
-reason behind that is the high cost of building massively parallel
-architectures which normally attracted fewer researchers to work on
-fine-grained EAs. However, a review of the trends in parallel
+The impact of Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary
+Algorithms has been smaller with respect to other types of PEAs. The
+main reason is that they are better suited for shared memory architectures than the ones with distributed memory, but also due to the high cost of building this type of architectures.
+
+However, a review of the trends in parallel
 architectures foresees a strong increase in fine-grained EAs face to
-face other EA categories. This is due to three reasons:
+face other EA categories. This can be explained for the next three reasons:
 
 \begin{itemize}
-\item Growing trend of massive number of processors on chip or card.
-\item The high inter-processors speed which is a major factor affecting the efficiency of fine-grained EAs.
-\item The huge low cost of these architectures which attract a wide base of researchers and developers.
+\item The amount of processors on a chip or card as massively grown.
+\item Fine-grained EAs efficiency has been increased thanks to the high-processor speed.
+\item A large number of researchers have been attracted by the low cost of these architectures.
 \end{itemize}
 
-For this category of algorithms, each individual is a parent at the beginning of the algorithm and it looks for the second parent by selection in a neighborhood. As a result CEAs provide automatic niching effect, avoiding an early convergence.
+In this kind of algorithms, a neighborhood-based selection is performed to select the mating parents, thus providing automatic niching effect and avoiding early convergence.
 
 % -----------------------------------------------
 \subsection{Coarse-grained approaches}
