@@ -412,7 +412,16 @@ computing on GPUs date back to 2002 at the University of Washington
 \cite{Buck:2004:BGS:1015706.1015800}; in fact, before multicore
 processors became a commodity, GPUs included in every computer were
 able to use their many cores.
-
+GPUs have
+been integrated inside CPUs from 2006 in budget desktop PCs
+as well as in mobile phones for many years. Over time the use of the GPUs
+has grown a lot as they became cheaper. Many heavy tasks
+have been parallelized like, for example, web page
+rendering. %reference - JJ
+This
+speed up is not trouble free because in order to be able to profit from GPUs
+our applications must be rewritten in a parallel fashion. % Not really
+                                % - JJ
 
 GPUs and CPUs are similar in many ways but there is one key
 difference: the philosophy of how to execute a workload. The main
@@ -432,54 +441,11 @@ Figure \ref{fig:cpu-gpu}.
 \label{fig:cpu-gpu}
 \end{figure*}
 
-% Do we need this paragraph? Are we using this terminology somewhere? - JJ
-The internal parts of the CPUs all have well known standard names;
-however, with GPUs the situation is the opposite. Every vendor has a
-different name for part that essentially share the same function; for
-instance, basic cores %which are ... - JJ  % Antonio - it is said in the following sentence
-inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by
-AMD and Streaming Multiprocessors (SM) by NVIDIA. Here % where? - JJ
-a core is
-anything capable of fetching, decoding, issuing and executing
-instructions. Every core is composed by some execution units. Every one
-is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core \cite{YangCUDA15}. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people. % really. You can't say that - JJ
-Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. % Is this relevant? - JJ
-It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. % This is outdated - JJ
-Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
-
 The trend observed with CPUs of integrating many companion cores
 inside is now becoming true with the GPU also. The main reason is the
 lower cost of the complete system. They only remain separate in
 powerful systems with top processors and discrete graphics. % What is
                                 % that? - JJ
-GPUs have
-been integrated inside CPUs from 2006 in budget desktop PCs
-as well as in mobile phones for many years. Over time the use of the GPUs
-has grown a lot as they became cheaper. Many heavy tasks
-have been parallelized like, for example, web page
-rendering. %reference - JJ
-This
-speed up is not trouble free because in order to be able to profit from GPUs
-our applications must be rewritten in a parallel fashion. % Not really
-                                % - JJ
-
-% Please revise all this for grammar and references - JJ
-As CPU makers did some years ago, passing from single core to
-symmetric multiprocessing system (SMP), and more recently to
-multi-cores, GPU makers are following the same trend. We can connect
-more than one graphic card to our computer to improve its GPU
-capabilities or buy a card with 2 graphic chips inside. GPUs are so
-much powerful than CPUs that even a small cluster of a few GPUs can be
-faster than classic, and much more expensive, big cluster of
-computers. First cluster of this kind appear in the scientific
-literature in 2004 \cite{10.1109/SC.2004.26} with big success %Qualify
-                                %this. What kind of success? - JJ
-. Nowadays, more and more people build small GPU clusters with a
-couple of mighty graphic cards just to game. Connecting 2, 3 or 4
-graphics card is called CrossFire by AMD and Scalable Link Interface
-(SLI) by NVIDIA. % Are we going to use this? - JJ
-
-Most information shown in this and next sections has been extracted from the websites of the mentioned vendors: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
