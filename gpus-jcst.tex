@@ -19,7 +19,7 @@
 
 \title{High performance evolutionary algorithms on GPUs: a survey}
 
-%\author{Gustavo Romero$^1$, M.G. Arenas$^1$, A.M. Mora$^2$, \\
+%\author{Gustavo Romero$^1$, A.M. Mora$^2$, \\
 %P. Garc{\'\i}a-S{\'a}nchez$^3$, J. J. Merelo$^1$, P.A. Castillo$^1$  \\ \\
 %\small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
 %\small{ETSIIT-CITIC, University of Granada (Spain)}\\
@@ -452,68 +452,7 @@ inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by
 AMD and Streaming Multiprocessors (SM) by NVIDIA. Here a core is
 anything capable of fetching, decoding, issuing and executing
 instructions. Every core is composed by some execution units. Every one
-is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core \cite{YangCUDA15}. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people. In the next Table, \ref{tab:features}, we can see detailed comparison of these parts inside modern CPUs and GPUs.
-
-\begin{table*}[!ht]
-\resizebox{\textwidth}{!}{
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-\hline
-                        & estimated     & die          & (shader)      & clock rate & memory       & GFLOPS         & TDP & approx.\\
-manufacturer \& model   & transistors   & area         & cores         & (GHz)      & bandwidth    & (single        &     & price  \\
-                        & (billions)    & ($mm^2$)     & CPU/GPU       & CPU/GPU    & (GB/s)       & precision)     & (W) & (\$)   \\
-\hline
-\hline
-AMD Threadripper 2990WX & 19.2          & $213\times4$ & 32            & 3          & 87.42        &                & 250 & 1799   \\
-AMD Threadripper 2950X  & 9.6           & $213\times2$ & 16            & 3.5        & 87.42        &                & 180 & 899    \\
-AMD Opteron 6386 SE     & 2.4           & 630          & 16            & 3.5        & 75           & 332.8          & 140 & 1392   \\
-\hline
-Intel Xeon E7 8890 V4   & 5.69          & 662          & 24            & 2.2        & 102          & 3500           & 165 & 7174   \\
-\hline
-\hline
-AMD Ryzen 7 1800X       & 4.8           & 195          & 8             & 3.6        & 46           & 529.04         & 95  & 465    \\
-\hline
-Intel Core i9-7980XE    &               &              & 18            & 2.6        & 79.47        &                & 165 & 1999   \\
-Intel Core i7 6950X     & 3.2           & 122          & 10            & 3.0        & 34           & 627.6          & 140 & 1723   \\
-\hline
-\hline
-AMD A10-7850K           & 2.41          & 245          & 4/512         & 4.1/0.866  & 15.76        & 1018           & 95  & 150    \\
-\hline
-Intel Core i7-7700K     & 1.75          & 149          & 4/192         & 4.2/0.950  & 68           & 745.24         & 91  & 339    \\
-\hline
-\hline
-AMD Radeon RX 480       & 6.2           & 438          & 2304          & 1.266      & 256          & 5100           & 150 & 200    \\
-\hline
-NVIDIA GeForce RTX 2080 Ti FE & 18.6    & 754          & 4352          & 1.35       & 616          & 113900         & 250 & 1199   \\
-NVIDIA GeForce GTX 1080 & 7.2           & 314          & 2560          & 1.607      & 320          & 8228           & 180 & 700    \\
-\hline
-\hline
-AMD Radeon R9 290X      & 6.2           & 438          & 2816          & 1          & 320          & 5632           & 250 & 550    \\
-\hline
-AMD Radeon R9 295X2     & $2\times6.2$  & $2\times438$ & $2\times2816$ & 1.018      & $2\times320$ & $2\times5733$  & 500 & 1500   \\
-\hline
-AMD Radeon R9 Fury X    & 8.9           & 596          & 4096          & 1.050      & 512          & 8601.6         & 275 & 650    \\
-\hline
-NVIDIA GeForce GTX 980M & 5.2           & 398          & 2048          & 1.126      & 224.3        & 3189           & 165 & 550    \\
-\hline
-NVIDIA GeForce Titan Z  & $2\times7.08$ & $2\times561$ & $2\times2880$ & 0.705      & $2\times336.5$ & 8122         & 475 & 1500   \\
-\hline
-\hline
-AMD FirePro S10000      & $2\times4.3$  & $2\times352$ & $2\times1792$ & 0.825      & $2\times240$ & $2\times2956$  & 375 & 3000   \\
-\hline
-NVIDIA QUADRO K6000     & 7.1           & 561          & 2880          & 0.9        & 288          & 3950           & 225 & 5000   \\
-\hline
-\hline
-NVIDIA Tesla K40        & 7.1           & 561          & 2886          & 0.745      & 288          & 5364           & 235 & 4000   \\
-\hline
-Intel Xeon Phi 5100P    & 5             & 600          & 60            & 1.053      & 320          & 2020           & 225 & 2200   \\
-\hline
-
-\end{tabular}
-}
-\caption{APU, CPU and GPU comparison of the best professional and commodity hardware available in Sep 2018. A slash is used in APUs to separate CPU/GPU parts. \label{tab:features}}
-\end{table*}
-
+is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core \cite{YangCUDA15}. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people.
 Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
 
 The trend observed with CPUs of integrating many companion cores
