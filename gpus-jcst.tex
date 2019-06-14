@@ -93,7 +93,7 @@ kind of algorithms. % Design is not the same as implementation. One
                     % - JJ
 
 Even if the most common form of an EA is sequential, the fact that they operate on
-populations of solutions, with operators applied to every individual at a time,
+populations of solutions, with operators applied to a single individual at a time,
 make them amenable to a straightforward, and functionally equivalent,
 parallel version, and thus, very suitable
 to be distributed at different grain levels. 
@@ -102,10 +102,8 @@ running time for yielding an objective solution, if known, or for
 obtaining a certain degree of quality in the solution, if it is not
 the optimal. But sometimes this distribution also implies a different
 searching scheme, which leads to a different searching area of the
-space of solutions and thus, which yields a different solution or set
-of solutions for the problem, that could be better than the one
-obtained in the sequential approach. 
-For these reasons, parallel EAs have been widely studied in the
+space of solutions which would change the number of evaluations needed
+to find the solution. For these reasons, parallel EAs have been widely studied in the
 literature, so this survey will be focused on how to implement them
 using general purpose GPU techniques. 
 
@@ -143,7 +141,7 @@ To this end, there are specific programming languages and structures that can be
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs, and therefore, GPU-based large-scale systems are appearing \cite{KindratenkoTrends11}.
 
 EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
-Thus, this paper presents a taxonomy regarding the different
+This paper presents a taxonomy regarding the different
 parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after revising more than
 200 works published since their emergence in 2004.
