@@ -69,6 +69,15 @@ and tendency have been conducted. After this review, a summary of research chall
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% This should probably be on the top. The main focus are GPUs, not
+% evolutionary algorithms. You also mention GPGPUs above with a couple
+% of references. This is really not structured - JJ PABLO: Moved above
+GPUs have been adapted to be used as General Purpose multi-processors
+with shared memory, or GPGPUs, in a similar shape to Single
+Instruction Multiple Data (SIMD)\cite{Pharr12SPMD} architectures.
+To this end, there are specific programming languages and structures that can be used by developers to write their own programs to be run on a GPU, which are very effective for scientific computing in terms of cost, given their extremely high performance in the comparison with CPU-based computing.
+This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs, and therefore, GPU-based large-scale systems are appearing \cite{KindratenkoTrends11}.
+
 Evolutionary Algorithms (EAs) \cite{EAs_Back96} are a class of
 probabilistic search and optimization methods inspired on the model of
 Darwinian evolution.  The main features common to all the approaches
@@ -104,34 +113,14 @@ to find the solution. For these reasons, parallel EAs have been widely studied i
 literature, so this survey will be focused on how to implement them
 using general purpose GPU techniques. 
 
-In the last years, new trends in parallelization and
-distribution of algorithms have emerged, and several examples of EAs adapted to such paradigms have been proposed: Peer-to-Peer (P2P) \cite{laredo2010evag}, Cloud Computing \cite{VermaCloud10}, Service Oriented Architecture \cite{SOA-Garcia-SanchezGCAG13} or Volunteer Computing \cite{Nouman-VolunComp14}, among others. 
-% Antonio - poner otras citas? Son todas nuestras. :_D
-% What about this? - JJ
-% Antonio - Fixed. ;)
-% You can't cite wikipedia everywhere. Make better references and add
-% ours if possible. SOA is not current any more... - JJ PABLO: removed wikipedia references. SOA paper is interesting because it is another paradigm for EAs, and also, it is ours ;)
-This new paradigms also involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive scalability or decentralization. 
+
 
 % Here is where you introduce the motivation for the paper, which,
 % besides, repeats the introduction you've made above. These
-% paragraphs should be either moved or eliminated - JJ
-Besides, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues.
-GPUs are specialized stream processors, composed of hundreds (or
-thousands) of computation units, and designed to perform graphics
-manipulations applying optimized graphical primitive operations, at a
-much higher speed than a general purpose CPU.
+% paragraphs should be either moved or eliminated - JJ PABLO: Eliminated
+%Besides, the advances in the video game industry have led to the production of low cost and high-performance graphics processing units (GPUs), which mitigate several of these issues. GPUs are specialized stream processors, composed of hundreds (or thousands) of computation units, and designed to perform graphics manipulations applying optimized graphical primitive operations, at a much higher speed than a general purpose CPU. 
 
-% This should probably be on the top. The main focus are GPUs, not
-% evolutionary algorithms. You also mention GPGPUs above with a couple
-% of references. This is really not structured - JJ
-GPUs have been adapted to be used as General Purpose multi-processors
-with shared memory, or GPGPUs, in a similar shape to Single
-Instruction Multiple Data (SIMD)\cite{Pharr12SPMD} architectures.
-To this end, there are specific programming languages and structures that can be used by developers to write their own programs to be run on a GPU, which are very effective for scientific computing in terms of cost, given their extremely high performance in the comparison with CPU-based computing.
-This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs, and therefore, GPU-based large-scale systems are appearing \cite{KindratenkoTrends11}.
 
-EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
 This paper presents a taxonomy regarding the different
 parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after revising more than
@@ -319,7 +308,10 @@ scalability or decentralization. The number of computational nodes are
 considered constant during the whole execution and both the network
 and the nodes are reliable and trustworthy.
 
-However, with the advent of new technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed file systems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
+However, with the advent of new technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, architectural paradigms such as the Service Oriented Architecture \cite{SOA-Garcia-SanchezGCAG13}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed file systems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
+
+ 
+%This new paradigms also involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive scalability or decentralization. 
 
 On the other hand, since a GPGPU is a kind of
 stable and reliable architecture, we consider the classification also
