@@ -127,7 +127,7 @@ much higher speed than a general purpose CPU.
 % of references. This is really not structured - JJ
 GPUs have been adapted to be used as General Purpose multi-processors
 with shared memory, or GPGPUs, in a similar shape to Single
-Instruction Multiple Data (SIMD)\cite{SIMD-wikipedia} architectures.
+Instruction Multiple Data (SIMD)\cite{Pharr12SPMD} architectures.
 To this end, there are specific programming languages and structures that can be used by developers to write their own programs to be run on a GPU, which are very effective for scientific computing in terms of cost, given their extremely high performance in the comparison with CPU-based computing.
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs, and therefore, GPU-based large-scale systems are appearing \cite{KindratenkoTrends11}.
 
@@ -137,8 +137,8 @@ parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after revising more than
 200 works published since their emergence in 2004.
 
-% Introduces? REally? - JJ
-In addition, the manuscript introduces the main concepts related with
+% Introduces? REally? - JJ PABLO: changed to "describes"
+In addition, the manuscript describes the main concepts related with
 GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
 frameworks which can help to do this task. After this introduction, the work gives some guidelines to parallelize an EA using GPGPUs, pointing out the main issues and constraints that should be taken into account.
@@ -224,9 +224,9 @@ Although most of the EAs follow this structure, there are some differences depen
 
 \begin{description}
 \item [Genetic Algorithms] These kind of algorithms were initially proposed by Holland \cite{holland1975adaptation}, and later revised by Goldberg \cite{goldberg1988genetic}.
-In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then different \textit{recombination} and/or \textit{mutation} operators are applied to generate new individuals that will be included in the population (replacing some other). %These algorithms have been used in different areas, such as function optimization \cite{michalewicz1996genetic}, combinatorial optimization \cite{Esparcia2009EVITA}, artificial intelligence in videogames \cite{Fernandez20111optimizing}, or generative art \cite{Garcia2013RGB}, among others.
+In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then different \textit{recombination} and/or \textit{mutation} operators are applied to generate new individuals that will be included in the population (replacing some other). 
 
-\item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. %ES have been applied in fields such as Evolutionary Robotics \cite{Garcia2012testing}.
+\item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. 
 
 
 
@@ -235,7 +235,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
   problems. Each individual is represented in the form of a tree,
   composed of operators (or {\em primitives}) and variables ({\em
     terminals}). These sets are usually fixed and known in advance.
-  The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. %GP has been used to evolve LISP (LISt Processing) programs   \cite{Koza1990Tools}, or XSLT (eXtensible Stylesheet     Language Transformations) scripts \cite{Garcia2008XSLT}, among  others.
+  The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. 
 
 \item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution depends on the nature of the problem being solved, for example, neural networks \cite{Wang18NeuralNetworks} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals. Another big difference is that is mainly based on self-adaptive mutation, and not in crossover, for individual variation.
 
@@ -308,8 +308,7 @@ Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \l
 \label{subsec:eas-distributed:parallel}
 
 EAs, as most of the population-based methods are inherently parallelizable at different grain levels and operations, from a single individual (for their independent operations) to a subgroup of the whole population  \cite{Alba13parallel}.
-% That's not really true... You need several individuals for most operations - JJ
-% Antonio - True. Fixed
+
 There are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time.
 
 Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
@@ -527,13 +526,11 @@ movement should be avoided or at least minimized. This bandwidth
 problem has arisen many times in the computation field.
 
 Every time a new powerful device has appear we must feed it data fast enough. Two solutions of recent appearance try to alleviate it. The first is a
-fourth level of cache between the CPU and the GPU (or an optimized version of third level one) \cite{Li_EAR_2017}. %reference - JJ
-% Antonio/Gustavo - Added
+fourth level of cache between the CPU and the GPU (or an optimized version of third level one) \cite{Li_EAR_2017}. 
 This is only useful when both processors are glued together in the same chip or
 encapsulation. The second solution involves changing the way we access
 memory from GPU and its called Heterogeneous System Architecture
-(HSA) \cite{mukherjee2016comprehensive}. % reference - JJ
-% Antonio/Gustavo - Added
+(HSA) \cite{mukherjee2016comprehensive}. 
 HSA shares data between CPU and GPU in a seamless way, avoiding
 as many memory copies as caches permits. This way both devices can
 share a common memory architecture. Moreover HSAIL is emerging nowadays, in which an intermediate code is used in order to ease the communication process.
@@ -629,7 +626,7 @@ related threads must interact with their neighbors in order to
 stages.
 
 Finally, it is very important to understand and to properly implement
-the Single Program Multiple Data (SPMD)\cite{SPMD-wikipedia} programming
+the Single Program Multiple Data (SPMD)\cite{Pharr12SPMD} programming
 concept, in order to take advantage of it in the EA implementation. The programmer should always take into account the constraints related to the problem size, to the GPU, and computer, memory consumption, or to the synchronization of threads, as all these issues might affect the obtained performance.
 
 
