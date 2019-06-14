@@ -92,11 +92,11 @@ kind of algorithms. % Design is not the same as implementation. One
                     % does not "implement" algorithms, we design them
                     % - JJ
 
-Even if EAs are sequential algorithms the fact that they operate on
-populations of solutions and some operators are applied on every individual at a time,
+Even if the most common form of an EA is sequential, the fact that they operate on
+populations of solutions, with operators applied to every individual at a time,
 make them amenable to a straightforward, and functionally equivalent,
-parallelization, and thus, very suitable
-to be distributed or parallelized (at different grain levels). 
+parallel version, and thus, very suitable
+to be distributed at different grain levels. 
 The aim of the parallelization is usually the improvement of the
 running time for yielding an objective solution, if known, or for
 obtaining a certain degree of quality in the solution, if it is not
