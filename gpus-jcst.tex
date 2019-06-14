@@ -19,15 +19,15 @@
 
 \title{High performance evolutionary algorithms on GPUs: a survey}
 
-%\author{Gustavo Romero$^1$, A.M. Mora$^2$, \\
-%P. Garc{\'\i}a-S{\'a}nchez$^3$, J. J. Merelo$^1$, M. G. Arenas$^1$, P.A. Castillo$^1$  \\ \\
-%\small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
-%\small{ETSIIT-CITIC, University of Granada (Spain)}\\
-%\small{$^2$ Dept. Signal Theory, Telematics and Communications,}\\
-%\small{ETSIIT-CITIC, University of Granada (Spain)}\\
-%\small{$^3$ Dept. Computer Engineering, University of C{\'a}diz (Spain)}\\
-%\small{\texttt{\{gustavo,mgarenas,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
-%}
+\author{P. Garc{\'\i}a-S{\'a}nchez$^3$, A.M. Mora$^2$,Gustavo Romero$^1$\\
+  J. J. Merelo$^1$, M. G. Arenas$^1$, P.A. Castillo$^1$, Antonio Fernández-Ares$^2$  \\ \\
+\small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
+\small{ETSIIT-CITIC, University of Granada (Spain)}\\
+\small{$^2$ Dept. Signal Theory, Telematics and Communications,}\\
+\small{ETSIIT-CITIC, University of Granada (Spain)}\\
+\small{$^3$ Dept. Computer Engineering, University of C{\'a}diz (Spain)}\\
+\small{\texttt{\{gustavo,mgarenas,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
+}
 
 \maketitle
 
@@ -89,20 +89,18 @@ kind of algorithms. % Design is not the same as implementation. One
                     % does not "implement" algorithms, we design them
                     % - JJ PABLO: I do not understand either, what should be written here?
 
-Even if EAs are sequential algorithms the fact that they operate on
-populations of solutions and some operators are applied on every individual at a time,
+Even if the most common form of an EA is sequential, the fact that they operate on
+populations of solutions, with operators applied to a single individual at a time,
 make them amenable to a straightforward, and functionally equivalent,
-parallelization, and thus, very suitable
-to be distributed or parallelized (at different grain levels). 
+parallel version, and thus, very suitable
+to be distributed at different grain levels. 
 The aim of the parallelization is usually the improvement of the
 running time for yielding an objective solution, if known, or for
 obtaining a certain degree of quality in the solution, if it is not
 the optimal. But sometimes this distribution also implies a different
 searching scheme, which leads to a different searching area of the
-space of solutions and thus, which yields a different solution or set
-of solutions for the problem, that could be better than the one
-obtained in the sequential approach. 
-For these reasons, parallel EAs have been widely studied in the
+space of solutions which would change the number of evaluations needed
+to find the solution. For these reasons, parallel EAs have been widely studied in the
 literature, so this survey will be focused on how to implement them
 using general purpose GPU techniques. 
 
@@ -134,7 +132,7 @@ To this end, there are specific programming languages and structures that can be
 This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs, and therefore, GPU-based large-scale systems are appearing \cite{KindratenkoTrends11}.
 
 EAs have also adopted this new trend, and a huge amount of parallel and distributed approaches on GPGPUs have arisen in the last years.
-Thus, this paper presents a taxonomy regarding the different
+This paper presents a taxonomy regarding the different
 parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after revising more than
 200 works published since their emergence in 2004.
@@ -403,7 +401,16 @@ computing on GPUs date back to 2002 at the University of Washington
 \cite{Buck:2004:BGS:1015706.1015800}; in fact, before multicore
 processors became a commodity, GPUs included in every computer were
 able to use their many cores.
-
+GPUs have
+been integrated inside CPUs from 2006 in budget desktop PCs
+as well as in mobile phones for many years. Over time the use of the GPUs
+has grown a lot as they became cheaper. Many heavy tasks
+have been parallelized like, for example, web page
+rendering. %reference - JJ
+This
+speed up is not trouble free because in order to be able to profit from GPUs
+our applications must be rewritten in a parallel fashion. % Not really
+                                % - JJ
 
 GPUs and CPUs are similar in many ways but there is one key
 difference: the philosophy of how to execute a workload. The main
@@ -423,54 +430,11 @@ Figure \ref{fig:cpu-gpu}.
 \label{fig:cpu-gpu}
 \end{figure*}
 
-% Do we need this paragraph? Are we using this terminology somewhere? - JJ
-The internal parts of the CPUs all have well known standard names;
-however, with GPUs the situation is the opposite. Every vendor has a
-different name for part that essentially share the same function; for
-instance, basic cores %which are ... - JJ  % Antonio - it is said in the following sentence
-inside are called Execution Unit (EU) by Intel, Compute Unit (CU) by
-AMD and Streaming Multiprocessors (SM) by NVIDIA. Here % where? - JJ
-a core is
-anything capable of fetching, decoding, issuing and executing
-instructions. Every core is composed by some execution units. Every one
-is capable of executing a vector operation in the same way Advanced Vector Extensions (AVX) or Streaming SIMD Extensions (SSE) instruction does. AMD prefer the term streaming processors (SP), and NVIDIA, CUDA core \cite{YangCUDA15}. It is way easier comparing them by counting the number of classical Arithmetic Logic Units (ALUs), called shader cores by many people. % really. You can't say that - JJ
-Although the performance varies from test to test, NVIDIA seems to be the king of the hill in GPU performance. % Is this relevant? - JJ
-It is followed at close range by AMD. Periodically reviews appeared in many webs say so, for example \cite{benchmarkGPU2016}. % This is outdated - JJ
-Both vendors adopt slightly different compromises in their offerings. AMD include more ALUs but the memory architecture from NVIDIA performs better. Test with high memory requirements or may inter-dependencies run faster on NVIDIA products. On the other hand software limited by pure ALU power tend to be faster on AMD hardware.
-
 The trend observed with CPUs of integrating many companion cores
 inside is now becoming true with the GPU also. The main reason is the
 lower cost of the complete system. They only remain separate in
 powerful systems with top processors and discrete graphics. % What is
                                 % that? - JJ
-GPUs have
-been integrated inside CPUs from 2006 in budget desktop PCs
-as well as in mobile phones for many years. Over time the use of the GPUs
-has grown a lot as they became cheaper. Many heavy tasks
-have been parallelized like, for example, web page
-rendering. %reference - JJ
-This
-speed up is not trouble free because in order to be able to profit from GPUs
-our applications must be rewritten in a parallel fashion. % Not really
-                                % - JJ
-
-% Please revise all this for grammar and references - JJ
-As CPU makers did some years ago, passing from single core to
-symmetric multiprocessing system (SMP), and more recently to
-multi-cores, GPU makers are following the same trend. We can connect
-more than one graphic card to our computer to improve its GPU
-capabilities or buy a card with 2 graphic chips inside. GPUs are so
-much powerful than CPUs that even a small cluster of a few GPUs can be
-faster than classic, and much more expensive, big cluster of
-computers. First cluster of this kind appear in the scientific
-literature in 2004 \cite{10.1109/SC.2004.26} with big success %Qualify
-                                %this. What kind of success? - JJ
-. Nowadays, more and more people build small GPU clusters with a
-couple of mighty graphic cards just to game. Connecting 2, 3 or 4
-graphics card is called CrossFire by AMD and Scalable Link Interface
-(SLI) by NVIDIA. % Are we going to use this? - JJ
-
-Most information shown in this and next sections has been extracted from the websites of the mentioned vendors: AMD \cite{amd}, Intel \cite{intel} and NVIDIA \cite{nvidia}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -542,7 +506,9 @@ Data storage and communication within a device and between devices, mainly CPU a
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{memory}
-\caption{The memory model defines how data is stored and moved between CPU and GPU. Global memory is RW (read-write) for both CPU and work-items; constant memory is RW for CPU and RO (read-only) for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
+\caption{The memory model defines how data is stored and moved between
+  CPU and GPU. Global memory is RW (read-write) for both CPU and
+  work-items; constant memory is RW (read-write) for CPU and RO (read-only) for work-items; private memory is RW for a single work-item; local memory is RW for a work-group.}
 \label{figure:memory}
 \end{figure*}
 
@@ -1209,8 +1175,7 @@ the communication cost between GPUs and CPUs.
 %********************************************************************************
 \section*{Acknowledgements}
 
-%This work has been supported in part by projects PreTEL (PRM Consultores - Trevenque S.L.), TIN2014-56494-C4-3-P and TEC2015-68752 (Spanish Ministry of Economy and Competitiveness and FEDER), PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci{\'o}n), and PROY-PP2015-06 (Plan Propio 2015, funded by the University of Granada, Spain).
-%This work has been partially funded by projects SPIP2017-02116, EphemeCH TIN2014-56494-C4-3-P, DeepBio TIN2017-85727-C4-2-P and TEC2015-68752.
+This work has been supported in part by projects DeepBio TIN2017-85727-C4-2-P and TEC2015-68752.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % appendix
