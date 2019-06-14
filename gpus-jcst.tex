@@ -52,11 +52,8 @@ The papers have been grouped following a taxonomy of the approaches used for GPG
 Then, a more in-depth review has been conducted on the most
 representative works in each category, extracting their main features
 and findings, and some statistical analyses on the publication history
-and tendency have been conducted. 
-Finally, we have conducted a comparative analysis with other
-high-performance computing methods, such as parallelization through
-Cloud Computing or the use of FPGAs for accelerating specific
-operations. % Is this done finally? - JJ
+and tendency have been conducted. After this review, a summary of research challenges and future trends of research are presented, to provide insights about how this field can still be addressed.
+%Finally, we have conducted a comparative analysis with other high-performance computing methods, such as parallelization through Cloud Computing or the use of FPGAs for accelerating specific operations. % Is this done finally? - JJ PABLO: Not done. Adding above a phrase on future trends
 \end{abstract}
 
 % \begin{keyword}
@@ -90,7 +87,7 @@ problems, requires a high amount of computational power. Thus, it is
 quite frequent to design a parallel or distributed version of this
 kind of algorithms. % Design is not the same as implementation. One
                     % does not "implement" algorithms, we design them
-                    % - JJ
+                    % - JJ PABLO: I do not understand either, what should be written here?
 
 Even if EAs are sequential algorithms the fact that they operate on
 populations of solutions and some operators are applied on every individual at a time,
@@ -110,19 +107,13 @@ literature, so this survey will be focused on how to implement them
 using general purpose GPU techniques. 
 
 In the last years, new trends in parallelization and
-distribution of algorithms have emerged. These are technologies such
-as Peer-to-Peer (P2P) \cite{P2P-wikipedia}, Cloud Computing
-\cite{CloudComputing-wikipedia}, or Volunteer Computing
-\cite{VolunteerComputing-wikipedia}, to cite the most relevant. There
-are several adaptations of EAs to every of them
-\cite{laredo2010evag,SOA-Garcia-SanchezGCAG13,VermaCloud10,Nouman-VolunComp14}, 
+distribution of algorithms have emerged, and several examples of EAs adapted to such paradigms have been proposed: Peer-to-Peer (P2P) \cite{laredo2010evag}, Cloud Computing \cite{VermaCloud10}, Service Oriented Architecture \cite{SOA-Garcia-SanchezGCAG13} or Volunteer Computing \cite{Nouman-VolunComp14}, among others. 
 % Antonio - poner otras citas? Son todas nuestras. :_D
 % What about this? - JJ
 % Antonio - Fixed. ;)
 % You can't cite wikipedia everywhere. Make better references and add
-% ours if possible. SOA is not current any more... - JJ
-which involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive
-scalability or decentralization. 
+% ours if possible. SOA is not current any more... - JJ PABLO: removed wikipedia references. SOA paper is interesting because it is another paradigm for EAs, and also, it is ours ;)
+This new paradigms also involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive scalability or decentralization. 
 
 % Here is where you introduce the motivation for the paper, which,
 % besides, repeats the introduction you've made above. These
