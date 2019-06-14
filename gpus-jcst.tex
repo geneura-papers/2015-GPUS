@@ -70,27 +70,25 @@ and tendency have been conducted. After this review, a summary of research chall
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This should probably be on the top. The main focus are GPUs, not
-% evolutionary algorithms. You also mention GPGPUs above with a couple
-% of references. This is really not structured - JJ PABLO: Moved above
-GPUs have been adapted to be used as General Purpose multi-processors
-with shared memory, or GPGPUs, in a similar shape to Single
-Instruction Multiple Data (SIMD)\cite{Pharr12SPMD} architectures.
-To this end, there are specific programming languages and structures that can be used by developers to write their own programs to be run on a GPU, which are very effective for scientific computing in terms of cost, given their extremely high performance in the comparison with CPU-based computing.
-This makes these architectures well suited to run large or complex computational problems in parallel, as substitutes or complements for CPUs, and therefore, GPU-based large-scale systems are appearing \cite{KindratenkoTrends11}.
-
-
-% Evolutionary Algorithms (EAs) \cite{EAs_Back96} are a class of
-% probabilistic search and optimization methods inspired on the model of
-% Darwinian evolution.  The main features common to all the approaches
-% are a population of individuals that are evaluated using what is
-% called a {\em fitness function} as potential solutions for the target
-% problem, a selection method that favours better solutions, and a set
-% of operators that iteratively act upon the selected solutions. In
-% general, EAs guarantee that the average quality of
-% the population will increase with the number of generations.
-
-Evolutionary algorithms \cite{de2016evolutionary} is a biologically inspired class of algorithms that, in general, evolve a set of solutions (usually called a {\em population}
+GPUs, an acronym that means Graphics Processing Unit, have been adapted to be used as general purpose multi-processors
+with shared memory, or GPGPUs using a Single
+Instruction Multiple Data (SIMD) \cite{Pharr12SPMD} model. Their
+widespread use in all kind of computers fostered the appearance of
+specific programming languages and patterns with which cost effective
+applications, that leverage the power of the architecture, can be
+written, which is why specific solutions, frameworks and algorithms
+have been appearing with high frequency in the last few years. One of
+these fields, evolutionary algorithms (EAS) \cite{de2016evolutionary}
+is going to be the focus of this paper. EAs are a biologically
+inspired class of algorithms that, in general, {\em evolve} a set of
+solutions (usually called a {\em population}) by assigning a score
+(called {\em fitness}) to every solution and selecting them for
+reproduction so that those with the higher fitness get more copies in
+the reproductive pool. That pool is then changed blindly (in a
+procedure called {\em mutation}),  and combined (in a procedure
+usually called {\em crossover}) to create a new population on which
+the procedure is repeated until the solution, or a suitable one is
+found. 
 
 
 This metaheuristic has been widely used in the literature to solve
@@ -128,7 +126,7 @@ using general purpose GPU techniques.
 
 This paper presents a taxonomy regarding the different
 parallelization models, along with a complete survey of the most
-relevant proposals in this scope, extracted after revising more than
+relevant proposals in this scope, extracted after reviewing more than
 200 works published since their emergence in 2004.
 
 % Introduces? REally? - JJ PABLO: changed to "describes"
