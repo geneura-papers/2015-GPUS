@@ -545,30 +545,51 @@ common issues and constraints to take into account when such a
 parallel evolutionary approach is going to be implemented are also
 pointed out.
 
-%----------------------------------------------------------------------
-\subsection{Frameworks to parallelize EAs on GPGPUs}
+In principle, the best approach for this kind of paralellization would
+be to create frameworks for performing it. Frameworks put a layer of abstraction over the specifics of GPU
+programming, and help practitioners focus on solving the problem
+instead of implementing it in a GPU. However, in practice there's no
+such thing as a general purpose metaheuristic framework that works on
+GPUs. Libraries for  making this implementation a bit easier come in
+two different flavors: specific versions of general-purpose
+metaheuristic libraries, and frameworks for some specific
+metaheuristic that work over GPUs.
 
-Since the creation of the EAs, many Universities and research groups have developed a number of frameworks to facilitate the implementation of this kind of algorithms. Many of them include implementations for the most common operators, problems and individual representations, using different technologies and programming languages.
-
-The most complete and comprehensive review of these kind of frameworks was proposed by Parejo et al. \cite{springerlink:10.1007/s00500-011-0754-8}. It is a comparative study of metaheuristic optimization frameworks, and therefore it is not focused only on EAs. 6 different areas and characteristics were studied using 271 features. Between these features, the differences between solution encoding or parallel and distribution mechamisms were compared, but also other software engineering issues, such as the documentation or integration, were studied. However, none of the ten most extended optimization frameworks, ECJ, Eva2, FOM, ParadisEO, jCLEC, Opt4j, OAT, EasyLocal, HeuristicLab and MALLBA, included references to GPU capabilities when this paper was published.
-
-However, a few years ago, some of these EA-based frameworks have added some
-kind of GPU integration. Several authors have created library
-extensions to the frameworks, in order to allow the evaluation of the
-individuals in GPGPUs (which is normally the hardest computational
-part). For example, Robilliard et al. \cite{RobilliardECJGPU08} did it
+In the first case fall library
+extensions to frameworks that perform evaluation of individuals,
+normally the dominant part in most metaheuristic implementation, in
+GPUs.  Robilliard et al. \cite{RobilliardECJGPU08} did it
 for ECJ, and Cano et al. for jCLEC
 \cite{SpeedingTheEvaluationofGPCano:2012}.
-On the other hand, ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13}, another framework built upon an existing one, for now is only focused in single solution metaheuristics, and it does not support population-based ones, such as EAs.
+On the other hand, ParadiseEO-MO-GPU \cite{MealbParadiseoGPU13},
+another framework built upon an existing one, for now is only focused
+in single solution metaheuristics, and it does not support
+population-based ones, such as EAs. EASEA
+\cite{Maitre:2009:CGP:1569901.1570089} takes a code generation
+approach that sends  the code for the fitness
+evaluation to the GPU to be run in parallel, so the parallelization
+just affects to a part of the algorithm.
 
 
-PUGACE \cite{5586286} is one of the few new frameworks focused exclusively on the execution of EAs in GPGPUs. It is based on MALLBA and uses CUDA to execute cellular GAs (cGAs), but only for linear neighborhood structures. %The architecture of this framework is presented and experiments with the QAP problem are performed. Fitness evaluation uses a thread for each chromosome. Speedups for several problem instances varies from $\times15$ to $\times18$. The execution platform was a Pentium Dual Core at 2.5Ghz and an nVidia GeForce 98000 GTX+.
+In the second case there are a few examples; PUGACE \cite{5586286} is
+one of the few new frameworks focused exclusively on the execution of
+EAs in GPGPUs. It is based on MALLBA and uses CUDA to execute cellular
+GAs (cGAs), but only for linear neighborhood structures. However, this
+framework does not seem to be available either as open source or any
+other form, so it is difficult to check their claims or even use
+it. gpuMF \cite{roberge2015gpumf} implements island-model
+metaheuristics, and seems to be addressed at generic population-based
+models, including GAs and PSOs but not other paradigms, such as GP or
+ACOs. As in the case above, it does not seem to be published
+anywhere, which implies that only the authors have used it in
+publications.
 
-Finally, EASEA \cite{Maitre:2009:CGP:1569901.1570089} attempts to facilitate the development of EAs to be run in GPGPUs by compiling the code from a specific algorithm specification language (EASEA) into code suitable to be run in a CPU-GPU manner.
-However, as in previous frameworks, only the code for the fitness
-evaluation is sent to the GPU to be run in parallel, so the parallelization just affects to a part of the algorithm.
-% That is not good because... JJ
-% Antonio - written
+That means that, in general, metaheuristics in GPUs will have to
+either use general-purpose open source frameworks and adapt a part of
+them for working in GPUs or else roll out your own. In any case, you
+will have to take into account a series of constraints, about which we
+will talk about next.
+
 
 %----------------------------------------------------------------------
 \subsection{Requirements and constraints to parallelize EAs on GPGPUs}
