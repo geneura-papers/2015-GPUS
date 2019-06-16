@@ -293,8 +293,6 @@ Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \l
 \end{table}
 
 
-
-
 % ------------------------------------------------------------------------------
 \subsection{Parallel and Distributed Evolutionary Algorithm Models}
 \label{subsec:eas-distributed:parallel}
@@ -366,19 +364,22 @@ In this scheme the parallelism is performed at population level, that is, the po
 
 \end{description}
 
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Massive parallelization on General Purpose GPUs}
-\label{sec:parall_and_GPUs}
+\section{GPU Programming and metaheuristics}
+\label{sec:programming}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section introduces the most relevant concepts to know before
+using GPUs for General Purpose computing. These aspects normally
+differ between vendors, but they have common features which we 
+describe here: the different programming possibilities, the execution
+model that GPU computing follows, and the memory scheme to use,
+concluding on how this affects the implementation of diverse metaheuristic
+algorithms.
 
 Parallel computation has passed from been an enhancement to regular computing to a
 necessity due to the space and miniaturization limitations predicted by Moore's and Koomey's Laws \cite{10.1109/MAHC.2010.28}. 
-As newer processors are barely faster than previous ones
+As newer processors are just marginally faster than previous ones
 the only way to take advantage of the amount of transistors is putting
 many cores together. For many years, clock rates and instruction-level
 parallelism has become fast enough to allow faster execution of the
@@ -430,19 +431,6 @@ lower cost of the complete system. They only remain separate in
 powerful systems with top processors and discrete graphics. % What is
                                 % that? - JJ
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{GPU Programming and metaheuristics}
-\label{sec:programming}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-This section introduces the most relevant concepts to know before
-using GPUs for General Purpose computing. These aspects normally
-differ between vendors, but they have common features. Namely we
-describe here: the different programming possibilities, the execution
-model that GPU computing follows, and the memory scheme to use,
-conclusing on how this affects implementation of diverse metaheuristic
-algorithms. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Programming Model}
@@ -544,12 +532,6 @@ share a common memory architecture. Moreover HSAIL is emerging nowadays, in whic
 \subsection{Parallelizing metaheuristics on GPGPUs}
 \label{ssec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-This section describes the most important frameworks used to
-parallelize EAs to take advantage of the power of GPGPUs. In addition,
-common issues and constraints to take into account when such a
-parallel evolutionary approach is going to be implemented are also
-pointed out.
 
 GPU implementation of metaheuristics face the same problems as the
 implementation of any other kind of algorithm, such as graph
