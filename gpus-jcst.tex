@@ -77,9 +77,22 @@ or as a Single Instruction Multiple Data (SIMD) processors
 is usually called GPGPU \cite{luebke2006gpgpu,owens2007}. 
 Their use in all kind of computers inspired the development of 
 specific programming languages, tools and applications that leverage the power of the architecture, 
-favouring the emergence of specific solutions, frameworks and algorithms that take advantage of those devices.
-One of these fields, evolutionary algorithms (EAS) \cite{de2016evolutionary}
-is going to be the focus of this paper. EAs are a biologically
+favouring the emergence of specific solutions, frameworks and
+algorithms that take advantage of those devices. Besides from our
+paper in 2012 \cite{arenas2012gpu}, there are many new ways of using
+GPUs for general purposes, from cloud instances that include them to
+{\em desktop supercomputers} that boast several GPU linked by a
+high-performance network.
+
+These advances have extended the use of GPGPUs to many other labs and
+even, given that every computer nowadays has a powerful graphics card,
+to almost every one, extending the range of applications from speeding
+up desktop programs to very high performance data processing.
+
+
+This also means that the field that is the focus of this paper,
+evolutionary algorithms (EAS) \cite{de2016evolutionary}, has been the
+application target of GPGPUs in many ocassions. EAs are a biologically
 inspired class of algorithms that, in general, {\em evolve} a set of
 solutions (usually called a {\em population}) by assigning a score
 (called {\em fitness}) to every solution and selecting them for
@@ -1043,24 +1056,7 @@ the communication cost between GPUs and CPUs.
 %********************************************************************************
 \section*{Acknowledgements}
 
-This work has been supported in part by projects DeepBio TIN2017-85727-C4-2-P and TEC2015-68752.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% appendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% The Appendices part is started with the command \appendix;
-%% appendix sections are then done as normal sections
-%% \appendix
-
-%% \section{}
-%% \label{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% bibliography
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+This work has been supported in part by project DeepBio TIN2017-85727-C4-2-P.
 
 \bibliographystyle{plain}
 \bibliography{gpus-jcst,geneura}
