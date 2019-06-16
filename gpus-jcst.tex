@@ -432,11 +432,17 @@ powerful systems with top processors and discrete graphics. % What is
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{GPU Programming}
+\section{GPU Programming and metaheuristics}
 \label{sec:programming}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section introduces the most relevant concepts to know before using GPUs for General Purpose computing. These aspects normally differ between vendors, but they have common features. Namely we describe here: the different programming possibilities, the execution model that GPU computing follows, and the memory scheme to use.
+This section introduces the most relevant concepts to know before
+using GPUs for General Purpose computing. These aspects normally
+differ between vendors, but they have common features. Namely we
+describe here: the different programming possibilities, the execution
+model that GPU computing follows, and the memory scheme to use,
+conclusing on how this affects implementation of diverse metaheuristic
+algorithms. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Programming Model}
@@ -535,8 +541,8 @@ share a common memory architecture. Moreover HSAIL is emerging nowadays, in whic
 % Antonio - I have written an introduction to justify this
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Parallelizing metaheuristics on GPGPUs}
-\label{sec:parallelizing}
+\subsection{Parallelizing metaheuristics on GPGPUs}
+\label{ssec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section describes the most important frameworks used to
