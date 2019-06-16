@@ -36,9 +36,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Evolutionary Algorithms (EAs), a population based approach to problem solving, have been widely adapted to General
-Purpose Graphics Processing Units (GPGPUs), using the fact
-that the different solutions in the population can be evaluated in
+Evolutionary Algorithms (EAs), a population based approach to problem solving, 
+have been widely adapted to General Purpose Graphics Processing Units (GPGPUs), 
+using the fact that the different solutions in the population can be evaluated in
 parallel. Beyond that fact, different methodologies and
 techniques are used; this paper aims first to describe the
 parallelization process of EAs on GPGPUs, introducing their general
@@ -69,16 +69,13 @@ and tendency have been conducted. After this review, a summary of research chall
 \label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-GPUs, an acronym that means Graphics Processing Unit, have been adapted to be used as general purpose multi-processors
-with shared memory, or GPGPUs using a Single
-Instruction Multiple Data (SIMD) \cite{Pharr12SPMD} model. Their
-widespread use in all kind of computers fostered the appearance of
-specific programming languages and patterns with which cost effective
-applications, that leverage the power of the architecture, can be
-written, which is why specific solutions, frameworks and algorithms
-have been appearing with high frequency in the last few years. One of
-these fields, evolutionary algorithms (EAS) \cite{de2016evolutionary}
+GPU (Graphics Processing Unit) 
+have been adapted to be used either as general purpose multi-processors with shared memory, 
+or as a Single Instruction Multiple Data (SIMD) model \cite{Pharr12SPMD}.
+Their use in all kind of computers propitiated the development of 
+specific programming languages, tools and applications that leverage the power of the architecture, 
+favouring the emergence of specific solutions, frameworks and algorithms that take advantage of those devices.
+One of these fields, evolutionary algorithms (EAS) \cite{de2016evolutionary}
 is going to be the focus of this paper. EAs are a biologically
 inspired class of algorithms that, in general, {\em evolve} a set of
 solutions (usually called a {\em population}) by assigning a score
@@ -87,8 +84,7 @@ reproduction so that those with the higher fitness get more copies in
 the reproductive pool. That pool is then changed blindly (in a
 procedure called {\em mutation}),  and combined (in a procedure
 usually called {\em crossover}) to create a new population on which
-the procedure is repeated until the solution, or a suitable one is
-found. 
+the procedure is repeated until the solution, or a suitable one is found. 
 
 
 This metaheuristic has been widely used in the literature to solve
