@@ -818,9 +818,10 @@ is faster on data sets with 10 to 50 discrete attributes.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Coarse-grained Approaches (Island Model)}
+\subsection{Coarse-grained approaches (Island Model)}
 % why mix caps and not? - JJ
 % Antonio - fixed
+% This is the same structure as the 2012 paper. It should be updated. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherent parallelization possibilities they offer. Thus, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones.
@@ -839,7 +840,15 @@ One of the first island models on GPU-based approaches was presented on the GECC
 
 However, after this, Pospichal et al. continued working on their approach \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253}. The authors mapped threads to individuals, and then, these threads-individuals could be synchronized easily in order to maintain data consistency. To decrease memory latency, the usage of an on-chip hardware scheduler was proposed, which swiftly swaps existing islands between multiprocessors, with the combination of a fast-shared memory. In this case, the population size was limited to 16KB per island (as on most GPUs at that time), so if the population was larger, the main memory would be used, implying a time increase. In fact, the inter-island communication was used, by relying on it the migration, based in an asynchronous unidirectional ring model. Even that, authors reported speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
 
-Permutation domain problems have been studied by some authors. Tsutsui and Noriyuki \cite{1570355} also run a coarse-grained GA on a GPGPU, to solve the QAP problem using CUDA. Their model generated the initial population on CPU and copied it to the GPU VRAM; then, each sub-population in a GPU (nVidia GeForce GTX285) was evolved. At some generations, individuals in sub-populations were shuffled through the GPU VRAM. Results showed a speedup from $\times3$ to $\times12$ (using eight QAP instances), in the comparison with an Intel i7 965 processor.
+Permutation domain problems have been studied by some authors. Tsutsui
+and Noriyuki \cite{1570355} also run a coarse-grained GA on a GPGPU,
+to solve the QAP problem using CUDA. Their model generated the initial
+population on CPU and copied it to the GPU VRAM; then, each
+sub-population in a GPU (nVidia GeForce GTX285) was evolved. At some
+generations, individuals in sub-populations were shuffled through the
+GPU VRAM. Results showed a speedup from $\times3$ to $\times12$ (using
+eight QAP instances), in the comparison with an Intel i7 965
+processor. 
 
 Comparison of several approaches is a very important task to do when presenting a new model. The work by \cite{LUONG:2010:INRIA-00520464:1} compared three different schemes, including his new re-design of the island model. The first scheme presented implemented a coarse-grained EA based on a client-server model to run the evaluation step on GPU, as other papers mentioned early. The second one directly distributed the EA population on GPUs. Finally, the use of a fast on-chip memory was proposed as an extension on the third approach.
 The two latter approaches reduced the CPU-GPU memory latency, although their parameters (number of islands, migration topology, frequency, and number of migrants) must be adapted to the GPU features. Sequential and parallel implementations were compared, obtaining a speedup of $\times1757$ using the third approach.
@@ -1054,7 +1063,7 @@ This work has been supported in part by projects DeepBio TIN2017-85727-C4-2-P an
 
 
 \bibliographystyle{plain}
-\bibliography{gpus-jcst}
+\bibliography{gpus-jcst,geneura}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
