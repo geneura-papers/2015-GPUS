@@ -36,7 +36,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Evolutionary Algorithms (EAs), a population based approach to problem solving, 
+Evolutionary Algorithms (EAs), a population based stochastic approach to problem solving, 
 have been widely adapted to General Purpose Graphics Processing Units (GPGPUs), 
 using the fact that the different solutions in the population can be evaluated in
 parallel. Beyond that fact, different methodologies and
@@ -56,6 +56,7 @@ and tendency have been conducted. After this review, a summary of research chall
 %Finally, we have conducted a comparative analysis with other high-performance computing methods, such as parallelization through Cloud Computing or the use of FPGAs for accelerating specific operations. % Is this done finally? - JJ PABLO: Not done. Adding above a phrase on future trends
 \end{abstract}
 
+% What happened to keywords? - JJ
 % \begin{keyword}
 %parallel computation \sep evolutionary algorithms \sep metaheuristics \sep GPUs \sep GPGPUs \sep survey
 %\end{keyword}
@@ -71,8 +72,10 @@ and tendency have been conducted. After this review, a summary of research chall
 
 GPU (Graphics Processing Unit) 
 have been adapted to be used either as general purpose multi-processors with shared memory, 
-or as a Single Instruction Multiple Data (SIMD) model \cite{Pharr12SPMD}.
-Their use in all kind of computers propitiated the development of 
+or as a Single Instruction Multiple Data (SIMD) processors
+\cite{Pharr12SPMD}; their utilization as general purpose processors
+is usually called GPGPU \cite{luebke2006gpgpu,owens2007}. 
+Their use in all kind of computers inspired the development of 
 specific programming languages, tools and applications that leverage the power of the architecture, 
 favouring the emergence of specific solutions, frameworks and algorithms that take advantage of those devices.
 One of these fields, evolutionary algorithms (EAS) \cite{de2016evolutionary}
@@ -128,7 +131,7 @@ relevant proposals in this scope, extracted after reviewing more than
 In addition, the manuscript describes the main concepts related with
 GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
-frameworks which can help to do this task. After this introduction, the work gives some guidelines to parallelize an EA using GPGPUs, pointing out the main issues and constraints that should be taken into account.
+frameworks which can help to do this task. After this introduction, the work gives some guidelines to parallelize an EA using GPUs, pointing out the main issues and constraints that should be taken into account.
 
 The work also compares this parallelization methodology with other extended high-performance methods such as Cloud Computing, massive Volunteer Computing, or specialized FPGAs.
 
