@@ -607,40 +607,6 @@ will have to take into account a series of constraints, about which we
 will talk about next.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{A high-level taxonomy of metaheuristics in GPUs}
-\label{sec:taxonomy}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% This is a repetition of subsec:eas-distributed:parallel . Why don't
-% you put them together? - JJ
-% Antonio - It is not the same as in that section. That was an introduction and this is a (similar) taxonomy. I have clarified this in the text and removed those redundant paragraphs/sentences.
-% Revising this, I have made the same comment. We should reconsider moving it to where they are actually used, with a little stub in the introduction - JJ
-% Antonio - Due to the structure of the paper we think that moving this upper or bringing section 2.2 here will be a wrong decision regarding the coherence of the whole work. I have changed a bit the aforementioned section to do it less relevant (as a very brief introduction), reducing the overlapping with this section to the minimum.
-In this section, a taxonomy to distinguish between the different
-distribution methods applied in the literature is proposed.
-It is inspired by the classical models used in the distribution of EAs, described in Section \ref{subsec:eas-distributed:parallel}.
-
-We take as a reference the survey by Alba \cite{Alba2005book}, who reviewed many parallel metaheuristics on EC. Most paradigms were identified with respect to
-parallel/distributed EAs, according to Flynn's taxonomy, under the
-Multiple Instruction Multiple Data (MIMD) category. This argument has
-been fairly valid during the last two decades because the most
-dominant platform for running parallel/distributed EAs were
-distributed memory architectures, like clusters. However fine-grained
-EAs deployed on massive parallel processors (MPPs) are resurfacing,
-due to GPUs architecture gives low cost support for them.
-
-The parallel EAs community has a big amount of contributions using
-MIMD architectures, but a very little regarding SIMD systems, probably due to the MIMD dominance over SIMD.
-
-Nevertheless, when the research community uses GPGPUs, all the EC approaches are parallel, so we have reviewed the bibliography taking in mind how an algorithm has been parallelized using that paradigm. Thus, for this survey, the specific metaheuristic used in every paper is being placed in a secondary position.
-For that reason, we focus the rest of the survey on the different ways for implementing Parallel Evolutionary Algorithms (PEAs) as Zhang and Zhenming proposed in \cite{ZhangImplementationserverClient}: client-server model \cite{man-leung-wong-parallel-2005}, fine-grained model \cite{jian_ming_li_efficient_2007}, coarse-grained model \cite{Maitre:2009:CGP:1569901.1570089}, %\cite{pospichalParallelGeneticAlgorithOnCUDA2010}
-or hierarchical models  \cite{DBLP:conf/gecco/PospichalMOSJ11},  which use two or more of the previous parallel approaches in an hierarchical way.
-
-
-Thus, the proposed taxonomy is based on the classical approach followed by other authors, but it adds two new groups that we consider important: the hierarchical and the non-standard models.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Literature analysis and review}
