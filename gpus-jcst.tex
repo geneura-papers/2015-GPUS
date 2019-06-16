@@ -20,13 +20,13 @@
 \title{High performance evolutionary algorithms on GPUs: a survey}
 
 \author{P. Garc{\'\i}a-S{\'a}nchez$^3$, A.M. Mora$^2$,Gustavo Romero$^1$\\
-  J. J. Merelo$^1$, M. G. Arenas$^1$, P.A. Castillo$^1$, Antonio Fernández-Ares$^2$  \\ \\
+  J. J. Merelo$^1$, P.A. Castillo$^1$, Antonio Fernández-Ares$^2$  \\ \\
 \small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
 \small{$^2$ Dept. Signal Theory, Telematics and Communications,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
 \small{$^3$ Dept. Computer Engineering, University of C{\'a}diz (Spain)}\\
-\small{\texttt{\{gustavo,mgarenas,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
+\small{\texttt{\{gustavo,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
 }
 
 \maketitle
@@ -535,7 +535,7 @@ share a common memory architecture. Moreover HSAIL is emerging nowadays, in whic
 % Antonio - I have written an introduction to justify this
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Parallelizing EAs on GPGPUs}
+\section{Parallelizing metaheuristics on GPGPUs}
 \label{sec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -545,8 +545,13 @@ common issues and constraints to take into account when such a
 parallel evolutionary approach is going to be implemented are also
 pointed out.
 
+GPU implementation of metaheuristics face the same problems as the
+implementation of any other kind of algorithm, such as graph
+algorithms \cite{shi2018graph}
+
 In principle, the best approach for this kind of paralellization would
-be to create frameworks for performing it. Frameworks put a layer of abstraction over the specifics of GPU
+be to create software frameworks for performing it. Frameworks put a layer of
+abstraction over the specifics of GPU 
 programming, and help practitioners focus on solving the problem
 instead of implementing it in a GPU. However, in practice there's no
 such thing as a general purpose metaheuristic framework that works on
@@ -591,59 +596,6 @@ will have to take into account a series of constraints, about which we
 will talk about next.
 
 
-%----------------------------------------------------------------------
-\subsection{Requirements and constraints to parallelize EAs on GPGPUs}
-
-The first step for parallelizing an evolutionary algorithm using a GPGPU is to study the GPU architecture, as the cards of different families would have special features which the programmer has to consider, in order to really take advantage of the hardware.
-Thus, the algorithm and so its source code must be adapted to the GPU architecture in which the algorithm will run.
-This task should be conducted carefully, since a code that has not been properly adapted might expend a higher time to run than its sequential version.
-
-Next, usual basic steps a researcher (programmer) should consider in order to conduct a standard - and very common - parallelization of an EA on a GPU-based system are detailed.
-
-The most extended parallelization approach is based on running the evolutionary loop on the CPU, while the GPU processors just run the evaluation stage (as this is usually the computationally hardest task). This approach is the simplest one, and the programmer only have to change a very specific part of the EA implementation. In this case, the EA is executed in two scopes, and some issues must be considered in each of them:
-
-\begin{itemize}
-\item In GPU scope:
-	\begin{itemize}
-		\item Allocate memory for the individuals to evaluate.
-		\item Allocate memory for the data the individuals need for their evaluation (e.g. the matrix distances for a Travelling Salesman Problem).
-		\item Allocate memory for the evaluation results.
-		\item Each GPU processor evaluates one individual (or a part of it) using a kernel function. But while the first one is called/launched from the CPU scope, the rest of them might be called from the same scope or from the GPU one.
-	\end{itemize}
-\item In CPU scope:
-	\begin{itemize}
-		\item Copy the individuals and data for the evaluation from CPU scope to GPU scope.
-		\item Copy the obtained results from GPU scope to CPU scope.
-		\item Define the grid of threads for kernel function execution. Set the dimensions of each thread's block, determine how many blocks will be used, and how these blocks will be organized for the grid to use one, two or three dimensions.
-		\item Call the kernel function or several functions using the grid of threads defined in previous step.
-		\item Integrate the evaluation results with the rest of the evolutionary process.
-	\end{itemize}
-\end{itemize}
-
-Previous steps can be implemented in any CUDA version. Moreover, in
-recent versions of this programming language those steps can be
-simplified, as the GPU processors are able to access CPU memory scope
-directly.
-However, this approach is not useful in most of the cases, since the
-time required for CPU memory access is too large. Thus, normally, it
-is only used when the data to access is just needed once for every
-operation. If the evaluation process needs to use the data several
-times, it might be better copying them to the GPU memory, in order to
-speedup the next data loading.
-
-There are other parallelization approaches where the GPGPU runs not
-only the evaluation phase, but all the stages of the algorithm.
-In the most usual implementation of this alternative, each thread or each block of threads must evolve a small number of individuals, so all the thread blocks must cooperate to evolve the whole population.
-This approach can be easily implemented if the evolutionary algorithm is a fine-grained one.
-In that case, the implementation will be based on assigning one
-individual (or even a part of it) to each thread of a block. Then,
-related threads must interact with their neighbors in order to
-`co-evolve' individuals and also to carry out the rest of algorithm
-stages.
-
-Finally, it is very important to understand and to properly implement
-the Single Program Multiple Data (SPMD)\cite{Pharr12SPMD} programming
-concept, in order to take advantage of it in the EA implementation. The programmer should always take into account the constraints related to the problem size, to the GPU, and computer, memory consumption, or to the synchronization of threads, as all these issues might affect the obtained performance.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
