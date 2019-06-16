@@ -547,10 +547,22 @@ pointed out.
 
 GPU implementation of metaheuristics face the same problems as the
 implementation of any other kind of algorithm, such as graph
-algorithms \cite{shi2018graph}
+algorithms \cite{shi2018graph}. GPUs work the best when a single
+instruction can be applied, in parallel, to a data set; however, CPUs
+work better with sequences of computations where the results of one
+step are used in other steps. Additionally, GPUs have many more
+threads than current CPUs, and needs to be leveraged
+\cite{cheng2019accelerating} and is probably more suitable for
+fine-grained approaches such as cellular evolutionary algorithms \cite{yu-parallel-2005} or
+other non-standard approaches \cite{DBLP:conf/gecco/PospichalMOSJ11}. On the other
+hand, CPUs and GPUs must work together, with GPUs needing to access
+the computer memory, or the CPU transferring data to the GPU. This
+data preparation or data access step is a bottleneck for the full
+parallelization of algorithms in GPUs.
 
-In principle, the best approach for this kind of paralellization would
-be to create software frameworks for performing it. Frameworks put a layer of
+It would be ideal, thus, that a framework abstracted this step and
+took care of splitting GPU and CPU work along the lines that would
+maximize performance. These frameworks would put a layer of
 abstraction over the specifics of GPU 
 programming, and help practitioners focus on solving the problem
 instead of implementing it in a GPU. However, in practice there's no
@@ -575,7 +587,6 @@ approach that sends  the code for the fitness
 evaluation to the GPU to be run in parallel, so the parallelization
 just affects to a part of the algorithm.
 
-
 In the second case there are a few examples; PUGACE \cite{5586286} is
 one of the few new frameworks focused exclusively on the execution of
 EAs in GPGPUs. It is based on MALLBA and uses CUDA to execute cellular
@@ -596,12 +607,11 @@ will have to take into account a series of constraints, about which we
 will talk about next.
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A high-level taxonomy of metaheuristics in GPUs}
 \label{sec:taxonomy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % This is a repetition of subsec:eas-distributed:parallel . Why don't
 % you put them together? - JJ
@@ -646,64 +656,6 @@ usually are the more expensive portion of the total run time.
 % different axes, but there are too many classifications for a single
 % paper - JJ
 % Antonio- the classification is similar, but here we focus on the existing approaches in the GPGPU literature ad we extend the explanation given in previous section
-
-% -----------------------------------------------
-\subsection{Fine-grained approaches}
-\label{subsec:finegrainedapproaches}
-
-The impact of Cellular Evolutionary Algorithms (CEAs) or Fine-grained Evolutionary
-Algorithms has been smaller with respect to other types of PEAs. The
-main reason is that they are better suited for shared memory architectures than the ones with distributed memory, but also due to the high cost of building this type of architectures.
-
-However, a review of the trends in parallel
-architectures foresees a strong increase in fine-grained EAs face to
-face other EA categories. This can be explained for the next three reasons:
-
-\begin{itemize}
-\item The amount of processors on a chip or card as massively grown.
-\item Fine-grained EAs efficiency has been increased thanks to the high-processor speed.
-\item A large number of researchers have been attracted by the low cost of these architectures.
-\end{itemize}
-
-In this kind of algorithms, a neighborhood-based selection is performed to select the mating parents, thus providing automatic niching effect and avoiding early convergence.
-
-% -----------------------------------------------
-\subsection{Coarse-grained approaches}
-\label{subsec:coarsegrainedapproaches}
-
-These approaches work with a set of sub-populations, normally a part
-of the whole population, distributed in different nodes, being every
-node devoted to work with just one of them, so they can work in
-parallel independently. Each of these sub-populations is known as an
-`island'. In the standard model, after a number of generations one or
-more individuals, normally the best, are interchanged, as dictated by
-migration rate, between islands, which are connected following a
-specific neighborhood topology.
-
-
-% -----------------------------------------------
-\subsection{Hierarchical approaches}
-\label{subsec:hierarchicalapproaches}
-
-This hybrid model just utilizes two or more of the client-server, coarse-grained and fine-grained approaches in an hierarchical method. At the higher level, an island model algorithm runs while at the lower level, the demes, or sub-populations, are running in parallel, fine-grained, client-server or even another island model with high migration rates. Hybrid models are not the most common in traditional implementation of EAs due to:
-\begin{itemize}
- \item The need for additional parameters related to the more complex topology structure.
- \item The need for `quite rare' hierarchical parallel architectures to host hybrid algorithms.
-\item The high complexity of programming such models.
-\end{itemize}
-
-Nevertheless, for the GPUs, hybrid EAs are a perfect candidate to exploit the hierarchical memory and flexible block sizing, by means of well structured populations.
-
-
-% -----------------------------------------------
-\subsection{Non-standard approaches}
-\label{subsec:nonstandardapproaches}
-
-By the end of the work we have included a subsection for non-standard
-approaches \cite{DBLP:conf/gecco/PospichalMOSJ11} including papers
-which may not be easily classified in any of the previous categories, since they
-mapped the algorithms and the problem they solve in a special way that
-cannot be considered as fine-grained, coarse-grained or client-server.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
