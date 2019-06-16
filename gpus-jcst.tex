@@ -129,7 +129,6 @@ parallelization models, along with a complete survey of the most
 relevant proposals in this scope, extracted after reviewing more than
 200 works published since their emergence in 2004.
 
-% Introduces? REally? - JJ PABLO: changed to "describes"
 In addition, the manuscript describes the main concepts related with
 GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
@@ -574,6 +573,17 @@ population-based ones, such as EAs. EASEA
 approach that sends  the code for the fitness
 evaluation to the GPU to be run in parallel, so the parallelization
 just affects to a part of the algorithm.
+
+The only general purpose EA library that seems to be available is
+libCudaOptimzie \cite{nashed2012libcudaoptimize}, although it does not
+seem to have been updated since 2015. With this library, written in
+C++ and CUDA-C, you can either use the framework with your own fitness
+function, or implement new optimization methods that leverage que
+power of the CPU. As its name implies, it relies on nVidia hardware,
+but is able to use as many threads are available without the direct
+intervention of the programmer. This kind of framework, however, does
+not seem to have had a continuity or been superseded by a new, and
+actively maintained, one.
 
 In the second case there are a few examples; PUGACE \cite{5586286} is
 one of the few new frameworks focused exclusively on the execution of
