@@ -19,14 +19,15 @@
 
 \title{High performance evolutionary algorithms on GPUs: a survey}
 
-\author{P. Garc{\'\i}a-S{\'a}nchez$^3$, A.M. Mora$^2$,Gustavo Romero$^1$\\
-  J. J. Merelo$^1$, P.A. Castillo$^1$, Antonio Fernández-Ares$^2$  \\ \\
-\small{$^1$ Dept. Computer Architecture and Computer Technology,}\\
-\small{ETSIIT-CITIC, University of Granada (Spain)}\\
+\author{P. Garc{\'\i}a-S{\'a}nchez$^1$, A.M. Mora$^2$,Gustavo Romero$^3$\\
+  J. J. Merelo$^1$, P.A. Castillo$^3$, M.G. Arenas Antonio$^3$, Fernández-Ares$^2$  \\ \\
+\small{$^1$ Dept. Computer Engineering, University of C{\'a}diz (Spain)}\\
 \small{$^2$ Dept. Signal Theory, Telematics and Communications,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
-\small{$^3$ Dept. Computer Engineering, University of C{\'a}diz (Spain)}\\
-\small{\texttt{\{gustavo,pacv,amorag,jmerelo\}@ugr.es}}\\ \small{\texttt{pablo.garciasanchez@uca.es}}
+\small{$^3$ Dept. Computer Architecture and Computer Technology,}\\
+\small{ETSIIT-CITIC, University of Granada (Spain)}\\
+\small{\texttt{pablo.garciasanchez@uca.es}}\\
+\small{\texttt{\{amorag,gustavo,jmerelo,pacv,mgarenas,antares\}@ugr.es}}
 }
 
 \maketitle
@@ -765,6 +766,7 @@ individuals to evaluate and the partial results of the evaluation must
 be transferred and updated, avoiding bandwidth problems.
 The run is conducted for 50 generations and with 500 individuals of a maximum depth of 3 levels, using a i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690).
 % You need to give that amount of details? - JJ
+% Antonio - This is usual in CPU-GPU papers in order to compare the computational power when the speedup is calculated.
 The authors considered
 512 threads per block, 260 blocks per grid and just one grid per
 GPU. The comparison in performance yields a reduction of 56 times for
@@ -959,17 +961,18 @@ Latest works are based on more complex evolutionary processes, for example, bein
 
 % ---------------------------------------------------------------------
 
-\section{Comparison with other high-performance methods}
-\label{sec:comparison-hpc}
+%\section{Comparison with other high-performance methods}
+%\label{sec:comparison-hpc}
+%
+%Some methods to compare with:
+%
+%\begin{itemize}
+%\item Cloud Computing
+%\item HP Volunteer Computing    % https://www.arcos.inf.uc3m.es/hipervoco/
+%\item FPGAs
+%\end{itemize}
 
-Some methods to compare with:
-
-\begin{itemize}
-\item Cloud Computing
-\item HP Volunteer Computing    % https://www.arcos.inf.uc3m.es/hipervoco/
-\item FPGAs
-\end{itemize}
-
+% Antonio - I think we shouldn't do this section
 
 % ---------------------------------------------------------------------
 
