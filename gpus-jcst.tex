@@ -817,7 +817,7 @@ One of the first island models on GPU-based approaches was presented on the GECC
 However, after this, Pospichal et al. continued working on their approach \cite{pospichalParallelGeneticAlgorithOnCUDA2010,9253}. The authors mapped threads to individuals, and then, these threads-individuals could be synchronized easily in order to maintain data consistency. To decrease memory latency, the usage of an on-chip hardware scheduler was proposed, which swiftly swaps existing islands between multiprocessors, with the combination of a fast-shared memory. In this case, the population size was limited to 16KB per island (as on most GPUs at that time), so if the population was larger, the main memory would be used, implying a time increase. In fact, the inter-island communication was used, by relying on it the migration, based in an asynchronous unidirectional ring model. Even that, authors reported speedups up to $\times7000$ times higher on GPU compared to CPU sequential version of the algorithm.
 
 Permutation domain problems have been studied by some authors. Tsutsui
-and Noriyuki \cite{1570355} also run a coarse-grained GA on a GPGPU,
+and Noriyuki \cite{1570355} also run a coarse-grained GA on a GPU,
 to solve the QAP problem using CUDA. Their model generated the initial
 population on CPU and copied it to the GPU VRAM; then, each
 sub-population in a GPU (nVidia GeForce GTX285) was evolved. At some
@@ -831,7 +831,7 @@ The two latter approaches reduced the CPU-GPU memory latency, although their par
 
 
 The coarse-grained models are still being investigated. Recently, Li
-et al \cite{Li2016} developed a parallel GA for GPGPUs. They took
+et al \cite{Li2016} developed a parallel GA for GPUs. They took
 advantage of the many cores of GPUs to enhance computation efficiency,
 by using a large amount of threads simultaneously. This strategy
 allows the population to scale and accelerates the speed to find the
@@ -959,7 +959,7 @@ After reviewing previous papers, new trends can be drawn:
 
 
 
-\item Heterogeneous architectures: Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPGPU, the GPGPUs are still the best cost-effective solutions \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid parallelizations, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
+\item Heterogeneous architectures: Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPU, GPGPU is still the best cost-effective solution \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid parallelizations, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
 
 \item Load balancing: Related with the previous issue, different
   client-server approaches have been proposed, usually distributing
@@ -988,7 +988,7 @@ Future challenges ...
 This work has considered the most parallelized and distributed
 metaheuristic on the literature, Evolutionary Algorithms (EAs), and
 has conducted an exhaustive revision of the existing works, using
-General Purpose Graphic Processing Units (GPGPUs) to implement these
+General Purpose computing on Graphic Processing Units (GPGPU) to implement these
 approaches.
 
 The paper gives an introduction to the different existing GPU architectures, physical cards in the market, usual programming languages, and main frameworks, used nowadays in the industry and in this scientific area.
@@ -996,14 +996,14 @@ Some guidelines are presented to the reader, in order to point out the main rest
 
 In addition, the work also proposes a novel taxonomy to classify the different types of GPU-based EA parallelization models published, and then, most of the existing papers in the literature have been reviewed, commented and analyzed in a deep and wide survey.
 Thus, the work aims to be a reference for future authors, both, from the point of view of its introductory or tutorial use, and also as a compendium of the main proposals in this area, and their characteristics.
-% Does this taxonomy establish a estate of the art in taxonomies? Can you put it forward so that people using that taxonomy would reference this paper?
-% Antonio - I have rewritten and (hopefully) clarified that
 
-The main conclusion reached in this work is also its main justification, as the publication tendency in this field is growing continuously, being in the last three years more than 25 papers on average. The main implemented methods are Genetic Algorithm approaches (more than 50\% of the reviewed papers), and around 60\% the publications are focused on solving real problems, taking advantage of the high computational power than GPGPUs offer to the researchers.
+The main conclusion reached in this work is also its main justification, as the publication tendency in this field is growing continuously, being in the last three years more than 25 papers on average. 
+% Antonio - This was true in 2012, not now unfortunatelly... Rewrite this in accordance of the current tendency.
+The main implemented methods are Genetic Algorithm approaches (more than 50\% of the reviewed papers), and around 60\% the publications are focused on solving real problems, taking advantage of the high computational power than GPUs offer to the researchers.
 
 With respect to the most extended programming language, CUDA (for nVidia cards) is the clearly the winner, as it seems to offer better performance and specific tools for the most used cards.
 
-Of course, in almost all the cases, very big speedups are attained in comparison with traditional CPU-based sequential and parallel versions. However, most authors agree that bottlenecks appear copying data from main memory to the GPGPU device, so new hardware and software solutions are emerging trying to minimize
+Of course, in almost all the cases, very big speedups are attained in comparison with traditional CPU-based sequential and parallel versions. However, most authors agree that bottlenecks appear copying data from main memory to the GPU device, so new hardware and software solutions are emerging trying to minimize
 the communication cost between GPUs and CPUs.
 
 % nada de trabajo futuro? - JJ
