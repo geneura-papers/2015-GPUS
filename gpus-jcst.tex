@@ -215,8 +215,6 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 \item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. 
 
-
-
 \item[Genetic Programming] The objective of this technique is to
   generate (and evolve) functions or programs to solve specific
   problems. Each individual is represented in the form of a tree,
@@ -226,15 +224,7 @@ In this kind of EA, the representation of the solution is a string of numbers (n
 
 \item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution depends on the nature of the problem being solved, for example, neural networks \cite{Wang18NeuralNetworks} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals. Another big difference is that is mainly based on self-adaptive mutation, and not in crossover, for individual variation.
 
-  %Don't see a point in making distinctions between these
-  %algorithms. They are pretty much the same: population with
-  %population-level and individual-level operators. Parallel
-  %algorithms won't care if it's GP or GA. Besides, GP and GA are only
-  %different with respect to the data structure used - JJ
-% Antonio - The idea is just to present EAs and the main types to the reader, regardless their parallelization, it's just an introduction to let him/her understand what is a GA, GP or EP when we mention them later in the text.
 \end{description}
-
-%\subsection{Other models}
 
 However, there are other EAs that do not match in the previous
 classification. For example \textit{Differential Evolution} (DE)
@@ -254,10 +244,7 @@ distribution of each one. In each generation, the individuals are
 generated from previous individuals probability distributions. BOA
 \cite{pelikan2005bayesian} are based in the creation of Bayesian
 networks to generate the offspring from a set of promising
-individuals. % So what? If they are not going to be parallelized, why
-             % mention them? Just say the basic features you need in
-             % al algorithm to be parallelized - JJ
-             % Antonio - again, the aim is just to give an introduction
+individuals.
 
 
 Table \ref{tab:summaryEAs} shows the main differences between all
@@ -265,8 +252,6 @@ these types of EAs. Note that we have selected the common features of
 each algorithm, but also their typical configurations. For example,
 the replacement in GAs can be different from the generational one, or
 the representation can also be a real-value vector.
-% This is relevant for what? - JJ
-% Antonio - for the same reason as before
 
 \begin{table}
   \centering
@@ -309,10 +294,7 @@ However, with the advent of new technologies, new evolutionary approaches have b
  
 %This new paradigms also involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive scalability or decentralization. 
 
-On the other hand, since a GPGPU is a kind of
-stable and reliable architecture, we consider the classification also
-as valid for the purposes of this paper. We will present these
-parallelization modes below.
+On the other hand, since a GPU is a kind of stable and reliable architecture, we consider the classification also as valid for the purposes of this paper. We will present these parallelization modes below.
 
 % ----------------------------------------
 \subsubsection{Global parallel evolutionary algorithms}
@@ -365,15 +347,14 @@ In this scheme the parallelism is performed at population level, that is, the po
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section introduces the most relevant concepts to know before
-using GPUs for General Purpose computing. These aspects normally
+using GPUs for General Purpose computing (GPGPU). These aspects normally
 differ between vendors, but they have common features which we 
 describe here: the different programming possibilities, the execution
 model that GPU computing follows, and the memory scheme to use,
 concluding on how this affects the implementation of diverse metaheuristic
 algorithms.
 
-Parallel computation has passed from been an enhancement to regular computing to a
-necessity due to the space and miniaturization limitations predicted by Moore's and Koomey's Laws \cite{10.1109/MAHC.2010.28}. 
+Parallel computation has passed from been an enhancement to regular computing to a necessity due to the space and miniaturization limitations predicted by Moore's and Koomey's Laws \cite{10.1109/MAHC.2010.28}. 
 As newer processors are just marginally faster than previous ones
 the only way to take advantage of the amount of transistors is putting
 many cores together. For many years, clock rates and instruction-level
@@ -397,10 +378,9 @@ as well as in mobile phones for many years. Over time the use of the GPUs
 has grown a lot as they became cheaper. Many heavy tasks
 have been parallelized like, for example, web page
 rendering. %reference - JJ
-This
-speed up is not trouble free because in order to be able to profit from GPUs
-our applications must be rewritten in a parallel fashion. % Not really
-                                % - JJ
+This speed up is not trouble free because in order to be able to completely profit from GPUs our applications must be rewritten in a parallel fashion. 
+% Not really - JJ
+% Antonio - I have added a key word to make this sentence true. We cannot say in this paper that it is not needed to parallelize.
 
 GPUs and CPUs are similar in many ways but there is one key
 difference: the philosophy of how to execute a workload. The main
@@ -423,8 +403,9 @@ Figure \ref{fig:cpu-gpu}.
 The trend observed with CPUs of integrating many companion cores
 inside is now becoming true with the GPU also. The main reason is the
 lower cost of the complete system. They only remain separate in
-powerful systems with top processors and discrete graphics. % What is
-                                % that? - JJ
+powerful systems with top processors and a low-demanding graphic content.
+% What is that? - JJ
+% Antonio - I guess it is clearer now
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -519,17 +500,14 @@ HSA shares data between CPU and GPU in a seamless way, avoiding
 as many memory copies as caches permits. This way both devices can
 share a common memory architecture. Moreover HSAIL is emerging nowadays, in which an intermediate code is used in order to ease the communication process.
 
-% You always have to relate whatever you say with the paper objectives
-% - JJ
-% Antonio - I have written an introduction to justify this
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Parallelizing metaheuristics on GPGPUs}
+\subsection{Parallelizing metaheuristics on GPUs}
 \label{ssec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 GPU implementation of metaheuristics face the same problems as the
-implementation of any other kind of algorithm, such as graph
+implementation of any other kind of algorithm (for GPGPU), such as graph
 algorithms \cite{shi2018graph}. GPUs work the best when a single
 instruction can be applied, in parallel, to a data set; however, CPUs
 work better with sequences of computations where the results of one
@@ -571,7 +549,7 @@ evaluation to the GPU to be run in parallel, so the parallelization
 just affects to a part of the algorithm.
 
 The only general purpose EA library that seems to be available is
-libCudaOptimzie \cite{nashed2012libcudaoptimize}, although it does not
+libCudaOptimize \cite{nashed2012libcudaoptimize}, although it does not
 seem to have been updated since 2015. With this library, written in
 C++ and CUDA-C, you can either use the framework with your own fitness
 function, or implement new optimization methods that leverage que
@@ -583,7 +561,7 @@ actively maintained, one.
 
 In the second case there are a few examples; PUGACE \cite{5586286} is
 one of the few new frameworks focused exclusively on the execution of
-EAs in GPGPUs. It is based on MALLBA and uses CUDA to execute cellular
+EAs in GPUs. It is based on MALLBA and uses CUDA to execute cellular
 GAs (cGAs), but only for linear neighborhood structures. However, this
 framework does not seem to be available either as open source or any
 other form, so it is difficult to check their claims or even use
