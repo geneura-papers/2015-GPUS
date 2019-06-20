@@ -166,19 +166,18 @@ EAs are a set of bioinspired techniques applied to optimization problems \cite{e
 Thus, the fittest individuals have more chances to be selected for
 reproduction, so their offspring could inherit their genetic
 material. Due to the nature of GPGPU computing, two types of
-evolutionary algorithms are specially suitable for them. They are
-presented next.
+evolutionary algorithms are specially suitable for them: globally
+parallel and spatially structured EAs.
 
-% ----------------------------------------
-\subsection{Global parallel evolutionary algorithms}
-In this model, also called \textit{Farming model},
-\textit{client-server} or \textit{Centralized EA}, the parallelism is
-applied at evaluation level. Thus, a central node or server coordinates several
-client nodes. This node executes the EA in a sequential way, but it
+Global parallel evolutionary algorithms are also called called the \textit{Farming model},
+\textit{client-server} or \textit{Centralized EAs}; in them the parallelism is
+applied is only applied at the evaluation level, with a central node or server coordinating several
+client nodes, which in this context would be GPU computing nodes. The
+central node runs a sequential EA, but it
 distributes the individuals of the population among the clients just
 for being evaluated. Figure \ref{fig:serverClient} depicts this
 approach.
-
+%
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/serverClient.jpg}
@@ -187,13 +186,15 @@ approach.
 \label{fig:serverClient}
 \end{figure}
 
-% ----------------------------------------
-\subsection{Spatially structured algorithms}
-In this scheme the parallelism is performed at population level, that is, the population is divided and distributed among the different computing elements. Depending on how the distribution is performed there are:
+Spatially structured algorithms, however, are parallel at the
+population level, that is, the population is divided and distributed
+among the different computing elements. Depending on how the
+distribution is performed they are qualified with different {\em
+  grains} or amount of computation performed at a local level. 
 
 \begin{description}
-\item[Coarse-grained approach] In which independent subsets of individuals are considered. One of the most extended approaches is the \textit{Island model}, where a number of nodes execute simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
-
+\item[Coarse-grained] In which independent subsets of individuals are considered. One of the most extended approaches is the \textit{Island model}, where a number of nodes execute simultaneously the EA, working with different sub-populations at the same time. Each certain number of generations some individuals are interchanged (migrated) between populations. Figure \ref{fig:ring} shows this model with a ring topology.
+%
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=20pc]{gfx/distributed/ring.jpg}
@@ -203,7 +204,7 @@ In this scheme the parallelism is performed at population level, that is, the po
 \end{figure}
 
 \item[Fine-grained approach] In this approach, also called \textit{Cellular EA} (CEA) \cite{alba-cellular-2008}, each node has one individual of the population, and selection and reproduction are limited to the individuals on the neighbourhood of every node. Usually a bi-dimensional grid is used as topology, such as the one shown in Figure \ref{fig:cellular}.
-
+%
 \begin{figure}[tb]
 \centering
 %\includegraphics[width=5cm]{gfx/distributed/cellular.jpg}
