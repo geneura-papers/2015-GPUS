@@ -124,33 +124,25 @@ GPUs, from their internal architecture, to the usual programming
 models and structures, through several widely used tools and
 frameworks which can help to do this task. After this introduction, the work gives some guidelines to parallelize an EA using GPUs, pointing out their suitability as well as the main issues and constraints that should be taken into account.
 
-%The work also compares this parallelization methodology with other extended high-performance methods such as Cloud Computing, massive Volunteer Computing, or specialized FPGAs.
-% Antonio - This has been removed.
-
 Finally, some of the new trends and open challenges in the scope of
 GPGPU computing are discussed.
 
-The rest of the paper is structured as follows: Section \ref{sec:eas}
-introduces EAs and describes the most usual parallelization and
-distribution models in the literature.  In Section
-\ref{sec:parall_and_GPUs}, the internal structure of GPUs and their
-utility for GPGPU computing are described, as well as a comparison of the
-existing cards in the market is shown.  Then, programming schemes,
+The rest of the paper is structured as follows: next section 
+introduces EAs and describes the some parallelization and
+distribution models in the literature that could in principle be used
+in the context of GPGPU computing. Then, programming schemes,
 languages and tools used in GPUs are presented in Section
 \ref{sec:programming}, followed by a description of the best
 frameworks used to parallelize EAs in order to take advantage of the
-power of GPUs (Section \ref{sec:parallelizing}). In the same
+power of GPUs. In the same
 section, the main issues to consider when a parallel version of an EA
-wants to be implemented on a GPU, are commented.  Next, Section
-\ref{sec:taxonomy} proposes a taxonomy based on the different parallel
-models implemented in the literature, in order to categorize the
-reviewed papers. Thus, in Section \ref{sec:survey} a set of
+wants to be implemented on a GPU, are commented. Section
+\ref{sec:survey} reviews a set of
 representative works (according to their number of citations)
 describing different approaches using GPUs are reviewed and divided
 following the proposed taxonomy, plotting also some interesting
 numbers and graphs related to them.  New trends and challenges are discussed in Section \ref{sec:discussion}. Finally, Section \ref{sec:conclusions} remarks
 reached conclusions.
-% Antonio - Revise and rewrite this structure once the paper is finished, as now we are removing and merging sections.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evolutionary Algorithms}
