@@ -20,7 +20,7 @@
 \title{High performance evolutionary algorithms on GPUs: a survey}
 
 \author{P. Garc{\'\i}a-S{\'a}nchez$^1$, A.M. Mora$^2$,Gustavo Romero$^3$\\
-  J. J. Merelo$^1$, P.A. Castillo$^3$, M.G. Arenas$^3$, Antonio Fernández-Ares$^2$  \\ \\
+  J. J. Merelo$^1$, P.A. Castillo$^3$, Antonio Fernández-Ares$^2$  \\ \\
 \small{$^1$ Dept. Computer Engineering, University of C{\'a}diz (Spain)}\\
 \small{$^2$ Dept. Signal Theory, Telematics and Communications,}\\
 \small{ETSIIT-CITIC, University of Granada (Spain)}\\
@@ -31,23 +31,6 @@
 }
 
 \maketitle
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% abstract
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-% ANTONIO:  Please everyone to be aware of this!!!
-%
-% (according to the literature)
-%
-% GPU -> Graphics Processing Unit  (physical hardware)
-%
-% GPGPU -> General Purpose computing on a GPU (software adapted to run on a GPU)
-%
-% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
 \begin{abstract}
 Evolutionary Algorithms (EAs), a population based stochastic approach to problem solving, have been widely adapted to be run on Graphics Processing Units (GPUs), using the fact that the different solutions in the population can be evaluated in parallel. Beyond that fact, different methodologies and techniques are used; this paper aims first to describe the parallelization process of EAs on GPUs, introducing their general features and main distributed models, together with several frameworks which allow to conduct this task easily in a review of the new advances in hardware and software in this field, as well as new trends and challenges arising in this scope; and, second the main issues to take into account in order to carry out these parallel implementations.
@@ -60,13 +43,9 @@ and tendency have been conducted. After this review, a summary of research chall
 % Antonio - Rewrite this with the final contents of the paper, as they are changing
 \end{abstract}
 
- \begin{keyword}
-parallel computation \sep evolutionary algorithms \sep metaheuristics \sep GPU \sep GPGPU \sep survey
-\end{keyword}
-%
-%\end{frontmatter}
+{\bf Keywords:}: Parallel computation,  evolutionary algorithms,
+metaheuristics, GPUs, GPGPU computing, survey.
 
-%% main text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -184,134 +163,14 @@ addition, the most extended models to parallelize EAs are presented,
 to understand all their possible architectural possibilities. 
 
 EAs are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
-Thus, the fittest individuals have more chances to be selected for reproduction, so their offspring could inherit their genetic material.
-
-
-%\subsection{Types of Evolutionary Algorithms}
-%\label{sec:distributed:types}
-The general scheme of an EA, extracted from the work by Eiben and Smith \cite{eiben2010whatis} is described in Figure \ref{fig:basicscheme}.
-
-\begin{figure}[tb]
-\begin{algorithmic}
-\STATE INITIALIZE population with random candidate solutions
-\STATE EVALUATE each candidate
-\WHILE{TERMINATION CONDITION holds}
-  \STATE 1 SELECT parents
-  \STATE 2 RECOMBINE pairs of parents
-  \STATE 3 MUTATE the resulting offspring
-  \STATE 4 EVALUATE new candidates
-  \STATE 5 SELECT individuals for the next generation
-\ENDWHILE
-\end{algorithmic}
-\caption{General scheme of an evolutionary algorithm in pseudo-code, obtained from \cite{eiben2010whatis}.}
-\label{fig:basicscheme}
-\end{figure}
-
-
-Although most of the EAs follow this structure, there are some differences depending on the representation of solutions, the operators to apply, or even the kind of problem to solve. Thus, according to Eiben \cite{eiben2010whatis}, the classical types of EAs are:
-
-%A possible classification is presented in this section, taking into account the new approaches that cannot fit with the traditional taxonomy. This classification would help to clarify the elements that  distinguish an algorithm from another (for example, the operators), and the existing similarities and differences, in order to establish a good starting point to classify EAs in GPGPUs.
-
-%\subsection{Classic classification of EAs}
-%\label{subsec:classicEAs}
-%EAs are usually classified using a traditional variant, according to
-%the book of Eiben and Smith \cite{eiben2003introduction}. These authors clarify that the features of an EA are:
-%\begin{itemize}
-%\item EAs are population-based.
-%\item EAs mostly uses recombination to generate new individuals from the existing ones.
-%\item EAs are stochastic.
-%\end{itemize}
-
-
-\begin{description}
-\item [Genetic Algorithms] These kind of algorithms were initially proposed by Holland \cite{holland1975adaptation}, and later revised by Goldberg \cite{goldberg1988genetic}.
-In this kind of EA, the representation of the solution is a string of numbers (normally binary), called \textit{chromosome}. The individuals are selected proportionally to their fitness, and then different \textit{recombination} and/or \textit{mutation} operators are applied to generate new individuals that will be included in the population (replacing some other). 
-
-\item[Evolution Strategies] The Evolution Strategies (ES) are applied to solve problems whose solution is included in the domain of real numbers. Their main difference with GAs is the consideration of a self-adaptation of the mutation rate, being coded in each individual \cite{eiben2005shared}. In addition, the parent selection is conducted randomly, instead of being based on the fitness. 
-
-\item[Genetic Programming] The objective of this technique is to
-  generate (and evolve) functions or programs to solve specific
-  problems. Each individual is represented in the form of a tree,
-  composed of operators (or {\em primitives}) and variables ({\em
-    terminals}). These sets are usually fixed and known in advance.
-  The genome size is, therefore, variable, but there is frequently a maximum size for the individuals, in order to avoid too high evaluation costs. 
-
-\item[Evolutionary Programming] In Evolutionary Programming (EP), the representation of every solution depends on the nature of the problem being solved, for example, neural networks \cite{Wang18NeuralNetworks} or Radial Basis Functions (RBFs) \cite{Gonzalez2003multiobjective} have been used as individuals. Another big difference is that is mainly based on self-adaptive mutation, and not in crossover, for individual variation.
-
-\end{description}
-
-However, there are other EAs that do not match in the previous
-classification. For example \textit{Differential Evolution} (DE)
-\cite{storn1997differential}, \textit{Estimation of Distribution
-  Algorithms} (EDAs) \cite{larranaga2002estimation} or
-\textit{Bayesian Optimization Algorithms} (BOAs)
-\cite{pelikan2005bayesian}. DE \cite{storn1997differential} also
-exploits a population of potential solutions. Three individuals are
-selected randomly from the population to create \textit{random noisy
-  vectors}. These vectors are recombined with the initial random
-individuals to create the \textit{trial vectors}. They are compared
-one by one with the original vectors and the best of each comparison
-is kept for the next generation. In the case of EDAs
-\cite{larranaga2002estimation}, instead of directly codifying the
-variables to optimize, the algorithm tries to find the probability
-distribution of each one. In each generation, the individuals are
-generated from previous individuals probability distributions. BOA
-\cite{pelikan2005bayesian} are based in the creation of Bayesian
-networks to generate the offspring from a set of promising
-individuals.
-
-
-Table \ref{tab:summaryEAs} shows the main differences between all
-these types of EAs. Note that we have selected the common features of
-each algorithm, but also their typical configurations. For example,
-the replacement in GAs can be different from the generational one, or
-the representation can also be a real-value vector.
-
-\begin{table}
-  \centering
-\begin{tabular}{|p{2.2cm}|p{2.1cm}|p{2.1cm}|p{2.1cm}|p{2.1cm}|p{2.1cm}|}
-\hline
-				& GA 	 & ES  & EP & GP & DE  \\
-\hline\hline
-Representation  & Usually finite alphabet strings & Real-value vectors  & Problem-dependent			& Tree 				         & Real-value vectors 	 \\ \hline
-Initialization  & \multicolumn{5}{c|}{Usually random, and depending on the problem and individual structure} 						 \\ \hline
-Selection 	    & Fitness proportional 	          & Deterministic	      & Tournament-based       & Fitness proportional & Random to create noisy vectors \\ \hline
-Recombination   & Genome crossover		            & Genome crossover		& Typically not used	  & Sub-tree exchange		 & Random gene by gene			\\ \hline
-Mutation  		 & Random 				                  & Gaussian perturbation	& Gaussian perturbation& Random 				       & Implicit in the noisy vectors	 \\ \hline
-Replacement		 & Generational	                    & ($\mu,\lambda$) or ($\mu + \lambda$) survivor selection & 	($\mu + \mu$) survivor selection    & Generational 			   & Compared with the original \\
-\hline
-\end{tabular}
-
-\caption{Differences between the types of EAs \cite{eiben2010whatis}. These are the typical design choices, but they can vary depending on the problem to solve.}
-\label{tab:summaryEAs}
-\end{table}
-
-
-% ------------------------------------------------------------------------------
-\subsection{Parallel and Distributed Evolutionary Algorithm Models}
-\label{subsec:eas-distributed:parallel}
-
-EAs, as most of the population-based methods are inherently parallelizable at different grain levels and operations, from a single individual (for their independent operations) to a subgroup of the whole population  \cite{Alba13parallel}.
-
-There are several possible ways to parallelize them: for example, fitness evaluation can be conducted in several slave machines, or the population can be distributed among different nodes to be evolved at the same time.
-
-Two main types of parallelization models for EAs were classified by Alba and Tomassini in \cite{Alba02Parallelism}: \textit{Global parallel EAs} and
-\textit{Spatially structured EAs}. This classification is still the
-most widely extended, even if it was established in 2002; however, it
-does not consider issues such as fault-tolerance, churn, massive
-scalability or decentralization. The number of computational nodes are
-considered constant during the whole execution and both the network
-and the nodes are reliable and trustworthy.
-
-However, with the advent of new technologies, new evolutionary approaches have been proposed that take into account, for instance, the unreliability of millions of nodes co-operating in P2P networks \cite{laredo2010evag}, architectural paradigms such as the Service Oriented Architecture \cite{SOA-Garcia-SanchezGCAG13}, the data-intensive computing frameworks used in cloud computing \cite{VermaCloud10}, or even in specific informal environments such as distributed file systems or databases \cite{Meri_CloudEA13,Merelo_Couch13}.
-
- 
-%This new paradigms also involve a new way to develop parallel EAs, taking into account some shortcomings, such as the integration of heterogeneous elements or dynamic resources, and also to deal with fault-tolerance, churn, massive scalability or decentralization. 
-
-On the other hand, since a GPU is a kind of stable and reliable architecture, we consider the classification also as valid for the purposes of this paper. We will present these parallelization modes below.
+Thus, the fittest individuals have more chances to be selected for
+reproduction, so their offspring could inherit their genetic
+material. Due to the nature of GPGPU computing, two types of
+evolutionary algorithms are specially suitable for them. They are
+presented next.
 
 % ----------------------------------------
-\subsubsection{Global parallel evolutionary algorithms}
+\subsection{Global parallel evolutionary algorithms}
 In this model, also called \textit{Farming model},
 \textit{client-server} or \textit{Centralized EA}, the parallelism is
 applied at evaluation level. Thus, a central node or server coordinates several
@@ -329,7 +188,7 @@ approach.
 \end{figure}
 
 % ----------------------------------------
-\subsubsection{Spatially structured algorithms}
+\subsection{Spatially structured algorithms}
 In this scheme the parallelism is performed at population level, that is, the population is divided and distributed among the different computing elements. Depending on how the distribution is performed there are:
 
 \begin{description}
