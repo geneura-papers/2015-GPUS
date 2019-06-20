@@ -215,8 +215,12 @@ distribution is performed they are qualified with different {\em
 
 \end{description}
 
+These two EA implementation modes correspond to two different ways of
+using GPUs, whose programming modes and how they are applied to
+evolutionary algorithms are presented next.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{GPU Programming and metaheuristics}
+\section{GPU Programming and evolutionary algorithms}
 \label{sec:programming}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -286,7 +290,18 @@ powerful systems with top processors and a low-demanding graphic content.
 \subsection{Programming Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-At the beginning, to benefit from GPU computational power, we had to learn about its internal design. The closer to the bare metal, the better. With the pass of time several Application Program Interfaces (APIs) have appeared to alleviate this inconvenience. The problem, again, is that every manufacturer designed its own proprietary one: AMD created Close to Metal and nVidia created CUDA. Over time a truly open and universal standard was introduced, OpenCL \cite{opencl}. It works even on Intel hardware. Today it is supported by all vendors. Only nVidia keeps pushing its own, CUDA, at the same time. OpenCL was initially developed by Apple who pass it to Khronos Group for open and free release. At the same time Microsoft created DirectX for its operating systems.
+At the beginning, to benefit from GPU computational power, we had to
+learn about its internal design. The closer to the bare metal, the
+better. With the pass of time several Application Program Interfaces
+(APIs) have appeared to alleviate this inconvenience. The problem,
+again, is that every manufacturer designed its own proprietary one:
+AMD created Close to Metal and nVidia created CUDA. Over time a truly
+open and universal standard was introduced, OpenCL \cite{opencl}. It
+works even on Intel hardware. Today it is supported by all
+vendors. Only nVidia keeps pushing its own, CUDA, at the same
+time. OpenCL was initially developed by Apple who pass it to Khronos
+Group for open and free release. At the same time Microsoft created
+DirectX for its operating systems. 
 
 OpenCL aspired to reach fame in the same way that OpenGL. The first with heterogeneous computing and the second in the graphics world. OpenCL is cross-platform and very inclusive about software and hardware. Primarily targeting GPUs but also capable of running on multi-core CPUs and FPGAs. Applications can be made portable across operating systems and hardware platforms keeping functionality and correctness. The first implementation was release in 2009.
 
@@ -376,9 +391,11 @@ share a common memory architecture. Moreover HSAIL is emerging nowadays, in whic
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Parallelizing metaheuristics on GPUs}
+\subsection{Parallelizing EAs on GPUs}
 \label{ssec:parallelizing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% I don't understand why this is a section separated from the next -
+% JJ
 
 GPU implementation of metaheuristics face the same problems as the
 implementation of any other kind of algorithm, such as graph
