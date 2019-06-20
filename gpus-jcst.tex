@@ -83,7 +83,7 @@ needed in the realm of games and image rendering, which is why they
 have been adapted to be used either as general purpose
 multi-processors with shared memory, or as Single Instruction
 Multiple Data (SIMD) processors \cite{Pharr12SPMD}; their utilization
-as general purpose processors is usually called GPGPU
+as general purpose processors is usually called GPGPU programming
 \cite{luebke2006gpgpu,owens2007}.  
 Their use in all kind of computers inspired the development of 
 specific programming languages, tools and applications that leverage
@@ -102,8 +102,8 @@ up desktop programs to very high performance data processing.
 
 
 This also means that the field that is the focus of this paper,
-Evolutionary Algorithms (EAS) \cite{de2016evolutionary}, has been the
-application target of GPGPU in many occasions. EAs are a biologically
+Evolutionary Algorithms (EAS) \cite{de2016evolutionary}, has been one
+of the general problems to which GPUs have been applied. EAs are a biologically
 inspired class of algorithms that, in general, {\em evolve} a set of
 solutions (usually called a {\em population}) by assigning a score
 (called {\em fitness}) to every solution and selecting them for
@@ -148,18 +148,19 @@ frameworks which can help to do this task. After this introduction, the work giv
 %The work also compares this parallelization methodology with other extended high-performance methods such as Cloud Computing, massive Volunteer Computing, or specialized FPGAs.
 % Antonio - This has been removed.
 
-Finally, some of the new trends and open challenges in the scope of GPGPU are discussed.
+Finally, some of the new trends and open challenges in the scope of
+GPGPU computing are discussed.
 
 The rest of the paper is structured as follows: Section \ref{sec:eas}
 introduces EAs and describes the most usual parallelization and
 distribution models in the literature.  In Section
 \ref{sec:parall_and_GPUs}, the internal structure of GPUs and their
-utility for GPGPU are described, as well as a comparison of the
+utility for GPGPU computing are described, as well as a comparison of the
 existing cards in the market is shown.  Then, programming schemes,
 languages and tools used in GPUs are presented in Section
 \ref{sec:programming}, followed by a description of the best
 frameworks used to parallelize EAs in order to take advantage of the
-power of GPGPU (Section \ref{sec:parallelizing}). In the same
+power of GPUs (Section \ref{sec:parallelizing}). In the same
 section, the main issues to consider when a parallel version of an EA
 wants to be implemented on a GPU, are commented.  Next, Section
 \ref{sec:taxonomy} proposes a taxonomy based on the different parallel
@@ -360,7 +361,7 @@ In this scheme the parallelism is performed at population level, that is, the po
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This section introduces the most relevant concepts to know before
-using GPUs for General Purpose computing (GPGPU). These aspects normally
+using GPUs for General Purpose computing (GPGPU computing). These aspects normally
 differ between vendors, but they have common features which we 
 describe here: the different programming possibilities, the execution
 model that GPU computing follows, and the memory scheme to use,
@@ -520,8 +521,8 @@ share a common memory architecture. Moreover HSAIL is emerging nowadays, in whic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 GPU implementation of metaheuristics face the same problems as the
-implementation of any other kind of algorithm (for GPGPU), such as graph
-algorithms \cite{shi2018graph}. GPUs work the best when a single
+implementation of any other kind of algorithm, such as graph
+algorithms \cite{shi2018graph}, in these architectures. GPUs work the best when a single
 instruction can be applied, in parallel, to a data set; however, CPUs
 work better with sequences of computations where the results of one
 step are used in other steps. Additionally, GPUs have many more
@@ -708,7 +709,7 @@ non-boolean data type. The execution platform was a PC with a Quad
 Core Intel Xeon E5530 processor at 2.4GHz and a Tesla C1060 with 240
 CUDA cores. The CPU only calculates the initial population and a
 matrix of random numbers to be used in crossover and mutation by the
-GPU. The authors reviewed the problem of the data types when GPGPU is
+GPU. The authors reviewed the problem of the data types when GPUs are
 used. Several data types of 8, 16, 32, and 64 bits are compared in CPU
 and GPU versions. Results showed that packing in 32 bits data types
 achieve speedup values of up to $\times100$ compared with boolean data
@@ -758,7 +759,7 @@ results. % Some comment with respect to bandwidth? - JJ
 \subsection{Fine-grained Approaches}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Researchers implement fine-grained algorithms using GPGPU, making
+Researchers implement fine-grained algorithms using GPUs, making
 every scalar processor (SP) to evolve an individual. This individual
 interacts with other SPs that belongs to the same Streaming
 Multiprocessor (SM) to perform the basic operations of the algorithm
@@ -920,7 +921,11 @@ Brevilliers et al. \cite{Brevilliers2016} introduce a hybridization of Backtrack
 On the other hand, Hwang et al. \cite{Hwang7470556} proposed an EA inspired by biological deoxyribonucleic acid (DNA) computing  to perform the task of optimization. However, to avoid the problems of biological DNA computing and fully utilize parallelism characteristics of it, authors propose to implement the algorithm in a GPU devices, thus optimizing the processing time efficiency.
 
 Finally, due to the complexity of some real problems, several authors have proposed parallel multi-objective implementations on GPU devices, such as Oliveira et al. \cite{Oliveira7744337} who present a GPU-based parallel implementation of NSGA-II to solve the energy dispatch problem of a hydroelectric power plants, taking into account the real time restrictions posed by the operation of a real power plant. The use of a parallel implementation using GPUs improved both the performance and solution quality obtained using the parallel approach.
-In \cite{Bian2016} a CPU+GPU heterogeneous computing orientation based multi-objective test case prioritization technique that utilizes GPGPU to accelerate the process of test case prioritization is proposed. In this case, the implementation, based on NSGA-II achieves 30 times speed-up rate on a well-known real world problem.
+In \cite{Bian2016} a CPU+GPU heterogeneous computing orientation based
+multi-objective test case prioritization technique that utilizes GPGPU
+computing to accelerate the process of test case prioritization is
+proposed. In this case, the implementation, based on NSGA-II achieves
+30 times speed-up rate on a well-known real world problem. 
 Manoatl and Coello \cite{ManoatlLopez2016} propose a GPU-based
 parallelization of a multi-objective memetic algorithms (MOMAs) which
 switches between a hypervolume-based global optimizer and an IGD+
@@ -972,7 +977,8 @@ After reviewing previous papers, new trends can be drawn:
 
 
 
-\item Heterogeneous architectures: Even as dozens of low-cost Multi-CPU-FPGA can achieve the same performance than a GPU, GPGPU is still the best cost-effective solution \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid parallelizations, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
+\item Heterogeneous architectures: Even as dozens of low-cost
+  Multi-CPU-FPGA can achieve the same performance than a GPU, GPGPU computing is still the best cost-effective solution \cite{Gadea-Girones2018}, so finding techniques to efficiently combine both technologies is the key to outperforms its inherent limitations. Other Hybrid parallelizations, such as MPI/CUDA have also been proposed for further research \cite{Jurczuk2017}. However, a lot of works do not include enough details about the benefits to maximize the usage of CPU-GPU combinations to take leverage the irregularity of data access. Future trends will include new methods related to the improvement of core and cache efficiencies \cite{Escobar17GPUCPU}, or even relaxing on CPU-GPU synchronization to reduce idle times \cite{Rey2018}. 
 
 \item Load balancing: Related with the previous issue, different
   client-server approaches have been proposed, usually distributing
@@ -1001,7 +1007,7 @@ Future challenges ...
 This work has considered the most parallelized and distributed
 metaheuristic on the literature, Evolutionary Algorithms (EAs), and
 has conducted an exhaustive revision of the existing works, using
-General Purpose computing on Graphic Processing Units (GPGPU) to implement these
+General Purpose computing on Graphic Processing Units (GPGPU computing) to implement these
 approaches.
 
 The paper gives an introduction to the different existing GPU architectures, physical cards in the market, usual programming languages, and main frameworks, used nowadays in the industry and in this scientific area.
