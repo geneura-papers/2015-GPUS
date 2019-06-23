@@ -327,6 +327,10 @@ DirectX for its operating systems. % When was that? Why is not DirectX
                                 % referred to above together with
                                 % CUDA? - JJ
 
+% This is the first reference to heterogeneous computing. If it's an
+% important topic, and it is since it's also used in the next section,
+% it should be defined in the introduction. What are you talking about
+% when you talk about heterogeneous computing? - JJ
 OpenCL aspired to reach fame in heterogeneous computing in the same
 way that OpenGL did for 
 graphics. OpenCL is cross-platform and very inclusive about
@@ -353,6 +357,8 @@ OpenMP into GCC version 7. A very interesting comparison of many
 modern C++ parallel libraries on top of CUDA and OpenCL can be found
 in \cite{doi:10.1137/120903683}.
 
+% Can you use OpenCL from other languages? What do you need to use it?
+% - JJ
 % This should be closed with a conclusion. Does this mean that any
 % scientist has a variety of GPGPU frameworks to use? - JJ
 
@@ -362,27 +368,35 @@ in \cite{doi:10.1137/120903683}.
 
 Most APIs mentioned are designed with heterogeneous computing in
 mind. They use a traditional CPU and an optional GPU in the case that
-one, or more, are present. In every parallel application we can find
+one, or more, are present. % Could this be a definition for
+                           % heterogeneous computing? - JJ
+In every parallel application we can find a
 mixture of serial and parallel parts. This way, serial parts are
 executed on the CPU and parallel parts, designated \textit{kernels},
 may execute on any parallel device, the CPU or the GPU, as long as
 synchronization is enforced between both parts. OpenCL is aimed at
-task and parallel data while CUDA and DirectCompute, a part of
-DirectX, only target are data parallelism.
+task and parallel data while the only target of CUDA and DirectCompute, a part of
+DirectX, is data parallelism. % Meaning? - JJ
 
 A kernel executes a single set of instructions over an usually large
 quantity of data. Data is organized in the shape of 1 to 3
 multidimensional arrays. In the OpenCL terminology, a
 \textit{work-item} is a
-piece of data in the sense previously described. One kernel is
-responsible for the execution of many work-items but it use to divide
-then in more manageable \textit{work-groups} of smaller size. These
+piece of data in the sense previously described. % So one work-item is
+                                % is a 1 to 3 multidimensional array?
+                                % - JJ
+One kernel is
+responsible for the execution of many work-items but it normally divides
+then in more manageable \textit{work-groups} of smaller size. This
 way a kernel may execute 32K work-items, composed of 64 work-groups of
 512 items each.
 
 One of the strongest limitations compared to general computing is the
-communication between kernels. Communication and synchronization
-within work-groups works as we are used but not further. In this
+communication between kernels, so that the result of one of them can
+be carried to another. Communication and synchronization
+within work-groups works as we are used but not further. % This is
+                                % meaningless - JJ
+In this
 sense, a work-group serves two purposes: breaking a kernel in more
 manageable, and easily shareable, chunks and defining a limit to fast, or
 possible, communications.
@@ -394,12 +408,20 @@ possible, communications.
 \label{figure:grid}
 \end{figure*}
 
+% So what? A conclusion has to be drawn here, and applied to the
+% subject at hand - JJ
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Memory Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Programmers in general are used to read and write freely in any type of memory. Using the CPU we can read and write from registers, local memory (stack), global memory (heap) and disk. Accessing data for a GPU is more restricted.
+Programmers in general are used to read and write freely in any type
+of memory. % we need to qualify this. Stack and heap are not parts,
+           % but structures in memory. "Type" of memory should be
+           % better called "structured memory" - JJ
+The CPU can read and write from registers, local
+memory (stack), global memory (heap) and disk. Accessing data from a
+GPU, however, is more restricted. 
 
 Data storage and communication within a device and between devices, mainly CPU and GPU, is dictated by the memory model. It can represented in Figure \ref{figure:memory}. Again, every vendor use the same four memory types but with a different name. This is true for DirectCompute, CUDA and OpenCL.
 
