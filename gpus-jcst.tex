@@ -423,7 +423,11 @@ The CPU can read and write from registers, local
 memory (stack), global memory (heap) and disk. Accessing data from a
 GPU, however, is more restricted. 
 
-Data storage and communication within a device and between devices, mainly CPU and GPU, is dictated by the memory model. It can represented in Figure \ref{figure:memory}. Again, every vendor use the same four memory types but with a different name. This is true for DirectCompute, CUDA and OpenCL.
+Data storage and communication within a device and between devices,
+mainly CPU and GPU, is dictated by the memory model. It is represented
+in Figure \ref{figure:memory}. Again, every vendor use the same four
+memory types but with a different name. This is true for
+DirectCompute, CUDA and OpenCL. 
 
 \begin{figure*}[!ht]
 \centering
@@ -448,15 +452,24 @@ excessive amount of time the target speedup can be ruined. Data
 movement should be avoided or at least minimized. This bandwidth
 problem has arisen many times in the computation field.
 
-Every time a new powerful device has appear we must feed it data fast enough. Two solutions of recent appearance try to alleviate it. The first is a
+Every time a new powerful device has appeared we need to feed it data
+with the speed it requires. Two solutions of recent appearance % Recent? When? 
+try to alleviate it. The first is a
 fourth level of cache between the CPU and the GPU (or an optimized version of third level one) \cite{Li_EAR_2017}. 
 This is only useful when both processors are glued together in the same chip or
-encapsulation. The second solution involves changing the way we access
+encapsulation. % When does that happen? - JJ
+The second solution involves changing the way we access
 memory from GPU and its called Heterogeneous System Architecture
 (HSA) \cite{mukherjee2016comprehensive}. 
 HSA shares data between CPU and GPU in a seamless way, avoiding
 as many memory copies as caches permits. This way both devices can
-share a common memory architecture. Moreover HSAIL is emerging nowadays, in which an intermediate code is used in order to ease the communication process.
+share a common memory architecture. Moreover HSAIL is emerging
+nowadays, in which an intermediate code is used in order to ease the
+communication process.
+
+% Again, a conclusion to relate it to the current problem must be
+% drawn. Are these used in evolutionary algorithms already? What kind
+% of evolutionary algorithm would it favor? - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -468,7 +481,8 @@ share a common memory architecture. Moreover HSAIL is emerging nowadays, in whic
 
 GPU implementation of metaheuristics face the same problems as the
 implementation of any other kind of algorithm, such as graph
-algorithms \cite{shi2018graph}, in these architectures. GPUs work the best when a single
+algorithms \cite{shi2018graph}, in these kind of heterogeneous
+architectures. GPUs work the best when a single 
 instruction can be applied, in parallel, to a data set; however, CPUs
 work better with sequences of computations where the results of one
 step are used in other steps. Additionally, GPUs have many more
@@ -479,7 +493,12 @@ other non-standard approaches \cite{DBLP:conf/gecco/PospichalMOSJ11}. On the oth
 hand, CPUs and GPUs must work together, with GPUs needing to access
 the computer memory, or the CPU transferring data to the GPU. This
 data preparation or data access step is a bottleneck for the full
-parallelization of algorithms in GPUs.
+parallelization of algorithms in GPUs. % We should probably rewrite,
+                                % or complement, this paragraph using
+                                % the terms we have used before:
+                                % work-items, workgroups, and so
+                                % on. If we don't, the previous
+                                % subsections are useless - JJ
 
 It would be ideal, thus, that a framework abstracted this step and
 took care of splitting GPU and CPU work along the lines that would
