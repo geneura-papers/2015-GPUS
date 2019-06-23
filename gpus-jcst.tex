@@ -366,6 +366,8 @@ in \cite{doi:10.1137/120903683}.
 \subsection{Execution Model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% The concept of "grid" is used later when talking about
+% applications. It needs to be referred to here - JJ 
 Most APIs mentioned are designed with heterogeneous computing in
 mind. They use a traditional CPU and an optional GPU in the case that
 one, or more, are present. % Could this be a definition for
@@ -558,7 +560,6 @@ will have to take into account a series of constraints, about which we
 will talk about next.
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Literature analysis and review}
 \label{sec:survey}
@@ -599,9 +600,17 @@ or MA (Memetic Algorithms), to cite a few.
 \label{figure:type_algorithm}
 \end{figure*}
 
-Once analyzed the whole literature from a general perspective, the following sections will go through each of the different groups of the proposed taxonomy. Then, each of the most representative or relevant works (mainly according to their number of citations) are reviewed and commented.
+Once analyzed the whole literature from a general perspective, the
+following sections will go through each of the different groups of the
+proposed taxonomy. Then, each of the most representative or relevant
+works (mainly according to their number of citations) are reviewed and
+commented. 
 
-%After reading this section it is clear than PEAs is an active research field and there are so many different variations that almost for sure one of then can fit the needs of most users. Following this reasoning, in the next 5 sections, the most representative works of every type of EA are going to be presented for your convenience.
+%After reading this section it is clear than PEAs is an active
+%research field and there are so many different variations that almost
+%for sure one of then can fit the needs of most users. Following this
+%reasoning, in the next 5 sections, the most representative works of
+%every type of EA are going to be presented for your convenience. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Server-client approaches}
@@ -625,6 +634,8 @@ such as a distance matrix or a data set. This additional information
 might be copied from CPU to GPU once at the beginning of the process,
 so the threads might access this data for evaluation minimizing CPU/GPU
 traffic.
+% Again, the terminology established when talking about GPUs should be
+% used here: work-items, work-groups and so on - JJ
 
 
 %%% This should be eliminated or rewritten, since it's taken from the
@@ -672,9 +683,10 @@ used to replace some of the solutions in the GPU algorithm.
 
 Van Luong et al. \cite{5586403} published in 2010 a methodology for mapping the search space onto the GPU memory hierarchy in three levels: (1) the distribution of the search process among the CPU and GPU, (2) the mapping of the neighborhood in the GPU threads, and (3) the effective usage of the texture memory in the context of hybrid EAs. Experiments to solve the QAP problem with CUDA were presented, where the evolutionary process was performed in the CPU and the generation of the Local Search neighborhood were conducted on parallel in the GPU, achieving an acceleration of $\times14.6$ times faster. Hardware used was Core 2 Duo 2.67GHz and nVidia GTX 280. This work also showed the benefits of using a conjunction of CPU + GPU, being the GPU used only for intensive calculations.
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% To here %%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
+% All papers previous to 2012 should be checked otu for inclusion in
+% the previous paper. For instance, this one could be one of them - JJ
 There are papers related with other lines, like \cite{Pedemonte:2011:BOG:2001858.2002031} which studies the
 impact of using different representations for binary problems in GPUs
 to evaluate GAs: boolean data type versus packing multiple bits in a
@@ -690,15 +702,64 @@ types, specially when the size
 of the instances increases. This make sense because the Tesla C1060
 are equipped with 32-bit integer ALUs.
 
-Cano et al. \cite{SpeedingTheEvaluationofGPCano:2012} described a massively parallel evaluation model using a Genetic Programming algorithm for evolving rules for dataset classification. They copied the dataset to the GPU global memory, and evaluated the rules (individuals) for each instance of the dataset in parallel (match kernel). At the end, each successful match was reduced getting each individual fitness (reduction kernel). The implementation, based on CUDA, speedups the fitness calculation phase and greatly reduce the computation time. Results were compared using one, two and four CPU threads and the combination of one or two GPUs of different features (285 cores for GPUa -nVidia GeForce 285 GTX- or 480 cores for GPUb -nVidia GeForce 480 GTX-). They test three classification algorithms and the results were not very significant for small datasets, but they increased the speedup with large datasets until $\times820$ using two GPUs with 480 cores each one.
+Cano et al. \cite{SpeedingTheEvaluationofGPCano:2012} described a
+massively parallel evaluation model using a Genetic Programming
+algorithm for evolving rules for dataset classification. They copied
+the dataset to the GPU global memory, and evaluated the rules
+(individuals) for each instance of the dataset in parallel (match
+kernel). At the end, each successful match was reduced getting each
+individual fitness (reduction kernel). The implementation, based on
+CUDA, speedups the fitness calculation phase and greatly reduce the
+computation time. Results were compared using one, two and four CPU
+threads and the combination of one or two GPUs of different features
+(285 cores for GPUa -nVidia GeForce 285 GTX- or 480 cores for GPUb
+-nVidia GeForce 480 GTX-). They test three classification algorithms
+and the results were not very significant for small datasets, but they
+increased the speedup with large datasets until $\times820$ using two
+GPUs with 480 cores each one. 
 
-The work by Chitty \cite{Chitty16FastParallel} uses a client-server architecture for evaluating at time the population for four GP problems. The results were achieved using an nVidia GeForce Kepler 670 GTX graphics card and compared with a previous one-dimensional stack approach for the same problems. The author fit the algorithm until to observe a peak computational speed of over 55 billion Genetic Programming Operations per second a twofold improvement over the previous one-dimensional stack approach.
+The work by Chitty \cite{Chitty16FastParallel} uses a client-server
+architecture for evaluating at time the population for four GP
+problems. The results were achieved using an nVidia GeForce Kepler 670
+GTX graphics card and compared with a previous one-dimensional stack
+approach for the same problems. The author fit the algorithm until to
+observe a peak computational speed of over 55 billion Genetic
+Programming Operations per second a twofold improvement over the
+previous one-dimensional stack approach. 
 
 
+% 2014 is not recent, it was in the first version of the paper - JJ
 Recent works are currently being applied to real-world problems. Jaros et al. \cite{Jaros14Wormhole} use GPUs to lower the run time and improve the quality of the solutions in the problem of wormhole switching in collective communications. The start from an evolutionary tool capable of finding optimal communication schedules for various communication patterns on wide range of interconnection networks topologies of up to 256 nodes. The tool consumes tens of hours so they decide to improve it. As the fitness evaluation was responsible for the 93\% of the execution time this was the only part moved to the GPU. In a first step only one GPU was used with speedups up to $\times5$. After that they made a new implementation capable of using 8 GPUs and 30 times faster than the original.
-Rey et al. \cite{Rey2018} presented a new hybrid approach based on Ant Colony Optimization heuristics, Route First-Cluster Second methods and Local search procedures, combined to generate high quality solutions for the Vehicle Routing Problem. Authors propose the parallelization of the whole algorithm through a heterogeneous CPU-GPU implementation.
+Rey et al. \cite{Rey2018} presented a new hybrid approach based on Ant
+Colony Optimization heuristics, Route First-Cluster Second methods and
+Local search procedures, combined to generate high quality solutions
+for the Vehicle Routing Problem. Authors propose the parallelization
+of the whole algorithm through a heterogeneous CPU-GPU
+implementation. 
 
-In \cite{Contreras:2012:UGA:2150467.2150469} the authors use a CPU-GPU architecture for stock market trading. The proposed architecture offers the benefices of GPU distribution for stock market researchers, rather for computer architecture experts. The authors used Jacket \cite{jacket:Matlab}, a software platform for the rapid development of GPGPU computing applications within the MATLAB computing environment, C, and C++. However, this framework is no longer available \footnote{\url{http://blog.accelereyes.com/blog/2012/12/12/exciting-updates-from-accelereyes/}}. Steps and guidelines to migrate from CPU code to GPU code are explained, what is a great contribution, because usually, the authors do not include this information in the papers. The algorithm run in the CPU, but all  {\em for} loops in selection, evaluation, crossover and mutation are translated to Jacket's {\em gfor} to be parallelized in the GPU. Three different CPU configurations are used for the experiments: Pentium 4, Pentium SU41000 and Intel Core i7-860. The former is also combined with an nVidia 460GTX for GPU experiments. Different population size are also tested. The time is reduced to 65\% in comparison with the CPU version. Other conclusions are obtained: speedups with high number of individuals, rather than increasing the number of evaluations; and time reduction for  tournament selection  over roulette-wheel selection.
+% This is also very old - JJ
+In \cite{Contreras:2012:UGA:2150467.2150469} the authors use a CPU-GPU
+architecture for stock market trading. The proposed architecture
+offers the benefices of GPU distribution for stock market researchers,
+rather for computer architecture experts. The authors used Jacket
+\cite{jacket:Matlab}, a software platform for the rapid development of
+GPGPU computing applications within the MATLAB computing environment,
+C, and C++. However, this framework is no longer available
+\footnote{\url{http://blog.accelereyes.com/blog/2012/12/12/exciting-updates-from-accelereyes/}}. Steps
+% So we should probably eliminate it from the paper - JJ
+and guidelines to migrate from CPU code to GPU code are explained,
+which is a great contribution, because usually, the authors do not
+include this information in the papers. The algorithm run in the CPU,
+but all  {\em for} loops in selection, evaluation, crossover and
+mutation are translated to Jacket's {\em gfor} to be parallelized in
+the GPU. Three different CPU configurations are used for the
+experiments: Pentium 4, Pentium SU41000 and Intel Core i7-860. The
+former is also combined with an nVidia 460GTX for GPU
+experiments. Different population size are also tested. The time is
+reduced to 65\% in comparison with the CPU version. Other conclusions
+are obtained: speedups with high number of individuals, rather than
+increasing the number of evaluations; and time reduction for
+tournament selection  over roulette-wheel selection. 
 
 Stock market trading analysis has also been recently addressed by
 using GP in GPUs. The algorithm described in the work by Sungjoo et
@@ -714,11 +775,15 @@ individuals to evaluate and the partial results of the evaluation must
 be transferred and updated, avoiding bandwidth problems.
 The run is conducted for 50 generations and with 500 individuals of a maximum depth of 3 levels, using a i7-3820 CPU and 8 CUDA GPUs (GeForce GTX 690).
 % You need to give that amount of details? - JJ
-% Antonio - This is usual in CPU-GPU papers in order to compare the computational power when the speedup is calculated.
+% Antonio - This is usual in CPU-GPU papers in order to compare the
+% computational power when the speedup is calculated.
+% Do you really need to mention the number of generations? - JJ
 The authors considered
-512 threads per block, 260 blocks per grid and just one grid per
-GPU. The comparison in performance yields a reduction of 56 times for
-just one GPU to 277 using all of them. This improvement is obtained using
+512 threads per block, 260 blocks per grid and just one grid per % What is a grid? Needs to be explained before - JJ
+GPU. The comparison in performance yields a 56x speedup for
+just one GPU to 277xx using all of them. This improvement is obtained
+using % These speedups should be maybe tabulated, to check the amount
+      % of speedup achieved using this method - JJ
 local memory allocation, using the shared memory of blocks instead
 yields a smaller improvement of around 188 times faster in the best
 case. Regarding the influence of individuals' tree size (number of
@@ -729,7 +794,7 @@ results. % Some comment with respect to bandwidth? - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Fine-grained Approaches}
+\subsection{Fine-grained approaches}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Researchers implement fine-grained algorithms using GPUs, making
