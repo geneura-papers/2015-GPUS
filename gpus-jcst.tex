@@ -118,7 +118,7 @@ to find the solution. For these reasons, parallel EAs have been widely studied i
 using general purpose computing on GPU techniques. 
 
 
-This paper presents a taxonomy regarding the different
+This paper presents a taxonomy regarding the different % I don't know if we're doing this any more - JJ
 parallelization models, along with a survey of the most
 relevant proposals in this scope, while also describing the main
 concepts related with 
@@ -149,13 +149,14 @@ numbers and graphs related to them.  New trends and challenges are discussed in 
 reached conclusions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Evolutionary Algorithms}
+\section{A short introduction to Evolutionary Algorithms}
 \label{sec:eas}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Antonio - I think a more detailed description of EAs would be better for non-expert readers, thus they can see in more detail the loop of the algorithms in order to understand the way they are parallelized or distributed...
 % Antonio - I mean we shouldn't remove that part of the section.
-% No, we really don't. The focus is on the GPUs, and we need to
+% ----------------------------------------------------------------
+% Yes we should. The focus is on the GPUs, and we need to
 % understand EAs only insofar they are going to be implemented on
 % GPUs. That's it. - JJ
 
@@ -164,7 +165,13 @@ Evolutionary Algorithms (EAs) describing their common elements. In
 addition, the most extended models to parallelize EAs are presented,
 to understand all their possible architectural possibilities. 
 
-EAs are a set of bioinspired techniques applied to optimization problems \cite{eiben2010whatis}, based on the process of natural selection \cite{darwin1859}. In this kind of pseudo-stochastic algorithms, a \textit{population} of codified solutions (called \textit{individuals}) is created. There is also a \textit{fitness} function, which evaluates the level of adaptation of the individuals to the problem to solve.
+EAs are a set of bioinspired techniques applied to optimization
+problems \cite{eiben2010whatis}, inspired on  natural selection as
+described by Darwin \cite{darwin1859}. In this kind of
+pseudo-stochastic algorithms, a \textit{population} of codified
+solutions (called \textit{individuals}) is created. There is also a
+\textit{fitness} function, which evaluates the level of adaptation of
+the individuals to the problem to solve. 
 Thus, the fittest individuals have more chances to be selected for
 reproduction, so their offspring could inherit their genetic
 material. Due to the nature of GPGPU computing, two types of
@@ -258,11 +265,15 @@ as well as in mobile phones for many years. Over time the use of the GPUs
 has grown a lot as they became cheaper. Many heavy tasks
 have been parallelized like, for example, web page
 rendering. %reference - JJ
+% We still need a reference - JJ
 This speed up is not trouble free because in order to be able to completely profit from GPUs our applications must be rewritten in a parallel fashion. 
 % Not really - JJ
-% Antonio - I have added a key word to make this sentence true. We cannot say in this paper that it is not needed to parallelize.
+% Antonio - I have added a key word to make this sentence true. We
+% cannot say in this paper that it is not needed to parallelize.
+% OK, but so what? If you are going to refer to the topics of this
+% paper, do so - JJ
 
-GPUs and CPUs are similar in many ways but there is one key
+The architectures of GPUs and CPUs are similar in many ways but there is one key
 difference: the philosophy of how to execute a workload. The main
 design purpose of a CPU core is the fast execution of a single thread of
 code. GPUs, on the other side, pursue to maximize the throughput of
@@ -286,30 +297,64 @@ lower cost of the complete system. They only remain separate in
 powerful systems with top processors and a low-demanding graphic content.
 % What is that? - JJ
 % Antonio - I guess it is clearer now
+% Probably, but not why - JJ
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Programming Model}
+\subsection{Programming model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-At the beginning, to benefit from GPU computational power, we had to
-learn about its internal design. The closer to the bare metal, the
-better. With the pass of time several Application Program Interfaces
+% At the beginning, to benefit from GPU computational power, we had to
+% learn about its internal design.
+
+We need to understand the internal design of GPUs in order to leverage
+their performance. In that sense, initial approaches where close to
+bare metal, with no high-level abstraction to make programming easier
+and more approachable. With the pass of time several Application Program Interfaces
 (APIs) have appeared to alleviate this inconvenience. The problem,
 again, is that every manufacturer designed its own proprietary one:
 AMD created Close to Metal and nVidia created CUDA. Over time a truly
-open and universal standard was introduced, OpenCL \cite{opencl}. It
-works even on Intel hardware. Today it is supported by all
-vendors. Only nVidia keeps pushing its own, CUDA, at the same
-time. OpenCL was initially developed by Apple who pass it to Khronos
+open and universal standard was introduced, OpenCL \cite{opencl},
+which 
+works even on Intel hardware. This standard (and open source)
+framework is today supported by all
+vendors, with only nVidia keeps pushing its own, CUDA, at the same
+time.
+
+OpenCL was initially developed by Apple, who passed it to Khronos
 Group for open and free release. At the same time Microsoft created
-DirectX for its operating systems. 
+DirectX for its operating systems. % When was that? Why is not DirectX
+                                % referred to above together with
+                                % CUDA? - JJ
 
-OpenCL aspired to reach fame in the same way that OpenGL. The first with heterogeneous computing and the second in the graphics world. OpenCL is cross-platform and very inclusive about software and hardware. Primarily targeting GPUs but also capable of running on multi-core CPUs and FPGAs. Applications can be made portable across operating systems and hardware platforms keeping functionality and correctness. The first implementation was release in 2009.
+OpenCL aspired to reach fame in heterogeneous computing in the same
+way that OpenGL did for 
+graphics. OpenCL is cross-platform and very inclusive about
+software and hardware, primarily targeting GPUs but also capable of
+running on multi-core CPUs and FPGAs. Applications can be made
+portable across operating systems and hardware platforms keeping
+functionality and correctness. The first implementation was released in
+2009. % This happened before our 2012 paper. What's happened since
+      % then? 
 
-Most APIs are based on C-like languages but with some constraints in order to improve its parallel throughput. Usual limitations are avoiding recursion and restricting pointer usage to a minimum. Apart from GNU GCC, another open source compiler is gaining relevance, LLVM \cite{LLVM} from the University of Illinois.
+% I don't know what this paragraph is about. Are you talking about
+% OpenCL? - JJ
+Most APIs are based on C-like languages but with some constraints in
+order to improve its parallel throughput. Usual limitations are
+avoiding recursion and restricting pointer usage to a minimum. Apart
+from GNU `gcc`, another open source compiler is gaining relevance, LLVM
+\cite{LLVM} from the University of Illinois.
+% ---------------------------------------------------------------------
 
-Developers are now working hard to delight new user with libraries that make using the GPU very easy. Some examples of this are the C++ parallel extensions of STL and the incorporation of GPU offloading in OpenMP into GCC version 7. A very interesting comparison of many modern C++ parallel libraries on top of CUDA and OpenCL can be found in \cite{doi:10.1137/120903683}.
+Developers are now working hard to help new user with libraries
+that make using the GPU very easy. Some examples of this are the C++
+parallel extensions of STL and the incorporation of GPU offloading in
+OpenMP into GCC version 7. A very interesting comparison of many
+modern C++ parallel libraries on top of CUDA and OpenCL can be found
+in \cite{doi:10.1137/120903683}.
+
+% This should be closed with a conclusion. Does this mean that any
+% scientist has a variety of GPGPU frameworks to use? - JJ
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Execution Model}
