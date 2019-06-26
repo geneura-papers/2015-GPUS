@@ -859,10 +859,11 @@ is faster on data sets with 10 to 50 discrete attributes.
 \subsection{Coarse-grained approaches (Island Model)}
 % why mix caps and not? - JJ
 % Antonio - fixed
-% This is the same structure as the 2012 paper. It should be updated. 
+% This is the same structure as the 2012 paper. It should be updated.
+% The corresponding section in EAs has been eliminated. This should be updated accordingly, maybe just calling it client-server model (which is what they are). - JJ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherent parallelization possibilities they offer. Thus, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones.
+% The coarse-grained algorithms are the most common among parallel EAs, as mentioned in Section \ref{subsec:coarsegrainedapproaches}, due to the inherent parallelization possibilities they offer. Thus, these algorithms require less tightly coupled parallel architectures, as compared to fine-grained ones.
 This kind of EAs works by dividing the main population into sub-populations (also known as `islands') which evolve concurrently, and from time to time, some individuals are moved from one island to another (migration).
 This basic feature of coarse-grained EAs hits a physical limit of
 GPUs.
