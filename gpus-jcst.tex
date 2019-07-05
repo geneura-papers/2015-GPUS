@@ -179,13 +179,8 @@ evolutionary algorithms are specially suitable for them: globally
 parallel and spatially structured EAs.
 
 Global parallel evolutionary algorithms are also called the \textit{Farming model},
-\textit{client-server} or \textit{Centralized EAs}; in them the parallelism is
-applied is only applied at the evaluation level, with a central node or server coordinating several
-client nodes, which in this context would be GPU computing nodes. The
-central node runs a sequential EA, but it
-distributes the individuals of the population among the clients just
-for being evaluated. Figure \ref{fig:serverClient} depicts this
-approach.
+\textit{client-server} or \textit{Centralized EAs}; in them the parallelism is only applied at the evaluation level, with a central node or server coordinating several client nodes, which in this context would be GPU computing nodes. The
+central node runs a sequential EA, but it distributes the individuals of the population among the clients just for being evaluated. Figure \ref{fig:serverClient} depicts this approach.
 %
 \begin{figure}[tb]
 \centering
@@ -195,7 +190,7 @@ approach.
 \label{fig:serverClient}
 \end{figure}
 
-Spatially structured algorithms, however, are parallel at the
+\textit{Spatially structured} algorithms, however, are parallel at the
 population level, that is, the population is divided and distributed
 among the different computing elements. Depending on how the
 distribution is performed they are qualified with different {\em
